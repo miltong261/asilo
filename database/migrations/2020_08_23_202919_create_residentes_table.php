@@ -14,16 +14,19 @@ class CreateResidentesTable extends Migration
     public function up()
     {
         Schema::create('residentes', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('user_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
-            $table->foreignId('departamento_origen')
+            $table->unsignedBigInteger('departamento_origen');
+            $table->foreign('departamento_origen')
                 ->references('id')
                 ->on('departamentos');
 
+            $table->unsignedBigInteger('departamento_dpi');
             $table->foreign('departamento_dpi')
                 ->references('id')
                 ->on('departamentos');
@@ -32,12 +35,12 @@ class CreateResidentesTable extends Migration
             $table->string('nombre', 35);
             $table->string('apellido', 35);
             $table->date('fecha_nacimiento');
-            $table->integer('dpi', 13)->unique();
-            $table->string('familia', 70);
-            $table->integer('telefono_familia', 8);
+            $table->integer('dpi', false, true)->length(13)->unique();
+            $table->string('familia', 70)->nullable();
+            $table->integer('telefono_familia', false, true)->length(8)->nullable();
             $table->string('persona_referida', 70)->nullable();
-            $table->integer('telefono_persona_referida', 8)->nullable();
-            $table->text('pedecimientos');
+            $table->integer('telefono_persona_referida', false, true)->length(8)->nullable();
+            $table->text('padecimientos');
             $table->string('motivo');
             $table->text('estado');
             $table->string('signos_vitales', 35);

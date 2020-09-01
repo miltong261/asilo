@@ -14,7 +14,7 @@ class CreateMovimientoCajaTable extends Migration
     public function up()
     {
         Schema::create('movimiento_caja', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
             $table->string('nombre', 50);
             $table->boolean('entrada');

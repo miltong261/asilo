@@ -14,9 +14,10 @@ class CreateInventarioTable extends Migration
     public function up()
     {
         Schema::create('inventario', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('producto_id')
+            $table->unsignedBigInteger('producto_id');
+            $table->foreign('producto_id')
                 ->references('id')
                 ->on('productos');
 

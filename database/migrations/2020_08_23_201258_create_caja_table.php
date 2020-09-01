@@ -14,14 +14,15 @@ class CreateCajaTable extends Migration
     public function up()
     {
         Schema::create('caja', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('movimiento_caja_id')
+            $table->unsignedBigInteger('movimiento_caja_id');
+            $table->foreign('movimiento_caja_id')
                 ->references('id')
                 ->on('movimiento_caja');
 
             $table->decimal('monto', 8, 2);
-            $table->text('observacion');
+            $table->text('observacion')->nullable();
 
             $table->timestamps();
         });

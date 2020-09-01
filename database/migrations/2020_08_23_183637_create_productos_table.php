@@ -14,17 +14,20 @@ class CreateProductosTable extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('user_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
-            $table->foreignId('unidad_media_id')
+            $table->unsignedBigInteger('unidad_medida_id');
+            $table->foreign('unidad_medida_id')
                 ->references('id')
                 ->on('unidad_medida');
 
-            $table->foreignId('tipo_producto_id')
+            $table->unsignedBigInteger('tipo_producto_id');
+            $table->foreign('tipo_producto_id')
                 ->references('id')
                 ->on('tipo_producto');
 

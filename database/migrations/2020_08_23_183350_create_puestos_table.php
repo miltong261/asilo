@@ -14,7 +14,7 @@ class CreatePuestosTable extends Migration
     public function up()
     {
         Schema::create('puestos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
             $table->string('nombre', 35);
 

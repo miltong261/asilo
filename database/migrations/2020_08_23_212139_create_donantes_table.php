@@ -14,11 +14,11 @@ class CreateDonantesTable extends Migration
     public function up()
     {
         Schema::create('donantes', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
             $table->string('nombre', 70)->nullable();
-            $table->text('direccion');
-            $table->integer('telefono', 8);
+            $table->text('direccion')->nullable();
+            $table->integer('telefono', false, true)->length(8)->nullable();
 
             $table->timestamps();
         });

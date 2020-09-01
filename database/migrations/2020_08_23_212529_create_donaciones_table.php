@@ -14,13 +14,15 @@ class CreateDonacionesTable extends Migration
     public function up()
     {
         Schema::create('donaciones', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('user_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
-            $table->foreignId('donante_id')
+            $table->unsignedBigInteger('donante_id');
+            $table->foreign('donante_id')
                 ->references('id')
                 ->on('donantes');
 

@@ -4,3 +4,25 @@
     border-bottom-left-radius: 10px;
     font-weight: 600;
 }
+
+.mostrar{
+    display: block !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    background-color: rgb(136, 142, 168, .4) !important;
+}
+
+.btn-cerrar,.btn-eliminar{
+    background-color: #f8538d !important;
+    color: white !important;
+}
+
+.btn-guardar{
+    background-color: #25d5e4 !important;
+    color: white !important;
+}
+
+.dark-header{
+    background-color: #3b3f5c;
+    color: white;
+}

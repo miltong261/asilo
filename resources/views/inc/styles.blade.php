@@ -35,4 +35,7 @@
  {{-- Table Datatable Basic --}}
  <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.min.css')}}">
  <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.min.css')}}">
+
+  {{-- FontAwesome --}}
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/fontawesome/all.min.css')}}">
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->

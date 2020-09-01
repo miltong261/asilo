@@ -14,13 +14,15 @@ class CreateDetalleSalidaTable extends Migration
     public function up()
     {
         Schema::create('detalle_salida', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('salida_id')
+            $table->unsignedBigInteger('salida_id');
+            $table->foreign('salida_id')
                 ->references('id')
                 ->on('salidas');
 
-            $table->foreignId('producto_id')
+            $table->unsignedBigInteger('producto_id');
+            $table->foreign('producto_id')
                 ->references('id')
                 ->on('productos');
 

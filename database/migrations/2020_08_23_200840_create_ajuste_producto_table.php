@@ -14,13 +14,15 @@ class CreateAjusteProductoTable extends Migration
     public function up()
     {
         Schema::create('ajuste_producto', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('user_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
-            $table->foreignId('producto_id')
+            $table->unsignedBigInteger('producto_id');
+            $table->foreign('producto_id')
                 ->references('id')
                 ->on('productos');
 

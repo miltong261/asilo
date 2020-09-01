@@ -20,6 +20,129 @@
                     </router-link>
                 </ul>
             </li>
+
+            {{-- Configuración --}}
+            <li class="menu">
+                <a href="#configuracion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-cogs"></i>
+                        <span>Configuración</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="configuracion" data-parent="#accordionExample">
+                    <span>INVENTARIO</span>
+                    <router-link tag="li" to="/tipo_producto" exact-active-class="active">
+                        <a>Tipo de producto</a>
+                    </router-link>
+                    <router-link tag="li" to="/unidad_medida" exact-active-class="active">
+                        <a>Unidad de medida</a>
+                    </router-link>
+                    <router-link tag="li" to="/tipo_ajuste" exact-active-class="active">
+                        <a>Tipo de ajuste</a>
+                    </router-link>
+
+                    <span>RESIDENCIA</span>
+                    <router-link tag="li" to="/departamentos" exact-active-class="active">
+                        <a>Departamentos</a>
+                    </router-link>
+                    <router-link tag="li" to="/municipios" exact-active-class="active">
+                        <a>Municipios</a>
+                    </router-link>
+
+                    <span>CAJA</span>
+                    <router-link tag="li" to="/movimientos" exact-active-class="active">
+                        <a>Movimientos</a>
+                    </router-link>
+                </ul>
+            </li>
+
+            {{-- Autenticación --}}
+            <li class="menu">
+                <a href="#autenticacion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-lock"></i>
+                        <span>Autenticación</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="autenticacion" data-parent="#accordionExample">
+
+                </ul>
+            </li>
+
+            {{-- Personal --}}
+            <li class="menu">
+                <a href="#personal" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-user-check"></i>
+                        <span>Personal</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="personal" data-parent="#accordionExample">
+                    <router-link tag="li" to="/puestos" exact-active-class="active">
+                        <a>Puestos</a>
+                    </router-link>
+                    <router-link tag="li" to="/empleados" exact-active-class="active">
+                        <a>Empleados</a>
+                    </router-link>
+                </ul>
+            </li>
+
+            {{-- Residentes --}}
+            <li class="menu">
+                <a href="#residentes" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-house-user"></i>
+                        <span>Hogar</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="residentes" data-parent="#accordionExample">
+                    <router-link tag="li" to="/residentes" exact-active-class="active">
+                        <a>Residentes</a>
+                    </router-link>
+                </ul>
+            </li>
+
+            {{-- Inventario --}}
+            <li class="menu">
+                <a href="#inventario" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-warehouse"></i>
+                        <span>Inventario</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="inventario" data-parent="#accordionExample">
+                    <router-link tag="li" to="/ajuste" exact-active-class="active">
+                        <a>Ajuste de producto</a>
+                    </router-link>
+                    <router-link tag="li" to="/productos" exact-active-class="active">
+                        <a>Productos</a>
+                    </router-link>
+                </ul>
+            </li>
+
+            {{-- Entradas --}}
+
+            {{-- Salidas --}}
+
+            {{-- Donaciones --}}
+
+            {{-- Reportes --}}
+
         </ul>
     </nav>
 </div>

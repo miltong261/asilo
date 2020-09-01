@@ -14,13 +14,15 @@ class CreateDetalleDonacionTable extends Migration
     public function up()
     {
         Schema::create('detalle_donacion', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('donacion_id')
+            $table->unsignedBigInteger('donacion_id');
+            $table->foreign('donacion_id')
                 ->references('id')
                 ->on('donaciones');
 
-            $table->foreignId('producto_id')
+            $table->unsignedBigInteger('producto_id');
+            $table->foreign('producto_id')
                 ->references('id')
                 ->on('productos');
 

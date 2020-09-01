@@ -14,16 +14,17 @@ class CreateEmpleadosTable extends Migration
     public function up()
     {
         Schema::create('empleados', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 
-            $table->foreignId('puesto_id')->references('id')->on('puestos');
+            $table->unsignedBigInteger('puesto_id');
+            $table->foreign('puesto_id')->references('id')->on('puestos');
 
             $table->date('fecha_ingreso');
             $table->string('nombre', 35);
             $table->string('apellido', 35);
             $table->date('fecha_nacimiento');
-            $table->integer('dpi', 13)->unique();
-            $table->integer('telefono', 8);
+            $table->integer('dpi', false, true)->length(13)->unique();
+            $table->integer('telefono', false, true)->length(8)->nullable();
             $table->string('email')->unique()->nullable();
             $table->text('direccion');
 

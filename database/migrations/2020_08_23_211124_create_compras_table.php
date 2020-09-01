@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompraTable extends Migration
+class CreateComprasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCompraTable extends Migration
      */
     public function up()
     {
-        Schema::create('compra', function (Blueprint $table) {
-            $table->id();
+        Schema::create('compras', function (Blueprint $table) {
+            $table->bigIncrements('id');
 
-            $table->foreignId('user_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
@@ -38,6 +39,6 @@ class CreateCompraTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compra');
+        Schema::dropIfExists('compras');
     }
 }

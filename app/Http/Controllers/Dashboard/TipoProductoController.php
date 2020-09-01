@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\TipoProducto\TipoProductoRequest;
+
+use App\Repositories\TipoProducto\TipoProductoRepository;
 
 class TipoProductoController extends Controller
 {
+    protected $tipoProductoRepository;
+
+    public function __construct(TipoProductoRepository $tipoProductoRepository)
+    {
+        $this->tipoProductoRepository = $tipoProductoRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +23,9 @@ class TipoProductoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->tipoProductoRepository->index(
+            ['id', 'nombre']
+        ));
     }
 
     /**
@@ -33,20 +34,27 @@ class TipoProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TipoProductoRequest $request)
     {
-        //
+        $tipo_producto = $this->tipoProductoRepository->store($request->only(
+            ['nombre']
+        ));
+
+        return response()->json($tipo_producto);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TipoProductoRequest $request)
     {
-        //
+        $tipo_producto = $this->tipoProductoRepository->update([
+            'nombre' => $request->nombre
+        ], $request->id);
+
+        return response()->json($tipo_producto);
     }
 }

@@ -26,4 +26,7 @@
 
  {{-- Tables Datatable Basic --}}
  <script src="{{asset('plugins/table/datatable/datatables.min.js')}}"></script>
+
+  {{-- FontAwesome --}}
+  <script src="{{asset('assets/js/fontawesome/all.min.js')}}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

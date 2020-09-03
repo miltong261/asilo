@@ -9,13 +9,17 @@
                         <table id="zero-config" class="table table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Opciones</th>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
+                                    <th class="text-center"><i class="fas fa-tags"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="tipo_producto in listatipo_producto " :key="tipo_producto.id">
-                                    <td v-text="tipo_producto.nombre"></td>
+                                <tr v-for="(tipo_producto, index) in lista_tipo_producto " :key="tipo_producto.id">
+                                    <td v-text="index+1" class="text-center"></td>
+                                    <td v-text="tipo_producto.codigo" class="text-center"></td>
+                                    <td v-text="tipo_producto.nombre" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
                                         <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
@@ -43,7 +47,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
                                 <label for="nombre"><i class="fas fa-tags"></i> Nombre</label>
-                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese tipo de producto">
+                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese categoría...">
                                 <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
                             </div>
 
@@ -67,7 +71,7 @@
         data() {
             return {
                 id: 0,
-                listatipo_producto: [],
+                lista_tipo_producto: [],
                 nombre: '',
 
                 modal: 0,
@@ -81,13 +85,13 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro de tipo de productos"
+                        this.titulo = "Registro de categorías"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización de tipo de productos"
+                        this.titulo = "Actualización categorías"
                         this.opcion = 2
                         this.nombre = data['nombre']
                         this.id = data['id']
@@ -108,7 +112,7 @@
                 let me = this;
                 let url = '/tipo_producto';
                 axios.get(url).then(function (response) {
-                    me.listatipo_producto = response.data
+                    me.lista_tipo_producto = response.data
                     me.dataTable();
                 })
                 .catch(function (error) {

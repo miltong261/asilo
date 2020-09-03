@@ -34,8 +34,8 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="configuracion" data-parent="#accordionExample">
                     <span>INVENTARIO</span>
-                    <router-link tag="li" to="/tipo_producto" exact-active-class="active">
-                        <a>Tipo de producto</a>
+                    <router-link tag="li" to="/categoria" exact-active-class="active">
+                        <a>Categoría</a>
                     </router-link>
                     <router-link tag="li" to="/unidad_medida" exact-active-class="active">
                         <a>Unidad de medida</a>

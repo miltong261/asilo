@@ -2171,12 +2171,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
-      listaPuesto: [],
+      lista_puesto: [],
       nombre: '',
       modal: 0,
       titulo: '',
@@ -2219,7 +2223,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/puestos';
       axios.get(url).then(function (response) {
-        me.listaPuesto = response.data;
+        me.lista_puesto = response.data;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
@@ -2360,12 +2364,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
-      listatipo_producto: [],
+      lista_tipo_producto: [],
       nombre: '',
       modal: 0,
       titulo: '',
@@ -2381,7 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de tipo de productos";
+            this.titulo = "Registro de categorías";
             this.opcion = 1;
             break;
           }
@@ -2389,7 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de tipo de productos";
+            this.titulo = "Actualización categorías";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -2408,7 +2416,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/tipo_producto';
       axios.get(url).then(function (response) {
-        me.listatipo_producto = response.data;
+        me.lista_tipo_producto = response.data;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
@@ -20527,9 +20535,20 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.listaPuesto, function(puesto) {
+                      _vm._l(_vm.lista_puesto, function(puesto, index) {
                         return _c("tr", { key: puesto.id }, [
                           _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(puesto.codigo) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
                             domProps: { textContent: _vm._s(puesto.nombre) }
                           }),
                           _vm._v(" "),
@@ -20627,7 +20646,7 @@ var render = function() {
                       attrs: {
                         type: "text",
                         name: "nombre",
-                        placeholder: "Ingrese Puesto"
+                        placeholder: "Ingrese puesto..."
                       },
                       domProps: { value: _vm.nombre },
                       on: {
@@ -20719,9 +20738,24 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nombre")]),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Opciones")])
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-qrcode" }),
+          _vm._v(" Código")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user-tag" }),
+          _vm._v(" Nombre")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones")
+        ])
       ])
     ])
   },
@@ -20739,7 +20773,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "nombre" } }, [
-      _c("i", { staticClass: "fas fa-user" }),
+      _c("i", { staticClass: "fas fa-user-tag" }),
       _vm._v(" Nombre")
     ])
   }
@@ -20812,9 +20846,25 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.listatipo_producto, function(tipo_producto) {
+                      _vm._l(_vm.lista_tipo_producto, function(
+                        tipo_producto,
+                        index
+                      ) {
                         return _c("tr", { key: tipo_producto.id }, [
                           _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(tipo_producto.codigo)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
                             domProps: {
                               textContent: _vm._s(tipo_producto.nombre)
                             }
@@ -20917,7 +20967,7 @@ var render = function() {
                       attrs: {
                         type: "text",
                         name: "nombre",
-                        placeholder: "Ingrese tipo de producto"
+                        placeholder: "Ingrese categoría..."
                       },
                       domProps: { value: _vm.nombre },
                       on: {
@@ -21009,9 +21059,24 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nombre")]),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Opciones")])
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-qrcode" }),
+          _vm._v(" Código")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-tags" }),
+          _vm._v(" Nombre")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones")
+        ])
       ])
     ])
   },
@@ -36385,7 +36450,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/example',
     component: __webpack_require__(/*! ../views/Example */ "./resources/js/views/Example.vue")["default"]
   }, {
-    path: '/tipo_producto',
+    path: '/categoria',
     component: __webpack_require__(/*! ../views/TipoProducto */ "./resources/js/views/TipoProducto.vue")["default"]
   }, {
     path: '/unidad_medida',

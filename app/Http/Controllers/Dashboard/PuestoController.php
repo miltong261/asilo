@@ -23,7 +23,7 @@ class PuestoController extends Controller
     public function index()
     {
         return response()->json($this->puestoRepository->index(
-            ['id', 'nombre']
+            ['id', 'nombre', 'codigo', 'estado']
         ));
     }
 
@@ -35,9 +35,10 @@ class PuestoController extends Controller
      */
     public function store(PuestoRequest $request)
     {
-        $puesto = $this->puestoRepository->store($request->only(
-            ['nombre']
-        ));
+        $puesto = $this->puestoRepository->store([
+            'nombre' => $request->nombre,
+            'codigo' => 'PUESTO-' . $this->puestoRepository->generateCode()
+        ]);
 
         return response()->json($puesto);
     }

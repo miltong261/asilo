@@ -24,7 +24,7 @@ class TipoProductoController extends Controller
     public function index()
     {
         return response()->json($this->tipoProductoRepository->index(
-            ['id', 'nombre']
+            ['id', 'nombre', 'codigo', 'estado']
         ));
     }
 
@@ -36,9 +36,10 @@ class TipoProductoController extends Controller
      */
     public function store(TipoProductoRequest $request)
     {
-        $tipo_producto = $this->tipoProductoRepository->store($request->only(
-            ['nombre']
-        ));
+        $tipo_producto = $this->tipoProductoRepository->store([
+            'nombre' => $request->nombre,
+            'codigo' => 'CATEG-' . $this->tipoProductoRepository->generateCode()
+        ]);
 
         return response()->json($tipo_producto);
     }

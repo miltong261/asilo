@@ -17,6 +17,8 @@ class CreateTipoProductoTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('nombre', 35);
+            $table->string('codigo', 15);
+            $table->boolean('estado')->default(1);
 
             $table->timestamps();
         });

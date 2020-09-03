@@ -2109,13 +2109,182 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
 //
 //
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: 0,
+      listaPuesto: [],
+      nombre: '',
+      modal: 0,
+      titulo: '',
+      opcion: 0,
+      errors: []
+    };
+  },
+  methods: {
+    openModal: function openModal(metodo) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+      switch (metodo) {
+        case 'create':
+          {
+            this.modal = 1;
+            this.titulo = "Registro del Puesto";
+            this.opcion = 1;
+            break;
+          }
+
+        case 'update':
+          {
+            this.modal = 2;
+            this.titulo = "Actualización del Puesto";
+            this.opcion = 2;
+            this.nombre = data['nombre'];
+            this.id = data['id'];
+          }
+      }
+    },
+    closeModal: function closeModal() {
+      this.nombre = '';
+      this.modal = 0;
+      this.titulo = '';
+      this.opcion = 0;
+      this.errors = [];
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    showList: function showList() {
+      var me = this;
+      var url = '/puestos';
+      axios.get(url).then(function (response) {
+        me.listaPuesto = response.data;
+        me.dataTable();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    dataTable: function dataTable() {
+      var datatable = $('#zero-config').DataTable();
+      datatable.destroy();
+      this.$nextTick(function () {
+        $('#zero-config').DataTable({
+          "oLanguage": {
+            "oPaginate": {
+              "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+              "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+            },
+            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Buscar...",
+            "sLengthMenu": "Resultado :  _MENU_"
+          },
+          "stripeClasses": [],
+          "lengthMenu": [5, 10, 20, 50],
+          "pageLength": 5,
+          drawCallback: function drawCallback() {
+            $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5');
+          }
+        });
+      });
+    },
+    store: function store() {
+      var _this = this;
+
+      var me = this;
+      var url = '/puestos/store';
+      axios.post(url, {
+        'nombre': this.nombre
+      }).then(function (response) {
+        me.closeModal();
+        me.showList();
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Se guardó correctamente');
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this.errors = error.response.data.errors;
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      var me = this;
+      var url = 'puestos/update';
+      axios.put(url, {
+        'nombre': this.nombre,
+        'id': this.id
+      }).then(function (response) {
+        me.closeModal();
+        me.showList();
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Se actualizó correctamente');
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.showList();
+  }
+});
 
 /***/ }),
 
@@ -20141,14 +20310,268 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "layout-px-spacing" }, [
+    _c("div", { staticClass: "row layout-top-spacing" }, [
+      _c(
+        "div",
+        { staticClass: "col-xl-12 col-lg-12 col-sm-12  layout-spacing" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info mb-2",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openModal("create")
+                }
+              }
+            },
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "widget-content widget-content-area br-6" },
+            [
+              _c("img", {
+                staticClass: "rounded-circle mx-auto d-block",
+                attrs: {
+                  src: "assets/img/logo-tablas.jpeg",
+                  alt: "logo",
+                  width: "90",
+                  height: "90"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-hover",
+                    staticStyle: { width: "100%" },
+                    attrs: { id: "zero-config" }
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.listaPuesto, function(puesto) {
+                        return _c("tr", { key: puesto.id }, [
+                          _c("td", {
+                            domProps: { textContent: _vm._s(puesto.nombre) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning mb-2",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.openModal("update", puesto)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v("Actualizar "),
+                                _c("i", { staticClass: "fas fa-sync-alt" })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(1, true)
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modal },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nombre,
+                          expression: "nombre"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "nombre",
+                        placeholder: "Ingrese Puesto"
+                      },
+                      domProps: { value: _vm.nombre },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.nombre = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.nombre
+                      ? _c("span", { staticStyle: { color: "red" } }, [
+                          _vm._v(_vm._s(_vm.errors.nombre[0]))
+                        ])
+                      : _vm._e()
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              ),
+              _vm._v(" "),
+              _vm.opcion == 1
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-guardar",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.store()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Guardar "),
+                      _c("i", { staticClass: "far fa-check-circle" })
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.opcion == 2
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.update()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Actualizar "),
+                      _c("i", { staticClass: "fas fa-sync-alt" })
+                    ]
+                  )
+                : _vm._e()
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Hola mundo")])])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Opciones")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-eliminar mb-2" }, [
+      _vm._v("Eliminar "),
+      _c("i", { staticClass: "fa fa-trash-alt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "nombre" } }, [
+      _c("i", { staticClass: "fas fa-user" }),
+      _vm._v(" Nombre")
+    ])
   }
 ]
 render._withStripped = true
@@ -35830,7 +36253,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(TipoProducto::class, function (Faker $faker) {
     return [
-        'nombre' => $faker->name
+        'nombre' => $faker->name,
+        'codigo' => '1'
     ];
 });

@@ -23,4 +23,17 @@ abstract class BaseRepository
 
         return $object;
     }
+
+    public function generateCode(){
+        $count = $this->getModel()->count();
+
+        if($count >= 1000 && $count < 10000)
+            return $count+=1;
+        elseif($count >= 100 && $count < 1000)
+            return '0' .$count+=1;
+        elseif($count >= 9 && $count < 100)
+            return '00' .$count+=1;
+        else
+            return '000' .$count+=1;
+    }
 }

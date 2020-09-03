@@ -2196,7 +2196,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro del Puesto";
+            this.titulo = "Registro de Puesto";
             this.opcion = 1;
             break;
           }
@@ -2204,7 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización del Puesto";
+            this.titulo = "Actualización de Puesto";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -2389,7 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de categorías";
+            this.titulo = "Registro de categoría";
             this.opcion = 1;
             break;
           }
@@ -2397,7 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización categorías";
+            this.titulo = "Actualización categoría";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -20650,6 +20650,21 @@ var render = function() {
                       },
                       domProps: { value: _vm.nombre },
                       on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.store()
+                        },
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -20971,6 +20986,21 @@ var render = function() {
                       },
                       domProps: { value: _vm.nombre },
                       on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.store()
+                        },
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -36747,7 +36777,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

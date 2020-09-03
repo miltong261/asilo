@@ -47,7 +47,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
                                 <label for="nombre"><i class="fas fa-tags"></i> Nombre</label>
-                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese categoría...">
+                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese categoría...">
                                 <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
                             </div>
 
@@ -85,13 +85,13 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro de categorías"
+                        this.titulo = "Registro de categoría"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización categorías"
+                        this.titulo = "Actualización categoría"
                         this.opcion = 2
                         this.nombre = data['nombre']
                         this.id = data['id']

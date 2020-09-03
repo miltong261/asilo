@@ -10,7 +10,7 @@ export default new Router({
             component: require('../views/Example').default
         },
         {
-            path: '/tipo_producto',
+            path: '/categoria',
             component: require('../views/TipoProducto').default
         },
         {

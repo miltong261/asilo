@@ -9,13 +9,17 @@
                         <table id="zero-config" class="table table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Opciones</th>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
+                                    <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="puesto in listaPuesto " :key="puesto.id">
-                                    <td v-text="puesto.nombre"></td>
+                                <tr v-for="(puesto, index) in lista_puesto " :key="puesto.id">
+                                    <td v-text="index+1" class="text-center"></td>
+                                    <td v-text="puesto.codigo" class="text-center"></td>
+                                    <td v-text="puesto.nombre" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
                                         <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
@@ -42,8 +46,8 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
-                                <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
-                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese Puesto">
+                                <label for="nombre"><i class="fas fa-user-tag"></i> Nombre</label>
+                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese puesto...">
                                 <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
                             </div>
                         </form>
@@ -66,7 +70,7 @@
         data() {
             return {
                 id: 0,
-                listaPuesto: [],
+                lista_puesto: [],
                 nombre: '',
 
                 modal: 0,
@@ -107,7 +111,7 @@
                 let me = this;
                 let url = '/puestos';
                 axios.get(url).then(function (response) {
-                    me.listaPuesto = response.data
+                    me.lista_puesto = response.data
                     me.dataTable();
                 })
                 .catch(function (error) {
@@ -136,7 +140,7 @@
             store(){
                 let me = this
                 var url = '/puestos/store'
-                axios.post(url,{    
+                axios.post(url,{
                     'nombre': this.nombre,
                 }).then(function (response) {
                     me.closeModal()

@@ -47,14 +47,14 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
                                 <label for="nombre"><i class="fas fa-user-tag"></i> Nombre</label>
-                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese puesto...">
+                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese puesto...">
                                 <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cerrar" @click="closeModal()">Cancelar <i class="far fa-times-circle"></i></button>
-                        <button type="button" v-if="opcion==1" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
+                        <button type="button" v-if="opcion==1" class="btn btn-guardar"  @click="store()">Guardar <i class="far fa-check-circle"></i></button>
                         <button type="button" v-if="opcion==2" class="btn btn-warning" @click="update()">Actualizar <i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
@@ -84,13 +84,13 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro del Puesto"
+                        this.titulo = "Registro de Puesto"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización del Puesto"
+                        this.titulo = "Actualización de Puesto"
                         this.opcion = 2
                         this.nombre = data['nombre']
                         this.id = data['id']

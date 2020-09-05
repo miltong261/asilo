@@ -2175,6 +2175,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2196,7 +2198,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de Puesto";
+            this.titulo = "Registro de puesto";
             this.opcion = 1;
             break;
           }
@@ -2204,7 +2206,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de Puesto";
+            this.titulo = "Actualización de puesto";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -2218,6 +2220,9 @@ __webpack_require__.r(__webpack_exports__);
       this.opcion = 0;
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    hasError: function hasError(field) {
+      return field in this.errors;
     },
     showList: function showList() {
       var me = this;
@@ -2368,6 +2373,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2411,6 +2418,9 @@ __webpack_require__.r(__webpack_exports__);
       this.opcion = 0;
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    hasError: function hasError(field) {
+      return field in this.errors;
     },
     showList: function showList() {
       var me = this;
@@ -20643,6 +20653,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
+                      class: _vm.hasError("nombre") ? "is-invalid" : "",
                       attrs: {
                         type: "text",
                         name: "nombre",
@@ -20674,9 +20685,13 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm.errors.nombre
-                      ? _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v(_vm._s(_vm.errors.nombre[0]))
+                    _vm.hasError("nombre")
+                      ? _c("div", { staticClass: "invalid-feedback" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.errors.nombre[0]) +
+                              "\n                            "
+                          )
                         ])
                       : _vm._e()
                   ])
@@ -20979,6 +20994,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
+                      class: _vm.hasError("nombre") ? "is-invalid" : "",
                       attrs: {
                         type: "text",
                         name: "nombre",
@@ -21010,9 +21026,13 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm.errors.nombre
-                      ? _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v(_vm._s(_vm.errors.nombre[0]))
+                    _vm.hasError("nombre")
+                      ? _c("div", { staticClass: "invalid-feedback" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.errors.nombre[0]) +
+                              "\n                            "
+                          )
                         ])
                       : _vm._e()
                   ])
@@ -36777,7 +36797,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

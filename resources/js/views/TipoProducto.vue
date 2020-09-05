@@ -47,8 +47,10 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
                                 <label for="nombre"><i class="fas fa-tags"></i> Nombre</label>
-                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese categoría...">
-                                <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
+                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese categoría...">
+                                <div v-if="hasError('nombre')" class="invalid-feedback">
+                                    {{ errors.nombre[0] }}
+                                </div>
                             </div>
 
                         </form>
@@ -107,6 +109,9 @@
                 this.errors = []
 
                 alerts.sweetAlert('error', 'Operación cancelada')
+            },
+            hasError(field) {
+                return field in (this.errors)
             },
             showList() {
                 let me = this;

@@ -47,8 +47,10 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
                                 <label for="nombre"><i class="fas fa-user-tag"></i> Nombre</label>
-                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese puesto...">
-                                <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
+                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese puesto...">
+                                <div v-if="hasError('nombre')" class="invalid-feedback">
+                                    {{ errors.nombre[0] }}
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -84,13 +86,13 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro de Puesto"
+                        this.titulo = "Registro de puesto"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización de Puesto"
+                        this.titulo = "Actualización de puesto"
                         this.opcion = 2
                         this.nombre = data['nombre']
                         this.id = data['id']
@@ -106,6 +108,9 @@
                 this.errors = []
 
                 alerts.sweetAlert('error', 'Operación cancelada')
+            },
+            hasError(field) {
+                return field in (this.errors)
             },
             showList() {
                 let me = this;

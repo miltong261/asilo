@@ -44,3 +44,8 @@ Route::put('/unidad_medida/update', 'Dashboard\UnidadMedidaController@update');
 Route::get('/puestos', 'Dashboard\PuestoController@index');
 Route::post('/puestos/store', 'Dashboard\PuestoController@store');
 Route::put('/puestos/update', 'Dashboard\PuestoController@update');
+
+/** Rutas de hogar */
+
+// Residentes
+Route::get('/residentes', 'Dashboard\ResidenteController@index');

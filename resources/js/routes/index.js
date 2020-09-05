@@ -20,6 +20,10 @@ export default new Router({
         {
             path: '/puestos',
             component: require('../views/Puestos').default
+        },
+        {
+            path: '/residentes',
+            component: require('../views/Residentes').default
         }
     ],
     mode: 'history'

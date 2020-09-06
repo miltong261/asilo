@@ -16,10 +16,10 @@ class CreateDonacionesTable extends Migration
         Schema::create('donaciones', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')
+            //     ->references('id')
+            //     ->on('users');
 
             $table->unsignedBigInteger('donante_id');
             $table->foreign('donante_id')
@@ -28,7 +28,7 @@ class CreateDonacionesTable extends Migration
 
             $table->date('fecha_registro');
             $table->date('fecha_donacion');
-            $table->date('fecha_anulacion');
+            $table->date('fecha_anulacion')->nullable();
             $table->decimal('total', 8, 2);
             $table->boolean('estado');
 

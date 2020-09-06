@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ExampleSeeder::class);
         $this->call(PuestoSeeder::class);
         $this->call(TipoProductoSeeder::class);
+        $this->call(UnidadMedidaSeeder::class);
     }
 }

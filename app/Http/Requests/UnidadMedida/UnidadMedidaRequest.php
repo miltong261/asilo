@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Puesto;
+namespace App\Http\Requests\UnidadMedida;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PuestoRequest extends FormRequest
+class UnidadMedidaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class PuestoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:35'
+            'nombre' => 'required|max:35',
+            'medicamento' => 'nullable|boolean',
+            'producto' => 'nullable|boolean'
         ];
     }
 

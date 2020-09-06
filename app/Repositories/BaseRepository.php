@@ -24,6 +24,22 @@ abstract class BaseRepository
         return $object;
     }
 
+    public function storeWithMedicamentoProducto(array $request)
+    {
+        if($request['medicamento'] == true || $request['producto'] == true)
+            return $this->getModel()->create($request);
+    }
+
+    public function updateWithMedicamentoProducto(arrar $request, $id)
+    {
+        if($request['medicamento'] == true || $request['producto'] == true){
+            $object = $this->getModel()->findOrFail($id);
+            $object->update($request);
+
+            return $object;
+        }
+    }
+
     public function generateCode(){
         $count = $this->getModel()->count();
 

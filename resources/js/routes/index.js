@@ -24,6 +24,18 @@ export default new Router({
         {
             path: '/residentes',
             component: require('../views/Residentes').default
+        },
+        {
+            path: '/unidad_medida',
+            component: require('../views/UnidadMedida').default
+        },
+        {
+            path: '/productos',
+            component: require('../views/Productos').default
+        },
+        {
+            path: '/medicamentos',
+            component: require('../views/Medicamentos').default
         }
     ],
     mode: 'history'

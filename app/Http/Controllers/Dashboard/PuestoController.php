@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Puesto\PuestoRequest;
-
 use App\Repositories\Puesto\PuestoRepository;
+
+use Illuminate\Support\Facades\DB;
 
 class PuestoController extends Controller
 {
@@ -35,12 +36,24 @@ class PuestoController extends Controller
      */
     public function store(PuestoRequest $request)
     {
-        $puesto = $this->puestoRepository->store([
-            'nombre' => $request->nombre,
-            'codigo' => 'PUESTO-' . $this->puestoRepository->generateCode()
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return response()->json($puesto);
+            $this->puestoRepository->store([
+                'codigo' => 'PUESTO-' . $this->puestoRepository->generateCode(),
+                'nombre' => $request->nombre
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Se guardó correctamente ' . $request->nombre
+            ], 200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
 
     /**
@@ -52,10 +65,21 @@ class PuestoController extends Controller
      */
     public function update(PuestoRequest $request)
     {
-        $puesto = $this->puestoRepository->update([
-            'nombre' => $request->nombre
-        ], $request->id);
+        try {
+            DB::beginTransaction();
 
-        return response()->json($puesto);
+            $this->puestoRepository->update([
+                'nombre' => $request->nombre
+            ], $request->id);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Se actualizó correctamente ' . $request->nombre
+            ], 200);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
 }

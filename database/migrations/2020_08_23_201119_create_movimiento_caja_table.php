@@ -16,9 +16,9 @@ class CreateMovimientoCajaTable extends Migration
         Schema::create('movimiento_caja', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('nombre', 50);
-            $table->boolean('entrada');
-            $table->boolean('salida');
+            $table->string('nombre', 35);
+            $table->boolean('entrada')->nullable();
+            $table->boolean('salida')->nullable();
 
             $table->timestamps();
         });
@@ -34,3 +34,4 @@ class CreateMovimientoCajaTable extends Migration
         Schema::dropIfExists('movimiento_caja');
     }
 }
+

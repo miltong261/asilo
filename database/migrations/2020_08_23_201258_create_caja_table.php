@@ -21,6 +21,7 @@ class CreateCajaTable extends Migration
                 ->references('id')
                 ->on('movimiento_caja');
 
+            $table->decimal('saldo', 8, 2);
             $table->decimal('monto', 8, 2);
             $table->text('observacion')->nullable();
 

@@ -112,19 +112,17 @@
             hasError(field) {
                 return field in (this.errors)
             },
-            showList() {
-                let me = this;
-                let url = '/puestos';
-                axios.get(url).then(function (response) {
-                    me.lista_puesto = response.data
-                    me.dataTable();
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            backendResponse(response) {
+                if(response.data.status == 'success'){
+                    this.closeModal()
+                    this.showList()
+                    alerts.sweetAlert(response.data.status, response.data.message)
+                }else{
+                        alerts.sweetAlert(response.data.status, response.data.message)
+                }
             },
             dataTable() {
-                var datatable = $('#zero-config').DataTable()
+                let datatable = $('#zero-config').DataTable()
                 datatable.destroy()
                 this.$nextTick(function() {
                     $('#zero-config').DataTable( {
@@ -142,15 +140,24 @@
                     } );
                 });
             },
+            showList() {
+                let me = this;
+                let url = '/puestos';
+                axios.get(url).then(function (response) {
+                    me.lista_puesto = response.data
+                    me.dataTable();
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+            },
             store(){
                 let me = this
-                var url = '/puestos/store'
+                let url = '/puestos/store'
                 axios.post(url,{
                     'nombre': this.nombre,
                 }).then(function (response) {
-                    me.closeModal()
-                    me.showList()
-                    alerts.sweetAlert('success', 'Se guardó correctamente')
+                    me.backendResponse(response)
                 }).catch(error =>{
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
@@ -158,14 +165,12 @@
             },
             update(){
                 let me = this
-                var url = 'puestos/update'
+                let url = 'puestos/update'
                 axios.put(url,{
                     'nombre': this.nombre,
                     'id': this.id
                 }).then(function (response){
-                    me.closeModal()
-                    me.showList()
-                    alerts.sweetAlert('success', 'Se actualizó correctamente')
+                    me.backendResponse(response)
                 }).catch(error =>{
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors

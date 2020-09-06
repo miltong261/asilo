@@ -12,14 +12,32 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-capsules"></i> Medicamento</th>
+                                    <th class="text-center"><i class="fas fa-store"></i> Producto</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(tipo_producto, index) in lista_tipo_producto " :key="tipo_producto.id">
+                                <tr v-for="(tipo_producto, index) in lista_tipo_producto" :key="tipo_producto.id">
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="tipo_producto.codigo" class="text-center"></td>
                                     <td v-text="tipo_producto.nombre" class="text-center"></td>
+                                    <td class="text-center">
+                                        <div v-if="tipo_producto.medicamento">
+                                            <span class="badge outline-badge-check"><i class="fa fa-check-circle"></i></span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div v-if="tipo_producto.producto">
+                                            <span class="badge outline-badge-check"><i class="fa fa-check-circle"></i></span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
                                         <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
@@ -53,6 +71,19 @@
                                 </div>
                             </div>
 
+                            <label for="">Marcar <i class="fas fa-check"></i>  para...</label>
+                            <fieldset class="border border-light rounded p-1">
+                                <div class="n-chk text-center">
+                                    <label class="new-control new-checkbox checkbox-outline-check">
+                                        <input type="checkbox" class="new-control-input"  name="medicamento" v-model="medicamento">
+                                        <span class="new-control-indicator"></span>Medicamento
+                                    </label>
+                                    <label class="new-control new-checkbox checkbox-outline-check">
+                                        <input type="checkbox" class="new-control-input" name="producto" v-model="producto">
+                                        <span class="new-control-indicator"></span>Producto
+                                    </label>
+                                </div>
+                            </fieldset>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -75,6 +106,8 @@
                 id: 0,
                 lista_tipo_producto: [],
                 nombre: '',
+                medicamento: false,
+                producto: false,
 
                 modal: 0,
                 titulo: '',
@@ -93,15 +126,19 @@
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización categoría"
+                        this.titulo = "Actualización de categoría"
                         this.opcion = 2
                         this.nombre = data['nombre']
+                        this.medicamento = data['medicamento']
+                        this.producto = data['producto']
                         this.id = data['id']
                     }
                 }
             },
             closeModal() {
                 this.nombre = ''
+                this.medicamento = false
+                this.producto = false
 
                 this.modal = 0
                 this.titulo = ''
@@ -113,19 +150,17 @@
             hasError(field) {
                 return field in (this.errors)
             },
-            showList() {
-                let me = this;
-                let url = '/tipo_producto';
-                axios.get(url).then(function (response) {
-                    me.lista_tipo_producto = response.data
-                    me.dataTable();
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            backendResponse(response) {
+                if(response.data.status == 'success'){
+                    this.closeModal()
+                    this.showList()
+                    alerts.sweetAlert(response.data.status, response.data.message)
+                }else{
+                        alerts.sweetAlert(response.data.status, response.data.message)
+                }
             },
             dataTable() {
-                var datatable = $('#zero-config').DataTable()
+                let datatable = $('#zero-config').DataTable()
                 datatable.destroy()
                 this.$nextTick(function() {
                     $('#zero-config').DataTable( {
@@ -143,15 +178,26 @@
                     } );
                 });
             },
+            showList() {
+                let me = this;
+                let url = '/tipo_producto';
+                axios.get(url).then(function (response) {
+                    me.lista_tipo_producto = response.data
+                    me.dataTable();
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+            },
             store(){
                 let me = this
-                var url = '/tipo_producto/store'
+                let url = '/tipo_producto/store'
                 axios.post(url,{
                     'nombre': this.nombre,
+                    'medicamento': this.medicamento,
+                    'producto': this.producto
                 }).then(function (response) {
-                    me.closeModal()
-                    me.showList()
-                    alerts.sweetAlert('success', 'Se guardó correctamente')
+                    me.backendResponse(response)
                 }).catch(error =>{
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
@@ -159,14 +205,14 @@
             },
             update(){
                 let me = this
-                var url = 'tipo_producto/update'
+                let url = 'tipo_producto/update'
                 axios.put(url,{
                     'nombre': this.nombre,
+                    'medicamento': this.medicamento,
+                    'producto': this.producto,
                     'id': this.id
                 }).then(function (response){
-                    me.closeModal()
-                    me.showList()
-                    alerts.sweetAlert('success', 'Se actualizó correctamente')
+                    me.backendResponse(response)
                 }).catch(error =>{
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
@@ -178,3 +224,4 @@
         },
     }
 </script>
+

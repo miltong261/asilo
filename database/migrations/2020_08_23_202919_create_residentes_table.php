@@ -16,33 +16,35 @@ class CreateResidentesTable extends Migration
         Schema::create('residentes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')
+            //     ->references('id')
+            //     ->on('users');
 
-            $table->unsignedBigInteger('departamento_origen');
-            $table->foreign('departamento_origen')
+            $table->unsignedBigInteger('municipio_origen');
+            $table->foreign('municipio_origen')
                 ->references('id')
-                ->on('departamentos');
+                ->on('municipios');
 
-            $table->unsignedBigInteger('departamento_dpi');
-            $table->foreign('departamento_dpi')
+            $table->unsignedBigInteger('municipio_dpi');
+            $table->foreign('municipio_dpi')
                 ->references('id')
-                ->on('departamentos');
+                ->on('municipios');
 
+            $table->string('codigo', 15);
             $table->date('fecha_ingreso');
             $table->string('nombre', 35);
             $table->string('apellido', 35);
             $table->date('fecha_nacimiento');
             $table->integer('dpi', false, true)->length(13)->unique();
             $table->string('familia', 70)->nullable();
+            $table->string('direccion', 70)->nullable();
             $table->integer('telefono_familia', false, true)->length(8)->nullable();
             $table->string('persona_referida', 70)->nullable();
             $table->integer('telefono_persona_referida', false, true)->length(8)->nullable();
-            $table->text('padecimientos');
             $table->string('motivo');
             $table->text('estado');
+            $table->text('historial');
             $table->string('signos_vitales', 35);
             $table->string('presion', 35);
             $table->decimal('peso', 5, 2);

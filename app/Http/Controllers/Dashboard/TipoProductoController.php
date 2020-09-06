@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TipoProducto\TipoProductoRequest;
-
 use App\Repositories\TipoProducto\TipoProductoRepository;
+
+use Illuminate\Support\Facades\DB;
 
 class TipoProductoController extends Controller
 {
@@ -24,7 +25,7 @@ class TipoProductoController extends Controller
     public function index()
     {
         return response()->json($this->tipoProductoRepository->index(
-            ['id', 'nombre', 'codigo', 'estado']
+            ['id', 'codigo', 'nombre', 'medicamento', 'producto', 'estado']
         ));
     }
 
@@ -36,12 +37,32 @@ class TipoProductoController extends Controller
      */
     public function store(TipoProductoRequest $request)
     {
-        $tipo_producto = $this->tipoProductoRepository->store([
-            'nombre' => $request->nombre,
-            'codigo' => 'CATEG-' . $this->tipoProductoRepository->generateCode()
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return response()->json($tipo_producto);
+            $guardar = $this->tipoProductoRepository->storeWithMedicamentoProducto([
+                'codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode(),
+                'nombre' => $request->nombre,
+                'medicamento' => $request->medicamento,
+                'producto' => $request->producto
+            ]);
+
+            if($guardar){
+                DB::commit();
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se guardó correctamente ' . $request->nombre
+                ], 200);
+            }else{
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Debe marcar almenos una opción'
+                ]);
+            }
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
     }
 
     /**
@@ -52,10 +73,31 @@ class TipoProductoController extends Controller
      */
     public function update(TipoProductoRequest $request)
     {
-        $tipo_producto = $this->tipoProductoRepository->update([
-            'nombre' => $request->nombre
-        ], $request->id);
+        try {
+            DB::beginTransaction();
 
-        return response()->json($tipo_producto);
+            $actualizar = $this->tipoProductoRepository->updateWithMedicamentoProducto([
+                'nombre' => $request->nombre,
+                'medicamento' => $request->medicamento,
+                'producto' => $request->producto
+            ], $request->id);
+
+            if($actualizar){
+                DB::commit();
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se actualizó correctamente ' . $request->nombre
+                ], 200);
+            }else{
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Debe marcar almenos una opción'
+                ]);
+            }
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
     }
 }

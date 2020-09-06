@@ -129,6 +129,9 @@
                     <router-link tag="li" to="/ajuste" exact-active-class="active">
                         <a>Ajuste de producto</a>
                     </router-link>
+                    <router-link tag="li" to="/medicamentos" exact-active-class="active">
+                        <a>Medicamentos</a>
+                    </router-link>
                     <router-link tag="li" to="/productos" exact-active-class="active">
                         <a>Productos</a>
                     </router-link>

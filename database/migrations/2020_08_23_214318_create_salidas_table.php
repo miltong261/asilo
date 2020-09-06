@@ -23,7 +23,7 @@ class CreateSalidasTable extends Migration
 
             $table->date('fecha_registro');
             $table->date('fecha_salida');
-            $table->date('fecha_anulacion');
+            $table->date('fecha_anulacion')->nullable();
             $table->string('documento', 15);
             $table->boolean('estado');
 

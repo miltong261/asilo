@@ -45,7 +45,20 @@ Route::get('/puestos', 'Dashboard\PuestoController@index');
 Route::post('/puestos/store', 'Dashboard\PuestoController@store');
 Route::put('/puestos/update', 'Dashboard\PuestoController@update');
 
+// Unidad de medida
+Route::get('/unidad_medida', 'Dashboard\UnidadMedidaController@index');
+Route::post('/unidad_medida/store', 'Dashboard\UnidadMedidaController@store');
+Route::put('/unidad_medida/update', 'Dashboard\UnidadMedidaController@update');
+
 /** Rutas de hogar */
 
 // Residentes
 Route::get('/residentes', 'Dashboard\ResidenteController@index');
+
+/** Rutas de inventario */
+
+// Medicamento
+Route::get('/medicamentos', 'Dashboard\MedicamentoController@index');
+
+// Producto
+Route::get('/productos', 'Dashboard\ProductoController@index');

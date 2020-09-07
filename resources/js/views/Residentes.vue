@@ -192,6 +192,34 @@
 
 <script>
 export default {
+    data() {
+        return {
+            nombre: '',
+            apellido: '',
+            fecha_nacimiento: '',
+            dpi: '',
+            familiar: '',
+            direccion: '',
+            telefono: '',
+            persona_referida: '',
+            direccion_persona_referida: '',
+            telefono_persona_referida: '',
+            motivo: '',
+            estado: '',
+            historial: '',
+            pulso: '',
+            temperatura: '',
+            presion: '',
+            peso: '',
+            observacion: '',
 
+            errors: []
+        }
+    },
+    methods: {
+        hasError(field) {
+            return field in (this.errors)
+        }
+    }
 }
 </script>

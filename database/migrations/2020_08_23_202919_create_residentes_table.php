@@ -41,11 +41,13 @@ class CreateResidentesTable extends Migration
             $table->string('direccion', 70)->nullable();
             $table->integer('telefono_familia', false, true)->length(8)->nullable();
             $table->string('persona_referida', 70)->nullable();
+            $table->string('direccion_persona_referida', 70)->nullable();
             $table->integer('telefono_persona_referida', false, true)->length(8)->nullable();
             $table->string('motivo');
             $table->text('estado');
             $table->text('historial');
-            $table->string('signos_vitales', 35);
+            $table->string('pulso', 15);
+            $table->string('temperatura', 15);
             $table->string('presion', 35);
             $table->decimal('peso', 5, 2);
             $table->text('observacion')->nullable();

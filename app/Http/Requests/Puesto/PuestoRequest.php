@@ -32,7 +32,7 @@ class PuestoRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El nombre es obligatorio',
-            'nombre.max' => 'Máximo',
+            'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
         ];
     }
 }

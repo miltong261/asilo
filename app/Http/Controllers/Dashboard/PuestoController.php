@@ -46,16 +46,15 @@ class PuestoController extends Controller
         try {
             DB::beginTransaction();
 
-            $this->puestoRepository->store([
-                'codigo' => 'PUESTO-' . $this->puestoRepository->generateCode(),
-                'nombre' => $request->nombre
-            ]);
+            $this->puestoRepository->store($request->only(
+                'nombre'
+            ) + ['codigo' => 'PUESTO-' . $this->puestoRepository->generateCode()]);
 
             DB::commit();
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Se guardó correctamente ' . $request->nombre
+                'message' => 'Se guardó correctamente el puesto ' . $request->nombre
             ], 200);
 
         } catch (\Throwable $th) {
@@ -75,15 +74,15 @@ class PuestoController extends Controller
         try {
             DB::beginTransaction();
 
-            $this->puestoRepository->update([
-                'nombre' => $request->nombre
-            ], $request->id);
+            $this->puestoRepository->update($request->only(
+                'nombre'
+            ), $request->id);
 
             DB::commit();
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Se actualizó correctamente ' . $request->nombre
+                'message' => 'Se actualizó correctamente el puesto ' . $request->nombre
             ], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

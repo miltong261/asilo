@@ -47,18 +47,15 @@ class TipoProductoController extends Controller
         try {
             DB::beginTransaction();
 
-            $guardar = $this->tipoProductoRepository->storeWithMedicamentoProducto([
-                'codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode(),
-                'nombre' => $request->nombre,
-                'medicamento' => $request->medicamento,
-                'producto' => $request->producto
-            ]);
+            $guardar = $this->tipoProductoRepository->storeWithMedicamentoProducto($request->only([
+                'nombre', 'medicamento', 'producto'
+            ]) + ['codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode()]);
 
             if ($guardar) {
                 DB::commit();
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó correctamente ' . $request->nombre
+                    'message' => 'Se guardó correctamente la categoría ' . $request->nombre
                 ], 200);
             } else {
                 return response()->json([
@@ -83,17 +80,15 @@ class TipoProductoController extends Controller
         try {
             DB::beginTransaction();
 
-            $actualizar = $this->tipoProductoRepository->updateWithMedicamentoProducto([
-                'nombre' => $request->nombre,
-                'medicamento' => $request->medicamento,
-                'producto' => $request->producto
-            ], $request->id);
+            $actualizar = $this->tipoProductoRepository->updateWithMedicamentoProducto($request->only([
+                'nombre', 'medicamento', 'producto'
+            ]), $request->id);
 
             if ($actualizar) {
                 DB::commit();
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se actualizó correctamente ' . $request->nombre
+                    'message' => 'Se actualizó correctamente la categoría ' . $request->nombre
                 ], 200);
             } else {
                 return response()->json([

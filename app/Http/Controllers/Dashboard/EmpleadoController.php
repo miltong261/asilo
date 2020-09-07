@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Empleado\EmpleadoRequest;
+use App\Repositories\Empleado\EmpleadoRepository;
+
+use Illuminate\Support\Facades\DB;
 
 class EmpleadoController extends Controller
 {
+    protected $empleadoRepository;
+
+    public function __construct(EmpleadoRepository $empleadoRepository)
+    {
+        $this->empleadoRepository = $empleadoRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +24,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->empleadoRepository->indexEmpleado());
     }
 
     /**
@@ -33,9 +33,32 @@ class EmpleadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmpleadoRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $guardar = $this->empleadoRepository->store($request->only([
+                'puesto_id', 'fecha_ingreso', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'
+            ]) + ['codigo' => $this->empleadoRepository->generateCode()]);
+
+            if ($guardar) {
+                DB::commit();
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se guardó correctamente al empleado ' . $request->nombre
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Ocurrio un error'
+                ]);
+            }
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
     }
 
     /**
@@ -45,8 +68,32 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmpleadoRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $actualizar = $this->empleadoRepository->update($request->only([
+                'puesto_id', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'
+            ]), $request->id);
+
+            return $actualizar;
+
+            if ($actualizar) {
+                DB::commit();
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se actualizó correctamente al empleado ' . $request->nombre
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Ocurrio un error'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
     }
 }

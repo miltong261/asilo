@@ -22,41 +22,62 @@ Route::get('/', function () {
 });
 
 // Rutas de ejemplo
-Route::get('/example', 'Dashboard\ExampleController@index');
-Route::post('/example/store', 'Dashboard\ExampleController@store');
-Route::put('/example/update', 'Dashboard\ExampleController@update');
+Route::group(['prefix' => 'example'], function () {
+    Route::get('/', 'Dashboard\ExampleController@index');
+    Route::post('/store', 'Dashboard\ExampleController@store');
+    Route::put('/update', 'Dashboard\ExampleController@update');
+});
 
 /** Rutas de configuración */
 
 // Tipo de producto
-Route::get('/tipo_producto', 'Dashboard\TipoProductoController@index');
-Route::get('/tipo_producto/combo', 'Dashboard\TipoProductoController@combobox');
-Route::post('/tipo_producto/store', 'Dashboard\TipoProductoController@store');
-Route::put('/tipo_producto/update', 'Dashboard\TipoProductoController@update');
+Route::group(['prefix' => 'tipo_producto'], function () {
+    Route::get('/', 'Dashboard\TipoProductoController@index');
+    Route::get('/combo', 'Dashboard\TipoProductoController@combobox');
+    Route::post('/store', 'Dashboard\TipoProductoController@store');
+    Route::put('/update', 'Dashboard\TipoProductoController@update');
+});
 
 // Unidad de medida
-Route::get('/unidad_medida', 'Dashboard\UnidadMedidaController@index');
-Route::get('/unidad_medida/combo', 'Dashboard\UnidadMedidaController@combobox');
-Route::post('/unidad_medida/store', 'Dashboard\UnidadMedidaController@store');
-Route::put('/unidad_medida/update', 'Dashboard\UnidadMedidaController@update');
+Route::group(['prefix' => 'unidad_medida'], function () {
+    Route::get('/', 'Dashboard\UnidadMedidaController@index');
+    Route::get('/combo', 'Dashboard\UnidadMedidaController@combobox');
+    Route::post('/store', 'Dashboard\UnidadMedidaController@store');
+    Route::put('/update', 'Dashboard\UnidadMedidaController@update');
+});
 
 /** Rutas de personal */
 
 // Puestos
-Route::get('/puestos', 'Dashboard\PuestoController@index');
-Route::get('/puestos/combo', 'Dashboard\PuestoController@combobox');
-Route::post('/puestos/store', 'Dashboard\PuestoController@store');
-Route::put('/puestos/update', 'Dashboard\PuestoController@update');
+Route::group(['prefix' => 'puestos'], function () {
+    Route::get('/', 'Dashboard\PuestoController@index');
+    Route::get('/combo', 'Dashboard\PuestoController@combobox');
+    Route::post('/store', 'Dashboard\PuestoController@store');
+    Route::put('/update', 'Dashboard\PuestoController@update');
+});
+
+// Empleados
+Route::group(['prefix' => 'empleados'], function () {
+    Route::get('/', 'Dashboard\EmpleadoController@index');
+    Route::post('/store', 'Dashboard\EmpleadoController@store');
+    Route::put('/update', 'Dashboard\EmpleadoController@update');
+});
 
 /** Rutas de hogar */
 
 // Residentes
-Route::get('/residentes', 'Dashboard\ResidenteController@index');
+Route::group(['prefix' => 'residentes'], function () {
+    Route::get('/', 'Dashboard\ResidenteController@index');
+});
 
 /** Rutas de inventario */
 
 // Medicamento
-Route::get('/medicamentos', 'Dashboard\MedicamentoController@index');
+Route::group(['prefix' => 'medicamentos'], function () {
+    Route::get('/', 'Dashboard\MedicamentoController@index');
+});
 
 // Producto
-Route::get('/productos', 'Dashboard\ProductoController@index');
+Route::group(['prefix' => 'productos'], function () {
+    Route::get('/', 'Dashboard\ProductoController@index');
+});

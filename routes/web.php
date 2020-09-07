@@ -30,25 +30,23 @@ Route::put('/example/update', 'Dashboard\ExampleController@update');
 
 // Tipo de producto
 Route::get('/tipo_producto', 'Dashboard\TipoProductoController@index');
+Route::get('/tipo_producto/combo', 'Dashboard\TipoProductoController@combobox');
 Route::post('/tipo_producto/store', 'Dashboard\TipoProductoController@store');
 Route::put('/tipo_producto/update', 'Dashboard\TipoProductoController@update');
 
 // Unidad de medida
 Route::get('/unidad_medida', 'Dashboard\UnidadMedidaController@index');
+Route::get('/unidad_medida/combo', 'Dashboard\UnidadMedidaController@combobox');
 Route::post('/unidad_medida/store', 'Dashboard\UnidadMedidaController@store');
 Route::put('/unidad_medida/update', 'Dashboard\UnidadMedidaController@update');
 
-/** Rutas de configuración */
+/** Rutas de personal */
 
 // Puestos
 Route::get('/puestos', 'Dashboard\PuestoController@index');
+Route::get('/puestos/combo', 'Dashboard\PuestoController@combobox');
 Route::post('/puestos/store', 'Dashboard\PuestoController@store');
 Route::put('/puestos/update', 'Dashboard\PuestoController@update');
-
-// Unidad de medida
-Route::get('/unidad_medida', 'Dashboard\UnidadMedidaController@index');
-Route::post('/unidad_medida/store', 'Dashboard\UnidadMedidaController@store');
-Route::put('/unidad_medida/update', 'Dashboard\UnidadMedidaController@update');
 
 /** Rutas de hogar */
 

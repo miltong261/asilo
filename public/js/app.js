@@ -2540,7 +2540,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -21449,16 +21448,16 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "col-lg-10 layout-spacing mx-auto",
+                staticClass: "col-lg-12 layout-spacing mx-auto",
                 attrs: { id: "flFormsGrid" }
               },
               [
-                _vm._m(0),
-                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "widget-content widget-content-area " },
                   [
+                    _vm._m(0),
+                    _vm._v(" "),
                     _c(
                       "form",
                       {
@@ -21484,9 +21483,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Nombre")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Nombre")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -21533,9 +21537,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Apellido")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Apellido")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -21582,9 +21591,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Fecha de nacimiento")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Fecha de nacimiento")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -21643,9 +21657,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("DPI")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("DPI")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -21708,9 +21727,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Familiar")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Familiar")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -21740,9 +21764,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-5" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Dirección")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Dirección")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -21774,7 +21803,10 @@ var render = function() {
                                 [
                                   _c(
                                     "label",
-                                    { attrs: { for: "inputPassword4" } },
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
                                     [_vm._v("Teléfono")]
                                   ),
                                   _vm._v(" "),
@@ -21810,7 +21842,10 @@ var render = function() {
                                 [
                                   _c(
                                     "label",
-                                    { attrs: { for: "inputPassword4" } },
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
                                     [_vm._v("Persona referida")]
                                   ),
                                   _vm._v(" "),
@@ -21848,7 +21883,10 @@ var render = function() {
                                 [
                                   _c(
                                     "label",
-                                    { attrs: { for: "inputPassword4" } },
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
                                     [_vm._v("Dirección")]
                                   ),
                                   _vm._v(" "),
@@ -21888,7 +21926,10 @@ var render = function() {
                                 [
                                   _c(
                                     "label",
-                                    { attrs: { for: "inputPassword4" } },
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
                                     [_vm._v("Teléfono")]
                                   ),
                                   _vm._v(" "),
@@ -21938,9 +21979,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Motivo de llegada")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Motivo de llegada")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -21970,9 +22016,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Estado del residente")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Estado del residente")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -22002,9 +22053,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Historial")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Historial")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -22036,9 +22092,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-2" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Signos vitales")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Signos vitales")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -22072,9 +22133,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-2" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v(".")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("-")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -22110,9 +22176,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Presión arterial")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Presión arterial")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -22142,9 +22213,14 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", { attrs: { for: "" } }, [
-                                    _vm._v("Peso")
-                                  ]),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "text-dark",
+                                      attrs: { for: "" }
+                                    },
+                                    [_vm._v("Peso")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     staticClass: "form-control",
@@ -22229,19 +22305,19 @@ var staticRenderFns = [
     return _c("div", { staticClass: "widget-header p-2" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-xl-12 col-md-12 col-sm-12 col-12" }, [
-          _c("h4", { staticClass: "text-center" }, [
-            _vm._v("REGISTRO DE RESIDENTES")
-          ]),
-          _vm._v(" "),
           _c("img", {
             staticClass: "rounded-circle mx-auto d-block",
             attrs: {
-              src: "assets/img/logo-formulario.jpeg",
+              src: "assets/img/logo-tablas.jpeg",
               alt: "logo",
               width: "90",
               height: "90"
             }
-          })
+          }),
+          _vm._v(" "),
+          _c("h4", { staticClass: "text-center" }, [
+            _vm._v("REGISTRO DE RESIDENTES")
+          ])
         ])
       ])
     ])
@@ -22251,7 +22327,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Lugar de nacimiento")]),
+      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+        _vm._v("Lugar de nacimiento")
+      ]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -22265,7 +22343,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("-")]),
+      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+        _vm._v("-")
+      ]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -22279,7 +22359,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Extendido en:")]),
+      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+        _vm._v("Extendido en:")
+      ]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -22293,7 +22375,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("-")]),
+      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+        _vm._v("-")
+      ]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),

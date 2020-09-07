@@ -24,15 +24,20 @@ abstract class BaseRepository
         return $object;
     }
 
+    public function listarCombo(array $fields, $orderField)
+    {
+        return $this->getModel()->select($fields)->orderBy($orderField, 'asc')->get();
+    }
+
     public function storeWithMedicamentoProducto(array $request)
     {
-        if($request['medicamento'] == true || $request['producto'] == true)
+        if ($request['medicamento'] == true || $request['producto'] == true)
             return $this->getModel()->create($request);
     }
 
     public function updateWithMedicamentoProducto(arrar $request, $id)
     {
-        if($request['medicamento'] == true || $request['producto'] == true){
+        if ($request['medicamento'] == true || $request['producto'] == true){
             $object = $this->getModel()->findOrFail($id);
             $object->update($request);
 
@@ -43,11 +48,11 @@ abstract class BaseRepository
     public function generateCode(){
         $count = $this->getModel()->count();
 
-        if($count >= 1000 && $count < 10000)
+        if ($count >= 1000 && $count < 10000)
             return $count+=1;
-        elseif($count >= 100 && $count < 1000)
+        elseif ($count >= 100 && $count < 1000)
             return '0' .$count+=1;
-        elseif($count >= 9 && $count < 100)
+        elseif ($count >= 9 && $count < 100)
             return '00' .$count+=1;
         else
             return '000' .$count+=1;

@@ -29,6 +29,13 @@ class TipoProductoController extends Controller
         ));
     }
 
+    public function combobox()
+    {
+        return response()->json($this->tipoProductoRepository->listarCombo(
+            ['id', 'nombre'], 'nombre'
+        ));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -47,13 +54,13 @@ class TipoProductoController extends Controller
                 'producto' => $request->producto
             ]);
 
-            if($guardar){
+            if ($guardar) {
                 DB::commit();
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente ' . $request->nombre
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Debe marcar almenos una opción'
@@ -82,13 +89,13 @@ class TipoProductoController extends Controller
                 'producto' => $request->producto
             ], $request->id);
 
-            if($actualizar){
+            if ($actualizar) {
                 DB::commit();
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente ' . $request->nombre
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Debe marcar almenos una opción'

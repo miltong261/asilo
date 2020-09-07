@@ -42,3 +42,7 @@
 .new-control.new-checkbox.checkbox-outline-check>input:checked~span.new-control-indicator{border:2px solid #25d5e4}
 
 .new-control.new-checkbox.checkbox-outline-check>input:checked~span.new-control-indicator:after{border-color:#25d5e4}
+
+.border-fieldset{
+    border-color: rgb(136, 142, 168, .4) !important; 
+}

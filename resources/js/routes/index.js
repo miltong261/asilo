@@ -36,6 +36,10 @@ export default new Router({
         {
             path: '/medicamentos',
             component: require('../views/Medicamentos').default
+        },
+        {
+            path: '/empleados',
+            component: require('../views/Empleados').default
         }
     ],
     mode: 'history'

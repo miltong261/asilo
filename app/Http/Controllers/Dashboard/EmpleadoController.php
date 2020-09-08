@@ -7,6 +7,7 @@ use App\Http\Requests\Empleado\EmpleadoRequest;
 use App\Repositories\Empleado\EmpleadoRepository;
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class EmpleadoController extends Controller
 {
@@ -40,10 +41,14 @@ class EmpleadoController extends Controller
 
             $guardar = $this->empleadoRepository->store($request->only([
                 'puesto_id', 'fecha_ingreso', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'
-            ]) + ['codigo' => $this->empleadoRepository->generateCode()]);
+                ])
+                + ['fecha_ingreso' => Carbon::now()]
+                + ['codigo' => 'EMPLEADO- ' . $this->empleadoRepository->generateCode()]
+            );
 
             if ($guardar) {
                 DB::commit();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente al empleado ' . $request->nombre
@@ -75,12 +80,14 @@ class EmpleadoController extends Controller
 
             $actualizar = $this->empleadoRepository->update($request->only([
                 'puesto_id', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'
-            ]), $request->id);
+                ]), $request->id
+            );
 
             return $actualizar;
 
             if ($actualizar) {
                 DB::commit();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente al empleado ' . $request->nombre

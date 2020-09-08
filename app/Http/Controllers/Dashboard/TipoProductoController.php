@@ -29,10 +29,21 @@ class TipoProductoController extends Controller
         ));
     }
 
-    public function combobox()
+    public function comboboxMedicamento()
     {
         return response()->json($this->tipoProductoRepository->listarCombo(
-            ['id', 'nombre'], 'nombre'
+            ['id', 'nombre']
+            , 'medicamento'
+            , 'nombre'
+        ));
+    }
+
+    public function comboboxProducto()
+    {
+        return response()->json($this->tipoProductoRepository->listarCombo(
+            ['id', 'nombre']
+            , 'producto'
+            , 'nombre'
         ));
     }
 
@@ -49,14 +60,17 @@ class TipoProductoController extends Controller
 
             $guardar = $this->tipoProductoRepository->storeWithMedicamentoProducto($request->only([
                 'nombre', 'medicamento', 'producto'
-            ]) + ['codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode()]);
+                ])
+                + ['codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode()]
+            );
 
             if ($guardar) {
                 DB::commit();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la categoría ' . $request->nombre
-                ], 200);
+                ]);
             } else {
                 return response()->json([
                     'status' => 'error',
@@ -82,10 +96,12 @@ class TipoProductoController extends Controller
 
             $actualizar = $this->tipoProductoRepository->updateWithMedicamentoProducto($request->only([
                 'nombre', 'medicamento', 'producto'
-            ]), $request->id);
+                ]), $request->id
+            );
 
             if ($actualizar) {
                 DB::commit();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la categoría ' . $request->nombre

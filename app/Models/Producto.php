@@ -6,8 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
+    protected $table = 'productos';
+    protected $fillable = [
+        'unidad_medida_id',
+        'tipo_producto_id',
+        'codigo',
+        'nombre',
+        'existencia_inicial',
+        'observacion',
+        'asignacion',
+        'fecha_registro',
+        'fecha_vencimiento',
+        'fecha_ultima_compra',
+        'fecha_ultima_salida',
+        'fecha_ultimo_ajuste'
+    ];
+
     // Uno a muchos (inverso)
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\Models\User');
     }

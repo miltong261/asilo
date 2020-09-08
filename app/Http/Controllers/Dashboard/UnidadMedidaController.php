@@ -29,10 +29,21 @@ class UnidadMedidaController extends Controller
         ));
     }
 
-    public function combobox()
+    public function comboboxMedicamento()
     {
         return response()->json($this->unidadMedidaRepository->listarCombo(
-            ['id', 'nombre'], 'nombre'
+            ['id', 'nombre']
+            , 'medicamento'
+            , 'nombre'
+        ));
+    }
+
+    public function comboboxProducto()
+    {
+        return response()->json($this->unidadMedidaRepository->listarCombo(
+            ['id', 'nombre']
+            , 'producto'
+            , 'nombre'
         ));
     }
 
@@ -49,10 +60,13 @@ class UnidadMedidaController extends Controller
 
             $guardar = $this->unidadMedidaRepository->storeWithMedicamentoProducto($request->only([
                 'nombre', 'medicamento', 'producto'
-            ]) + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()]);
+                ])
+                + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()]
+            );
 
             if ($guardar) {
                 DB::commit();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la unidad de medida ' . $request->nombre
@@ -83,10 +97,12 @@ class UnidadMedidaController extends Controller
 
             $actualizar = $this->unidadMedidaRepository->updateWithMedicamentoProducto($request->only([
                 'nombre', 'medicamento', 'producto'
-            ]), $request->id);
+                ]), $request->id
+            );
 
             if ($actualizar) {
                 DB::commit();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la unidad de medida ' . $request->nombre

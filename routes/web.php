@@ -33,7 +33,8 @@ Route::group(['prefix' => 'example'], function () {
 // Tipo de producto
 Route::group(['prefix' => 'tipo_producto'], function () {
     Route::get('/', 'Dashboard\TipoProductoController@index');
-    Route::get('/combo', 'Dashboard\TipoProductoController@combobox');
+    Route::get('/combo_medicamento', 'Dashboard\TipoProductoController@comboboxMedicamento');
+    Route::get('/combo_producto', 'Dashboard\TipoProductoController@comboboxProducto');
     Route::post('/store', 'Dashboard\TipoProductoController@store');
     Route::put('/update', 'Dashboard\TipoProductoController@update');
 });
@@ -41,7 +42,8 @@ Route::group(['prefix' => 'tipo_producto'], function () {
 // Unidad de medida
 Route::group(['prefix' => 'unidad_medida'], function () {
     Route::get('/', 'Dashboard\UnidadMedidaController@index');
-    Route::get('/combo', 'Dashboard\UnidadMedidaController@combobox');
+    Route::get('/combo_medicamento', 'Dashboard\UnidadMedidaController@comboboxMedicamento');
+    Route::get('/combo_producto', 'Dashboard\UnidadMedidaController@comboboxProducto');
     Route::post('/store', 'Dashboard\UnidadMedidaController@store');
     Route::put('/update', 'Dashboard\UnidadMedidaController@update');
 });
@@ -75,9 +77,13 @@ Route::group(['prefix' => 'residentes'], function () {
 // Medicamento
 Route::group(['prefix' => 'medicamentos'], function () {
     Route::get('/', 'Dashboard\MedicamentoController@index');
+    Route::post('/store', 'Dashboard\MedicamentoController@store');
+    Route::put('/update', 'Dashboard\MedicamentoController@update');
 });
 
 // Producto
 Route::group(['prefix' => 'productos'], function () {
     Route::get('/', 'Dashboard\ProductoController@index');
+    Route::post('/store', 'Dashboard\ProductoController@store');
+    Route::put('/update', 'Dashboard\ProductoController@update');
 });

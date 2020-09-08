@@ -4,29 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\Producto\ProductoRepository;
+
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class MedicamentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    protected $medicamentoRepository;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function __construct(ProductoRepository $medicamentoRepository)
     {
-        //
+        $this->medicamentoRepository = $medicamentoRepository;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,29 +25,34 @@ class MedicamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            $guardar = $this->medicamentoRepository->store($request->only([
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'existencia_inicial', 'observacion', 'fecha_vencimiento'
+                ])
+                + ['fecha_registro' => Carbon::now()]
+                + ['asignacion' => 'medicamento']
+                + ['codigo' => 'PRODUCTO' . $this->medicamentoRepository->generateCode()]
+            );
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+            if ($guardar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se guardó correctamente al producto ' . $request->nombre
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Ocurrio un error'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
     }
 
     /**
@@ -67,19 +62,33 @@ class MedicamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            $actualizar = $this->medicamentoRepository->update($request->only([
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'existencia_inicial', 'observacion', 'fecha_vencimiento'
+                ])
+                , $request->id
+            );
+
+            if ($actualizar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se actualizó correctamente al producto ' . $request->nombre
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Ocurrio un error'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
     }
 }

@@ -39,8 +39,8 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', unidad_medida)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
+                                        <button type="button" @click="openModal('update', unidad_medida)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

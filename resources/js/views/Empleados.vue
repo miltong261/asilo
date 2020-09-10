@@ -11,11 +11,10 @@
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Apellido</th>
+                                    <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
                                     <th class="text-center"><i class="fas fa-id-card"></i> Dpi</th>
                                     <th class="text-center"><i class="fas fa-at"></i> Email</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -23,16 +22,15 @@
                             <tbody>
                                 <tr v-for="(empleado, index) in lista_empleados" :key="empleado.id">
                                     <td v-text="index+1" class="text-center"></td>
-                                    <td v-text="empleado.nombre" class="text-center"></td>
-                                    <td v-text="empleado.apellido" class="text-center"></td>
+                                    <td v-text="empleado.nombre + ' ' + empleado.apellido" class="text-center"></td>
+                                    <td v-text="empleado.puesto_nombre" class="text-center"></td>
                                     <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
                                     <td v-text="empleado.dpi" class="text-center"></td>
-                                    <td v-text="empleado.direccion" class="text-center"></td>
-                                    <td v-text="empleado.telefono" class="text-center"></td>
                                     <td v-text="empleado.email" class="text-center"></td>
+                                    <td v-text="empleado.direccion" class="text-center"></td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
+                                        <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -43,7 +41,7 @@
         </div>
 
         <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header dark-header">
@@ -58,40 +56,47 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-user-tag"></i> Nombre</label>
-                                    <input type="text" v-model="nombre" class="form-control">
+                                    <input type="text" name="nombre" v-model="nombre" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-user-tag"></i>Apellido</label>
-                                    <input type="text" v-model="apellido" class="form-control">
+                                    <input type="text" name="apellido" v-model="apellido" class="form-control">
                                 </div>
                             </div>
+
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
-                                    <input type="date" v-model="fecha_nacimiento" class="form-control">
+                                    <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
-                                    <input type="text" v-model="dpi" class="form-control">
+                                    <input type="text" name="dpi" v-model="dpi" class="form-control">
                                 </div>
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-at"></i> Email</label>
-                                    <input type="text" v-model="email" class="form-control">
+                                    <input type="text" name="email" v-model="email" class="form-control">
                                 </div>
+
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
-                                    <select class="form-control">
-                                        <option selected></option>
-                                        <option>...</option>
+                                    <select class="form-control" v-model="puesto_id">
+                                        <option value="0" disabled>Seleccione puesto</option>
+                                        <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
+                                    <label for="" class="text-dark"><i class="fas fa-at"></i> Teléfono</label>
+                                    <input type="text" name="telefono" v-model="telefono" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input   type="text" v-model="direccion" class="form-control">
+                                    <input   type="text" name="direccion" v-model="direccion" class="form-control">
                                 </div>
                             </div>
                         </form>
@@ -108,18 +113,23 @@
 </template>
 
 <script>
+import * as alerts from '../functions/alerts.js'
+
 export default {
     data() {
         return {
             id: 0,
-            lista_empleados: [],
             nombre: '',
             apellido: '',
             fecha_nacimiento: '',
             dpi: '',
-            direccion: '',
-            telefono: '',
             email: '',
+            telefono: '',
+            direccion: '',
+            lista_empleados: [],
+
+            puesto_id: 0,
+            lista_puestos: [],
 
             modal: 0,
             titulo: '',
@@ -139,10 +149,18 @@ export default {
                     this.modal = 2
                     this.titulo = "Actualización de empleados"
                     this.opcion = 2
+                    this.puesto_id = data['puesto_id']
                     this.nombre = data['nombre']
+                    this.apellido = data['apellido']
+                    this.fecha_nacimiento = data['fecha_nacimiento']
+                    this.dpi = data['dpi']
+                    this.direccion = data['direccion']
+                    this.telefono = data['telefono']
+                    this.email = data['email']
                     this.id = data['id']
                 }
             }
+            this.comboPuesto()
         },
         closeModal() {
             this.nombre = '',
@@ -172,30 +190,40 @@ export default {
                 alerts.sweetAlert(response.data.status, response.data.message)
             }
         },
+        comboPuesto() {
+            let me = this;
+            let url = '/puestos/combo';
+            axios.get(url).then(function (response) {
+                me.lista_puestos = response.data
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
         dataTable() {
-                let datatable = $('#zero-config').DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $('#zero-config').DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
+            let datatable = $('#zero-config').DataTable()
+            datatable.destroy()
+            this.$nextTick(function() {
+                $('#zero-config').DataTable( {
+                    "oLanguage": {
+                        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                        "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                        "sSearchPlaceholder": "Buscar...",
+                        "sLengthMenu": "Resultado :  _MENU_",
+                    },
+                    "stripeClasses": [],
+                    "lengthMenu": [5, 10, 20, 50],
+                    "pageLength": 5,
+                    drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                } );
+            });
+        },
         showList() {
             let me = this;
             let url = '/empleados';
             axios.get(url).then(function (response) {
-                me.lista_empleado = response.data
+                me.lista_empleados = response.data
                 me.dataTable();
             })
             .catch(function (error) {
@@ -206,6 +234,7 @@ export default {
             let me = this
             let url = '/empleados/store'
             axios.post(url,{
+                'puesto_id': this.puesto_id,
                 'nombre': this.nombre,
                 'apellido': this-apellido,
                 'fecha_nacimiento': this.fecha_nacimiento,

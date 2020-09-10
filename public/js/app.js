@@ -1908,6 +1908,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
 //
 //
 //
@@ -2017,18 +2018,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
-      lista_empleados: [],
       nombre: '',
       apellido: '',
       fecha_nacimiento: '',
       dpi: '',
-      direccion: '',
-      telefono: '',
       email: '',
+      telefono: '',
+      direccion: '',
+      lista_empleados: [],
+      puesto_id: 0,
+      lista_puestos: [],
       modal: 0,
       titulo: '',
       opcion: 0
@@ -2052,17 +2061,26 @@ __webpack_require__.r(__webpack_exports__);
             this.modal = 2;
             this.titulo = "Actualización de empleados";
             this.opcion = 2;
+            this.puesto_id = data['puesto_id'];
             this.nombre = data['nombre'];
+            this.apellido = data['apellido'];
+            this.fecha_nacimiento = data['fecha_nacimiento'];
+            this.dpi = data['dpi'];
+            this.direccion = data['direccion'];
+            this.telefono = data['telefono'];
+            this.email = data['email'];
             this.id = data['id'];
           }
       }
+
+      this.comboPuesto();
     },
     closeModal: function closeModal() {
       this.nombre = '', this.apellido = '', this.fecha_nacimiento = '', this.dpi = '', this.direccion = '', this.telefono = '', this.email = '', this.modal = 0;
       this.titulo = '';
       this.opcion = 0;
       this.errors = [];
-      alerts.sweetAlert('error', 'Operación cancelada');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -2071,10 +2089,19 @@ __webpack_require__.r(__webpack_exports__);
       if (response.data.status == 'success') {
         this.closeModal();
         this.showList();
-        alerts.sweetAlert(response.data.status, response.data.message);
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       } else {
-        alerts.sweetAlert(response.data.status, response.data.message);
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
+    },
+    comboPuesto: function comboPuesto() {
+      var me = this;
+      var url = '/puestos/combo';
+      axios.get(url).then(function (response) {
+        me.lista_puestos = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
@@ -2104,7 +2131,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/empleados';
       axios.get(url).then(function (response) {
-        me.lista_empleado = response.data;
+        me.lista_empleados = response.data;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
@@ -2116,6 +2143,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/empleados/store';
       axios.post(url, {
+        'puesto_id': this.puesto_id,
         'nombre': this.nombre,
         'apellido': this - apellido,
         'fecha_nacimiento': this.fecha_nacimiento,
@@ -2458,7 +2486,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       id: 0,
-      lista_puesto: [],
+      lista_puestos: [],
       nombre: '',
       modal: 0,
       titulo: '',
@@ -2537,7 +2565,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/puestos';
       axios.get(url).then(function (response) {
-        me.lista_puesto = response.data;
+        me.lista_puestos = response.data;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
@@ -21003,12 +21031,18 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.nombre) }
+                            domProps: {
+                              textContent: _vm._s(
+                                empleado.nombre + " " + empleado.apellido
+                              )
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.apellido) }
+                            domProps: {
+                              textContent: _vm._s(empleado.puesto_nombre)
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -21025,26 +21059,22 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
+                            domProps: { textContent: _vm._s(empleado.email) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
                             domProps: {
                               textContent: _vm._s(empleado.direccion)
                             }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.telefono) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.email) }
                           }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             _c(
                               "button",
                               {
-                                staticClass: "btn btn-warning mb-2",
+                                staticClass:
+                                  "btn btn-warning mb-2 mr-2 rounded-circle",
                                 attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
@@ -21052,10 +21082,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v("Actualizar "),
-                                _c("i", { staticClass: "fas fa-sync-alt" })
-                              ]
+                              [_c("i", { staticClass: "fas fa-sync-alt" })]
                             ),
                             _vm._v(" "),
                             _vm._m(1, true)
@@ -21082,7 +21109,7 @@ var render = function() {
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
-        _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
             _c("div", { staticClass: "modal-header dark-header" }, [
               _c("h5", {
@@ -21132,7 +21159,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", name: "nombre" },
                         domProps: { value: _vm.nombre },
                         on: {
                           input: function($event) {
@@ -21158,7 +21185,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", name: "apellido" },
                         domProps: { value: _vm.apellido },
                         on: {
                           input: function($event) {
@@ -21186,7 +21213,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "date" },
+                        attrs: { type: "date", name: "fecha_nacimiento" },
                         domProps: { value: _vm.fecha_nacimiento },
                         on: {
                           input: function($event) {
@@ -21212,7 +21239,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", name: "dpi" },
                         domProps: { value: _vm.dpi },
                         on: {
                           input: function($event) {
@@ -21240,7 +21267,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", name: "email" },
                         domProps: { value: _vm.email },
                         on: {
                           input: function($event) {
@@ -21253,12 +21280,88 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _vm._m(7)
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.puesto_id,
+                              expression: "puesto_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.puesto_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione puesto")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.lista_puestos, function(puesto) {
+                            return _c("option", {
+                              key: puesto.id,
+                              domProps: {
+                                value: puesto.id,
+                                textContent: _vm._s(puesto.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      )
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(8),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.telefono,
+                            expression: "telefono"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "telefono" },
+                        domProps: { value: _vm.telefono },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.telefono = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(9),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -21270,7 +21373,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", name: "direccion" },
                         domProps: { value: _vm.direccion },
                         on: {
                           input: function($event) {
@@ -21288,7 +21391,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(9),
+              _vm._m(10),
               _vm._v(" "),
               _vm.opcion == 1
                 ? _c(
@@ -21342,7 +21445,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user-tag" }),
-          _vm._v(" Apellido")
+          _vm._v(" Puesto")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -21361,11 +21464,6 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user-tag" }),
-          _vm._v(" Puesto")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-street-view" }),
           _vm._v(" Dirección")
         ]),
@@ -21381,10 +21479,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-eliminar mb-2" }, [
-      _vm._v("Eliminar "),
-      _c("i", { staticClass: "fa fa-trash-alt" })
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
+      [_c("i", { staticClass: "fa fa-trash-alt" })]
+    )
   },
   function() {
     var _vm = this
@@ -21435,17 +21534,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-6" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-        _c("i", { staticClass: "fas fa-user-tag" }),
-        _vm._v(" Puesto")
-      ]),
-      _vm._v(" "),
-      _c("select", { staticClass: "form-control" }, [
-        _c("option", { attrs: { selected: "" } }),
-        _vm._v(" "),
-        _c("option", [_vm._v("...")])
-      ])
+    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("i", { staticClass: "fas fa-user-tag" }),
+      _vm._v(" Puesto")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("i", { staticClass: "fas fa-at" }),
+      _vm._v(" Teléfono")
     ])
   },
   function() {
@@ -21934,7 +22034,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.lista_puesto, function(puesto, index) {
+                      _vm._l(_vm.lista_puestos, function(puesto, index) {
                         return _c("tr", { key: puesto.id }, [
                           _c("td", {
                             staticClass: "text-center",
@@ -21955,7 +22055,8 @@ var render = function() {
                             _c(
                               "button",
                               {
-                                staticClass: "btn btn-warning mb-2",
+                                staticClass:
+                                  "btn btn-warning mb-2 mr-2 rounded-circle",
                                 attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
@@ -21963,10 +22064,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v("Actualizar "),
-                                _c("i", { staticClass: "fas fa-sync-alt" })
-                              ]
+                              [_c("i", { staticClass: "fas fa-sync-alt" })]
                             ),
                             _vm._v(" "),
                             _vm._m(1, true)
@@ -22182,10 +22280,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-eliminar mb-2" }, [
-      _vm._v("Eliminar "),
-      _c("i", { staticClass: "fa fa-trash-alt" })
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
+      [_c("i", { staticClass: "fa fa-trash-alt" })]
+    )
   },
   function() {
     var _vm = this
@@ -23329,7 +23428,8 @@ var render = function() {
                             _c(
                               "button",
                               {
-                                staticClass: "btn btn-warning mb-2",
+                                staticClass:
+                                  "btn btn-warning mb-2 mr-2 rounded-circle",
                                 attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
@@ -23340,10 +23440,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v("Actualizar "),
-                                _c("i", { staticClass: "fas fa-sync-alt" })
-                              ]
+                              [_c("i", { staticClass: "fas fa-sync-alt" })]
                             ),
                             _vm._v(" "),
                             _vm._m(5, true)
@@ -23721,10 +23818,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-eliminar mb-2" }, [
-      _vm._v("Eliminar "),
-      _c("i", { staticClass: "fa fa-trash-alt" })
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
+      [_c("i", { staticClass: "fa fa-trash-alt" })]
+    )
   },
   function() {
     var _vm = this
@@ -23854,7 +23952,8 @@ var render = function() {
                             _c(
                               "button",
                               {
-                                staticClass: "btn btn-warning mb-2",
+                                staticClass:
+                                  "btn btn-warning mb-2 mr-2 rounded-circle",
                                 attrs: { type: "button" },
                                 on: {
                                   click: function($event) {
@@ -23865,10 +23964,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v("Actualizar "),
-                                _c("i", { staticClass: "fas fa-sync-alt" })
-                              ]
+                              [_c("i", { staticClass: "fas fa-sync-alt" })]
                             ),
                             _vm._v(" "),
                             _vm._m(5, true)
@@ -24246,10 +24342,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-eliminar mb-2" }, [
-      _vm._v("Eliminar "),
-      _c("i", { staticClass: "fa fa-trash-alt" })
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
+      [_c("i", { staticClass: "fa fa-trash-alt" })]
+    )
   },
   function() {
     var _vm = this
@@ -40179,7 +40276,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -16,13 +16,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(puesto, index) in lista_puesto " :key="puesto.id">
+                                <tr v-for="(puesto, index) in lista_puestos " :key="puesto.id">
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="puesto.codigo" class="text-center"></td>
                                     <td v-text="puesto.nombre" class="text-center"></td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
+                                        <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -72,7 +72,7 @@
         data() {
             return {
                 id: 0,
-                lista_puesto: [],
+                lista_puestos: [],
                 nombre: '',
 
                 modal: 0,
@@ -144,7 +144,7 @@
                 let me = this;
                 let url = '/puestos';
                 axios.get(url).then(function (response) {
-                    me.lista_puesto = response.data
+                    me.lista_puestos = response.data
                     me.dataTable();
                 })
                 .catch(function (error) {

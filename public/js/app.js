@@ -23848,7 +23848,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "" } }, [
+    return _c("label", [
       _vm._v("Marcar "),
       _c("i", { staticClass: "fas fa-check" }),
       _vm._v("  para...")
@@ -24372,7 +24372,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "" } }, [
+    return _c("label", [
       _vm._v("Marcar "),
       _c("i", { staticClass: "fas fa-check" }),
       _vm._v("  para...")
@@ -40287,7 +40287,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -55,45 +55,45 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-user-tag"></i> Nombre</label>
+                                    <label class="text-dark"><i class="fas fa-user-tag"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-user-tag"></i>Apellido</label>
+                                    <label class="text-dark"><i class="fas fa-user-tag"></i>Apellido</label>
                                     <input type="text" name="apellido" v-model="apellido" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
                                     <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
+                                    <label class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
                                     <input type="text" name="dpi" v-model="dpi" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
+                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
                                     <input   type="text" name="direccion" v-model="direccion" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-at"></i> Teléfono</label>
+                                    <label class="text-dark"><i class="fas fa-at"></i> Teléfono</label>
                                     <input type="text" name="telefono" v-model="telefono" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-at"></i> Email</label>
+                                    <label class="text-dark"><i class="fas fa-at"></i> Email</label>
                                     <input type="text" name="email" v-model="email" class="form-control">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
+                                    <label class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
                                     <select class="form-control" v-model="puesto_id">
                                         <option value="0" disabled>Seleccione puesto</option>
                                         <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>

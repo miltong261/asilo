@@ -2023,21 +2023,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
+      lista_puestos: [],
+      puesto_id: 0,
+      lista_empleados: [],
       nombre: '',
       apellido: '',
       fecha_nacimiento: '',
       dpi: '',
-      email: '',
-      telefono: '',
       direccion: '',
-      lista_empleados: [],
-      puesto_id: 0,
-      lista_puestos: [],
+      telefono: '',
+      email: '',
       modal: 0,
       titulo: '',
       opcion: 0
@@ -2145,7 +2146,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(url, {
         'puesto_id': this.puesto_id,
         'nombre': this.nombre,
-        'apellido': this - apellido,
+        'apellido': this.apellido,
         'fecha_nacimiento': this.fecha_nacimiento,
         'dpi': this.dpi,
         'direccion': this.direccion,
@@ -21262,6 +21263,60 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
+                            value: _vm.direccion,
+                            expression: "direccion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "direccion" },
+                        domProps: { value: _vm.direccion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.direccion = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.telefono,
+                            expression: "telefono"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "telefono" },
+                        domProps: { value: _vm.telefono },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.telefono = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
                             value: _vm.email,
                             expression: "email"
                           }
@@ -21281,7 +21336,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(7),
+                      _vm._m(9),
                       _vm._v(" "),
                       _c(
                         "select",
@@ -21331,60 +21386,6 @@ var render = function() {
                         2
                       )
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(8),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.telefono,
-                            expression: "telefono"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "telefono" },
-                        domProps: { value: _vm.telefono },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.telefono = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(9),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.direccion,
-                            expression: "direccion"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "direccion" },
-                        domProps: { value: _vm.direccion },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.direccion = $event.target.value
-                          }
-                        }
-                      })
-                    ])
                   ])
                 ]
               )
@@ -21398,7 +21399,12 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-guardar",
-                      attrs: { type: "button" }
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.store()
+                        }
+                      }
                     },
                     [
                       _vm._v("Guardar "),
@@ -21412,7 +21418,12 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-warning",
-                      attrs: { type: "button" }
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.update()
+                        }
+                      }
                     },
                     [
                       _vm._v("Actualizar "),
@@ -21526,17 +21537,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-at" }),
-      _vm._v(" Email")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-user-tag" }),
-      _vm._v(" Puesto")
+      _c("i", { staticClass: "fas fa-street-view" }),
+      _vm._v(" Dirección")
     ])
   },
   function() {
@@ -21553,8 +21555,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-street-view" }),
-      _vm._v(" Dirección")
+      _c("i", { staticClass: "fas fa-at" }),
+      _vm._v(" Email")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("i", { staticClass: "fas fa-user-tag" }),
+      _vm._v(" Puesto")
     ])
   },
   function() {

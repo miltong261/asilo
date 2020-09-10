@@ -74,6 +74,18 @@
                                     <input type="text" name="dpi" v-model="dpi" class="form-control">
                                 </div>
                             </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="" class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
+                                    <input   type="text" name="direccion" v-model="direccion" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="" class="text-dark"><i class="fas fa-at"></i> Teléfono</label>
+                                    <input type="text" name="telefono" v-model="telefono" class="form-control">
+                                </div>
+                            </div>
+
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="" class="text-dark"><i class="fas fa-at"></i> Email</label>
@@ -88,23 +100,12 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-at"></i> Teléfono</label>
-                                    <input type="text" name="telefono" v-model="telefono" class="form-control">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="" class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input   type="text" name="direccion" v-model="direccion" class="form-control">
-                                </div>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cerrar">Cancelar <i class="far fa-times-circle"></i></button>
-                        <button type="button" v-if="opcion==1" class="btn btn-guardar"  >Guardar <i class="far fa-check-circle"></i></button>
-                        <button type="button" v-if="opcion==2" class="btn btn-warning" >Actualizar <i class="fas fa-sync-alt"></i></button>
+                        <button type="button" v-if="opcion==1" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
+                        <button type="button" v-if="opcion==2" class="btn btn-warning" @click="update()">Actualizar <i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
             </div>
@@ -119,17 +120,19 @@ export default {
     data() {
         return {
             id: 0,
+
+            lista_puestos: [],
+            puesto_id: 0,
+
+            lista_empleados: [],
             nombre: '',
             apellido: '',
             fecha_nacimiento: '',
             dpi: '',
-            email: '',
-            telefono: '',
             direccion: '',
-            lista_empleados: [],
+            telefono: '',
+            email: '',
 
-            puesto_id: 0,
-            lista_puestos: [],
 
             modal: 0,
             titulo: '',
@@ -236,7 +239,7 @@ export default {
             axios.post(url,{
                 'puesto_id': this.puesto_id,
                 'nombre': this.nombre,
-                'apellido': this-apellido,
+                'apellido': this.apellido,
                 'fecha_nacimiento': this.fecha_nacimiento,
                 'dpi': this.dpi,
                 'direccion': this.direccion,

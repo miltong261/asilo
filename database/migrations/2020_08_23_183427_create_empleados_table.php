@@ -24,9 +24,9 @@ class CreateEmpleadosTable extends Migration
             $table->string('nombre', 35);
             $table->string('apellido', 35);
             $table->date('fecha_nacimiento');
-            $table->integer('dpi', false, true)->length(13);
+            $table->integer('dpi');
             $table->string('direccion', 70);
-            $table->integer('telefono', false, true)->length(8)->nullable();
+            $table->integer('telefono')->nullable();
             $table->string('email')->unique()->nullable();
             $table->boolean('estado')->default(1);
 

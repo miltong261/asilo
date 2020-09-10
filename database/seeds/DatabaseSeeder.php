@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoProductoSeeder::class);
         $this->call(UnidadMedidaSeeder::class);
         $this->call(PuestoSeeder::class);
-        $this->call(EmpleadoSeeder::class);
+        $this->call(EmpleadoPuestoSeeder::class);
     }
 }

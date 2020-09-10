@@ -3,7 +3,7 @@
 use App\Models\Empleado;
 use Illuminate\Database\Seeder;
 
-class EmpleadoSeeder extends Seeder
+class EmpleadoPuestoSeeder extends Seeder
 {
     /**
      * Run the database seeds.

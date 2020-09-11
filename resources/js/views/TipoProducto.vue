@@ -71,7 +71,7 @@
                                 </div>
                             </div>
 
-                            <label for="">Marcar <i class="fas fa-check"></i>  para...</label>
+                            <label>Marcar <i class="fas fa-check"></i>  para...</label>
                             <fieldset class="border border-light rounded p-1">
                                 <div class="n-chk text-center">
                                     <label class="new-control new-checkbox checkbox-outline-check">

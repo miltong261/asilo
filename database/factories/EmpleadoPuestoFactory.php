@@ -18,7 +18,7 @@ $factory->define(Empleado::class, function (Faker $faker) {
         'dpi' => '1234',
         'direccion' => $faker->address,
         'telefono' => '1234',
-        'email' => $faker->safeEmail,
+        // 'email' => $faker->safeEmail,
         'estado' => 1
     ];
 });

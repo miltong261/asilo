@@ -9,6 +9,7 @@ export default new Router({
             path: '/example',
             component: require('../views/Example').default
         },
+        // Rutas de configuración
         {
             path: '/categoria',
             component: require('../views/TipoProducto').default
@@ -17,17 +18,33 @@ export default new Router({
             path: '/unidad_medida',
             component: require('../views/UnidadMedida').default
         },
+        // Rutas de financiero
+        {
+            path: '/movimientos',
+            component: require('../views/MovimientoCaja').default
+        },
+        {
+            path: '/caja',
+            component: require('../views/Caja').default
+        },
+        // Rutas de personal
         {
             path: '/puestos',
             component: require('../views/Puestos').default
         },
         {
+            path: '/empleados',
+            component: require('../views/Empleados').default
+        },
+        // Rutas de hogar
+        {
             path: '/residentes',
             component: require('../views/Residentes').default
         },
+        // Rutas de inventario
         {
-            path: '/unidad_medida',
-            component: require('../views/UnidadMedida').default
+            path: '/ajuste_producto',
+            component: require('../views/AjusteProducto').default
         },
         {
             path: '/productos',
@@ -37,9 +54,24 @@ export default new Router({
             path: '/medicamentos',
             component: require('../views/Medicamentos').default
         },
+        //Ruta de entradas
         {
-            path: '/empleados',
-            component: require('../views/Empleados').default
+            path: '/compras',
+            component: require('../views/Compras').default
+        },
+        // Ruta de salidas
+        {
+            path: '/salidas',
+            component: require('../views/Salidas').default
+        },
+        // Ruta de donaciones
+        {
+            path: '/donantes',
+            component: require('../views/Donantes').default
+        },
+        {
+            path: '/donaciones',
+            component: require('../views/Donaciones').default
         }
     ],
     mode: 'history'

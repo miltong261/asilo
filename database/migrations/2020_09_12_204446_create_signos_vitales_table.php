@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAjusteProductoTable extends Migration
+class CreateSignosVitalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAjusteProductoTable extends Migration
      */
     public function up()
     {
-        Schema::create('ajuste_producto', function (Blueprint $table) {
+        Schema::create('signos_vitales', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             // $table->unsignedBigInteger('user_id');
@@ -21,16 +21,17 @@ class CreateAjusteProductoTable extends Migration
             //     ->references('id')
             //     ->on('users');
 
-            $table->unsignedBigInteger('producto_id');
-            $table->foreign('producto_id')
+            $table->unsignedBigInteger('residente_id');
+            $table->foreign('residente_id')
                 ->references('id')
-                ->on('productos');
+                ->on('residentes');
 
-            $table->string('codigo', 15);
-            $table->integer('cantidad');
-            $table->boolean('entrada')->nullable();
-            $table->boolean('salida')->nullable();
-            $table->text('observacion')->nullable();
+            $table->date('fecha_registro');
+            $table->string('tiempo')->nullable(); // Día, tarde y noche
+            $table->string('pulso', 15);
+            $table->string('temperatura', 15);
+            $table->string('presion', 35);
+            $table->decimal('peso', 5, 2);
 
             $table->timestamps();
         });
@@ -43,6 +44,6 @@ class CreateAjusteProductoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ajuste_producto');
+        Schema::dropIfExists('signos_vitales');
     }
 }

@@ -21,8 +21,9 @@ class CreateCajaTable extends Migration
                 ->references('id')
                 ->on('movimiento_caja');
 
-            $table->decimal('saldo', 8, 2);
+            $table->date('fecha_registro');
             $table->decimal('monto', 8, 2);
+            $table->decimal('saldo', 8, 2);
             $table->text('observacion')->nullable();
 
             $table->timestamps();

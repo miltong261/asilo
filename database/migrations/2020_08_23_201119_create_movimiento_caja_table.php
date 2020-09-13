@@ -16,9 +16,11 @@ class CreateMovimientoCajaTable extends Migration
         Schema::create('movimiento_caja', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('codigo', 15);
             $table->string('nombre', 35);
             $table->boolean('entrada')->nullable();
             $table->boolean('salida')->nullable();
+            $table->boolean('estado')->default(1);
 
             $table->timestamps();
         });

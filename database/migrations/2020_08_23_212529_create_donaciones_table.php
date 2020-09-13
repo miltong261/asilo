@@ -29,7 +29,6 @@ class CreateDonacionesTable extends Migration
             $table->date('fecha_registro');
             $table->date('fecha_donacion');
             $table->date('fecha_anulacion')->nullable();
-            $table->decimal('total', 8, 2);
             $table->boolean('estado');
 
             $table->timestamps();

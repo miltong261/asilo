@@ -17,8 +17,8 @@ class CreateDonantesTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('nombre', 70)->nullable();
-            $table->text('direccion')->nullable();
-            $table->integer('telefono', false, true)->length(8)->nullable();
+            $table->string('direccion', 70)->nullable();
+            $table->integer('telefono')->nullable();
 
             $table->timestamps();
         });

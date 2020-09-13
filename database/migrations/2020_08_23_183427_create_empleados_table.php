@@ -27,7 +27,6 @@ class CreateEmpleadosTable extends Migration
             $table->integer('dpi');
             $table->string('direccion', 70);
             $table->integer('telefono')->nullable();
-            $table->string('email')->unique()->nullable();
             $table->boolean('estado')->default(1);
 
             $table->timestamps();

@@ -33,9 +33,8 @@ class CreateProductosTable extends Migration
 
             $table->string('codigo', 15);
             $table->string('nombre', 35);
-            $table->integer('existencia_inicial');
             $table->text('observacion')->nullable();
-            $table->string('asignacion', 15); // Medicamento o producto
+            $table->boolean('asignacion'); // 0 -> Medicamento o 1 -> producto
             $table->date('fecha_registro');
             $table->date('fecha_vencimiento');
             $table->date('fecha_ultima_compra')->nullable();

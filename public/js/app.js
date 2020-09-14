@@ -21655,7 +21655,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-tag" }),
       _vm._v(" Nombre")
     ])
@@ -21664,7 +21664,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-tag" }),
       _vm._v("Apellido")
     ])
@@ -21673,7 +21673,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de nacimiento")
     ])
@@ -21682,7 +21682,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-id-card" }),
       _vm._v(" DPI")
     ])
@@ -21691,7 +21691,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
@@ -21700,7 +21700,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-at" }),
       _vm._v(" Teléfono")
     ])
@@ -21709,7 +21709,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-at" }),
       _vm._v(" Email")
     ])
@@ -21718,7 +21718,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-tag" }),
       _vm._v(" Puesto")
     ])
@@ -23268,7 +23268,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-check" }),
       _vm._v(" Nombre")
     ])
@@ -23277,7 +23277,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-check" }),
       _vm._v(" Apellido")
     ])
@@ -23286,7 +23286,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de nacimiento")
     ])
@@ -23296,7 +23296,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("label", { staticClass: "text-dark" }, [
         _c("i", { staticClass: "fas fa-street-view" }),
         _vm._v(" Lugar de nacimiento")
       ]),
@@ -23313,9 +23313,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-        _vm._v("-")
-      ]),
+      _c("label", { staticClass: "text-dark" }, [_vm._v("-")]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -23328,7 +23326,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-id-card" }),
       _vm._v(" DPI")
     ])
@@ -23338,7 +23336,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("label", { staticClass: "text-dark" }, [
         _c("i", { staticClass: "fas fa-street-view" }),
         _vm._v(" Extendido en:")
       ]),
@@ -23355,9 +23353,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-        _vm._v("-")
-      ]),
+      _c("label", { staticClass: "text-dark" }, [_vm._v("-")]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -23370,7 +23366,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-male" }),
       _vm._v(" Familiar")
     ])
@@ -23379,7 +23375,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
@@ -23388,7 +23384,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-phone-alt" }),
       _vm._v(" Teléfono")
     ])
@@ -23397,7 +23393,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-male" }),
       _vm._v(" Persona referida")
     ])
@@ -23406,7 +23402,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
@@ -23415,7 +23411,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-phone-alt" }),
       _vm._v(" Teléfono")
     ])
@@ -23424,7 +23420,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-chalkboard-teacher" }),
       _vm._v(" Motivo de llegada")
     ])
@@ -23433,7 +23429,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-thermometer" }),
       _vm._v(" Estado del residente")
     ])
@@ -23442,7 +23438,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-notes-medical" }),
       _vm._v(" Historial")
     ])
@@ -23451,7 +23447,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-heartbeat" }),
       _vm._v(" Pulso")
     ])
@@ -23460,7 +23456,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-thermometer-three-quarters" }),
       _vm._v(" Temperatura")
     ])
@@ -23469,7 +23465,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-stethoscope" }),
       _vm._v(" Presión arterial")
     ])
@@ -23478,7 +23474,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-weight" }),
       _vm._v(" Peso")
     ])
@@ -23487,7 +23483,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-danger", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-danger" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observaciones")
     ])
@@ -40901,7 +40897,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -32,18 +32,18 @@ class TipoProductoController extends Controller
     public function comboboxMedicamento()
     {
         return response()->json($this->tipoProductoRepository->listarCombo(
-            ['id', 'nombre']
-            , 'medicamento'
-            , 'nombre'
+            ['id', 'nombre'],
+            'medicamento',
+            'nombre'
         ));
     }
 
     public function comboboxProducto()
     {
         return response()->json($this->tipoProductoRepository->listarCombo(
-            ['id', 'nombre']
-            , 'producto'
-            , 'nombre'
+            ['id', 'nombre'],
+            'producto',
+            'nombre'
         ));
     }
 
@@ -58,26 +58,21 @@ class TipoProductoController extends Controller
         try {
             DB::beginTransaction();
 
-            $guardar = $this->tipoProductoRepository->storeWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ])
+            $guardar = $this->tipoProductoRepository->checkboxMedicamentoProducto('guardar', $request->only(
+                'nombre', 'medicamento', 'producto')
                 + ['codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode()]
+                , null
             );
 
-            if ($guardar) {
+            if ($guardar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la categoría ' . $request->nombre
                 ]);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
-                ]);
-            }
-
+            } else
+                return $guardar;
         } catch (\Throwable $th) {
             DB::rollback();
         }
@@ -94,25 +89,20 @@ class TipoProductoController extends Controller
         try {
             DB::beginTransaction();
 
-            $actualizar = $this->tipoProductoRepository->updateWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ]), $request->id
+            $actualizar = $this->tipoProductoRepository->checkboxMedicamentoProducto('actualizar', $request->only(
+                'nombre', 'medicamento', 'producto'),
+                $request->id
             );
 
-            if ($actualizar) {
+            if ($actualizar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la categoría ' . $request->nombre
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
                 ]);
-            }
-
+            } else
+                return $actualizar;
         } catch (\Throwable $th) {
             DB::rollBack();
         }

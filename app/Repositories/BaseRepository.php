@@ -27,40 +27,60 @@ abstract class BaseRepository
         return $object;
     }
 
-    /* Método para listar combobox */
+    /** Método para cambiar de estado */
+    public function estado($action, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+
+        if ($action == 'activar')
+            $object->estado = 1;
+        elseif ($action == 'desactivar')
+            $object->estado = 0;
+
+        return $object->save();
+    }
+
+    /** Método para listar combobox
+     *  El whereField es para listar las categorías y unidad de medida según si es medicamento o producto
+     */
     public function listarCombo(array $fields, $whereField, $orderField)
     {
         if ($whereField == null) {
             return $this->getModel()
             ->select($fields)
+            ->where('estado', '1')
             ->orderBy($orderField, 'asc')
             ->get();
-
         }
         else {
             return $this->getModel()
             ->select($fields)
             ->where($whereField, '1')
+            ->where('estado', '1')
             ->orderby($orderField, 'asc')
             ->get();
         }
     }
 
-    /* Método para guardar (unidad de medida y tipo de producto) */
-    public function storeWithMedicamentoProducto(array $request)
+    /* Método para guardar o actualizar (unidad de medida y tipo de producto) */
+    public function checkboxMedicamentoProducto($action, array $request, $id)
     {
-        if ($request['medicamento'] == true || $request['producto'] == true)
-            return $this->getModel()->create($request);
-    }
+        if ($request['medicamento'] == false && $request['producto'] == false) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Debe marcar almenos una opción'
+            ]);
+        } else {
+            if ($action == 'guardar') {
+                $this->getModel()->create($request);
 
-    /* Método para actualizar (unidad de medida y tipo de producto) */
-    public function updateWithMedicamentoProducto(arrar $request, $id)
-    {
-        if ($request['medicamento'] == true || $request['producto'] == true){
-            $object = $this->getModel()->findOrFail($id);
-            $object->update($request);
+                return 'exitoso';
+            } elseif ($action == 'actualizar') {
+                $object = $this->getModel()->findOrFail($id);
+                $object->update($request);
 
-            return $object;
+                return 'exitoso';
+            }
         }
     }
 

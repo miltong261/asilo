@@ -32,18 +32,18 @@ class UnidadMedidaController extends Controller
     public function comboboxMedicamento()
     {
         return response()->json($this->unidadMedidaRepository->listarCombo(
-            ['id', 'nombre']
-            , 'medicamento'
-            , 'nombre'
+            ['id', 'nombre'],
+            'medicamento',
+            'nombre'
         ));
     }
 
     public function comboboxProducto()
     {
         return response()->json($this->unidadMedidaRepository->listarCombo(
-            ['id', 'nombre']
-            , 'producto'
-            , 'nombre'
+            ['id', 'nombre'],
+            'producto',
+            'nombre'
         ));
     }
 
@@ -58,27 +58,24 @@ class UnidadMedidaController extends Controller
         try {
             DB::beginTransaction();
 
-            $guardar = $this->unidadMedidaRepository->storeWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ])
-                + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()]
+            $guardar = $this->unidadMedidaRepository->checkboxMedicamentoProducto('guardar', $request->only(
+                'nombre', 'medicamento', 'producto')
+                + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()],
+                null
             );
 
-            if ($guardar) {
+            if ($guardar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la unidad de medida ' . $request->nombre
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
                 ]);
-            }
+            } else
+                return $guardar;
         } catch (\Throwable $th) {
             DB::rollBack();
+            return $th;
         }
 
     }
@@ -95,25 +92,21 @@ class UnidadMedidaController extends Controller
         try {
             DB::beginTransaction();
 
-            $actualizar = $this->unidadMedidaRepository->updateWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ]), $request->id
+            $actualizar = $this->unidadMedidaRepository->checkboxMedicamentoProducto('actualizar', $request->only(
+                'nombre', 'medicamento', 'producto'),
+                $request->id
             );
 
-            if ($actualizar) {
+            if ($actualizar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la unidad de medida ' . $request->nombre
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
                 ]);
             }
-
+            else
+                return $actualizar;
         } catch (\Throwable $th) {
             DB::rollBack();
         }

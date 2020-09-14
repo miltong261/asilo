@@ -18,8 +18,8 @@ class CreateMovimientoCajaTable extends Migration
 
             $table->string('codigo', 15);
             $table->string('nombre', 35);
-            $table->boolean('entrada')->nullable();
-            $table->boolean('salida')->nullable();
+            $table->boolean('entrada');
+            $table->boolean('salida');
             $table->boolean('estado')->default(1);
 
             $table->timestamps();

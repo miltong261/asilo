@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\MovimientoCaja\MovimientoCajaRepository;
+
+use Illuminate\Support\Facades\DB;
 
 class MovimientoCajaController extends Controller
 {
+    protected $movimientoRepository;
+
+    public function __construct(MovimientoCajaRepository $movimientoRepository)
+    {
+        $this->movimientoRepository = $movimientoRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +23,9 @@ class MovimientoCajaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->movimientoRepository->index(
+            ['id', 'codigo', 'nombre', 'entrada', 'salida']
+        ));
     }
 
     /**
@@ -35,7 +36,27 @@ class MovimientoCajaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $guardar = $this->movimientoRepository->storeMovimiento($request->only([
+                'nombre', 'entrada', 'salida'
+                ])
+                + ['codigo' => 'MOVIMIENTO-' . $this->movimientoRepository->generateCode()]
+            );
+
+            if ($guardar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se guardó correctamente el movimiento ' .$request->nombre
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
     }
 
     /**
@@ -45,8 +66,27 @@ class MovimientoCajaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $actualizar = $this->movimientoRepository->updateMovimiento($request->only([
+                'nombre', 'entrada', 'salida'
+                ]), $request->id
+            );
+
+            if ($actualizar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se actualizó correctamente el movimiento ' .$request->nombre
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
     }
 }

@@ -51,16 +51,27 @@ abstract class BaseRepository
     {
         if ($request['medicamento'] == true || $request['producto'] == true)
             return $this->getModel()->create($request);
+        else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Debe marcar almenos una opción'
+            ]);
+        }
     }
 
     /* Método para actualizar (unidad de medida y tipo de producto) */
-    public function updateWithMedicamentoProducto(arrar $request, $id)
+    public function updateWithMedicamentoProducto(array $request, $id)
     {
         if ($request['medicamento'] == true || $request['producto'] == true){
             $object = $this->getModel()->findOrFail($id);
             $object->update($request);
 
             return $object;
+        }else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Debe marcar almenos una opción'
+            ]);
         }
     }
 

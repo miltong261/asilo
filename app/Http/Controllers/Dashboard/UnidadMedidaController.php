@@ -71,11 +71,6 @@ class UnidadMedidaController extends Controller
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la unidad de medida ' . $request->nombre
                 ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
-                ]);
             }
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -107,13 +102,7 @@ class UnidadMedidaController extends Controller
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la unidad de medida ' . $request->nombre
                 ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
-                ]);
             }
-
         } catch (\Throwable $th) {
             DB::rollBack();
         }

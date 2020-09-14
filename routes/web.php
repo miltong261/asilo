@@ -55,14 +55,14 @@ Route::group(['prefix' => 'unidad_medida'], function () {
 Route::group(['prefix' => 'movimientos'], function () {
     Route::get('/', 'Dashboard\MovimientoCajaController@index');
     Route::get('/combo', 'Dashboard\MovimientoCajaController@combobox');
-    Route::post('/store', 'Dashboard\MovimientoCajaController@create');
+    Route::post('/store', 'Dashboard\MovimientoCajaController@store');
     Route::put('/update', 'Dashboard\MovimientoCajaController@update');
 });
 
 // Caja
 Route::group(['prefix' => 'caja'], function () {
     Route::get('/', 'Dashboard\CajaController@index');
-    Route::post('/store', 'Dashboard\CajaController@create');
+    Route::post('/store', 'Dashboard\CajaController@store');
     Route::put('/update', 'Dashboard\CajaController@update');
 });
 

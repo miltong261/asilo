@@ -71,13 +71,7 @@ class TipoProductoController extends Controller
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la categoría ' . $request->nombre
                 ]);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
-                ]);
             }
-
         } catch (\Throwable $th) {
             DB::rollback();
         }
@@ -106,15 +100,10 @@ class TipoProductoController extends Controller
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la categoría ' . $request->nombre
                 ], 200);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Debe marcar almenos una opción'
-                ]);
             }
-
         } catch (\Throwable $th) {
             DB::rollBack();
+            return $th;
         }
 
     }

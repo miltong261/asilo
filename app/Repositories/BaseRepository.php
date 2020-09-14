@@ -40,12 +40,15 @@ abstract class BaseRepository
         return $object->save();
     }
 
-    /* Método para listar combobox */
+    /** Método para listar combobox
+     *  El whereField es para listar las categorías y unidad de medida según si es medicamento o producto
+     */
     public function listarCombo(array $fields, $whereField, $orderField)
     {
         if ($whereField == null) {
             return $this->getModel()
             ->select($fields)
+            ->where('estado', '1')
             ->orderBy($orderField, 'asc')
             ->get();
 
@@ -54,6 +57,7 @@ abstract class BaseRepository
             return $this->getModel()
             ->select($fields)
             ->where($whereField, '1')
+            ->where('estado', '1')
             ->orderby($orderField, 'asc')
             ->get();
         }

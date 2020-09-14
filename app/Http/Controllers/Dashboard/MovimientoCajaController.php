@@ -29,6 +29,15 @@ class MovimientoCajaController extends Controller
         ));
     }
 
+    public function combobox()
+    {
+        return response()->json($this->movimientoRepository->listarCombo(
+            ['id', 'nombre'],
+            null,
+            'nombre'
+        ));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

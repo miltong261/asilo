@@ -32,18 +32,18 @@ class TipoProductoController extends Controller
     public function comboboxMedicamento()
     {
         return response()->json($this->tipoProductoRepository->listarCombo(
-            ['id', 'nombre']
-            , 'medicamento'
-            , 'nombre'
+            ['id', 'nombre'],
+            'medicamento',
+            'nombre'
         ));
     }
 
     public function comboboxProducto()
     {
         return response()->json($this->tipoProductoRepository->listarCombo(
-            ['id', 'nombre']
-            , 'producto'
-            , 'nombre'
+            ['id', 'nombre'],
+            'producto',
+            'nombre'
         ));
     }
 
@@ -90,8 +90,8 @@ class TipoProductoController extends Controller
             DB::beginTransaction();
 
             $actualizar = $this->tipoProductoRepository->checkboxMedicamentoProducto('actualizar', $request->only(
-                'nombre', 'medicamento', 'producto')
-                , $request->id
+                'nombre', 'medicamento', 'producto'),
+                $request->id
             );
 
             if ($actualizar == 'exitoso') {

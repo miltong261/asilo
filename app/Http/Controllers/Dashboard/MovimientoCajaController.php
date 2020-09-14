@@ -51,8 +51,8 @@ class MovimientoCajaController extends Controller
 
             $guardar = $this->movimientoRepository->movimiento('guardar', $request->only(
                 'nombre', 'entrada', 'salida')
-                + ['codigo' => 'MOVIMIENTO-' . $this->movimientoRepository->generateCode()]
-                , null
+                + ['codigo' => 'MOVIMIENTO-' . $this->movimientoRepository->generateCode()],
+                null
             );
 
             if ($guardar == 'exitoso') {
@@ -83,8 +83,8 @@ class MovimientoCajaController extends Controller
             DB::beginTransaction();
 
             $actualizar = $this->movimientoRepository->movimiento('actualizar', $request->only(
-                'nombre', 'entrada', 'salida')
-                , $request->id
+                'nombre', 'entrada', 'salida'),
+                $request->id
             );
 
             if ($actualizar == 'exitoso') {

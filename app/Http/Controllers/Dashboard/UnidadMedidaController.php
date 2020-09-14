@@ -32,18 +32,18 @@ class UnidadMedidaController extends Controller
     public function comboboxMedicamento()
     {
         return response()->json($this->unidadMedidaRepository->listarCombo(
-            ['id', 'nombre']
-            , 'medicamento'
-            , 'nombre'
+            ['id', 'nombre'],
+            'medicamento',
+            'nombre'
         ));
     }
 
     public function comboboxProducto()
     {
         return response()->json($this->unidadMedidaRepository->listarCombo(
-            ['id', 'nombre']
-            , 'producto'
-            , 'nombre'
+            ['id', 'nombre'],
+            'producto',
+            'nombre'
         ));
     }
 
@@ -60,8 +60,8 @@ class UnidadMedidaController extends Controller
 
             $guardar = $this->unidadMedidaRepository->checkboxMedicamentoProducto('guardar', $request->only(
                 'nombre', 'medicamento', 'producto')
-                + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()]
-                , null
+                + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()],
+                null
             );
 
             if ($guardar == 'exitoso') {
@@ -93,8 +93,8 @@ class UnidadMedidaController extends Controller
             DB::beginTransaction();
 
             $actualizar = $this->unidadMedidaRepository->checkboxMedicamentoProducto('actualizar', $request->only(
-                'nombre', 'medicamento', 'producto')
-                , $request->id
+                'nombre', 'medicamento', 'producto'),
+                $request->id
             );
 
             if ($actualizar == 'exitoso') {

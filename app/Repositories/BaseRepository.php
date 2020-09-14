@@ -51,7 +51,6 @@ abstract class BaseRepository
             ->where('estado', '1')
             ->orderBy($orderField, 'asc')
             ->get();
-
         }
         else {
             return $this->getModel()

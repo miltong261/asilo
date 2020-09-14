@@ -31,7 +31,9 @@ class PuestoController extends Controller
     public function combobox()
     {
         return response()->json($this->puestoRepository->listarCombo(
-            ['id', 'nombre'], null, 'nombre'
+            ['id', 'nombre'],
+            null,
+            'nombre'
         ));
     }
 
@@ -47,8 +49,7 @@ class PuestoController extends Controller
             DB::beginTransaction();
 
             $this->puestoRepository->store($request->only(
-                'nombre'
-                )
+                'nombre')
                 + ['codigo' => 'PUESTO-' . $this->puestoRepository->generateCode()]
             );
 
@@ -57,7 +58,7 @@ class PuestoController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Se guardó correctamente el puesto ' . $request->nombre
-            ], 200);
+            ]);
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -77,8 +78,8 @@ class PuestoController extends Controller
             DB::beginTransaction();
 
             $this->puestoRepository->update($request->only(
-                'nombre'
-            ), $request->id);
+                'nombre'),
+                $request->id);
 
             DB::commit();
 

@@ -129,8 +129,8 @@ Route::group(['prefix' => 'salidas'], function () {
 
 Route::group(['prefix' => 'donantes'], function () {
     Route::get('/', 'Dashboard\DonanteController@index');
-    Route::get('/combo', 'Dasbhoard\Donantes@combobox');
-    Route::post('/store', 'Dashboard\DonanteController@create');
+    Route::get('/combo', 'Dashboard\DonanteController@combobox');
+    Route::post('/store', 'Dashboard\DonanteController@store');
     Route::put('/update', 'Dashboard\DonanteController@update');
 });
 

@@ -14,7 +14,7 @@
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
                                     <th class="text-center"><i class="fas fa-id-card"></i> Dpi</th>
-                                    <th class="text-center"><i class="fas fa-at"></i> Email</th>
+                                    <th class="text-center"><i class="fas fa-phone-alt"></i> Teléfono</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -26,7 +26,7 @@
                                     <td v-text="empleado.puesto_nombre" class="text-center"></td>
                                     <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
                                     <td v-text="empleado.dpi" class="text-center"></td>
-                                    <td v-text="empleado.email" class="text-center"></td>
+                                    <td v-text="empleado.telefono" class="text-center"></td>
                                     <td v-text="empleado.direccion" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
@@ -77,27 +77,22 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input   type="text" name="direccion" v-model="direccion" class="form-control">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-at"></i> Teléfono</label>
+                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
                                     <input type="text" name="telefono" v-model="telefono" class="form-control">
                                 </div>
-                            </div>
-
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-at"></i> Email</label>
-                                    <input type="text" name="email" v-model="email" class="form-control">
-                                </div>
-
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
                                     <select class="form-control" v-model="puesto_id">
                                         <option value="0" disabled>Seleccione puesto</option>
                                         <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
+                                    <input   type="text" name="direccion" v-model="direccion" class="form-control">
                                 </div>
                             </div>
                         </form>
@@ -131,7 +126,6 @@ export default {
             dpi: '',
             direccion: '',
             telefono: '',
-            email: '',
 
 
             modal: 0,
@@ -159,7 +153,6 @@ export default {
                     this.dpi = data['dpi']
                     this.direccion = data['direccion']
                     this.telefono = data['telefono']
-                    this.email = data['email']
                     this.id = data['id']
                 }
             }
@@ -172,7 +165,6 @@ export default {
             this.dpi = '',
             this.direccion = '',
             this.telefono = '',
-            this.email = '',
 
             this.modal = 0
             this.titulo = ''
@@ -244,8 +236,26 @@ export default {
                 'dpi': this.dpi,
                 'direccion': this.direccion,
                 'telefono': this.telefono,
-                'email': this.email,
             }).then(function (response) {
+                me.backendResponse(response)
+            }).catch(error =>{
+                if(error.response.status == 422)
+                    this.errors = error.response.data.errors
+            })
+        },
+        update(){
+            let me = this
+            let url = 'empleados/update'
+            axios.put(url,{
+                'puesto_id': this.puesto_id,
+                'nombre': this.nombre,
+                'apellido': this.apellido,
+                'fecha_nacimiento': this.fecha_nacimiento,
+                'dpi': this.dpi,
+                'direccion': this.direccion,
+                'telefono': this.telefono,
+                'id': this.id
+            }).then(function (response){
                 me.backendResponse(response)
             }).catch(error =>{
                 if(error.response.status == 422)

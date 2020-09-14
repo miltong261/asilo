@@ -2019,11 +2019,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2038,7 +2033,6 @@ __webpack_require__.r(__webpack_exports__);
       dpi: '',
       direccion: '',
       telefono: '',
-      email: '',
       modal: 0,
       titulo: '',
       opcion: 0
@@ -2069,7 +2063,6 @@ __webpack_require__.r(__webpack_exports__);
             this.dpi = data['dpi'];
             this.direccion = data['direccion'];
             this.telefono = data['telefono'];
-            this.email = data['email'];
             this.id = data['id'];
           }
       }
@@ -2077,7 +2070,7 @@ __webpack_require__.r(__webpack_exports__);
       this.comboPuesto();
     },
     closeModal: function closeModal() {
-      this.nombre = '', this.apellido = '', this.fecha_nacimiento = '', this.dpi = '', this.direccion = '', this.telefono = '', this.email = '', this.modal = 0;
+      this.nombre = '', this.apellido = '', this.fecha_nacimiento = '', this.dpi = '', this.direccion = '', this.telefono = '', this.modal = 0;
       this.titulo = '';
       this.opcion = 0;
       this.errors = [];
@@ -2150,12 +2143,31 @@ __webpack_require__.r(__webpack_exports__);
         'fecha_nacimiento': this.fecha_nacimiento,
         'dpi': this.dpi,
         'direccion': this.direccion,
-        'telefono': this.telefono,
-        'email': this.email
+        'telefono': this.telefono
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
         if (error.response.status == 422) _this.errors = error.response.data.errors;
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      var me = this;
+      var url = 'empleados/update';
+      axios.put(url, {
+        'puesto_id': this.puesto_id,
+        'nombre': this.nombre,
+        'apellido': this.apellido,
+        'fecha_nacimiento': this.fecha_nacimiento,
+        'dpi': this.dpi,
+        'direccion': this.direccion,
+        'telefono': this.telefono,
+        'id': this.id
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     }
   },
@@ -21215,7 +21227,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.email) }
+                            domProps: { textContent: _vm._s(empleado.telefono) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -21418,32 +21430,6 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.direccion,
-                            expression: "direccion"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "direccion" },
-                        domProps: { value: _vm.direccion },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.direccion = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(7),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
                             value: _vm.telefono,
                             expression: "telefono"
                           }
@@ -21460,38 +21446,10 @@ var render = function() {
                           }
                         }
                       })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(8),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.email,
-                            expression: "email"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "email" },
-                        domProps: { value: _vm.email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.email = $event.target.value
-                          }
-                        }
-                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(9),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c(
                         "select",
@@ -21541,13 +21499,41 @@ var render = function() {
                         2
                       )
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.direccion,
+                            expression: "direccion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "direccion" },
+                        domProps: { value: _vm.direccion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.direccion = $event.target.value
+                          }
+                        }
+                      })
+                    ])
                   ])
                 ]
               )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(10),
+              _vm._m(9),
               _vm._v(" "),
               _vm.opcion == 1
                 ? _c(
@@ -21625,8 +21611,8 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-at" }),
-          _vm._v(" Email")
+          _c("i", { staticClass: "fas fa-phone-alt" }),
+          _vm._v(" Teléfono")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -21655,7 +21641,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-tag" }),
       _vm._v(" Nombre")
     ])
@@ -21664,7 +21650,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-tag" }),
       _vm._v("Apellido")
     ])
@@ -21673,7 +21659,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de nacimiento")
     ])
@@ -21682,7 +21668,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-id-card" }),
       _vm._v(" DPI")
     ])
@@ -21691,17 +21677,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-street-view" }),
-      _vm._v(" Dirección")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-at" }),
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-phone-alt" }),
       _vm._v(" Teléfono")
     ])
   },
@@ -21709,18 +21686,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-at" }),
-      _vm._v(" Email")
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-user-tag" }),
+      _vm._v(" Puesto")
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-      _c("i", { staticClass: "fas fa-user-tag" }),
-      _vm._v(" Puesto")
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-street-view" }),
+      _vm._v(" Dirección")
     ])
   },
   function() {
@@ -23268,7 +23245,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-check" }),
       _vm._v(" Nombre")
     ])
@@ -23277,7 +23254,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-check" }),
       _vm._v(" Apellido")
     ])
@@ -23286,7 +23263,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de nacimiento")
     ])
@@ -23296,7 +23273,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("label", { staticClass: "text-dark" }, [
         _c("i", { staticClass: "fas fa-street-view" }),
         _vm._v(" Lugar de nacimiento")
       ]),
@@ -23313,9 +23290,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-        _vm._v("-")
-      ]),
+      _c("label", { staticClass: "text-dark" }, [_vm._v("-")]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -23328,7 +23303,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-id-card" }),
       _vm._v(" DPI")
     ])
@@ -23338,7 +23313,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+      _c("label", { staticClass: "text-dark" }, [
         _c("i", { staticClass: "fas fa-street-view" }),
         _vm._v(" Extendido en:")
       ]),
@@ -23355,9 +23330,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group col-md-2" }, [
-      _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
-        _vm._v("-")
-      ]),
+      _c("label", { staticClass: "text-dark" }, [_vm._v("-")]),
       _vm._v(" "),
       _c("select", { staticClass: "form-control" }, [
         _c("option", { attrs: { selected: "" } }),
@@ -23370,7 +23343,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-male" }),
       _vm._v(" Familiar")
     ])
@@ -23379,7 +23352,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
@@ -23388,7 +23361,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-phone-alt" }),
       _vm._v(" Teléfono")
     ])
@@ -23397,7 +23370,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-male" }),
       _vm._v(" Persona referida")
     ])
@@ -23406,7 +23379,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
@@ -23415,7 +23388,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-phone-alt" }),
       _vm._v(" Teléfono")
     ])
@@ -23424,7 +23397,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-chalkboard-teacher" }),
       _vm._v(" Motivo de llegada")
     ])
@@ -23433,7 +23406,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-thermometer" }),
       _vm._v(" Estado del residente")
     ])
@@ -23442,7 +23415,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-notes-medical" }),
       _vm._v(" Historial")
     ])
@@ -23451,7 +23424,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-heartbeat" }),
       _vm._v(" Pulso")
     ])
@@ -23460,7 +23433,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-thermometer-three-quarters" }),
       _vm._v(" Temperatura")
     ])
@@ -23469,7 +23442,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-stethoscope" }),
       _vm._v(" Presión arterial")
     ])
@@ -23478,7 +23451,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dark", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-weight" }),
       _vm._v(" Peso")
     ])
@@ -23487,7 +23460,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-danger", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "text-danger" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observaciones")
     ])

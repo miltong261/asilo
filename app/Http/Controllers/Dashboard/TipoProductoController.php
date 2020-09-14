@@ -58,20 +58,21 @@ class TipoProductoController extends Controller
         try {
             DB::beginTransaction();
 
-            $guardar = $this->tipoProductoRepository->storeWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ])
+            $guardar = $this->tipoProductoRepository->checkboxMedicamentoProducto('guardar', $request->only(
+                'nombre', 'medicamento', 'producto')
                 + ['codigo' => 'CATEGORIA-' . $this->tipoProductoRepository->generateCode()]
+                , null
             );
 
-            if ($guardar) {
+            if ($guardar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la categoría ' . $request->nombre
                 ]);
-            }
+            } else
+                return $guardar;
         } catch (\Throwable $th) {
             DB::rollback();
         }
@@ -88,22 +89,22 @@ class TipoProductoController extends Controller
         try {
             DB::beginTransaction();
 
-            $actualizar = $this->tipoProductoRepository->updateWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ]), $request->id
+            $actualizar = $this->tipoProductoRepository->checkboxMedicamentoProducto('actualizar', $request->only(
+                'nombre', 'medicamento', 'producto')
+                , $request->id
             );
 
-            if ($actualizar) {
+            if ($actualizar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la categoría ' . $request->nombre
-                ], 200);
-            }
+                ]);
+            } else
+                return $actualizar;
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $th;
         }
 
     }

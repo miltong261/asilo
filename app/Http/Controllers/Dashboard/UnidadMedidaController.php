@@ -58,22 +58,24 @@ class UnidadMedidaController extends Controller
         try {
             DB::beginTransaction();
 
-            $guardar = $this->unidadMedidaRepository->storeWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ])
+            $guardar = $this->unidadMedidaRepository->checkboxMedicamentoProducto('guardar', $request->only(
+                'nombre', 'medicamento', 'producto')
                 + ['codigo' => 'U_MEDIDA-' . $this->unidadMedidaRepository->generateCode()]
+                , null
             );
 
-            if ($guardar) {
+            if ($guardar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se guardó correctamente la unidad de medida ' . $request->nombre
-                ], 200);
-            }
+                ]);
+            } else
+                return $guardar;
         } catch (\Throwable $th) {
             DB::rollBack();
+            return $th;
         }
 
     }
@@ -90,19 +92,21 @@ class UnidadMedidaController extends Controller
         try {
             DB::beginTransaction();
 
-            $actualizar = $this->unidadMedidaRepository->updateWithMedicamentoProducto($request->only([
-                'nombre', 'medicamento', 'producto'
-                ]), $request->id
+            $actualizar = $this->unidadMedidaRepository->checkboxMedicamentoProducto('actualizar', $request->only(
+                'nombre', 'medicamento', 'producto')
+                , $request->id
             );
 
-            if ($actualizar) {
+            if ($actualizar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Se actualizó correctamente la unidad de medida ' . $request->nombre
-                ], 200);
+                ]);
             }
+            else
+                return $actualizar;
         } catch (\Throwable $th) {
             DB::rollBack();
         }

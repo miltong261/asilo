@@ -12,24 +12,8 @@ class MovimientoCajaRepository extends BaseRepository
         return new MovimientoCaja();
     }
 
-    public function storeMovimiento(array $request)
-    {
-        if ($request['entrada'] == true && $request['salida'] == true) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Solo se permite marcar una opción'
-            ]);
-        }
-        elseif ($request['entrada'] == false && $request['salida'] == false) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Debe marcar almenos una opción'
-            ]);
-        }else
-            return $this->getModel()->create($request);
-    }
-
-    public function updateMovimiento(array $request, $id)
+    /** Método para guardar y actualizar movimientos */
+    public function movimiento($action, array $request, $id)
     {
         if ($request['entrada'] == true && $request['salida'] == true) {
             return response()->json([
@@ -43,10 +27,16 @@ class MovimientoCajaRepository extends BaseRepository
                 'message' => 'Debe marcar almenos una opción'
             ]);
         } else {
-            $object = $this->getModel()->findOrFail($id);
-            $object->update($request);
+            if ($action == 'guardar') {
+                $this->getModel()->create($request);
 
-            return $object;
+                return 'exitoso';
+            } elseif ($action == 'actualizar') {
+                $object = $this->getModel()->findOrFail($id);
+                $object->update($request);
+
+                return 'exitoso';
+            }
         }
     }
 }

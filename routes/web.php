@@ -57,6 +57,8 @@ Route::group(['prefix' => 'movimientos'], function () {
     Route::get('/combo', 'Dashboard\MovimientoCajaController@combobox');
     Route::post('/store', 'Dashboard\MovimientoCajaController@store');
     Route::put('/update', 'Dashboard\MovimientoCajaController@update');
+    Route::put('/activate', 'Dashboard\MovimientoCajaController@activate');
+    Route::put('/desactivate', 'Dashboard\MovimientoCajaController@desactivate');
 });
 
 // Caja

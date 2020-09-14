@@ -27,6 +27,19 @@ abstract class BaseRepository
         return $object;
     }
 
+    /** Método para cambiar de estado */
+    public function estado($action, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+
+        if ($action == 'activar')
+            $object->estado = 1;
+        elseif ($action == 'desactivar')
+            $object->estado = 0;
+
+        return $object->save();
+    }
+
     /* Método para listar combobox */
     public function listarCombo(array $fields, $whereField, $orderField)
     {
@@ -46,32 +59,25 @@ abstract class BaseRepository
         }
     }
 
-    /* Método para guardar (unidad de medida y tipo de producto) */
-    public function storeWithMedicamentoProducto(array $request)
+    /* Método para guardar o actualizar (unidad de medida y tipo de producto) */
+    public function checkboxMedicamentoProducto($action, array $request, $id)
     {
-        if ($request['medicamento'] == true || $request['producto'] == true)
-            return $this->getModel()->create($request);
-        else {
+        if ($request['medicamento'] == false && $request['producto'] == false) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Debe marcar almenos una opción'
             ]);
-        }
-    }
+        } else {
+            if ($action == 'guardar') {
+                $this->getModel()->create($request);
 
-    /* Método para actualizar (unidad de medida y tipo de producto) */
-    public function updateWithMedicamentoProducto(array $request, $id)
-    {
-        if ($request['medicamento'] == true || $request['producto'] == true){
-            $object = $this->getModel()->findOrFail($id);
-            $object->update($request);
+                return 'exitoso';
+            } elseif ($action == 'actualizar') {
+                $object = $this->getModel()->findOrFail($id);
+                $object->update($request);
 
-            return $object;
-        }else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Debe marcar almenos una opción'
-            ]);
+                return 'exitoso';
+            }
         }
     }
 

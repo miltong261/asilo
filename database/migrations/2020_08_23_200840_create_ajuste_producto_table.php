@@ -26,7 +26,7 @@ class CreateAjusteProductoTable extends Migration
                 ->references('id')
                 ->on('productos');
 
-            $table->string('codigo', 15);
+            $table->string('codigo', 20);
             $table->integer('cantidad');
             $table->boolean('entrada')->nullable();
             $table->boolean('salida')->nullable();

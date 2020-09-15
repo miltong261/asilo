@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Caja extends Model
+class TipoMovimiento extends Model
 {
-    protected $table = 'caja';
+    protected $table = 'tipo_movimiento';
     protected $fillable = [
-        'movimiento_caja_id',
-        'fecha_registro',
-        'monto',
-        'saldo',
-        'observacion'
+        'codigo',
+        'nombre',
+        'entrada',
+        'salida',
+        'estado'
     ];
 
     public function movimientos()

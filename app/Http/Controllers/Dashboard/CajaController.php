@@ -4,9 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\Caja\CajaRepository;
+
+use Illuminate\Support\Facades\DB;
 
 class CajaController extends Controller
 {
+    protected $cajaRepository;
+
+    public function __construct(CajaRepository $cajaRepository)
+    {
+        $this->cajaRepository = $cajaRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +24,7 @@ class CajaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->cajaRepository->indexCaja());
     }
 
     /**
@@ -35,7 +35,9 @@ class CajaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->cajaRepository->caja($request->only(
+            'entrada', 'caja_movimiento_id', 'monto', 'observacion'
+        ));
     }
 
     /**

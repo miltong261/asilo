@@ -52,13 +52,13 @@ Route::group(['prefix' => 'unidad_medida'], function () {
 /** Rutas de financiero */
 
 // Movimientos
-Route::group(['prefix' => 'movimientos'], function () {
-    Route::get('/', 'Dashboard\MovimientoCajaController@index');
-    Route::get('/combo', 'Dashboard\MovimientoCajaController@combobox');
-    Route::post('/store', 'Dashboard\MovimientoCajaController@store');
-    Route::put('/update', 'Dashboard\MovimientoCajaController@update');
-    Route::put('/activate', 'Dashboard\MovimientoCajaController@activate');
-    Route::put('/desactivate', 'Dashboard\MovimientoCajaController@desactivate');
+Route::group(['prefix' => 'tipo_movimiento'], function () {
+    Route::get('/', 'Dashboard\TipoMovimientoController@index');
+    Route::get('/combo', 'Dashboard\TipoMovimientoController@combobox');
+    Route::post('/store', 'Dashboard\TipoMovimientoController@store');
+    Route::put('/update', 'Dashboard\TipoMovimientoController@update');
+    Route::put('/activate', 'Dashboard\TipoMovimientoController@activate');
+    Route::put('/desactivate', 'Dashboard\TipoMovimientoController@desactivate');
 });
 
 // Caja

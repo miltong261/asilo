@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Empleado\EmpleadoRequest;
+use Illuminate\Http\Request;
 use App\Repositories\Empleado\EmpleadoRepository;
 
 use Illuminate\Support\Facades\DB;
@@ -83,8 +84,6 @@ class EmpleadoController extends Controller
                 $request->id
             );
 
-            return $actualizar;
-
             if ($actualizar) {
                 DB::commit();
 
@@ -101,6 +100,47 @@ class EmpleadoController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
             return $th;
+        }
+    }
+
+    public function activate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $activar = $this->empleadoRepository->estado('activar', $request->id);
+
+            if ($activar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se activó al empleado'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+    }
+
+    public function desactivate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $desactivar = $this->empleadoRepository->estado('desactivar', $request->id);
+
+            if ($desactivar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se desactivó al empleado ' .$request->nombre
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
         }
     }
 }

@@ -17,7 +17,6 @@ class Empleado extends Model
         'dpi',
         'direccion',
         'telefono',
-        'email',
         'estado'
     ];
     public function puesto()

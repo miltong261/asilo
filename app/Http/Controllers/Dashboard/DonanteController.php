@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Donante\DonanteRequest;
 use App\Repositories\Donante\DonanteRepository;
 
 use Illuminate\Support\Facades\DB;
@@ -44,7 +44,7 @@ class DonanteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DonanteRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -75,7 +75,7 @@ class DonanteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(DonanteRequest $request)
     {
         try {
             DB::beginTransaction();

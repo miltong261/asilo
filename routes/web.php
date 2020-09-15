@@ -83,6 +83,8 @@ Route::group(['prefix' => 'empleados'], function () {
     Route::get('/', 'Dashboard\EmpleadoController@index');
     Route::post('/store', 'Dashboard\EmpleadoController@store');
     Route::put('/update', 'Dashboard\EmpleadoController@update');
+    Route::put('/activate', 'Dashboard\EmpleadoController@activate');
+    Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
 });
 
 /** Rutas de hogar */

@@ -25806,7 +25806,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: { textContent: _vm._s(_vm.puesto.estado) }
+                            domProps: {
+                              textContent: _vm._s(tipo_producto.estado)
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [

@@ -3882,6 +3882,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -26324,6 +26326,13 @@ var render = function() {
                               : _c("div", [_vm._m(4, true)])
                           ]),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(unidad_medida.estado)
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             _c(
                               "button",
@@ -26676,6 +26685,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-lock" }),
+          _vm._v(" Estado")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-cogs" }),
           _vm._v(" Opciones")
         ])
@@ -26721,7 +26735,7 @@ var staticRenderFns = [
     return _c(
       "button",
       { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fa fa-trash-alt" })]
+      [_c("i", { staticClass: "fas fa-lock" })]
     )
   },
   function() {

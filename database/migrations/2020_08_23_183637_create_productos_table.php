@@ -31,7 +31,7 @@ class CreateProductosTable extends Migration
                 ->references('id')
                 ->on('tipo_producto');
 
-            $table->string('codigo', 15);
+            $table->string('codigo', 20);
             $table->string('nombre', 35);
             $table->text('observacion')->nullable();
             $table->boolean('asignacion'); // 0 -> Medicamento o 1 -> producto

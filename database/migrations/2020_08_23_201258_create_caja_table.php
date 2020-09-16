@@ -19,12 +19,9 @@ class CreateCajaTable extends Migration
             $table->unsignedBigInteger('movimiento_caja_id');
             $table->foreign('movimiento_caja_id')
                 ->references('id')
-                ->on('movimiento_caja');
+                ->on('movimientos');
 
-            $table->date('fecha_registro');
-            $table->decimal('monto', 8, 2);
             $table->decimal('saldo', 8, 2);
-            $table->text('observacion')->nullable();
 
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class CreateEmpleadosTable extends Migration
             $table->unsignedBigInteger('puesto_id');
             $table->foreign('puesto_id')->references('id')->on('puestos');
 
-            $table->string('codigo', 15);
+            $table->string('codigo', 20);
             $table->date('fecha_ingreso');
             $table->string('nombre', 35);
             $table->string('apellido', 35);

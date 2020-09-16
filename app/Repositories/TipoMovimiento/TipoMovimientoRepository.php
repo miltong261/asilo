@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\MovimientoCaja;
+namespace App\Repositories\TipoMovimiento;
 
-use App\Models\MovimientoCaja;
+use App\Models\TipoMovimiento;
 use App\Repositories\BaseRepository;
 
-class MovimientoCajaRepository extends BaseRepository
+class TipoMovimientoRepository extends BaseRepository
 {
     public function getModel()
     {
-        return new MovimientoCaja();
+        return new TipoMovimiento();
     }
 
     /** Método para guardar y actualizar movimientos */

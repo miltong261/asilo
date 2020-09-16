@@ -31,7 +31,7 @@ class CreateResidentesTable extends Migration
                 ->references('id')
                 ->on('municipios');
 
-            $table->string('codigo', 15);
+            $table->string('codigo', 20);
             $table->date('fecha_ingreso');
             $table->string('nombre', 35);
             $table->string('apellido', 35);

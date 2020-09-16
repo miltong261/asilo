@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MovimientoCaja\MovimientoCajaRequest;
+use App\Http\Requests\TipoMovimiento\TipoMovimientoRequest;
 use Illuminate\Http\Request;
-use App\Repositories\MovimientoCaja\MovimientoCajaRepository;
+use App\Repositories\TipoMovimiento\TipoMovimientoRepository;
 
 use Illuminate\Support\Facades\DB;
 
-class MovimientoCajaController extends Controller
+class TipoMovimientoController extends Controller
 {
-    protected $movimientoRepository;
+    protected $tipoMovimientoRepository;
 
-    public function __construct(MovimientoCajaRepository $movimientoRepository)
+    public function __construct(TipoMovimientoRepository $tipoMovimientoRepository)
     {
-        $this->movimientoRepository = $movimientoRepository;
+        $this->tipoMovimientoRepository = $tipoMovimientoRepository;
     }
     /**
      * Display a listing of the resource.
@@ -24,15 +24,15 @@ class MovimientoCajaController extends Controller
      */
     public function index()
     {
-        return response()->json($this->movimientoRepository->index(
+        return response()->json($this->tipoMovimientoRepository->index(
             ['id', 'codigo', 'nombre', 'entrada', 'salida', 'estado']
         ));
     }
 
     public function combobox()
     {
-        return response()->json($this->movimientoRepository->listarCombo(
-            ['id', 'nombre'],
+        return response()->json($this->tipoMovimientoRepository->listarCombo(
+            ['id', 'nombre', 'entrada', 'salida'],
             null,
             'nombre'
         ));
@@ -44,14 +44,14 @@ class MovimientoCajaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MovimientoCajaRequest $request)
+    public function store(TipoMovimientoRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $guardar = $this->movimientoRepository->movimiento('guardar', $request->only(
+            $guardar = $this->tipoMovimientoRepository->movimiento('guardar', $request->only(
                 'nombre', 'entrada', 'salida')
-                + ['codigo' => 'MOVIMIENTO-' . $this->movimientoRepository->generateCode()],
+                + ['codigo' => 'MOVIMIENTO-' . $this->tipoMovimientoRepository->generateCode()],
                 null
             );
 
@@ -77,12 +77,12 @@ class MovimientoCajaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MovimientoCajaRequest $request)
+    public function update(TipoMovimientoRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $actualizar = $this->movimientoRepository->movimiento('actualizar', $request->only(
+            $actualizar = $this->tipoMovimientoRepository->movimiento('actualizar', $request->only(
                 'nombre', 'entrada', 'salida'),
                 $request->id
             );
@@ -107,7 +107,7 @@ class MovimientoCajaController extends Controller
         try {
             DB::beginTransaction();
 
-            $activar = $this->movimientoRepository->estado('activar', $request->id);
+            $activar = $this->tipoMovimientoRepository->estado('activar', $request->id);
 
             if ($activar) {
                 DB::commit();
@@ -128,7 +128,7 @@ class MovimientoCajaController extends Controller
         try {
             DB::beginTransaction();
 
-            $desactivar = $this->movimientoRepository->estado('desactivar', $request->id);
+            $desactivar = $this->tipoMovimientoRepository->estado('desactivar', $request->id);
 
             if ($desactivar) {
                 DB::commit();

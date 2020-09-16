@@ -12,6 +12,7 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -20,9 +21,10 @@
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="puesto.codigo" class="text-center"></td>
                                     <td v-text="puesto.nombre" class="text-center"></td>
+                                    <td v-text="puesto.estado" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

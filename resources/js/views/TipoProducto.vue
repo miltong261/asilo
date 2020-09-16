@@ -14,6 +14,7 @@
                                     <th class="text-center"><i class="fas fa-tags"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-capsules"></i> Medicamento</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Producto</th>
+                                    <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -38,9 +39,10 @@
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
                                         </div>
                                     </td>
+                                    <td v-text="tipo_producto.estado" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></i></button>
                                     </td>
                                 </tr>
                             </tbody>

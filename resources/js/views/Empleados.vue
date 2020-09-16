@@ -15,6 +15,7 @@
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
                                     <th class="text-center"><i class="fas fa-id-card"></i> Dpi</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
+                                    <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -26,9 +27,10 @@
                                     <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
                                     <td v-text="empleado.dpi" class="text-center"></td>
                                     <td v-text="empleado.direccion" class="text-center"></td>
+                                    <td v-text="empleado.estado" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

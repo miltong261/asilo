@@ -20,8 +20,8 @@ export default new Router({
         },
         // Rutas de financiero
         {
-            path: '/movimientos',
-            component: require('../views/MovimientoCaja').default
+            path: '/tipo_movimiento',
+            component: require('../views/TipoMovimiento').default
         },
         {
             path: '/caja',

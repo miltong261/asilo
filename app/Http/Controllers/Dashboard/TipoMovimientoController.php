@@ -32,7 +32,7 @@ class TipoMovimientoController extends Controller
     public function combobox()
     {
         return response()->json($this->tipoMovimientoRepository->listarCombo(
-            ['id', 'nombre'],
+            ['id', 'nombre', 'entrada', 'salida'],
             null,
             'nombre'
         ));

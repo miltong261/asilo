@@ -17,6 +17,6 @@ class TipoMovimiento extends Model
 
     public function movimientos()
     {
-        return $this->hasMany('App\Models\MovimientoCaja');
+        return $this->hasMany('App\Models\Movimiento');
     }
 }

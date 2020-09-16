@@ -63,8 +63,8 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="financiero" data-parent="#accordionExample">
-                    <router-link tag="li" to="/movimientos" exact-active-class="active">
-                        <a>Movimientos</a>
+                    <router-link tag="li" to="/tipo_movimiento" exact-active-class="active">
+                        <a>Tipo movimiento</a>
                     </router-link>
                     <router-link tag="li" to="/caja" exact-active-class="active">
                         <a>Caja</a>

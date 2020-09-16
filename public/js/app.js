@@ -26225,7 +26225,7 @@ var staticRenderFns = [
     return _c(
       "button",
       { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fa fa-trash-alt" })]
+      [_c("i", { staticClass: "fas fa-lock" })]
     )
   },
   function() {

@@ -3,6 +3,7 @@
 namespace App\Repositories\Movimiento;
 
 use App\Models\Movimiento;
+use App\Models\Caja;
 use App\Repositories\BaseRepository;
 
 class MovimientoRepository extends BaseRepository
@@ -12,17 +13,89 @@ class MovimientoRepository extends BaseRepository
         return new Movimiento();
     }
 
-    public function movimiento(array $request)
+    public function indexMovimiento()
     {
-        $transaccion = $this->getModel();
-        $transaccion->tipo_movimiento_id = $request['tipo_movimiento_id'];
-        $transaccion->no_transaccion = 1;
-        $transaccion->fecha_registro = '2020-09-15';
-        $transaccion->monto = $request['monto'];
-        $transaccion->observacion = $request['observacion'];
+        return $this->getModel()
+        ->join('caja', 'caja.id', '=', 'movimientos.caja_id')
+        ->select('movimientos.*', 'caja.saldo')
+        ->orderBy('movimientos.fecha_registro', 'desc')
+        ->get();
+    }
 
-        $transaccion->save();
+    public function movimiento($action, array $request, $entrada, $salida, $id)
+    {
+        if ($action == 'guardar')
+            return $this->guardar($request, $entrada, $salida);
+        elseif ($action == 'actualizar')
+            return $this->actualizar($request, $entrada, $salida, $id);
+    }
 
-        return 'Se guardo con éxito';
+    public function guardar(array $request, $entrada, $salida)
+    {
+        $caja = Caja::findOrFail($request['caja_id']);
+
+        if ($entrada == true) {
+            $caja->saldo += $request['monto'];
+
+            $this->getModel()->create($request);
+            $caja->update(['saldo' => $caja->saldo]);
+
+            return 'exitoso';
+        } elseif ($salida == true) {
+            if ($caja->saldo == 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'La caja no cuenta con saldo'
+                ]);
+            } elseif ($caja->saldo < $request['monto']) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'La caja cuenta con un saldo de Q' . $caja->saldo . ', no se puede llevar a cabo la transacción'
+                ]);
+            } else {
+                $caja->saldo -= $request['monto'];
+
+                $this->getModel()->create($request);
+                $caja->update(['saldo' => $caja->saldo]);
+
+                return 'exitoso';
+            }
+        }
+    }
+
+    public function actualizar(array $request, $entrada, $salida, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+        $caja = Caja::findOrFail($request['caja_id']);
+
+        if ($entrada == true) {
+            $monto_anterior = $object->monto;
+            $caja->saldo = ($caja->saldo - $monto_anterior) + ($request['monto']);
+
+            $object->update($request);
+            $caja->update(['saldo' => $caja->saldo]);
+
+            return 'exitoso';
+        } elseif ($salida == true) {
+            if ($caja->saldo == 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'La caja no cuenta con saldo'
+                ]);
+            } elseif ($caja->saldo < $request['monto']) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'La caja cuenta con un saldo de Q' . $caja->saldo . ', no se puede llevar a cabo la transacción'
+                ]);
+            } else {
+                $monto_anterior = $object->monto;
+                $caja->saldo = ($caja->saldo + $monto_anterior) - ($request['monto']);
+
+                $object->update($request);
+                $caja->update(['saldo' => $caja->saldo]);
+
+                return 'exitoso';
+            }
+        }
     }
 }

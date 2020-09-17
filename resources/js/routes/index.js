@@ -24,8 +24,8 @@ export default new Router({
             component: require('../views/TipoMovimiento').default
         },
         {
-            path: '/caja',
-            component: require('../views/Caja').default
+            path: '/movimiento_caja',
+            component: require('../views/MovimientoCaja').default
         },
         // Rutas de personal
         {

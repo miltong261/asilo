@@ -63,13 +63,9 @@ Route::group(['prefix' => 'tipo_movimiento'], function () {
 
 // Movimiento
 Route::group(['prefix' => 'movimientos'], function () {
+    Route::get('/', 'Dashboard\MovimientoController@index');
     Route::post('/store', 'Dashboard\MovimientoController@store');
     Route::put('/update', 'Dashboard\MovimientoController@update');
-});
-
-// Caja
-Route::group(['prefix' => 'caja'], function () {
-    Route::get('/', 'Dashboard\CajaController@index');
 });
 
 /** Rutas de personal */

@@ -111,4 +111,45 @@ class UnidadMedidaController extends Controller
             DB::rollBack();
         }
     }
+
+    public function activate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $activar = $this->unidadMedidaRepository->estado('activar', $request->id);
+
+            if ($activar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se activó el movimiento'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+    }
+
+    public function desactivate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $desactivar = $this->unidadMedidaRepository->estado('desactivar', $request->id);
+
+            if ($desactivar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se desactivó el movimiento ' .$request->nombre
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+    }
 }

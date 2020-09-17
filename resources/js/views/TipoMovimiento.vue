@@ -25,7 +25,7 @@
                                     <td v-text="tipo_movimiento.nombre" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="tipo_movimiento.entrada">
-                                            <span class="badge outline -badge-check"><i class="fa fa-check-circle"></i></span>
+                                            <span class="badge outline-badge-check"><i class="fa fa-check-circle"></i></span>
                                         </div>
                                         <div v-else>
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
@@ -39,10 +39,22 @@
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
                                         </div>
                                     </td>
-                                    <td v-text="tipo_movimiento.estado" class="text-center"></td>
+                                    <td class="text-center">
+                                        <div v-if="tipo_movimiento.estado">
+                                            <span class="badge outline-badge-check">Activo</span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check">Inactivo</span>
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', tipo_movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        <template v-if="tipo_movimiento.estado">
+                                            <button type="button" @click="changeStatus('desactivate', tipo_movimiento.id, tipo_movimiento.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        </template>
+                                        <template v-else>
+                                            <button type="button" @click="changeStatus('activate', tipo_movimiento.id, tipo_movimiento.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>
@@ -66,7 +78,7 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
-                                <label class="text-dark" for="nombre"><i class="fas fa-user-tag"></i> Nombre</label>
+                                <label class="text-dark" for="nombre"><i class="fas fa-paste"></i> Nombre</label>
                                 <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre">
                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                     {{ errors.nombre[0] }}
@@ -161,6 +173,48 @@
                         alerts.sweetAlert(response.data.status, response.data.message)
                 }
             },
+            changeStatus(action, id, nombre) {
+                swal({
+                    title: 'Cambio de estado',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "'+nombre+'"?',
+                    type: 'question',
+                    confirmButtonColor: '#25d5e4',
+                    cancelButtonColor: '#f8538d',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: '¡Cancelar!',
+                    confirmButtonClass: 'btn btn-guardar',
+                    cancelButtonClass: 'btn btn-cerrar',
+                    padding: '2em'
+                }).then((result) => {
+                    if (action == 'activate')
+                        var url = '/tipo_movimiento/activate'
+                    else if (action == 'desactivate')
+                        var url = '/tipo_movimiento/desactivate'
+
+                    if (result.value) {
+                        let me = this
+                        axios.put(url, {
+                            'id': id
+                        }).then(function (response) {
+                            me.showList()
+                            swal(
+                                'Cambio de estado',
+                                'Se ha cambiado el estado correctamente',
+                                'success'
+                            )
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                        swal(
+                            'Cancelado',
+                            'Se ha cancelado la operación',
+                            'error'
+                        )
+                    }
+                })
+            },
             dataTable() {
                 let datatable = $('#zero-config').DataTable()
                 datatable.destroy()
@@ -219,7 +273,7 @@
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
-            }
+            },
         },
         mounted() {
             this.showList()

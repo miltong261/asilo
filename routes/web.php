@@ -38,6 +38,8 @@ Route::group(['prefix' => 'tipo_producto'], function () {
     Route::get('/combo_producto', 'Dashboard\TipoProductoController@comboboxProducto');
     Route::post('/store', 'Dashboard\TipoProductoController@store');
     Route::put('/update', 'Dashboard\TipoProductoController@update');
+    Route::put('/activate', 'Dashboard\TipoProductoController@activate');
+    Route::put('/desactivate', 'Dashboard\TipoProductoController@desactivate');
 });
 
 // Unidad de medida
@@ -47,6 +49,9 @@ Route::group(['prefix' => 'unidad_medida'], function () {
     Route::get('/combo_producto', 'Dashboard\UnidadMedidaController@comboboxProducto');
     Route::post('/store', 'Dashboard\UnidadMedidaController@store');
     Route::put('/update', 'Dashboard\UnidadMedidaController@update');
+    Route::put('/activate', 'Dashboard\UnidadMedidaController@activate');
+    Route::put('/desactivate', 'Dashboard\UnidadMedidaController@desactivate');
+
 });
 
 /** Rutas de financiero */
@@ -76,6 +81,9 @@ Route::group(['prefix' => 'puestos'], function () {
     Route::get('/combo', 'Dashboard\PuestoController@combobox');
     Route::post('/store', 'Dashboard\PuestoController@store');
     Route::put('/update', 'Dashboard\PuestoController@update');
+    Route::put('/activate', 'Dashboard\PuestoController@activate');
+    Route::put('/desactivate', 'Dashboard\PuestoController@desactivate');
+
 });
 
 // Empleados
@@ -83,6 +91,8 @@ Route::group(['prefix' => 'empleados'], function () {
     Route::get('/', 'Dashboard\EmpleadoController@index');
     Route::post('/store', 'Dashboard\EmpleadoController@store');
     Route::put('/update', 'Dashboard\EmpleadoController@update');
+    Route::put('/activate', 'Dashboard\EmpleadoController@activate');
+    Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
     Route::put('/activate', 'Dashboard\EmpleadoController@activate');
     Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
 });

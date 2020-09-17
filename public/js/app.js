@@ -3198,6 +3198,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3260,6 +3272,39 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
+    changeStatus: function changeStatus(action, id, nombre) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/tipo_movimiento/activate';else if (action == 'desactivate') var url = '/tipo_movimiento/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
       datatable.destroy();
@@ -3295,7 +3340,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
       var url = '/tipo_movimiento/store';
@@ -3306,11 +3351,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = 'tipo_movimiento/update';
@@ -3322,7 +3367,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -21489,37 +21534,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Caja.vue?vue&type=template&id=46757198&":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Caja.vue?vue&type=template&id=46757198& ***!
-  \**************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Caja")])])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Compras.vue?vue&type=template&id=699aac66&":
 /*!*****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Compras.vue?vue&type=template&id=699aac66& ***!
@@ -24520,34 +24534,99 @@ var render = function() {
                               : _c("div", [_vm._m(4, true)])
                           ]),
                           _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(tipo_movimiento.estado)
-                            }
-                          }),
-                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-warning mb-2 mr-2 rounded-circle",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.openModal(
-                                      "update",
-                                      tipo_movimiento
-                                    )
+                            tipo_movimiento.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal(
+                                        "update",
+                                        tipo_movimiento
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-sync-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(5, true)
-                          ])
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              tipo_movimiento.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              tipo_movimiento.id,
+                                              tipo_movimiento.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              tipo_movimiento.id,
+                                              tipo_movimiento.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
                         ])
                       }),
                       0
@@ -24607,7 +24686,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(6),
+                    _vm._m(5),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -24658,7 +24737,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c(
                     "fieldset",
@@ -24888,7 +24967,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "badge outline -badge-check" }, [
+    return _c("span", { staticClass: "badge outline-badge-check" }, [
       _c("i", { staticClass: "fa fa-check-circle" })
     ])
   },
@@ -24920,18 +24999,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fas fa-lock" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark", attrs: { for: "nombre" } }, [
-      _c("i", { staticClass: "fas fa-user-tag" }),
+      _c("i", { staticClass: "fas fa-paste" }),
       _vm._v(" Nombre")
     ])
   },
@@ -41349,8 +41418,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/tipo_movimiento',
     component: __webpack_require__(/*! ../views/TipoMovimiento */ "./resources/js/views/TipoMovimiento.vue")["default"]
   }, {
-    path: '/caja',
-    component: __webpack_require__(/*! ../views/Caja */ "./resources/js/views/Caja.vue")["default"]
+    path: '/movimiento_caja',
+    component: __webpack_require__(/*! ../views/MovimientoCaja */ "./resources/js/views/MovimientoCaja.vue")["default"]
   }, // Rutas de personal
   {
     path: '/puestos',
@@ -41441,59 +41510,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AjusteProducto_vue_vue_type_template_id_56a0a197___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AjusteProducto_vue_vue_type_template_id_56a0a197___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/Caja.vue":
-/*!*************************************!*\
-  !*** ./resources/js/views/Caja.vue ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Caja_vue_vue_type_template_id_46757198___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Caja.vue?vue&type=template&id=46757198& */ "./resources/js/views/Caja.vue?vue&type=template&id=46757198&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-var script = {}
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
-  _Caja_vue_vue_type_template_id_46757198___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Caja_vue_vue_type_template_id_46757198___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/Caja.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/Caja.vue?vue&type=template&id=46757198&":
-/*!********************************************************************!*\
-  !*** ./resources/js/views/Caja.vue?vue&type=template&id=46757198& ***!
-  \********************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_template_id_46757198___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Caja.vue?vue&type=template&id=46757198& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Caja.vue?vue&type=template&id=46757198&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_template_id_46757198___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Caja_vue_vue_type_template_id_46757198___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -41878,6 +41894,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Medicamentos_vue_vue_type_template_id_43c60a48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/views/MovimientoCaja.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/views/MovimientoCaja.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/views/MovimientoCaja.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -42355,7 +42403,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

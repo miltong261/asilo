@@ -42,7 +42,6 @@ class CreateProductosTable extends Migration
             $table->date('fecha_ultimo_ajuste')->nullable();
             $table->boolean('estado')->default(1);
 
-
             $table->timestamps();
         });
     }

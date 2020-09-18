@@ -2264,7 +2264,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2343,12 +2342,12 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    changeStatus: function changeStatus(action, id, nombre, apellido, puesto_nombre, fecha_nacimiento, dpi, direccion) {
+    changeStatus: function changeStatus(action, id, nombre) {
       var _this = this;
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre empleados "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el empleado "' + nombre + '"?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -22343,11 +22342,6 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.estado) }
-                          }),
-                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             empleado.estado
                               ? _c("div", [
@@ -22403,12 +22397,7 @@ var render = function() {
                                             return _vm.changeStatus(
                                               "desactivate",
                                               empleado.id,
-                                              empleado.nombre,
-                                              empleado.apellido,
-                                              empleado.puesto_nombre,
-                                              empleado.fecha_nacimiento,
-                                              empleado.dpi,
-                                              empleado.direccion
+                                              empleado.nombre
                                             )
                                           }
                                         }
@@ -22428,12 +22417,7 @@ var render = function() {
                                             return _vm.changeStatus(
                                               "activate",
                                               empleado.id,
-                                              empleado.nombre,
-                                              empleado.apellido,
-                                              empleado.puesto_nombre,
-                                              empleado.fecha_nacimiento,
-                                              empleado.dpi,
-                                              empleado.direccion
+                                              empleado.nombre
                                             )
                                           }
                                         }
@@ -42831,7 +42815,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

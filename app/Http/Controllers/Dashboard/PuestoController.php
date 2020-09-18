@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Puesto\PuestoRequest;
+use Illuminate\Http\Request;
 use App\Repositories\Puesto\PuestoRepository;
 
 use Illuminate\Support\Facades\DB;

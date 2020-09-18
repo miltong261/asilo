@@ -27,7 +27,6 @@
                                     <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
                                     <td v-text="empleado.dpi" class="text-center"></td>
                                     <td v-text="empleado.direccion" class="text-center"></td>
-                                    <td v-text="empleado.estado" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="empleado.estado">
                                             <span class="badge outline-badge-check">Activo</span>
@@ -39,10 +38,10 @@
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         <template v-if="empleado.estado">
-                                            <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre, empleado.apellido, empleado.puesto_nombre, empleado.fecha_nacimiento, empleado.dpi, empleado.direccion)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                            <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                         </template>
                                         <template v-else>
-                                            <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre, empleado.apellido, empleado.puesto_nombre, empleado.fecha_nacimiento, empleado.dpi, empleado.direccion)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                         </template>
                                     </td>
                                 </tr>
@@ -207,10 +206,10 @@ export default {
                 console.log(error)
             })
         },
-        changeStatus(action, id, nombre, apellido, puesto_nombre, fecha_nacimiento, dpi, direccion) {
+        changeStatus(action, id, nombre) {
                 swal({
                     title: 'Cambio de estado',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre empleados "'+nombre+'"?',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el empleado "'+nombre+'"?',
                     type: 'question',
                     confirmButtonColor: '#25d5e4',
                     cancelButtonColor: '#f8538d',

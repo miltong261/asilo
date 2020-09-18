@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TipoProducto\TipoProductoRequest;
+use Illuminate\Http\Request;
 use App\Repositories\TipoProducto\TipoProductoRepository;
 
 use Illuminate\Support\Facades\DB;

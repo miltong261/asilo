@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UnidadMedida\UnidadMedidaRequest;
+use Illuminate\Http\Request;
 use App\Repositories\UnidadMedida\UnidadMedidaRepository;
 
 use Illuminate\Support\Facades\DB;

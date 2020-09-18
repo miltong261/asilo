@@ -21,10 +21,22 @@
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="puesto.codigo" class="text-center"></td>
                                     <td v-text="puesto.nombre" class="text-center"></td>
-                                    <td v-text="puesto.estado" class="text-center"></td>
+                                    <td class="text-center">
+                                        <div v-if="puesto.estado">
+                                            <span class="badge outline-badge-check">Activo</span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check">Inactivo</span>
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        <template v-if="puesto.estado">
+                                            <button type="button" @click="changeStatus('desactivate', puesto.id, puesto.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        </template>
+                                        <template v-else>
+                                            <button type="button" @click="changeStatus('activate', puesto.id, puesto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>
@@ -122,6 +134,48 @@
                 }else{
                         alerts.sweetAlert(response.data.status, response.data.message)
                 }
+            },
+            changeStatus(action, id, nombre) {
+                swal({
+                    title: 'Cambio de estado',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "'+nombre+'"?',
+                    type: 'question',
+                    confirmButtonColor: '#25d5e4',
+                    cancelButtonColor: '#f8538d',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: '¡Cancelar!',
+                    confirmButtonClass: 'btn btn-guardar',
+                    cancelButtonClass: 'btn btn-cerrar',
+                    padding: '2em'
+                }).then((result) => {
+                    if (action == 'activate')
+                        var url = '/puestos/activate'
+                    else if (action == 'desactivate')
+                        var url = '/puestos/desactivate'
+
+                    if (result.value) {
+                        let me = this
+                        axios.put(url, {
+                            'id': id
+                        }).then(function (response) {
+                            me.showList()
+                            swal(
+                                'Cambio de estado',
+                                'Se ha cambiado el estado correctamente',
+                                'success'
+                            )
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                        swal(
+                            'Cancelado',
+                            'Se ha cancelado la operación',
+                            'error'
+                        )
+                    }
+                })
             },
             dataTable() {
                 let datatable = $('#zero-config').DataTable()

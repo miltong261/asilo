@@ -2252,6 +2252,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2330,6 +2343,39 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    changeStatus: function changeStatus(action, id, nombre, apellido, puesto_nombre, fecha_nacimiento, dpi, direccion) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre empleados "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/empleados/activate';else if (action == 'desactivate') var url = '/empleados/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
       datatable.destroy();
@@ -2365,7 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
       var url = '/empleados/store';
@@ -2380,11 +2426,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = 'empleados/update';
@@ -2400,7 +2446,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -2729,6 +2775,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2785,6 +2843,39 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
+    changeStatus: function changeStatus(action, id, nombre) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/puestos/activate';else if (action == 'desactivate') var url = '/puestos/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
       datatable.destroy();
@@ -2820,7 +2911,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
       var url = '/puestos/store';
@@ -2829,11 +2920,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = 'puestos/update';
@@ -2843,7 +2934,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -3489,6 +3580,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3551,6 +3654,39 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
+    changeStatus: function changeStatus(action, id, nombre, medicamento, producto) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo producto "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/tipo_producto/activate';else if (action == 'desactivate') var url = '/tipo_producto/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
       datatable.destroy();
@@ -3586,7 +3722,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
       var url = '/tipo_producto/store';
@@ -3597,11 +3733,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = 'tipo_producto/update';
@@ -3613,7 +3749,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -3634,6 +3770,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3797,6 +3945,39 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
+    changeStatus: function changeStatus(action, id, nombre, medicamento, producto) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/unidad_medida/activate';else if (action == 'desactivate') var url = '/unidad_medida/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
       datatable.destroy();
@@ -3832,7 +4013,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
       var url = '/unidad_medida/store';
@@ -3843,11 +4024,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = 'unidad_medida/update';
@@ -3859,7 +4040,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -22168,23 +22349,105 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-warning mb-2 mr-2 rounded-circle",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.openModal("update", empleado)
+                            empleado.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal("update", empleado)
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-sync-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(1, true)
-                          ])
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              empleado.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              empleado.id,
+                                              empleado.nombre,
+                                              empleado.apellido,
+                                              empleado.puesto_nombre,
+                                              empleado.fecha_nacimiento,
+                                              empleado.dpi,
+                                              empleado.direccion
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              empleado.id,
+                                              empleado.nombre,
+                                              empleado.apellido,
+                                              empleado.puesto_nombre,
+                                              empleado.fecha_nacimiento,
+                                              empleado.dpi,
+                                              empleado.direccion
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
                         ])
                       }),
                       0
@@ -22245,7 +22508,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(2),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -22271,7 +22534,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(3),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -22299,7 +22562,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(4),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -22325,7 +22588,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(5),
+                      _vm._m(4),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -22353,7 +22616,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(6),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -22379,7 +22642,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(7),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c(
                         "select",
@@ -22433,7 +22696,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(8),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -22463,7 +22726,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(9),
+              _vm._m(8),
               _vm._v(" "),
               _vm.opcion == 1
                 ? _c(
@@ -22556,16 +22819,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fas fa-lock" })]
-    )
   },
   function() {
     var _vm = this
@@ -23124,29 +23377,96 @@ var render = function() {
                             domProps: { textContent: _vm._s(puesto.nombre) }
                           }),
                           _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: { textContent: _vm._s(puesto.estado) }
-                          }),
-                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-warning mb-2 mr-2 rounded-circle",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.openModal("update", puesto)
+                            puesto.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal("update", puesto)
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-sync-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(1, true)
-                          ])
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              puesto.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              puesto.id,
+                                              puesto.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              puesto.id,
+                                              puesto.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
                         ])
                       }),
                       0
@@ -23206,7 +23526,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -23358,16 +23678,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fas fa-lock" })]
-    )
   },
   function() {
     var _vm = this
@@ -25119,34 +25429,103 @@ var render = function() {
                               : _c("div", [_vm._m(4, true)])
                           ]),
                           _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(tipo_producto.estado)
-                            }
-                          }),
-                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-warning mb-2 mr-2 rounded-circle",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.openModal(
-                                      "update",
-                                      tipo_producto
-                                    )
+                            tipo_producto.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal(
+                                        "update",
+                                        tipo_producto
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-sync-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(5, true)
-                          ])
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              tipo_producto.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              tipo_producto.id,
+                                              tipo_producto.nombre,
+                                              tipo_producto.medicamento,
+                                              tipo_producto.producto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              tipo_producto.id,
+                                              tipo_producto.nombre,
+                                              tipo_producto.medicamento,
+                                              tipo_producto.producto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
                         ])
                       }),
                       0
@@ -25206,7 +25585,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(6),
+                    _vm._m(5),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -25261,7 +25640,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c(
                     "fieldset",
@@ -25525,16 +25904,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fas fa-lock" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "nombre" } }, [
       _c("i", { staticClass: "fas fa-tags" }),
       _vm._v(" Nombre")
@@ -25655,34 +26024,103 @@ var render = function() {
                               : _c("div", [_vm._m(4, true)])
                           ]),
                           _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(unidad_medida.estado)
-                            }
-                          }),
-                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-warning mb-2 mr-2 rounded-circle",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.openModal(
-                                      "update",
-                                      unidad_medida
-                                    )
+                            unidad_medida.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal(
+                                        "update",
+                                        unidad_medida
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-sync-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(5, true)
-                          ])
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              unidad_medida.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              unidad_medida.id,
+                                              unidad_medida.nombre,
+                                              unidad_medida.medicamento,
+                                              unidad_medida.producto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              unidad_medida.id,
+                                              unidad_medida.nombre,
+                                              unidad_medida.medicamento,
+                                              unidad_medida.producto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
                         ])
                       }),
                       0
@@ -25742,7 +26180,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(6),
+                    _vm._m(5),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -25797,7 +26235,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c(
                     "fieldset",
@@ -26056,16 +26494,6 @@ var staticRenderFns = [
     return _c("span", { staticClass: "badge outline-badge-no-check" }, [
       _c("i", { staticClass: "fa fa-times-circle" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fas fa-lock" })]
-    )
   },
   function() {
     var _vm = this
@@ -42403,7 +42831,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

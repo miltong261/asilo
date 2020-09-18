@@ -39,10 +39,22 @@
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
                                         </div>
                                     </td>
-                                    <td v-text="tipo_producto.estado" class="text-center"></td>
+                                    <td class="text-center">
+                                        <div v-if="tipo_producto.estado">
+                                            <span class="badge outline-badge-check">Activo</span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check">Inactivo</span>
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></i></button>
+                                        <template v-if="tipo_producto.estado">
+                                            <button type="button" @click="changeStatus('desactivate', tipo_producto.id, tipo_producto.nombre, tipo_producto.medicamento, tipo_producto.producto)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        </template>
+                                        <template v-else>
+                                            <button type="button" @click="changeStatus('activate', tipo_producto.id, tipo_producto.nombre, tipo_producto.medicamento, tipo_producto.producto)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>
@@ -160,6 +172,48 @@
                 }else{
                         alerts.sweetAlert(response.data.status, response.data.message)
                 }
+            },
+            changeStatus(action, id, nombre, medicamento, producto) {
+                swal({
+                    title: 'Cambio de estado',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el tipo producto "'+nombre+'"?',
+                    type: 'question',
+                    confirmButtonColor: '#25d5e4',
+                    cancelButtonColor: '#f8538d',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: '¡Cancelar!',
+                    confirmButtonClass: 'btn btn-guardar',
+                    cancelButtonClass: 'btn btn-cerrar',
+                    padding: '2em'
+                }).then((result) => {
+                    if (action == 'activate')
+                        var url = '/tipo_producto/activate'
+                    else if (action == 'desactivate')
+                        var url = '/tipo_producto/desactivate'
+
+                    if (result.value) {
+                        let me = this
+                        axios.put(url, {
+                            'id': id
+                        }).then(function (response) {
+                            me.showList()
+                            swal(
+                                'Cambio de estado',
+                                'Se ha cambiado el estado correctamente',
+                                'success'
+                            )
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                        swal(
+                            'Cancelado',
+                            'Se ha cancelado la operación',
+                            'error'
+                        )
+                    }
+                })
             },
             dataTable() {
                 let datatable = $('#zero-config').DataTable()

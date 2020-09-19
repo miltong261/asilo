@@ -24,11 +24,12 @@ class ProductoRepository extends BaseRepository
         elseif ($type == 'medicamento')
             $asignacion = 0;
 
-        return Inventario::join('productos', 'productos.id', '=', 'inventario.producto_id')
+        return $this->getModel()
+            ->join('inventario', 'inventario.producto_id', '=', 'productos.id')
             ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
             ->join('tipo_producto', 'tipo_producto.id', '=', 'productos.tipo_producto_id')
-            ->select('inventario.*',
-                'productos.*',
+            ->select('productos.*',
+                'inventario.existencia',
                 'unidad_medida.nombre as unidad_nombre',
                 'tipo_producto.nombre as categoria_nombre'
             )

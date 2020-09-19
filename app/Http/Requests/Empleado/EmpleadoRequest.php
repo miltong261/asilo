@@ -42,7 +42,7 @@ class EmpleadoRequest extends FormRequest
             'nombre.required' => 'El nombre es obligatorio',
             'nombre.string' => 'Solo se permiten caracteres',
             'nombre.min' => 'El nombre debe contener como mínimo :min caracteres',
-            'nombre.min' => 'El nombre debe contener como máximo :max caracteres',
+            'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
 
             'fecha_nacimiento.required' => 'La fecha de nacimiento es obligatoria',
             'fecha_nacimiento.date' => 'Solo se permite fecha',

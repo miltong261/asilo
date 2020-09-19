@@ -117,6 +117,8 @@ Route::group(['prefix' => 'medicamentos'], function () {
     Route::get('/', 'Dashboard\MedicamentoController@index');
     Route::post('/store', 'Dashboard\MedicamentoController@store');
     Route::put('/update', 'Dashboard\MedicamentoController@update');
+    Route::put('/activate', 'Dashboard\MedicamentoController@activate');
+    Route::put('/desactivate', 'Dashboard\MedicamentoController@desactivate');
 });
 
 // Producto
@@ -124,6 +126,8 @@ Route::group(['prefix' => 'productos'], function () {
     Route::get('/', 'Dashboard\ProductoController@index');
     Route::post('/store', 'Dashboard\ProductoController@store');
     Route::put('/update', 'Dashboard\ProductoController@update');
+    Route::put('/activate', 'Dashboard\ProductoController@activate');
+    Route::put('/desactivate', 'Dashboard\ProductoController@desactivate');
 });
 
 /** Ruta de entradas */

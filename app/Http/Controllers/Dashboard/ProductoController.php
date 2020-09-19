@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Producto\ProductoRequest;
 use Illuminate\Http\Request;
 use App\Repositories\Producto\ProductoRepository;
 
@@ -18,26 +19,31 @@ class ProductoController extends Controller
         $this->productoRepository = $productoRepository;
     }
 
+    public function index()
+    {
+        return response()->json($this->productoRepository->indexProducto('producto'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductoRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $guardar = $this->productoRepository->store($request->only([
-                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'existencia_inicial', 'observacion', 'fecha_vencimiento'
+            $guardar = $this->productoRepository->storeProduct($request->only([
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'observacion', 'fecha_vencimiento'
                 ])
                 + ['fecha_registro' => Carbon::now()]
-                + ['asignacion' => 'producto']
-                + ['codigo' => 'PRODUCTO' . $this->productoRepository->generateCode()]
+                + ['asignacion' => 1]
+                + ['codigo' => 'PRODUCTO-' . $this->productoRepository->generateCodeProduct('producto')]
             );
 
-            if ($guardar) {
+            if ($guardar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
@@ -63,15 +69,15 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ProductoRequest $request)
     {
         try {
             DB::beginTransaction();
 
             $actualizar = $this->productoRepository->update($request->only([
-                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'existencia_inicial', 'observacion', 'fecha_vencimiento'
-                ])
-                , $request->id
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'observacion', 'fecha_vencimiento'
+                ]),
+                $request->id
             );
 
             if ($actualizar) {
@@ -90,6 +96,47 @@ class ProductoController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return $th;
+        }
+    }
+
+    public function activate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $activar = $this->productoRepository->estado('activar', $request->id);
+
+            if ($activar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se activó el movimiento'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+    }
+
+    public function desactivate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $desactivar = $this->productoRepository->estado('desactivar', $request->id);
+
+            if ($desactivar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se desactivó el movimiento ' .$request->nombre
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
         }
     }
 }

@@ -2264,6 +2264,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2280,7 +2301,8 @@ __webpack_require__.r(__webpack_exports__);
       telefono: '',
       modal: 0,
       titulo: '',
-      opcion: 0
+      opcion: 0,
+      errors: []
     };
   },
   methods: {
@@ -2315,7 +2337,14 @@ __webpack_require__.r(__webpack_exports__);
       this.comboPuesto();
     },
     closeModal: function closeModal() {
-      this.nombre = '', this.apellido = '', this.fecha_nacimiento = '', this.dpi = '', this.direccion = '', this.telefono = '', this.modal = 0;
+      this.nombre = '';
+      this.apellido = '';
+      this.fecha_nacimiento = '';
+      this.dpi = '';
+      this.direccion = '';
+      this.telefono = '';
+      this.puesto_id = 0;
+      this.modal = 0;
       this.titulo = '';
       this.opcion = 0;
       this.errors = [];
@@ -2764,19 +2793,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
-      lista_tipo_movimiento: [],
-      tipo_movimiento_id: 0,
       lista_movimiento: [],
       monto: '',
       observacion: '',
+      lista_tipo_movimiento: [],
+      tipo_movimiento: 0,
+      caja: 0,
       modal: 0,
       titulo: '',
-      opcion: 0
+      opcion: 0,
+      errors: []
     };
   },
   methods: {
@@ -2797,7 +2857,6 @@ __webpack_require__.r(__webpack_exports__);
             this.modal = 2;
             this.titulo = "Actualización de movimiento";
             this.opcion = 2;
-            this.puesto_id = data['tipo_movimiento_id'];
             this.monto = data['monto'];
             this.observacion = data['observacion'];
             this.id = data['id'];
@@ -2807,6 +2866,7 @@ __webpack_require__.r(__webpack_exports__);
       this.comboTipo_movimiento();
     },
     closeModal: function closeModal() {
+      this.tipo_movimiento = 0;
       this.monto = '';
       this.observacion = '';
       this.modal = 0;
@@ -2822,6 +2882,7 @@ __webpack_require__.r(__webpack_exports__);
       if (response.data.status == 'success') {
         this.closeModal();
         this.showList();
+        this.showSaldo();
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       } else {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
@@ -2869,10 +2930,55 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    showSaldo: function showSaldo() {
+      var me = this;
+      var url = '/movimientos/saldo';
+      axios.get(url).then(function (response) {
+        me.caja = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    store: function store() {
+      var _this = this;
+
+      var me = this;
+      var url = '/movimientos/store';
+      axios.post(url, {
+        'tipo_movimiento_id': this.tipo_movimiento['id'],
+        'monto': this.monto,
+        'observacion': this.observacion,
+        'entrada': this.tipo_movimiento['entrada'],
+        'salida': this.tipo_movimiento['salida']
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this.errors = error.response.data.errors;
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      var me = this;
+      var url = '/movimientos/update';
+      axios.put(url, {
+        'tipo_movimiento_id': this.tipo_movimiento['id'],
+        'monto': this.monto,
+        'observacion': this.observacion,
+        'entrada': this.tipo_movimiento['entrada'],
+        'salida': this.tipo_movimiento['salida'],
+        'id': this.id
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+      });
     }
   },
   mounted: function mounted() {
     this.showList();
+    this.showSaldo();
   }
 });
 
@@ -22706,7 +22812,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "nombre" },
+                        class: _vm.hasError("nombre") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "nombre",
+                          placeholder: "Ingrese nombre..."
+                        },
                         domProps: { value: _vm.nombre },
                         on: {
                           input: function($event) {
@@ -22716,7 +22827,17 @@ var render = function() {
                             _vm.nombre = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("nombre")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.nombre[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
@@ -22732,7 +22853,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "apellido" },
+                        class: _vm.hasError("apellido") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "apellido",
+                          placeholder: "Ingrese apellido..."
+                        },
                         domProps: { value: _vm.apellido },
                         on: {
                           input: function($event) {
@@ -22742,7 +22868,17 @@ var render = function() {
                             _vm.apellido = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("apellido")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.apellido[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
@@ -22760,6 +22896,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
+                        class: _vm.hasError("fecha_nacimiento")
+                          ? "is-invalid"
+                          : "",
                         attrs: { type: "date", name: "fecha_nacimiento" },
                         domProps: { value: _vm.fecha_nacimiento },
                         on: {
@@ -22770,7 +22909,17 @@ var render = function() {
                             _vm.fecha_nacimiento = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("fecha_nacimiento")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.fecha_nacimiento[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
@@ -22786,7 +22935,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "dpi" },
+                        class: _vm.hasError("dpi") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "dpi",
+                          placeholder: "Ingrese dpi..."
+                        },
                         domProps: { value: _vm.dpi },
                         on: {
                           input: function($event) {
@@ -22796,39 +22950,23 @@ var render = function() {
                             _vm.dpi = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("dpi")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.dpi[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(5),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.telefono,
-                            expression: "telefono"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "telefono" },
-                        domProps: { value: _vm.telefono },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.telefono = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(6),
                       _vm._v(" "),
                       _c(
                         "select",
@@ -22842,6 +22980,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
+                          class: _vm.hasError("puesto_id") ? "is-invalid" : "",
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -22876,7 +23015,58 @@ var render = function() {
                           })
                         ],
                         2
-                      )
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("puesto_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.puesto_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.telefono,
+                            expression: "telefono"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("telefono") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "telefono",
+                          placeholder: "Ingrese teléfono..."
+                        },
+                        domProps: { value: _vm.telefono },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.telefono = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("telefono")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.telefono[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
@@ -22894,7 +23084,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "direccion" },
+                        class: _vm.hasError("direccion") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "direccion",
+                          placeholder: "Ingrese dirección..."
+                        },
                         domProps: { value: _vm.direccion },
                         on: {
                           input: function($event) {
@@ -22904,7 +23099,17 @@ var render = function() {
                             _vm.direccion = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("direccion")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.direccion[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   ])
                 ]
@@ -22912,7 +23117,22 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(8),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              ),
               _vm._v(" "),
               _vm.opcion == 1
                 ? _c(
@@ -22970,7 +23190,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user-tag" }),
+          _c("i", { staticClass: "fas fa-user" }),
           _vm._v(" Nombre")
         ]),
         _vm._v(" "),
@@ -23011,7 +23231,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-user-tag" }),
+      _c("i", { staticClass: "fas fa-user" }),
       _vm._v(" Nombre")
     ])
   },
@@ -23020,8 +23240,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-user-tag" }),
-      _vm._v("Apellido")
+      _c("i", { staticClass: "fas fa-user" }),
+      _vm._v(" Apellido")
     ])
   },
   function() {
@@ -23047,8 +23267,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-phone-alt" }),
-      _vm._v(" Teléfono")
+      _c("i", { staticClass: "fas fa-user-tag" }),
+      _vm._v(" Puesto")
     ])
   },
   function() {
@@ -23056,8 +23276,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-user-tag" }),
-      _vm._v(" Puesto")
+      _c("i", { staticClass: "fas fa-phone-alt" }),
+      _vm._v(" Teléfono")
     ])
   },
   function() {
@@ -23068,16 +23288,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-cerrar", attrs: { type: "button" } },
-      [_vm._v("Cancelar "), _c("i", { staticClass: "far fa-times-circle" })]
-    )
   }
 ]
 render._withStripped = true
@@ -23502,6 +23712,21 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm._l(_vm.caja, function(saldo) {
+                return _c(
+                  "div",
+                  { key: saldo.id, staticClass: "text-center" },
+                  [
+                    _c("span", [
+                      _vm._v("Saldo en caja: "),
+                      _c("strong", { staticClass: "text-secondary" }, [
+                        _vm._v("Q" + _vm._s(saldo.saldo))
+                      ])
+                    ])
+                  ]
+                )
+              }),
+              _vm._v(" "),
               _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
                 _c(
                   "table",
@@ -23525,13 +23750,24 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(movimiento.tipo_movimiento_id)
+                              textContent: _vm._s(movimiento.no_transaccion)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: { textContent: _vm._s(movimiento.monto) }
+                            domProps: {
+                              textContent: _vm._s(movimiento.fecha_registro)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(
+                                movimiento.tipo_movimiento_nombre
+                              )
+                            }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -23539,7 +23775,54 @@ var render = function() {
                             domProps: {
                               textContent: _vm._s(movimiento.observacion)
                             }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            movimiento.entrada
+                              ? _c("div", [
+                                  _c("span", {
+                                    staticClass: "badge outline-badge-check",
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        "Q" + movimiento.monto
+                                      )
+                                    }
+                                  })
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            movimiento.salida
+                              ? _c("div", [
+                                  _c("span", {
+                                    staticClass: "badge outline-badge-no-check",
+                                    domProps: {
+                                      textContent: _vm._s(
+                                        "Q" + movimiento.monto
+                                      )
+                                    }
+                                  })
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-warning mb-2 mr-2 rounded-circle",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.openModal("update", movimiento)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-sync-alt" })]
+                            )
+                          ])
                         ])
                       }),
                       0
@@ -23547,7 +23830,8 @@ var render = function() {
                   ]
                 )
               ])
-            ]
+            ],
+            2
           )
         ]
       )
@@ -23609,11 +23893,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tipo_movimiento_id,
-                              expression: "tipo_movimiento_id"
+                              value: _vm.tipo_movimiento,
+                              expression: "tipo_movimiento"
                             }
                           ],
                           staticClass: "form-control",
+                          class: _vm.hasError("monto") ? "is-invalid" : "",
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -23624,25 +23909,43 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.tipo_movimiento_id = $event.target.multiple
+                              _vm.tipo_movimiento = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
                           }
                         },
-                        _vm._l(_vm.lista_tipo_movimiento, function(
-                          tipo_movimiento
-                        ) {
-                          return _c("option", {
-                            key: tipo_movimiento.id,
-                            domProps: {
-                              value: tipo_movimiento.id,
-                              textContent: _vm._s(tipo_movimiento.nombre)
-                            }
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione tipo de movimiento")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.lista_tipo_movimiento, function(
+                            tipo_movimiento
+                          ) {
+                            return _c("option", {
+                              key: tipo_movimiento.id,
+                              domProps: {
+                                value: tipo_movimiento,
+                                textContent: _vm._s(tipo_movimiento.nombre)
+                              }
+                            })
                           })
-                        }),
-                        0
-                      )
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("tipo_movimiento_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.tipo_movimiento_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
@@ -23658,7 +23961,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "monto" },
+                        class: _vm.hasError("monto") ? "is-invalid" : "",
+                        attrs: {
+                          type: "number",
+                          name: "monto",
+                          placeholder: "Ingrese monto..."
+                        },
                         domProps: { value: _vm.monto },
                         on: {
                           input: function($event) {
@@ -23668,7 +23976,17 @@ var render = function() {
                             _vm.monto = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("monto")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.monto[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-12" }, [
@@ -23684,7 +24002,12 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "observacion" },
+                        class: _vm.hasError("observacion") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "observacion",
+                          placeholder: "Ingrese observación..."
+                        },
                         domProps: { value: _vm.observacion },
                         on: {
                           input: function($event) {
@@ -23694,7 +24017,17 @@ var render = function() {
                             _vm.observacion = $event.target.value
                           }
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("observacion")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.observacion[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   ])
                 ]
@@ -23702,7 +24035,22 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(4),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              ),
               _vm._v(" "),
               _vm.opcion == 1
                 ? _c(
@@ -23759,7 +24107,10 @@ var staticRenderFns = [
           _c("i", { staticClass: "fas fa-hashtag" })
         ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Transacción")]),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" }),
+          _vm._v(" Transacción")
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "far fa-calendar-alt" }),
@@ -23768,17 +24119,22 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-paste" }),
-          _vm._v(" Tipo Movimiento")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-money-bill" }),
-          _vm._v(" Monto")
+          _vm._v(" Tipo movimiento")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Observación")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-money-bill" }),
+          _vm._v(" Entrada")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-money-bill" }),
+          _vm._v(" Salida")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -23814,16 +24170,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observación")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-cerrar", attrs: { type: "button" } },
-      [_vm._v("Cancelar "), _c("i", { staticClass: "far fa-times-circle" })]
-    )
   }
 ]
 render._withStripped = true
@@ -43433,7 +43779,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Producto\ProductoRequest;
 use Illuminate\Http\Request;
 use App\Repositories\Producto\ProductoRepository;
 
@@ -17,31 +18,36 @@ class MedicamentoController extends Controller
     {
         $this->medicamentoRepository = $medicamentoRepository;
     }
+
+    public function index()
+    {
+        return response()->json($this->medicamentoRepository->indexProducto('medicamento'));
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductoRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $guardar = $this->medicamentoRepository->store($request->only([
-                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'existencia_inicial', 'observacion', 'fecha_vencimiento'
+            $guardar = $this->medicamentoRepository->storeProduct($request->only([
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'observacion', 'fecha_vencimiento'
                 ])
                 + ['fecha_registro' => Carbon::now()]
-                + ['asignacion' => 'medicamento']
-                + ['codigo' => 'PRODUCTO' . $this->medicamentoRepository->generateCode()]
+                + ['asignacion' => 0]
+                + ['codigo' => 'MEDICAMENTO-' . $this->medicamentoRepository->generateCodeProduct('medicamento')]
             );
 
-            if ($guardar) {
+            if ($guardar == 'exitoso') {
                 DB::commit();
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó correctamente al producto ' . $request->nombre
+                    'message' => 'Se guardó correctamente al medicamento ' . $request->nombre
                 ]);
             } else {
                 return response()->json([
@@ -62,15 +68,15 @@ class MedicamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ProductoRequest $request)
     {
         try {
             DB::beginTransaction();
 
             $actualizar = $this->medicamentoRepository->update($request->only([
-                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'existencia_inicial', 'observacion', 'fecha_vencimiento'
-                ])
-                , $request->id
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'observacion', 'fecha_vencimiento'
+                ]),
+                $request->id
             );
 
             if ($actualizar) {
@@ -78,7 +84,7 @@ class MedicamentoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se actualizó correctamente al producto ' . $request->nombre
+                    'message' => 'Se actualizó correctamente al medicamento ' . $request->nombre
                 ]);
             } else {
                 return response()->json([
@@ -89,6 +95,47 @@ class MedicamentoController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return $th;
+        }
+    }
+
+    public function activate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $activar = $this->medicamentoRepository->estado('activar', $request->id);
+
+            if ($activar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se activó el movimiento'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+    }
+
+    public function desactivate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $desactivar = $this->medicamentoRepository->estado('desactivar', $request->id);
+
+            if ($desactivar) {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se desactivó el movimiento ' .$request->nombre
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
         }
     }
 }

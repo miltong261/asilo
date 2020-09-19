@@ -28,6 +28,11 @@ class MovimientoController extends Controller
         return response()->json($this->movimientoRepository->indexMovimiento());
     }
 
+    public function showSaldo()
+    {
+        return response()->json($this->movimientoRepository->saldoCaja());
+    }
+
     /**
      * Store a newly created resource in storage.
      *

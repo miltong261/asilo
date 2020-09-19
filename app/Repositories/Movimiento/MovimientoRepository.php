@@ -16,10 +16,19 @@ class MovimientoRepository extends BaseRepository
     public function indexMovimiento()
     {
         return $this->getModel()
-        ->join('caja', 'caja.id', '=', 'movimientos.caja_id')
-        ->select('movimientos.*', 'caja.saldo')
+        ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
+        ->select('movimientos.*',
+            'tipo_movimiento.nombre as tipo_movimiento_nombre',
+            'tipo_movimiento.entrada',
+            'tipo_movimiento.salida'
+        )
         ->orderBy('movimientos.fecha_registro', 'desc')
         ->get();
+    }
+
+    public function saldoCaja()
+    {
+        return Caja::select('saldo')->get();
     }
 
     public function movimiento($action, array $request, $entrada, $salida, $id)

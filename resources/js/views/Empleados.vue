@@ -10,7 +10,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
                                     <th class="text-center"><i class="fas fa-id-card"></i> Dpi</th>
@@ -67,50 +67,71 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-user-tag"></i> Nombre</label>
-                                    <input type="text" name="nombre" v-model="nombre" class="form-control">
+                                    <label class="text-dark"><i class="fas fa-user"></i> Nombre</label>
+                                    <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
+                                    <div v-if="hasError('nombre')" class="invalid-feedback">
+                                        {{ errors.nombre[0] }}
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-user-tag"></i>Apellido</label>
-                                    <input type="text" name="apellido" v-model="apellido" class="form-control">
+                                    <label class="text-dark"><i class="fas fa-user"></i> Apellido</label>
+                                    <input type="text" name="apellido" v-model="apellido" class="form-control" :class="hasError('apellido') ? 'is-invalid' : ''" placeholder="Ingrese apellido...">
+                                    <div v-if="hasError('apellido')" class="invalid-feedback">
+                                        {{ errors.apellido[0] }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
-                                    <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control">
+                                    <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
+                                    <div v-if="hasError('fecha_nacimiento')" class="invalid-feedback">
+                                        {{ errors.fecha_nacimiento[0] }}
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
-                                    <input type="text" name="dpi" v-model="dpi" class="form-control">
+                                    <input type="text" name="dpi" v-model="dpi" class="form-control" :class="hasError('dpi') ? 'is-invalid' : ''" placeholder="Ingrese dpi...">
+                                    <div v-if="hasError('dpi')" class="invalid-feedback">
+                                        {{ errors.dpi[0] }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                    <input type="text" name="telefono" v-model="telefono" class="form-control">
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
-                                    <select class="form-control" v-model="puesto_id">
+                                    <select class="form-control" :class="hasError('puesto_id') ? 'is-invalid' : ''" v-model="puesto_id">
                                         <option value="0" disabled>Seleccione puesto</option>
                                         <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>
                                     </select>
+                                    <div v-if="hasError('puesto_id')" class="invalid-feedback">
+                                        {{ errors.puesto_id[0] }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                    <input type="text" name="telefono" v-model="telefono" class="form-control" :class="hasError('telefono') ? 'is-invalid' : ''" placeholder="Ingrese teléfono...">
+                                    <div v-if="hasError('telefono')" class="invalid-feedback">
+                                        {{ errors.telefono[0] }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input   type="text" name="direccion" v-model="direccion" class="form-control">
+                                    <input   type="text" name="direccion" v-model="direccion" class="form-control" :class="hasError('direccion') ? 'is-invalid' : ''" placeholder="Ingrese dirección...">
+                                    <div v-if="hasError('direccion')" class="invalid-feedback">
+                                        {{ errors.direccion[0] }}
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-cerrar">Cancelar <i class="far fa-times-circle"></i></button>
+                        <button type="button" class="btn btn-cerrar" @click="closeModal()">Cancelar <i class="far fa-times-circle"></i></button>
                         <button type="button" v-if="opcion==1" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
                         <button type="button" v-if="opcion==2" class="btn btn-warning" @click="update()">Actualizar <i class="fas fa-sync-alt"></i></button>
                     </div>
@@ -142,6 +163,7 @@ export default {
             modal: 0,
             titulo: '',
             opcion: 0,
+            errors: []
         }
     },
     methods: {
@@ -170,12 +192,14 @@ export default {
             this.comboPuesto()
         },
         closeModal() {
-            this.nombre = '',
-            this.apellido = '',
-            this.fecha_nacimiento = '',
-            this.dpi = '',
-            this.direccion = '',
-            this.telefono = '',
+            this.nombre = ''
+            this.apellido = ''
+            this.fecha_nacimiento = ''
+            this.dpi = ''
+            this.direccion = ''
+            this.telefono = ''
+
+            this.puesto_id = 0
 
             this.modal = 0
             this.titulo = ''
@@ -268,8 +292,8 @@ export default {
             });
         },
         showList() {
-            let me = this;
-            let url = '/empleados';
+            let me = this
+            let url = '/empleados'
             axios.get(url).then(function (response) {
                 me.lista_empleados = response.data
                 me.dataTable();

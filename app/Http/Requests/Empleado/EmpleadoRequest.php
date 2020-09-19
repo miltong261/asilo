@@ -28,8 +28,9 @@ class EmpleadoRequest extends FormRequest
             'nombre' => ['required', 'string', 'min:5', 'max:35'],
             'apellido' => ['required', 'string', 'min:5', 'max:35'],
             'fecha_nacimiento' => ['required', 'date'],
-            'dpi' => ['required']
-            // 'dpi' => ['required', 'digits:13', 'unique:empleados'],
+            'dpi' => ['required', 'unique:empleados'],
+            'telefono' => ['required'],
+            'direccion' => ['required', 'min:5', 'max:35']
         ];
     }
 
@@ -46,9 +47,16 @@ class EmpleadoRequest extends FormRequest
             'fecha_nacimiento.required' => 'La fecha de nacimiento es obligatoria',
             'fecha_nacimiento.date' => 'Solo se permite fecha',
 
-            'dpi.required' => 'El DPI es obligatorio'
-            // 'dpi.digits' => 'El DPI solo contiene 13 números',
-            // 'dpi.unique' => 'Este número de DPI ya existe',
+            'dpi.required' => 'El DPI es obligatorio',
+            // 'dpi.digits' => 'El DPI contiene 13 dígitos',
+            'dpi.unique' => 'Este número de DPI ya existe',
+
+            'telefono.required' => 'El número de teléfono es obligatorio',
+            // 'telefono.digits' => 'El número contiene 8 dígitos',
+
+            'direccion.required' => 'La dirección es obligatoria',
+            'direccion.min' => 'La dirección debe contener como mínimo :min caracteres',
+            'direccion.max' => 'La dirección debe contener como máximo :max caracteres'
         ];
     }
 }

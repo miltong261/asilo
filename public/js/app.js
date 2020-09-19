@@ -2695,13 +2695,300 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
 //
 //
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: 0,
+      lista_medicamento: [],
+      nombre: '',
+      observacion: '',
+      fecha_vencimiento: '',
+      lista_unidad_medida: [],
+      unidad_medida: 0,
+      lista_tipo_producto: [],
+      tipo_producto: 0,
+      modal: 0,
+      titulo: '',
+      opcion: 0,
+      errors: []
+    };
+  },
+  methods: {
+    openModal: function openModal(metodo) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+      switch (metodo) {
+        case 'create':
+          {
+            this.modal = 1;
+            this.titulo = "Registro de medicamento";
+            this.opcion = 1;
+            break;
+          }
+
+        case 'update':
+          {
+            this.modal = 2;
+            this.titulo = "Actualización de medicamento";
+            this.opcion = 2;
+            this.nombre = data['nombre'];
+            this.observacion = data['observacion'];
+            this.fecha_vencimiento = data['fecha_vencimiento'];
+            this.id = data['id'];
+          }
+      }
+
+      this.combo_medicamento_unidad_medida();
+      this.combo_medicamento_tipo_producto();
+    },
+    closeModal: function closeModal() {
+      this.nombre = '';
+      this.observacion = '';
+      this.fecha_vencimiento = '';
+      this.modal = 0;
+      this.titulo = '';
+      this.opcion = 0;
+      this.errors = [];
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    hasError: function hasError(field) {
+      return field in this.errors;
+    },
+    backendResponse: function backendResponse(response) {
+      if (response.data.status == 'success') {
+        this.closeModal();
+        this.showList();
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
+      } else {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
+      }
+    },
+    combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
+      var me = this;
+      var url = '/unidad_medida/combo_medicamento';
+      axios.get(url).then(function (response) {
+        me.lista_unidad_medida = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    combo_medicamento_tipo_producto: function combo_medicamento_tipo_producto() {
+      var me = this;
+      var url = '/tipo_producto/combo_producto';
+      axios.get(url).then(function (response) {
+        me.lista_tipo_producto = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    dataTable: function dataTable() {
+      var datatable = $('#zero-config').DataTable();
+      datatable.destroy();
+      this.$nextTick(function () {
+        $('#zero-config').DataTable({
+          "oLanguage": {
+            "oPaginate": {
+              "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+              "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+            },
+            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Buscar...",
+            "sLengthMenu": "Resultado :  _MENU_"
+          },
+          "stripeClasses": [],
+          "lengthMenu": [5, 10, 20, 50],
+          "pageLength": 5,
+          drawCallback: function drawCallback() {
+            $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5');
+          }
+        });
+      });
+    },
+    showList: function showList() {
+      var me = this;
+      var url = '/medicamentos';
+      axios.get(url).then(function (response) {
+        me.lista_medicamento = response.data;
+        me.dataTable();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    store: function store() {
+      var _this = this;
+
+      var me = this;
+      var url = '/medicamentos/store';
+      axios.post(url, {
+        'unidad_medida_id': this.unidad_medida['id'],
+        'tipo_producto_id': this.tipo_producto['id'],
+        'nombre': this.nombre,
+        'fecha_vencimiento': this.fecha_vencimiento,
+        'observacion': this.observacion
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this.errors = error.response.data.errors;
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      var me = this;
+      var url = '/medicamentos/update';
+      axios.put(url, {
+        'unidad_medida_id': this.unidad_medida['id'],
+        'tipo_producto_id': this.tipo_producto['id'],
+        'nombre': this.nombre,
+        'fecha_vencimiento': this.fecha_vencimiento,
+        'observacion': this.observacion,
+        'id': this.id
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.showList();
+  }
+});
 
 /***/ }),
 
@@ -2993,13 +3280,302 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
 //
 //
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: 0,
+      lista_medicamento: [],
+      nombre: '',
+      observacion: '',
+      fecha_vencimiento: '',
+      lista_unidad_medida: [],
+      unidad_medida: 0,
+      lista_tipo_producto: [],
+      tipo_producto: 0,
+      modal: 0,
+      titulo: '',
+      opcion: 0,
+      errors: []
+    };
+  },
+  methods: {
+    openModal: function openModal(metodo) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+      switch (metodo) {
+        case 'create':
+          {
+            this.modal = 1;
+            this.titulo = "Registro de producto";
+            this.opcion = 1;
+            break;
+          }
+
+        case 'update':
+          {
+            this.modal = 2;
+            this.titulo = "Actualización de producto";
+            this.opcion = 2;
+            this.nombre = data['nombre'];
+            this.observacion = data['observacion'];
+            this.fecha_vencimiento = data['fecha_vencimiento'];
+            this.id = data['id'];
+          }
+      }
+
+      this.combo_medicamento_unidad_medida();
+      this.combo_medicamento_tipo_producto();
+    },
+    closeModal: function closeModal() {
+      this.nombre = '';
+      this.observacion = '';
+      this.fecha_vencimiento = '';
+      this.modal = 0;
+      this.titulo = '';
+      this.opcion = 0;
+      this.errors = [];
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    hasError: function hasError(field) {
+      return field in this.errors;
+    },
+    backendResponse: function backendResponse(response) {
+      if (response.data.status == 'success') {
+        this.closeModal();
+        this.showList();
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
+      } else {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
+      }
+    },
+    combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
+      var me = this;
+      var url = '/unidad_medida/combo_medicamento';
+      axios.get(url).then(function (response) {
+        me.lista_unidad_medida = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    combo_medicamento_tipo_producto: function combo_medicamento_tipo_producto() {
+      var me = this;
+      var url = '/tipo_producto/combo_producto';
+      axios.get(url).then(function (response) {
+        me.lista_tipo_producto = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    dataTable: function dataTable() {
+      var datatable = $('#zero-config').DataTable();
+      datatable.destroy();
+      this.$nextTick(function () {
+        $('#zero-config').DataTable({
+          "oLanguage": {
+            "oPaginate": {
+              "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+              "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+            },
+            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Buscar...",
+            "sLengthMenu": "Resultado :  _MENU_"
+          },
+          "stripeClasses": [],
+          "lengthMenu": [5, 10, 20, 50],
+          "pageLength": 5,
+          drawCallback: function drawCallback() {
+            $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5');
+          }
+        });
+      });
+    },
+    showList: function showList() {
+      var me = this;
+      var url = '/medicamentos';
+      axios.get(url).then(function (response) {
+        me.lista_medicamento = response.data;
+        me.dataTable();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    store: function store() {
+      var _this = this;
+
+      var me = this;
+      var url = '/medicamentos/store';
+      axios.post(url, {
+        'unidad_medida_id': this.unidad_medida['id'],
+        'tipo_producto_id': this.tipo_producto['id'],
+        'nombre': this.nombre,
+        'fecha_vencimiento': this.fecha_vencimiento,
+        'observacion': this.observacion
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this.errors = error.response.data.errors;
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      var me = this;
+      var url = '/medicamentos/update';
+      axios.put(url, {
+        'unidad_medida_id': this.unidad_medida['id'],
+        'tipo_producto_id': this.tipo_producto['id'],
+        'nombre': this.nombre,
+        'fecha_vencimiento': this.fecha_vencimiento,
+        'observacion': this.observacion,
+        'id': this.id
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.showList();
+  }
+});
 
 /***/ }),
 
@@ -23647,14 +24223,686 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "layout-px-spacing" }, [
+    _c("div", { staticClass: "row layout-top-spacing" }, [
+      _c(
+        "div",
+        { staticClass: "col-xl-12 col-lg-12 col-sm-12  layout-spacing" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info mb-2",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openModal("create")
+                }
+              }
+            },
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "widget-content widget-content-area br-6" },
+            [
+              _c("img", {
+                staticClass: "rounded-circle mx-auto d-block",
+                attrs: {
+                  src: "assets/img/logo-tablas.jpeg",
+                  alt: "logo",
+                  width: "90",
+                  height: "90"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-hover",
+                    staticStyle: { width: "100%" },
+                    attrs: { id: "zero-config" }
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.lista_medicamento, function(
+                        medicamento,
+                        index
+                      ) {
+                        return _c("tr", { key: medicamento.id }, [
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.nombre)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.tipo_producto_id)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.unidad_medida_id)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.fecha_registro)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.fecha_vencimiento)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(
+                                medicamento.existencia_inicial
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm.puesto.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal(
+                                        "update",
+                                        medicamento
+                                      )
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              medicamento.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              medicamento.id,
+                                              medicamento.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              medicamento.id,
+                                              medicamento.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modal },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unidad_medida,
+                              expression: "unidad_medida"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: _vm.hasError("unidad_medida")
+                            ? "is-invalid"
+                            : "",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.unidad_medida = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione unidad de medida")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.lista_unidad_medida, function(
+                            unidad_medida
+                          ) {
+                            return _c("option", {
+                              key: unidad_medida.id,
+                              domProps: {
+                                value: unidad_medida,
+                                textContent: _vm._s(unidad_medida.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("unidad_medida_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.unidad_medida_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tipo_producto,
+                              expression: "tipo_producto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: _vm.hasError("tipo_producto")
+                            ? "is-invalid"
+                            : "",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.tipo_producto = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione tipo producto")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.lista_tipo_producto, function(
+                            tipo_producto
+                          ) {
+                            return _c("option", {
+                              key: tipo_producto.id,
+                              domProps: {
+                                value: tipo_producto,
+                                textContent: _vm._s(tipo_producto.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("tipo_producto_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.tipo_producto_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombre,
+                            expression: "nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("nombre") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "nombre",
+                          placeholder: "Ingrese nombre..."
+                        },
+                        domProps: { value: _vm.nombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombre = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("nombre")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.nombre[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_vencimiento,
+                            expression: "fecha_vencimiento"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("fecha_vencimiento")
+                          ? "is-invalid"
+                          : "",
+                        attrs: {
+                          type: "date",
+                          name: "fecha_vencimiento",
+                          placeholder: "Ingrese observación..."
+                        },
+                        domProps: { value: _vm.fecha_vencimiento },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_vencimiento = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("fecha_vencimiento")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.fecha_vencimiento[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.observacion,
+                            expression: "observacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("observacion") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "observacion",
+                          placeholder: "Ingrese observación..."
+                        },
+                        domProps: { value: _vm.observacion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.observacion = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("observacion")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.observacion[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              ),
+              _vm._v(" "),
+              _vm.opcion == 1
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-guardar",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.store()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Guardar "),
+                      _c("i", { staticClass: "far fa-check-circle" })
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.opcion == 2
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.update()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Actualizar "),
+                      _c("i", { staticClass: "fas fa-sync-alt" })
+                    ]
+                  )
+                : _vm._e()
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Hola mundo")])])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" }),
+          _vm._v(" Codigo")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-medkit" }),
+          _vm._v(" Nombre")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-tags" }),
+          _vm._v(" Categoria")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user-tag" }),
+          _vm._v(" Unidad medida")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v(" Fecha registro")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v(" Fecha vencimiento")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-store-alt" }),
+          _vm._v(" Existencia")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-lock" }),
+          _vm._v(" Estado")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v(" Unidad de medida")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Tipo producto")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-medkit" }),
+      _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Fecha vencimiento")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-search" }),
+      _vm._v(" Observación")
+    ])
   }
 ]
 render._withStripped = true
@@ -24193,14 +25441,686 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "layout-px-spacing" }, [
+    _c("div", { staticClass: "row layout-top-spacing" }, [
+      _c(
+        "div",
+        { staticClass: "col-xl-12 col-lg-12 col-sm-12  layout-spacing" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info mb-2",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openModal("create")
+                }
+              }
+            },
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "widget-content widget-content-area br-6" },
+            [
+              _c("img", {
+                staticClass: "rounded-circle mx-auto d-block",
+                attrs: {
+                  src: "assets/img/logo-tablas.jpeg",
+                  alt: "logo",
+                  width: "90",
+                  height: "90"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-hover",
+                    staticStyle: { width: "100%" },
+                    attrs: { id: "zero-config" }
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.lista_medicamento, function(
+                        medicamento,
+                        index
+                      ) {
+                        return _c("tr", { key: medicamento.id }, [
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.nombre)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.tipo_producto_id)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.unidad_medida_id)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.fecha_registro)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.fecha_vencimiento)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(
+                                medicamento.existencia_inicial
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm.puesto.estado
+                              ? _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge outline-badge-check"
+                                    },
+                                    [_vm._v("Activo")]
+                                  )
+                                ])
+                              : _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "badge outline-badge-no-check"
+                                    },
+                                    [_vm._v("Inactivo")]
+                                  )
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal(
+                                        "update",
+                                        medicamento
+                                      )
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-sync-alt" })]
+                              ),
+                              _vm._v(" "),
+                              medicamento.estado
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "desactivate",
+                                              medicamento.id,
+                                              medicamento.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.changeStatus(
+                                              "activate",
+                                              medicamento.id,
+                                              medicamento.nombre
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-unlock"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                            ],
+                            2
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modal },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unidad_medida,
+                              expression: "unidad_medida"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: _vm.hasError("unidad_medida")
+                            ? "is-invalid"
+                            : "",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.unidad_medida = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione unidad de medida")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.lista_unidad_medida, function(
+                            unidad_medida
+                          ) {
+                            return _c("option", {
+                              key: unidad_medida.id,
+                              domProps: {
+                                value: unidad_medida,
+                                textContent: _vm._s(unidad_medida.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("unidad_medida_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.unidad_medida_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tipo_producto,
+                              expression: "tipo_producto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: _vm.hasError("tipo_producto")
+                            ? "is-invalid"
+                            : "",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.tipo_producto = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { value: "0", disabled: "" } },
+                            [_vm._v("Seleccione tipo producto")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.lista_tipo_producto, function(
+                            tipo_producto
+                          ) {
+                            return _c("option", {
+                              key: tipo_producto.id,
+                              domProps: {
+                                value: tipo_producto,
+                                textContent: _vm._s(tipo_producto.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("tipo_producto_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.tipo_producto_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombre,
+                            expression: "nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("nombre") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "nombre",
+                          placeholder: "Ingrese nombre..."
+                        },
+                        domProps: { value: _vm.nombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombre = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("nombre")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.nombre[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_vencimiento,
+                            expression: "fecha_vencimiento"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("fecha_vencimiento")
+                          ? "is-invalid"
+                          : "",
+                        attrs: {
+                          type: "date",
+                          name: "fecha_vencimiento",
+                          placeholder: "Ingrese observación..."
+                        },
+                        domProps: { value: _vm.fecha_vencimiento },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_vencimiento = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("fecha_vencimiento")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.fecha_vencimiento[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.observacion,
+                            expression: "observacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("observacion") ? "is-invalid" : "",
+                        attrs: {
+                          type: "text",
+                          name: "observacion",
+                          placeholder: "Ingrese observación..."
+                        },
+                        domProps: { value: _vm.observacion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.observacion = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("observacion")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.observacion[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              ),
+              _vm._v(" "),
+              _vm.opcion == 1
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-guardar",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.store()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Guardar "),
+                      _c("i", { staticClass: "far fa-check-circle" })
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.opcion == 2
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.update()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("Actualizar "),
+                      _c("i", { staticClass: "fas fa-sync-alt" })
+                    ]
+                  )
+                : _vm._e()
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Hola mundo")])])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" }),
+          _vm._v(" Codigo")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-tags" }),
+          _vm._v(" Nombre")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user-tag" }),
+          _vm._v(" Unidad medida")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-tags" }),
+          _vm._v(" Categoria")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v(" Fecha registro")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v(" Fecha vencimiento")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-store-alt" }),
+          _vm._v(" Existencia")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-lock" }),
+          _vm._v(" Estado")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v(" Unidad de medida")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Tipo producto")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Fecha vencimiento")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-search" }),
+      _vm._v(" Observación")
+    ])
   }
 ]
 render._withStripped = true
@@ -43779,7 +45699,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

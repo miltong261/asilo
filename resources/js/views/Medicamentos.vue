@@ -11,7 +11,7 @@
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-hashtag"></i> Codigo</th>
-                                    <th class="text-center"><i class="fas fa-tags"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-briefcase-medical"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Observación</th>
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Nombre</label>
+                                    <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
                                     <div v-if="hasError('nombre')" class="invalid-feedback">
                                         {{ errors.nombre[0] }}
@@ -151,61 +151,68 @@
                                     <span class="badge outline-badge-no-check">MEDICAMENTO INACTIVO</span>
                                 </div>
                             </div>
+                            
+                            
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Código</label>
-                                    <p v-text="codigo"></p>
+                                    <label class="text-dark"><i class="fas fa-hashtag"></i> Código</label>
+                                    <input v-text="codigo" v-model="codigo" class="form-control" disabled>
+                                    <!-- <p v-text="codigo"></p> -->
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
-                                    <p v-text="unidad_medida_nombre"></p>
+                                    <input v-text="unidad_medida_nombre" v-model="unidad_medida_nombre" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
-                                    <p v-text="tipo_producto_nombre"></p>
+                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled> 
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Nombre</label>
-                                    <p v-text="nombre"></p>
+                                    <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
+                                    <input v-text="nombre" v-model="nombre" class="form-control" disabled> 
                                 </div>
 
                                 <div class="form-group col-md-8">
-                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Observación</label>
-                                    <p v-text="observacion"></p>
+                                    <label class="text-dark"><i class="fas fa-search"></i> Observación</label>
+                                    <input v-text="observacion" v-model="observacion" class="form-control" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Fecha de registro</label>
-                                    <p v-text="fecha_registro"></p>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de registro</label>
+                                    <input v-text="fecha_registro" v-model="fecha_registro" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group col-md-8">
-                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Fecha de vencimiento</label>
-                                    <p v-text="fecha_vencimiento"></p>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i>  Fecha de vencimiento</label>
+                                    <input v-text="fecha_vencimiento" v-model="fecha_vencimiento" class="form-control" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Última compra</label>
-                                    <p v-text="fecha_ultima_compra"></p>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Última compra</label>
+                                    <input v-text="fecha_ultima_compra" v-model="fecha_ultima_compra" class="form-control" disabled>    
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Última salida</label>
-                                    <p v-text="fecha_ultima_salida"></p>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i>  Última salida</label>
+                                    <input v-text="fecha_ultima_salida" v-model="fecha_ultima_salida" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Último ajuste</label>
-                                    <p v-text="fecha_ultimo_ajuste"></p>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i>  Último ajuste</label>
+                                    <input v-text="fecha_ultimo_ajuste" v-model="fecha_ultimo_ajuste" class="form-control" disabled>
+                                </div>
+
+                                <div class="mx-auto">
+                                    <h4>Existencia: <strong v-text="existencia" class="text-secondary"></strong> </h4>
                                 </div>
                             </div>
                         </form>
@@ -237,6 +244,7 @@
                 fecha_ultima_salida: '',
                 fecha_ultimo_ajuste: '',
                 estado: 0,
+                existencia: 0,
 
                 lista_unidad_medida: [],
                 unidad_medida_id: 0,
@@ -294,6 +302,7 @@
                 this.fecha_ultima_salida = data['fecha_ultima_salida']
                 this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste']
                 this.estado = data['estado']
+                this.existencia = data['existencia']
             },
             closeModal() {
                 this.unidad_medida_id = 0
@@ -321,6 +330,7 @@
                 this.fecha_ultima_salida = ''
                 this.fecha_ultimo_ajuste = ''
                 this.estado = ''
+                this.existencia = ''
 
                 this.modalMedicamento = 0
                 this.titulo = ''

@@ -2917,6 +2917,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2932,6 +2939,7 @@ __webpack_require__.r(__webpack_exports__);
       fecha_ultima_salida: '',
       fecha_ultimo_ajuste: '',
       estado: 0,
+      existencia: 0,
       lista_unidad_medida: [],
       unidad_medida_id: 0,
       unidad_medida_nombre: '',
@@ -2989,6 +2997,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fecha_ultima_salida = data['fecha_ultima_salida'];
       this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste'];
       this.estado = data['estado'];
+      this.existencia = data['existencia'];
     },
     closeModal: function closeModal() {
       this.unidad_medida_id = 0;
@@ -3014,6 +3023,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fecha_ultima_salida = '';
       this.fecha_ultimo_ajuste = '';
       this.estado = '';
+      this.existencia = '';
       this.modalMedicamento = 0;
       this.titulo = '';
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de medicamento exitosa');
@@ -3665,9 +3675,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3683,6 +3690,7 @@ __webpack_require__.r(__webpack_exports__);
       fecha_ultima_salida: '',
       fecha_ultimo_ajuste: '',
       estado: 0,
+      existencia: 0,
       lista_unidad_medida: [],
       unidad_medida_id: 0,
       unidad_medida_nombre: '',
@@ -3740,6 +3748,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fecha_ultima_salida = data['fecha_ultima_salida'];
       this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste'];
       this.estado = data['estado'];
+      this.existencia = data['existencia'];
     },
     closeModal: function closeModal() {
       this.unidad_medida_id = 0;
@@ -3765,6 +3774,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fecha_ultima_salida = '';
       this.fecha_ultimo_ajuste = '';
       this.estado = '';
+      this.existencia = '';
       this.modalProducto = 0;
       this.titulo = '';
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de producto exitosa');
@@ -25212,15 +25222,57 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(6),
                       _vm._v(" "),
-                      _c("p", { domProps: { textContent: _vm._s(_vm.codigo) } })
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.codigo,
+                            expression: "codigo"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.codigo),
+                          value: _vm.codigo
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.codigo = $event.target.value
+                          }
+                        }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(7),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.unidad_medida_nombre,
+                            expression: "unidad_medida_nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.unidad_medida_nombre)
+                          textContent: _vm._s(_vm.unidad_medida_nombre),
+                          value: _vm.unidad_medida_nombre
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.unidad_medida_nombre = $event.target.value
+                          }
                         }
                       })
                     ]),
@@ -25228,9 +25280,28 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(8),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tipo_producto_nombre,
+                            expression: "tipo_producto_nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.tipo_producto_nombre)
+                          textContent: _vm._s(_vm.tipo_producto_nombre),
+                          value: _vm.tipo_producto_nombre
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.tipo_producto_nombre = $event.target.value
+                          }
                         }
                       })
                     ])
@@ -25240,14 +25311,58 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(9),
                       _vm._v(" "),
-                      _c("p", { domProps: { textContent: _vm._s(_vm.nombre) } })
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombre,
+                            expression: "nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.nombre),
+                          value: _vm.nombre
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombre = $event.target.value
+                          }
+                        }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-8" }, [
                       _vm._m(10),
                       _vm._v(" "),
-                      _c("p", {
-                        domProps: { textContent: _vm._s(_vm.observacion) }
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.observacion,
+                            expression: "observacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.observacion),
+                          value: _vm.observacion
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.observacion = $event.target.value
+                          }
+                        }
                       })
                     ])
                   ]),
@@ -25256,16 +25371,58 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(11),
                       _vm._v(" "),
-                      _c("p", {
-                        domProps: { textContent: _vm._s(_vm.fecha_registro) }
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_registro,
+                            expression: "fecha_registro"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_registro),
+                          value: _vm.fecha_registro
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_registro = $event.target.value
+                          }
+                        }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-8" }, [
                       _vm._m(12),
                       _vm._v(" "),
-                      _c("p", {
-                        domProps: { textContent: _vm._s(_vm.fecha_vencimiento) }
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_vencimiento,
+                            expression: "fecha_vencimiento"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_vencimiento),
+                          value: _vm.fecha_vencimiento
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_vencimiento = $event.target.value
+                          }
+                        }
                       })
                     ])
                   ]),
@@ -25274,9 +25431,28 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(13),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_ultima_compra,
+                            expression: "fecha_ultima_compra"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.fecha_ultima_compra)
+                          textContent: _vm._s(_vm.fecha_ultima_compra),
+                          value: _vm.fecha_ultima_compra
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_ultima_compra = $event.target.value
+                          }
                         }
                       })
                     ]),
@@ -25284,9 +25460,28 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(14),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_ultima_salida,
+                            expression: "fecha_ultima_salida"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.fecha_ultima_salida)
+                          textContent: _vm._s(_vm.fecha_ultima_salida),
+                          value: _vm.fecha_ultima_salida
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_ultima_salida = $event.target.value
+                          }
                         }
                       })
                     ]),
@@ -25294,11 +25489,40 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(15),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_ultimo_ajuste,
+                            expression: "fecha_ultimo_ajuste"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.fecha_ultimo_ajuste)
+                          textContent: _vm._s(_vm.fecha_ultimo_ajuste),
+                          value: _vm.fecha_ultimo_ajuste
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_ultimo_ajuste = $event.target.value
+                          }
                         }
                       })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mx-auto" }, [
+                      _c("h4", [
+                        _vm._v("Existencia: "),
+                        _c("strong", {
+                          staticClass: "text-secondary",
+                          domProps: { textContent: _vm._s(_vm.existencia) }
+                        })
+                      ])
                     ])
                   ])
                 ]
@@ -25346,7 +25570,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-tags" }),
+          _c("i", { staticClass: "fas fa-briefcase-medical" }),
           _vm._v(" Nombre")
         ]),
         _vm._v(" "),
@@ -25405,7 +25629,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "fas fa-briefcase-medical" }),
       _vm._v(" Nombre")
     ])
   },
@@ -25432,7 +25656,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "fas fa-hashtag" }),
       _vm._v(" Código")
     ])
   },
@@ -25459,7 +25683,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "fas fa-briefcase-medical" }),
       _vm._v(" Nombre")
     ])
   },
@@ -25468,8 +25692,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
-      _vm._v("  Observación")
+      _c("i", { staticClass: "fas fa-search" }),
+      _vm._v(" Observación")
     ])
   },
   function() {
@@ -25477,7 +25701,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de registro")
     ])
   },
@@ -25486,7 +25710,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Fecha de vencimiento")
     ])
   },
@@ -25495,7 +25719,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Última compra")
     ])
   },
@@ -25504,7 +25728,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Última salida")
     ])
   },
@@ -25513,7 +25737,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Último ajuste")
     ])
   }
@@ -26679,37 +26903,61 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "text-center mb-2 mr-2" }, [
-                    _vm.estado == 1
-                      ? _c("div", [
-                          _c(
-                            "span",
-                            { staticClass: "badge outline-badge-check" },
-                            [_vm._v("PRODUCTO ACTIVO")]
-                          )
-                        ])
-                      : _c("div", [
-                          _c(
-                            "span",
-                            { staticClass: "badge outline-badge-no-check" },
-                            [_vm._v("PRODUCTO INACTIVO")]
-                          )
-                        ])
-                  ]),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(6),
                       _vm._v(" "),
-                      _c("p", { domProps: { textContent: _vm._s(_vm.codigo) } })
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.codigo,
+                            expression: "codigo"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.codigo),
+                          value: _vm.codigo
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.codigo = $event.target.value
+                          }
+                        }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(7),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.unidad_medida_nombre,
+                            expression: "unidad_medida_nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.unidad_medida_nombre)
+                          textContent: _vm._s(_vm.unidad_medida_nombre),
+                          value: _vm.unidad_medida_nombre
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.unidad_medida_nombre = $event.target.value
+                          }
                         }
                       })
                     ]),
@@ -26717,9 +26965,28 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(8),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tipo_producto_nombre,
+                            expression: "tipo_producto_nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.tipo_producto_nombre)
+                          textContent: _vm._s(_vm.tipo_producto_nombre),
+                          value: _vm.tipo_producto_nombre
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.tipo_producto_nombre = $event.target.value
+                          }
                         }
                       })
                     ])
@@ -26729,14 +26996,58 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(9),
                       _vm._v(" "),
-                      _c("p", { domProps: { textContent: _vm._s(_vm.nombre) } })
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.nombre,
+                            expression: "nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.nombre),
+                          value: _vm.nombre
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombre = $event.target.value
+                          }
+                        }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-8" }, [
                       _vm._m(10),
                       _vm._v(" "),
-                      _c("p", {
-                        domProps: { textContent: _vm._s(_vm.observacion) }
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.observacion,
+                            expression: "observacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.observacion),
+                          value: _vm.observacion
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.observacion = $event.target.value
+                          }
+                        }
                       })
                     ])
                   ]),
@@ -26745,16 +27056,58 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(11),
                       _vm._v(" "),
-                      _c("p", {
-                        domProps: { textContent: _vm._s(_vm.fecha_registro) }
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_registro,
+                            expression: "fecha_registro"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_registro),
+                          value: _vm.fecha_registro
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_registro = $event.target.value
+                          }
+                        }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-8" }, [
                       _vm._m(12),
                       _vm._v(" "),
-                      _c("p", {
-                        domProps: { textContent: _vm._s(_vm.fecha_vencimiento) }
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_vencimiento,
+                            expression: "fecha_vencimiento"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_vencimiento),
+                          value: _vm.fecha_vencimiento
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_vencimiento = $event.target.value
+                          }
+                        }
                       })
                     ])
                   ]),
@@ -26763,9 +27116,28 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(13),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_ultima_compra,
+                            expression: "fecha_ultima_compra"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.fecha_ultima_compra)
+                          textContent: _vm._s(_vm.fecha_ultima_compra),
+                          value: _vm.fecha_ultima_compra
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_ultima_compra = $event.target.value
+                          }
                         }
                       })
                     ]),
@@ -26773,9 +27145,28 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(14),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_ultima_salida,
+                            expression: "fecha_ultima_salida"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.fecha_ultima_salida)
+                          textContent: _vm._s(_vm.fecha_ultima_salida),
+                          value: _vm.fecha_ultima_salida
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_ultima_salida = $event.target.value
+                          }
                         }
                       })
                     ]),
@@ -26783,11 +27174,40 @@ var render = function() {
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(15),
                       _vm._v(" "),
-                      _c("p", {
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fecha_ultimo_ajuste,
+                            expression: "fecha_ultimo_ajuste"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
                         domProps: {
-                          textContent: _vm._s(_vm.fecha_ultimo_ajuste)
+                          textContent: _vm._s(_vm.fecha_ultimo_ajuste),
+                          value: _vm.fecha_ultimo_ajuste
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fecha_ultimo_ajuste = $event.target.value
+                          }
                         }
                       })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mx-auto" }, [
+                      _c("h4", [
+                        _vm._v("Existencia: "),
+                        _c("strong", {
+                          staticClass: "text-secondary",
+                          domProps: { textContent: _vm._s(_vm.existencia) }
+                        })
+                      ])
                     ])
                   ])
                 ]
@@ -26835,7 +27255,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-tags" }),
+          _c("i", { staticClass: "fas fa-store" }),
           _vm._v(" Nombre")
         ]),
         _vm._v(" "),
@@ -26894,7 +27314,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "fas fa-store" }),
       _vm._v(" Nombre")
     ])
   },
@@ -26921,7 +27341,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "fas fa-hashtag" }),
       _vm._v(" Código")
     ])
   },
@@ -26948,7 +27368,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "fas fa-store" }),
       _vm._v(" Nombre")
     ])
   },
@@ -26957,8 +27377,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
-      _vm._v("  Observación")
+      _c("i", { staticClass: "fas fa-search" }),
+      _vm._v(" Observación")
     ])
   },
   function() {
@@ -26966,7 +27386,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de registro")
     ])
   },
@@ -26975,7 +27395,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Fecha de vencimiento")
     ])
   },
@@ -26984,7 +27404,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-tags" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Última compra")
     ])
   },
@@ -26993,7 +27413,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Última salida")
     ])
   },
@@ -27002,7 +27422,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Último ajuste")
     ])
   }
@@ -46583,7 +47003,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -12,26 +12,25 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-hashtag"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Unidad medida</th>
+                                    <th class="text-center"><i class="fas fa-tags"></i> Observación</th>
+                                    <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
-                                    <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
-                                    <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha vencimiento</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(medicamento, index) in lista_medicamento" :key="medicamento.id">
+                                <tr v-for="(producto, index) in lista_productos" :key="producto.id">
                                     <td v-text="index+1" class="text-center"></td>
-                                    <td v-text="medicamento.nombre" class="text-center"></td>
-                                    <td v-text="medicamento.tipo_producto_id" class="text-center"></td>
-                                    <td v-text="medicamento.unidad_medida_id" class="text-center"></td>
-                                    <td v-text="medicamento.fecha_registro" class="text-center"></td> 
-                                    <td v-text="medicamento.fecha_vencimiento" class="text-center"></td>
-                                    <td v-text="medicamento.existencia_inicial" class="text-center"></td>
+                                    <td v-text="producto.codigo" class="text-center"></td>
+                                    <td v-text="producto.nombre" class="text-center"></td>
+                                    <td v-text="producto.observacion" class="text-center"></td>
+                                    <td v-text="producto.unidad_nombre" class="text-center"></td>
+                                    <td v-text="producto.categoria_nombre" class="text-center"></td>
+                                    <td v-text="producto.existencia" class="text-center"></td>
                                     <td class="text-center">
-                                        <div v-if="puesto.estado">
+                                        <div v-if="producto.estado">
                                             <span class="badge outline-badge-check">Activo</span>
                                         </div>
                                         <div v-else>
@@ -39,12 +38,13 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', medicamento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <template v-if="medicamento.estado">
-                                            <button type="button" @click="changeStatus('desactivate', medicamento.id, medicamento.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        <button type="button" @click="openModalProducto(producto)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                        <button type="button" @click="openModal('update', producto)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <template v-if="producto.estado">
+                                            <button type="button" @click="changeStatus('desactivate', producto.id, producto.nombre)" class="btn btn-eliminar mb-1 mr-1 rounded-circle"> <i class="fas fa-lock"></i></button>
                                         </template>
                                         <template v-else>
-                                            <button type="button" @click="changeStatus('activate', medicamento.id, medicamento.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            <button type="button" @click="changeStatus('activate', producto.id, producto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                         </template>
                                     </td>
                                 </tr>
@@ -55,7 +55,8 @@
             </div>
         </div>
 
-                <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <!-- Modal para guardar y actualizar -->
+        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -69,12 +70,12 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
-                                
+
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
-                                    <select class="form-control" v-model="unidad_medida" :class="hasError('unidad_medida') ? 'is-invalid' : ''">
+                                    <select class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
                                         <option value="0" disabled>Seleccione unidad de medida</option>
-                                        <option v-for="unidad_medida in lista_unidad_medida" :key="unidad_medida.id" :value="unidad_medida" v-text="unidad_medida.nombre"></option>
+                                        <option v-for="unidad_medida in lista_unidad_medida" :key="unidad_medida.id" :value="unidad_medida.id" v-text="unidad_medida.nombre"></option>
                                     </select>
                                     <div v-if="hasError('unidad_medida_id')" class="invalid-feedback">
                                         {{ errors.unidad_medida_id[0] }}
@@ -83,15 +84,15 @@
 
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
-                                    <select class="form-control" v-model="tipo_producto" :class="hasError('tipo_producto') ? 'is-invalid' : ''">
+                                    <select class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
                                         <option value="0" disabled>Seleccione tipo producto</option>
-                                        <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto" v-text="tipo_producto.nombre"></option>
+                                        <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
                                     </select>
                                     <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
                                         {{ errors.tipo_producto_id[0] }}
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
@@ -115,7 +116,7 @@
                                         {{ errors.observacion[0] }}
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div>
@@ -127,8 +128,94 @@
                 </div>
             </div>
         </div>
- 
 
+        <!-- Modal para ver el producto -->
+        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModalProducto()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
+                            <div class="text-center mb-2 mr-2">
+                                <div v-if="estado==1">
+                                    <span class="badge outline-badge-check">PRODUCTO ACTIVO</span>
+                                </div>
+                                <div v-else>
+                                    <span class="badge outline-badge-no-check">PRODUCTO INACTIVO</span>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Código</label>
+                                    <p v-text="codigo"></p>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
+                                    <p v-text="unidad_medida_nombre"></p>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
+                                    <p v-text="tipo_producto_nombre"></p>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Nombre</label>
+                                    <p v-text="nombre"></p>
+                                </div>
+
+                                <div class="form-group col-md-8">
+                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Observación</label>
+                                    <p v-text="observacion"></p>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Fecha de registro</label>
+                                    <p v-text="fecha_registro"></p>
+                                </div>
+
+                                <div class="form-group col-md-8">
+                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Fecha de vencimiento</label>
+                                    <p v-text="fecha_vencimiento"></p>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Última compra</label>
+                                    <p v-text="fecha_ultima_compra"></p>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Última salida</label>
+                                    <p v-text="fecha_ultima_salida"></p>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-thermometer-full"></i>  Último ajuste</label>
+                                    <p v-text="fecha_ultimo_ajuste"></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModalProducto()">Cancelar <i class="far fa-times-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -140,21 +227,31 @@
             return {
                 id: 0,
 
-                lista_medicamento: [],
+                lista_productos: [],
+                codigo: '',
                 nombre: '',
                 observacion: '',
+                fecha_registro: '',
                 fecha_vencimiento: '',
+                fecha_ultima_compra: '',
+                fecha_ultima_salida: '',
+                fecha_ultimo_ajuste: '',
+                estado: 0,
 
                 lista_unidad_medida: [],
-                unidad_medida: 0,
+                unidad_medida_id: 0,
+                unidad_medida_nombre: '',
 
                 lista_tipo_producto: [],
-                tipo_producto: 0,
+                tipo_producto_id: 0,
+                tipo_producto_nombre: '',
 
                 modal: 0,
                 titulo: '',
                 opcion: 0,
-                errors: []
+                errors: [],
+
+                modalProducto: 0
             }
         },
         methods: {
@@ -171,16 +268,36 @@
                         this.titulo = "Actualización de producto"
                         this.opcion = 2
 
+                        this.unidad_medida_id = data['unidad_medida_id']
+                        this.tipo_producto_id = data['tipo_producto_id']
                         this.nombre = data['nombre']
                         this.observacion = data['observacion']
                         this.fecha_vencimiento = data['fecha_vencimiento']
                         this.id = data['id']
                     }
                 }
-                this.combo_medicamento_unidad_medida()
-                this.combo_medicamento_tipo_producto()
+                this.combo_producto_unidad_medida()
+                this.combo_producto_tipo_producto()
+            },
+            openModalProducto(data = []) {
+                this.modalProducto = 1
+                this.titulo = 'VISUALIZACIÓN DE PRODUCTO'
+
+                this.codigo = data['codigo']
+                this.unidad_medida_nombre = data['unidad_nombre']
+                this.tipo_producto_nombre = data['categoria_nombre']
+                this.nombre = data['nombre']
+                this.observacion = data['observacion'],
+                this.fecha_registro = data['fecha_registro']
+                this.fecha_vencimiento = data['fecha_vencimiento']
+                this.fecha_ultima_compra = data['fecha_ultima_compra']
+                this.fecha_ultima_salida = data['fecha_ultima_salida']
+                this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste']
+                this.estado = data['estado']
             },
             closeModal() {
+                this.unidad_medida_id = 0
+                this.tipo_producto_id = 0
                 this.nombre = ''
                 this.observacion = ''
                 this.fecha_vencimiento = ''
@@ -191,6 +308,24 @@
                 this.errors = []
 
                 alerts.sweetAlert('error', 'Operación cancelada')
+            },
+            closeModalProducto() {
+                this.codigo = ''
+                this.unidad_medida_nombre = ''
+                this.tipo_producto_nombre = ''
+                this.nombre = ''
+                this.observacion = ''
+                this.fecha_registro = ''
+                this.fecha_vencimiento = ''
+                this.fecha_ultima_compra = ''
+                this.fecha_ultima_salida = ''
+                this.fecha_ultimo_ajuste = ''
+                this.estado = ''
+
+                this.modalProducto = 0
+                this.titulo = ''
+
+                alerts.sweetAlert('success', 'Visualización de producto exitosa')
             },
             hasError(field) {
                 return field in (this.errors)
@@ -204,9 +339,51 @@
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }
             },
-            combo_medicamento_unidad_medida() {
-                let me = this;
-                let url = '/unidad_medida/combo_medicamento';
+            changeStatus(action, id, nombre) {
+                swal({
+                    title: 'Cambio de estado',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el producto "'+nombre+'"?',
+                    type: 'question',
+                    confirmButtonColor: '#25d5e4',
+                    cancelButtonColor: '#f8538d',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: '¡Cancelar!',
+                    confirmButtonClass: 'btn btn-guardar',
+                    cancelButtonClass: 'btn btn-cerrar',
+                    padding: '2em'
+                }).then((result) => {
+                    if (action == 'activate')
+                        var url = '/productos/activate'
+                    else if (action == 'desactivate')
+                        var url = '/productos/desactivate'
+
+                    if (result.value) {
+                        let me = this
+                        axios.put(url, {
+                            'id': id
+                        }).then(function (response) {
+                            me.showList()
+                            swal(
+                                'Cambio de estado',
+                                'Se ha cambiado el estado correctamente',
+                                'success'
+                            )
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                        swal(
+                            'Cancelado',
+                            'Se ha cancelado la operación',
+                            'error'
+                        )
+                    }
+                })
+            },
+            combo_producto_unidad_medida() {
+                let me = this
+                let url = '/unidad_medida/combo_producto';
                 axios.get(url).then(function (response) {
                     me.lista_unidad_medida = response.data
                 })
@@ -214,8 +391,8 @@
                     console.log(error)
                 })
             },
-            combo_medicamento_tipo_producto() {
-                let me = this;
+            combo_producto_tipo_producto() {
+                let me = this
                 let url = '/tipo_producto/combo_producto';
                 axios.get(url).then(function (response) {
                     me.lista_tipo_producto = response.data
@@ -245,9 +422,9 @@
             },
             showList() {
                 let me = this
-                let url = '/medicamentos'
+                let url = '/productos'
                 axios.get(url).then(function (response) {
-                    me.lista_medicamento = response.data
+                    me.lista_productos = response.data
                     me.dataTable();
                 })
                 .catch(function (error) {
@@ -256,10 +433,10 @@
             },
             store() {
                 let me = this
-                let url = '/medicamentos/store'
+                let url = '/productos/store'
                 axios.post(url,{
-                    'unidad_medida_id': this.unidad_medida['id'],
-                    'tipo_producto_id': this.tipo_producto['id'],
+                    'unidad_medida_id': this.unidad_medida_id,
+                    'tipo_producto_id': this.tipo_producto_id,
                     'nombre': this.nombre,
                     'fecha_vencimiento': this.fecha_vencimiento,
                     'observacion': this.observacion,
@@ -272,10 +449,10 @@
             },
             update() {
                 let me = this
-                let url = '/medicamentos/update'
+                let url = '/productos/update'
                 axios.put(url,{
-                    'unidad_medida_id': this.unidad_medida['id'],
-                    'tipo_producto_id': this.tipo_producto['id'],
+                    'unidad_medida_id': this.unidad_medida_id,
+                    'tipo_producto_id': this.tipo_producto_id,
                     'nombre': this.nombre,
                     'fecha_vencimiento': this.fecha_vencimiento,
                     'observacion': this.observacion,

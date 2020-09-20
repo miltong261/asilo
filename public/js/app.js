@@ -2828,23 +2828,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
-      lista_medicamento: [],
+      lista_medicamentos: [],
+      codigo: '',
       nombre: '',
       observacion: '',
+      fecha_registro: '',
       fecha_vencimiento: '',
+      fecha_ultima_compra: '',
+      fecha_ultima_salida: '',
+      fecha_ultimo_ajuste: '',
+      estado: 0,
       lista_unidad_medida: [],
-      unidad_medida: 0,
+      unidad_medida_id: 0,
+      unidad_medida_nombre: '',
       lista_tipo_producto: [],
-      tipo_producto: 0,
+      tipo_producto_id: 0,
+      tipo_producto_nombre: '',
       modal: 0,
       titulo: '',
       opcion: 0,
-      errors: []
+      errors: [],
+      modalMedicamento: 0
     };
   },
   methods: {
@@ -2855,7 +2953,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de medicamento";
+            this.titulo = "Registro de producto";
             this.opcion = 1;
             break;
           }
@@ -2863,8 +2961,10 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de medicamento";
+            this.titulo = "Actualización de producto";
             this.opcion = 2;
+            this.unidad_medida_id = data['unidad_medida_id'];
+            this.tipo_producto_id = data['tipo_producto_id'];
             this.nombre = data['nombre'];
             this.observacion = data['observacion'];
             this.fecha_vencimiento = data['fecha_vencimiento'];
@@ -2875,7 +2975,24 @@ __webpack_require__.r(__webpack_exports__);
       this.combo_medicamento_unidad_medida();
       this.combo_medicamento_tipo_producto();
     },
+    openModalMedicamento: function openModalMedicamento() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      this.modalMedicamento = 1;
+      this.titulo = 'VISUALIZACIÓN DE MEDICAMENTO';
+      this.codigo = data['codigo'];
+      this.unidad_medida_nombre = data['unidad_nombre'];
+      this.tipo_producto_nombre = data['categoria_nombre'];
+      this.nombre = data['nombre'];
+      this.observacion = data['observacion'], this.fecha_registro = data['fecha_registro'];
+      this.fecha_vencimiento = data['fecha_vencimiento'];
+      this.fecha_ultima_compra = data['fecha_ultima_compra'];
+      this.fecha_ultima_salida = data['fecha_ultima_salida'];
+      this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste'];
+      this.estado = data['estado'];
+    },
     closeModal: function closeModal() {
+      this.unidad_medida_id = 0;
+      this.tipo_producto_id = 0;
       this.nombre = '';
       this.observacion = '';
       this.fecha_vencimiento = '';
@@ -2884,6 +3001,22 @@ __webpack_require__.r(__webpack_exports__);
       this.opcion = 0;
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    closeModalMedicamento: function closeModalMedicamento() {
+      this.codigo = '';
+      this.unidad_medida_nombre = '';
+      this.tipo_producto_nombre = '';
+      this.nombre = '';
+      this.observacion = '';
+      this.fecha_registro = '';
+      this.fecha_vencimiento = '';
+      this.fecha_ultima_compra = '';
+      this.fecha_ultima_salida = '';
+      this.fecha_ultimo_ajuste = '';
+      this.estado = '';
+      this.modalMedicamento = 0;
+      this.titulo = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de medicamento exitosa');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -2897,6 +3030,39 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
+    changeStatus: function changeStatus(action, id, nombre) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el producto "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/medicamentos/activate';else if (action == 'desactivate') var url = '/medicamentos/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
     combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_medicamento';
@@ -2908,7 +3074,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     combo_medicamento_tipo_producto: function combo_medicamento_tipo_producto() {
       var me = this;
-      var url = '/tipo_producto/combo_producto';
+      var url = '/tipo_producto/combo_medicamento';
       axios.get(url).then(function (response) {
         me.lista_tipo_producto = response.data;
       })["catch"](function (error) {
@@ -2943,37 +3109,37 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/medicamentos';
       axios.get(url).then(function (response) {
-        me.lista_medicamento = response.data;
+        me.lista_medicamentos = response.data;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
       var url = '/medicamentos/store';
       axios.post(url, {
-        'unidad_medida_id': this.unidad_medida['id'],
-        'tipo_producto_id': this.tipo_producto['id'],
+        'unidad_medida_id': this.unidad_medida_id,
+        'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
         'fecha_vencimiento': this.fecha_vencimiento,
         'observacion': this.observacion
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = '/medicamentos/update';
       axios.put(url, {
-        'unidad_medida_id': this.unidad_medida['id'],
-        'tipo_producto_id': this.tipo_producto['id'],
+        'unidad_medida_id': this.unidad_medida_id,
+        'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
         'fecha_vencimiento': this.fecha_vencimiento,
         'observacion': this.observacion,
@@ -2981,7 +3147,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -3415,23 +3581,119 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
-      lista_medicamento: [],
+      lista_productos: [],
+      codigo: '',
       nombre: '',
       observacion: '',
+      fecha_registro: '',
       fecha_vencimiento: '',
+      fecha_ultima_compra: '',
+      fecha_ultima_salida: '',
+      fecha_ultimo_ajuste: '',
+      estado: 0,
       lista_unidad_medida: [],
-      unidad_medida: 0,
+      unidad_medida_id: 0,
+      unidad_medida_nombre: '',
       lista_tipo_producto: [],
-      tipo_producto: 0,
+      tipo_producto_id: 0,
+      tipo_producto_nombre: '',
       modal: 0,
       titulo: '',
       opcion: 0,
-      errors: []
+      errors: [],
+      modalProducto: 0
     };
   },
   methods: {
@@ -3452,6 +3714,8 @@ __webpack_require__.r(__webpack_exports__);
             this.modal = 2;
             this.titulo = "Actualización de producto";
             this.opcion = 2;
+            this.unidad_medida_id = data['unidad_medida_id'];
+            this.tipo_producto_id = data['tipo_producto_id'];
             this.nombre = data['nombre'];
             this.observacion = data['observacion'];
             this.fecha_vencimiento = data['fecha_vencimiento'];
@@ -3459,10 +3723,27 @@ __webpack_require__.r(__webpack_exports__);
           }
       }
 
-      this.combo_medicamento_unidad_medida();
-      this.combo_medicamento_tipo_producto();
+      this.combo_producto_unidad_medida();
+      this.combo_producto_tipo_producto();
+    },
+    openModalProducto: function openModalProducto() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      this.modalProducto = 1;
+      this.titulo = 'VISUALIZACIÓN DE PRODUCTO';
+      this.codigo = data['codigo'];
+      this.unidad_medida_nombre = data['unidad_nombre'];
+      this.tipo_producto_nombre = data['categoria_nombre'];
+      this.nombre = data['nombre'];
+      this.observacion = data['observacion'], this.fecha_registro = data['fecha_registro'];
+      this.fecha_vencimiento = data['fecha_vencimiento'];
+      this.fecha_ultima_compra = data['fecha_ultima_compra'];
+      this.fecha_ultima_salida = data['fecha_ultima_salida'];
+      this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste'];
+      this.estado = data['estado'];
     },
     closeModal: function closeModal() {
+      this.unidad_medida_id = 0;
+      this.tipo_producto_id = 0;
       this.nombre = '';
       this.observacion = '';
       this.fecha_vencimiento = '';
@@ -3471,6 +3752,22 @@ __webpack_require__.r(__webpack_exports__);
       this.opcion = 0;
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    closeModalProducto: function closeModalProducto() {
+      this.codigo = '';
+      this.unidad_medida_nombre = '';
+      this.tipo_producto_nombre = '';
+      this.nombre = '';
+      this.observacion = '';
+      this.fecha_registro = '';
+      this.fecha_vencimiento = '';
+      this.fecha_ultima_compra = '';
+      this.fecha_ultima_salida = '';
+      this.fecha_ultimo_ajuste = '';
+      this.estado = '';
+      this.modalProducto = 0;
+      this.titulo = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de producto exitosa');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -3484,16 +3781,49 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
-    combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
+    changeStatus: function changeStatus(action, id, nombre) {
+      var _this = this;
+
+      swal({
+        title: 'Cambio de estado',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el producto "' + nombre + '"?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        if (action == 'activate') var url = '/productos/activate';else if (action == 'desactivate') var url = '/productos/desactivate';
+
+        if (result.value) {
+          var me = _this;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
+    combo_producto_unidad_medida: function combo_producto_unidad_medida() {
       var me = this;
-      var url = '/unidad_medida/combo_medicamento';
+      var url = '/unidad_medida/combo_producto';
       axios.get(url).then(function (response) {
         me.lista_unidad_medida = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    combo_medicamento_tipo_producto: function combo_medicamento_tipo_producto() {
+    combo_producto_tipo_producto: function combo_producto_tipo_producto() {
       var me = this;
       var url = '/tipo_producto/combo_producto';
       axios.get(url).then(function (response) {
@@ -3528,39 +3858,39 @@ __webpack_require__.r(__webpack_exports__);
     },
     showList: function showList() {
       var me = this;
-      var url = '/medicamentos';
+      var url = '/productos';
       axios.get(url).then(function (response) {
-        me.lista_medicamento = response.data;
+        me.lista_productos = response.data;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
       });
     },
     store: function store() {
-      var _this = this;
+      var _this2 = this;
 
       var me = this;
-      var url = '/medicamentos/store';
+      var url = '/productos/store';
       axios.post(url, {
-        'unidad_medida_id': this.unidad_medida['id'],
-        'tipo_producto_id': this.tipo_producto['id'],
+        'unidad_medida_id': this.unidad_medida_id,
+        'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
         'fecha_vencimiento': this.fecha_vencimiento,
         'observacion': this.observacion
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
+        if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
-      var url = '/medicamentos/update';
+      var url = '/productos/update';
       axios.put(url, {
-        'unidad_medida_id': this.unidad_medida['id'],
-        'tipo_producto_id': this.tipo_producto['id'],
+        'unidad_medida_id': this.unidad_medida_id,
+        'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
         'fecha_vencimiento': this.fecha_vencimiento,
         'observacion': this.observacion,
@@ -3568,7 +3898,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     }
   },
@@ -24270,7 +24600,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.lista_medicamento, function(
+                      _vm._l(_vm.lista_medicamentos, function(
                         medicamento,
                         index
                       ) {
@@ -24283,6 +24613,13 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
+                              textContent: _vm._s(medicamento.codigo)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
                               textContent: _vm._s(medicamento.nombre)
                             }
                           }),
@@ -24290,42 +24627,33 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.tipo_producto_id)
+                              textContent: _vm._s(medicamento.observacion)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.unidad_medida_id)
+                              textContent: _vm._s(medicamento.unidad_nombre)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.fecha_registro)
+                              textContent: _vm._s(medicamento.categoria_nombre)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.fecha_vencimiento)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(
-                                medicamento.existencia_inicial
-                              )
+                              textContent: _vm._s(medicamento.existencia)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm.puesto.estado
+                            medicamento.estado
                               ? _c("div", [
                                   _c(
                                     "span",
@@ -24355,7 +24683,24 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                    "btn btn-info mb-1 mr-1 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModalMedicamento(
+                                        medicamento
+                                      )
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-eye" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-1 mr-1 rounded-circle",
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
@@ -24375,7 +24720,7 @@ var render = function() {
                                       "button",
                                       {
                                         staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                          "btn btn-eliminar mb-1 mr-1 rounded-circle",
                                         attrs: { type: "button" },
                                         on: {
                                           click: function($event) {
@@ -24486,12 +24831,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.unidad_medida,
-                              expression: "unidad_medida"
+                              value: _vm.unidad_medida_id,
+                              expression: "unidad_medida_id"
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("unidad_medida")
+                          class: _vm.hasError("unidad_medida_id")
                             ? "is-invalid"
                             : "",
                           on: {
@@ -24504,7 +24849,7 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.unidad_medida = $event.target.multiple
+                              _vm.unidad_medida_id = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
@@ -24523,7 +24868,7 @@ var render = function() {
                             return _c("option", {
                               key: unidad_medida.id,
                               domProps: {
-                                value: unidad_medida,
+                                value: unidad_medida.id,
                                 textContent: _vm._s(unidad_medida.nombre)
                               }
                             })
@@ -24553,12 +24898,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tipo_producto,
-                              expression: "tipo_producto"
+                              value: _vm.tipo_producto_id,
+                              expression: "tipo_producto_id"
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("tipo_producto")
+                          class: _vm.hasError("tipo_producto_id")
                             ? "is-invalid"
                             : "",
                           on: {
@@ -24571,7 +24916,7 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.tipo_producto = $event.target.multiple
+                              _vm.tipo_producto_id = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
@@ -24590,7 +24935,7 @@ var render = function() {
                             return _c("option", {
                               key: tipo_producto.id,
                               domProps: {
-                                value: tipo_producto,
+                                value: tipo_producto.id,
                                 textContent: _vm._s(tipo_producto.nombre)
                               }
                             })
@@ -24798,6 +25143,189 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalMedicamento },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalMedicamento()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "text-center mb-2 mr-2" }, [
+                    _vm.estado == 1
+                      ? _c("div", [
+                          _c(
+                            "span",
+                            { staticClass: "badge outline-badge-check" },
+                            [_vm._v("MEDICAMENTO ACTIVO")]
+                          )
+                        ])
+                      : _c("div", [
+                          _c(
+                            "span",
+                            { staticClass: "badge outline-badge-no-check" },
+                            [_vm._v("MEDICAMENTO INACTIVO")]
+                          )
+                        ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("p", { domProps: { textContent: _vm._s(_vm.codigo) } })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.unidad_medida_nombre)
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.tipo_producto_nombre)
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(9),
+                      _vm._v(" "),
+                      _c("p", { domProps: { textContent: _vm._s(_vm.nombre) } })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-8" }, [
+                      _vm._m(10),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: { textContent: _vm._s(_vm.observacion) }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: { textContent: _vm._s(_vm.fecha_registro) }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-8" }, [
+                      _vm._m(12),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: { textContent: _vm._s(_vm.fecha_vencimiento) }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(13),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_ultima_compra)
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(14),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_ultima_salida)
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(15),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_ultimo_ajuste)
+                        }
+                      })
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalMedicamento()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              )
+            ])
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -24818,28 +25346,23 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-medkit" }),
+          _c("i", { staticClass: "fas fa-tags" }),
           _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-tags" }),
-          _vm._v(" Categoria")
+          _vm._v(" Observación")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user-tag" }),
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
           _vm._v(" Unidad medida")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha registro")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha vencimiento")
+          _c("i", { staticClass: "fas fa-tags" }),
+          _vm._v(" Categoria")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -24882,7 +25405,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-medkit" }),
+      _c("i", { staticClass: "fas fa-tags" }),
       _vm._v(" Nombre")
     ])
   },
@@ -24902,6 +25425,96 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Código")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v(" Unidad de medida")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Tipo producto")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Observación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Fecha de registro")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Fecha de vencimiento")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Última compra")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Última salida")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Último ajuste")
     ])
   }
 ]
@@ -25488,11 +26101,8 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.lista_medicamento, function(
-                        medicamento,
-                        index
-                      ) {
-                        return _c("tr", { key: medicamento.id }, [
+                      _vm._l(_vm.lista_productos, function(producto, index) {
+                        return _c("tr", { key: producto.id }, [
                           _c("td", {
                             staticClass: "text-center",
                             domProps: { textContent: _vm._s(index + 1) }
@@ -25500,50 +26110,44 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
+                            domProps: { textContent: _vm._s(producto.codigo) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(producto.nombre) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.nombre)
+                              textContent: _vm._s(producto.observacion)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.tipo_producto_id)
+                              textContent: _vm._s(producto.unidad_nombre)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.unidad_medida_id)
+                              textContent: _vm._s(producto.categoria_nombre)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.fecha_registro)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(medicamento.fecha_vencimiento)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(
-                                medicamento.existencia_inicial
-                              )
+                              textContent: _vm._s(producto.existencia)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm.puesto.estado
+                            producto.estado
                               ? _c("div", [
                                   _c(
                                     "span",
@@ -25573,34 +26177,46 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
+                                    "btn btn-info mb-1 mr-1 rounded-circle",
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.openModal(
-                                        "update",
-                                        medicamento
-                                      )
+                                      return _vm.openModalProducto(producto)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-eye" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning mb-1 mr-1 rounded-circle",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openModal("update", producto)
                                     }
                                   }
                                 },
                                 [_c("i", { staticClass: "fas fa-sync-alt" })]
                               ),
                               _vm._v(" "),
-                              medicamento.estado
+                              producto.estado
                                 ? [
                                     _c(
                                       "button",
                                       {
                                         staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                          "btn btn-eliminar mb-1 mr-1 rounded-circle",
                                         attrs: { type: "button" },
                                         on: {
                                           click: function($event) {
                                             return _vm.changeStatus(
                                               "desactivate",
-                                              medicamento.id,
-                                              medicamento.nombre
+                                              producto.id,
+                                              producto.nombre
                                             )
                                           }
                                         }
@@ -25619,8 +26235,8 @@ var render = function() {
                                           click: function($event) {
                                             return _vm.changeStatus(
                                               "activate",
-                                              medicamento.id,
-                                              medicamento.nombre
+                                              producto.id,
+                                              producto.nombre
                                             )
                                           }
                                         }
@@ -25704,12 +26320,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.unidad_medida,
-                              expression: "unidad_medida"
+                              value: _vm.unidad_medida_id,
+                              expression: "unidad_medida_id"
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("unidad_medida")
+                          class: _vm.hasError("unidad_medida_id")
                             ? "is-invalid"
                             : "",
                           on: {
@@ -25722,7 +26338,7 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.unidad_medida = $event.target.multiple
+                              _vm.unidad_medida_id = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
@@ -25741,7 +26357,7 @@ var render = function() {
                             return _c("option", {
                               key: unidad_medida.id,
                               domProps: {
-                                value: unidad_medida,
+                                value: unidad_medida.id,
                                 textContent: _vm._s(unidad_medida.nombre)
                               }
                             })
@@ -25771,12 +26387,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tipo_producto,
-                              expression: "tipo_producto"
+                              value: _vm.tipo_producto_id,
+                              expression: "tipo_producto_id"
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("tipo_producto")
+                          class: _vm.hasError("tipo_producto_id")
                             ? "is-invalid"
                             : "",
                           on: {
@@ -25789,7 +26405,7 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.tipo_producto = $event.target.multiple
+                              _vm.tipo_producto_id = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
@@ -25808,7 +26424,7 @@ var render = function() {
                             return _c("option", {
                               key: tipo_producto.id,
                               domProps: {
-                                value: tipo_producto,
+                                value: tipo_producto.id,
                                 textContent: _vm._s(tipo_producto.nombre)
                               }
                             })
@@ -26016,6 +26632,189 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalProducto },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalProducto()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "text-center mb-2 mr-2" }, [
+                    _vm.estado == 1
+                      ? _c("div", [
+                          _c(
+                            "span",
+                            { staticClass: "badge outline-badge-check" },
+                            [_vm._v("PRODUCTO ACTIVO")]
+                          )
+                        ])
+                      : _c("div", [
+                          _c(
+                            "span",
+                            { staticClass: "badge outline-badge-no-check" },
+                            [_vm._v("PRODUCTO INACTIVO")]
+                          )
+                        ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("p", { domProps: { textContent: _vm._s(_vm.codigo) } })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.unidad_medida_nombre)
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.tipo_producto_nombre)
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(9),
+                      _vm._v(" "),
+                      _c("p", { domProps: { textContent: _vm._s(_vm.nombre) } })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-8" }, [
+                      _vm._m(10),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: { textContent: _vm._s(_vm.observacion) }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: { textContent: _vm._s(_vm.fecha_registro) }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-8" }, [
+                      _vm._m(12),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: { textContent: _vm._s(_vm.fecha_vencimiento) }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(13),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_ultima_compra)
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(14),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_ultima_salida)
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(15),
+                      _vm._v(" "),
+                      _c("p", {
+                        domProps: {
+                          textContent: _vm._s(_vm.fecha_ultimo_ajuste)
+                        }
+                      })
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalProducto()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Cancelar "),
+                  _c("i", { staticClass: "far fa-times-circle" })
+                ]
+              )
+            ])
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -26041,23 +26840,18 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user-tag" }),
+          _c("i", { staticClass: "fas fa-tags" }),
+          _vm._v(" Observación")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
           _vm._v(" Unidad medida")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-tags" }),
           _vm._v(" Categoria")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha registro")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha vencimiento")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -26120,6 +26914,96 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Código")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v(" Unidad de medida")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Tipo producto")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Observación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Fecha de registro")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Fecha de vencimiento")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-tags" }),
+      _vm._v(" Última compra")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Última salida")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v("  Último ajuste")
     ])
   }
 ]
@@ -45699,7 +46583,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

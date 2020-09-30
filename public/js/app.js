@@ -3275,6 +3275,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3316,7 +3317,7 @@ __webpack_require__.r(__webpack_exports__);
           }
       }
 
-      this.comboTipo_movimiento();
+      this.combo_tipo_movimiento();
     },
     closeModal: function closeModal() {
       this.tipo_movimiento = 0;
@@ -3341,11 +3342,14 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
-    comboTipo_movimiento: function comboTipo_movimiento() {
+    combo_tipo_movimiento: function combo_tipo_movimiento() {
       var me = this;
       var url = '/tipo_movimiento/combo';
       axios.get(url).then(function (response) {
         me.lista_tipo_movimiento = response.data;
+        $('select').select2({
+          placeholder: 'Seleccione tipo de movimiento'
+        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3417,7 +3421,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/movimientos/update';
       axios.put(url, {
         'tipo_movimiento_id': this.tipo_movimiento['id'],
-        'monto': this.monto,
+        '   monto': this.monto,
         'observacion': this.observacion,
         'entrada': this.tipo_movimiento['entrada'],
         'salida': this.tipo_movimiento['salida'],
@@ -3427,11 +3431,22 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
+    },
+    change_select: function change_select() {
+      var me = this;
+      $('select').on('change', function () {
+        me.$emit('change', this.value);
+      });
+      me.$on('change', function (data) {
+        this.tipo_movimiento = data;
+        console.log(this.tipo_movimiento);
+      });
     }
   },
   mounted: function mounted() {
     this.showList();
     this.showSaldo();
+    this.change_select();
   }
 });
 
@@ -25744,7 +25759,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
                       _vm._m(1),
                       _vm._v(" "),
                       _c(
@@ -25759,7 +25774,9 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("monto") ? "is-invalid" : "",
+                          class: _vm.hasError("tipo_movimiento_id")
+                            ? "is-invalid"
+                            : "",
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -25776,26 +25793,18 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _c(
-                            "option",
-                            { attrs: { value: "0", disabled: "" } },
-                            [_vm._v("Seleccione tipo de movimiento")]
-                          ),
-                          _vm._v(" "),
-                          _vm._l(_vm.lista_tipo_movimiento, function(
-                            tipo_movimiento
-                          ) {
-                            return _c("option", {
-                              key: tipo_movimiento.id,
-                              domProps: {
-                                value: tipo_movimiento,
-                                textContent: _vm._s(tipo_movimiento.nombre)
-                              }
-                            })
+                        _vm._l(_vm.lista_tipo_movimiento, function(
+                          tipo_movimiento
+                        ) {
+                          return _c("option", {
+                            key: tipo_movimiento.id,
+                            domProps: {
+                              value: tipo_movimiento,
+                              textContent: _vm._s(tipo_movimiento.nombre)
+                            }
                           })
-                        ],
-                        2
+                        }),
+                        0
                       ),
                       _vm._v(" "),
                       _vm.hasError("tipo_movimiento_id")
@@ -25809,7 +25818,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
                       _vm._m(2),
                       _vm._v(" "),
                       _c("input", {

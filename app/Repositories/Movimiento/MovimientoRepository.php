@@ -76,9 +76,9 @@ class MovimientoRepository extends BaseRepository
     {
         $object = $this->getModel()->findOrFail($id);
         $caja = Caja::findOrFail($request['caja_id']);
+        $monto_anterior = $object->monto;
 
         if ($entrada == true) {
-            $monto_anterior = $object->monto;
             $caja->saldo = ($caja->saldo - $monto_anterior) + ($request['monto']);
 
             $object->update($request);
@@ -97,7 +97,6 @@ class MovimientoRepository extends BaseRepository
                     'message' => 'La caja cuenta con un saldo de Q' . $caja->saldo . ', no se puede llevar a cabo la transacción'
                 ]);
             } else {
-                $monto_anterior = $object->monto;
                 $caja->saldo = ($caja->saldo + $monto_anterior) - ($request['monto']);
 
                 $object->update($request);

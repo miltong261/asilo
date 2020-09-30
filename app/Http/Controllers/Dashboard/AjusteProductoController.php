@@ -4,9 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\AjusteProducto\AjusteProductoRepository;
 
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class AjusteProductoController extends Controller
 {
+    private $ajusteRepository;
+
+    public function __construct(AjusteProductoRepository $ajusteRepository)
+    {
+        $this->ajusteRepository = $ajusteRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +24,7 @@ class AjusteProductoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->ajusteRepository->indexAjuste());
     }
 
     /**
@@ -35,18 +35,28 @@ class AjusteProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+            $guardar = $this->ajusteRepository->ajuste($request->only([
+                'producto_id', 'cantidad', 'entrada', 'salida', 'observacion'])
+                + ['codigo' => 'AJUSTE-' . $this->ajusteRepository->generateCode()]
+                + ['fecha_registro' => Carbon::now()],
+                null
+            );
+
+            if ($guardar == 'exito') {
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Se guardó con éxito el ajuste del producto'
+                ]);
+            } else
+                return $guardar;
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
     }
 }

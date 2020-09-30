@@ -27,10 +27,11 @@ class CreateAjusteProductoTable extends Migration
                 ->on('productos');
 
             $table->string('codigo', 20);
+            $table->date('fecha_registro');
             $table->integer('cantidad');
             $table->boolean('entrada')->nullable();
             $table->boolean('salida')->nullable();
-            $table->text('observacion')->nullable();
+            $table->string('observacion', 70);
 
             $table->timestamps();
         });

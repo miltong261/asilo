@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('plugins/bootstrap-select/bootstrap-select.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/forms/theme-checkbox-radio.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/forms/switches.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2v.min.css')}}">
 
 {{-- Components Modal --}}
 <link href="{{asset('assets/css/components/custom-modal.min.css')}}" rel="stylesheet" type="text/css" />

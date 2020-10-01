@@ -15,12 +15,12 @@ class InventarioController extends Controller
         $this->inventarioRepository = $inventarioRepository;
     }
 
-    public function listarProducto()
+    public function comboboxProducto()
     {
         return response()->json($this->inventarioRepository->inventarioProducto());
     }
 
-    public function listarMedicamento()
+    public function comboboxMedicamento()
     {
         return response()->json($this->inventarioRepository->inventarioMedicamento());
     }

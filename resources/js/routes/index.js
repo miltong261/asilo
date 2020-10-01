@@ -43,6 +43,10 @@ export default new Router({
         },
         // Rutas de inventario
         {
+            path: '/ajuste_medicamento',
+            component: require('../views/AjusteMedicamento').default
+        },
+        {
             path: '/ajuste_producto',
             component: require('../views/AjusteProducto').default
         },

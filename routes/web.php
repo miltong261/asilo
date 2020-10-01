@@ -109,7 +109,8 @@ Route::group(['prefix' => 'residentes'], function () {
 
 // Ajuste de medicamento
 Route::group(['prefix' => 'ajuste_producto'], function () {
-    Route::get('/', 'Dashboard\AjusteProductoController@index');
+    Route::get('/producto', 'Dashboard\AjusteProductoController@indexProducto');
+    Route::get('/medicamento', 'Dashboard\AjusteProductoController@indexMedicamento');
     Route::post('/store', 'Dashboard\AjusteProductoController@store');
 });
 
@@ -133,8 +134,8 @@ Route::group(['prefix' => 'productos'], function () {
 
 // Inventario
 Route::group(['prefix' => 'inventario'], function () {
-    Route::get('/producto', 'Dashboard\InventarioController@listarProducto');
-    Route::get('/medicamento', 'Dashboard\InventarioController@listarMedicamento');
+    Route::get('/combo_producto', 'Dashboard\InventarioController@comboboxProducto');
+    Route::get('/combo_medicamento', 'Dashboard\InventarioController@comboboxMedicamento');
 });
 
 /** Ruta de entradas */

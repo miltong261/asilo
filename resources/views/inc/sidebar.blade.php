@@ -139,8 +139,11 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="inventario" data-parent="#accordionExample">
+                    <router-link tag="li" to="/ajuste_medicamento" exact-active-class="active">
+                        <a>Ajuste medicamento</a>
+                    </router-link>
                     <router-link tag="li" to="/ajuste_producto" exact-active-class="active">
-                        <a>Ajuste de producto</a>
+                        <a>Ajuste producto</a>
                     </router-link>
                     <router-link tag="li" to="/medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>

@@ -10,9 +10,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Producto</th>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i> Código</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
-                                    <th class="text-center"><i class="fas fa-store"></i> Producto</th>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i> Producto</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
@@ -43,7 +43,15 @@
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
                                         </div>
                                     </td>
-                                    <td v-text="ajuste_producto.cantidad" class="text-center"></td>
+                                    <td class="text-center">
+                                        <div v-if="ajuste_producto.entrada">
+                                            <span class="text-dark" v-text="ajuste_producto.cantidad"></span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="text-danger" v-text="ajuste_producto.cantidad"></span>
+                                        </div>
+                                    </td>
+                                    <!-- <td v-text="ajuste_producto.cantidad" class="text-center"></td> -->
                                     <td v-text="ajuste_producto.observacion" class="text-center"></td>
                                 </tr>
                             </tbody>
@@ -74,9 +82,9 @@
                                     <div v-if="hasError('producto_id')" class="invalid-feedback">
                                         {{ errors.producto_id[0] }}
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                            
+
                             <div class="form-group col-md-12">
                                 <label class="text-dark" for="cantidad"><i class="fas fa-pencil-alt"></i> Cantidad</label>
                                 <input  @keyup.enter="store()" type="text" v-model="cantidad" class="form-control" :class="hasError('cantidad') ? 'is-invalid' : ''" name="cantidad"    >
@@ -140,23 +148,13 @@
             }
         },
         methods: {
-            openModal(metodo, data = []) {
+            openModal(metodo) {
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro ajuste producto"
+                        this.titulo = "Ajuste de producto"
                         this.opcion = 1
                         break
-                    }
-                    case 'update': {
-                        this.modal = 2
-                        this.titulo = "Actualización ajuste producto"
-                        this.opcion = 2
-                        this.cantidad = data['cantidad']
-                        this.entrada = data['entrada']
-                        this.salida = data['salida']
-                        this.observacion = data['observacion']
-                        this.id = data['id']
                     }
                 }
                 this.producto_inventario()
@@ -188,7 +186,7 @@
             },
             producto_inventario() {
                 let me = this;
-                let url = '/inventario/producto';
+                let url = '/inventario/combo_producto';
                 axios.get(url).then(function (response) {
                     me.lista_producto = response.data
                     $('select').select2({
@@ -220,7 +218,7 @@
             },
             showList() {
                 let me = this;
-                let url = '/ajuste_producto';
+                let url = '/ajuste_producto/producto';
                 axios.get(url).then(function (response) {
                     me.lista_ajuste_producto = response.data
                     me.dataTable();

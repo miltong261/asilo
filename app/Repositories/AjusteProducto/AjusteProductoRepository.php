@@ -14,12 +14,21 @@ class AjusteProductoRepository extends BaseRepository
         return new AjusteProducto();
     }
 
-    public function indexAjuste()
+    public function indexAjuste($type)
     {
-        return $this->getModel()
-        ->join('productos', 'productos.id', '=', 'ajuste_producto.producto_id')
-        ->select('ajuste_producto.*', 'productos.codigo as codigo_producto', 'productos.nombre as nombre_producto')
-        ->get();
+        if ($type == 'producto') {
+            return $this->getModel()
+            ->join('productos', 'productos.id', '=', 'ajuste_producto.producto_id')
+            ->select('ajuste_producto.*', 'productos.codigo as codigo_producto', 'productos.nombre as nombre_producto')
+            ->where('productos.asignacion', '1')
+            ->get();
+        } elseif ($type == 'medicamento') {
+            return $this->getModel()
+            ->join('productos', 'productos.id', '=', 'ajuste_producto.producto_id')
+            ->select('ajuste_producto.*', 'productos.codigo as codigo_producto', 'productos.nombre as nombre_producto')
+            ->where('productos.asignacion', '2')
+            ->get();
+        }
     }
 
     public function ajuste(array $request)

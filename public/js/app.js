@@ -3179,6 +3179,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3551,6 +3552,9 @@ __webpack_require__.r(__webpack_exports__);
       observacion: '',
       lista_tipo_movimiento: [],
       tipo_movimiento: 0,
+      tipo_movimiento_id: 0,
+      tipo_movimiento_entrada: 0,
+      tipo_movimiento_salida: 0,
       caja: 0,
       modal: 0,
       titulo: '',
@@ -3578,6 +3582,9 @@ __webpack_require__.r(__webpack_exports__);
             this.opcion = 2;
             this.monto = data['monto'];
             this.observacion = data['observacion'];
+            this.tipo_movimiento_id = data['tipo_movimiento_id'];
+            this.tipo_movimiento_entrada = data['entrada'];
+            this.tipo_movimiento_salida = data['salida'];
             this.id = data['id'];
           }
       }
@@ -3612,9 +3619,6 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/tipo_movimiento/combo';
       axios.get(url).then(function (response) {
         me.lista_tipo_movimiento = response.data;
-        $('select').select2({
-          placeholder: 'Seleccione tipo de movimiento'
-        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3685,33 +3689,22 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/movimientos/update';
       axios.put(url, {
-        'tipo_movimiento_id': this.tipo_movimiento['id'],
-        '   monto': this.monto,
+        'tipo_movimiento_id': this.tipo_movimiento_id,
+        'monto': this.monto,
         'observacion': this.observacion,
-        'entrada': this.tipo_movimiento['entrada'],
-        'salida': this.tipo_movimiento['salida'],
+        'entrada': this.tipo_movimiento_entrada,
+        'salida': this.tipo_movimiento_salida,
         'id': this.id
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
         if (error.response.status == 422) _this2.errors = error.response.data.errors;
       });
-    },
-    change_select: function change_select() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.tipo_movimiento = data;
-        console.log(this.tipo_movimiento);
-      });
     }
   },
   mounted: function mounted() {
     this.showList();
     this.showSaldo();
-    this.change_select();
   }
 });
 
@@ -26434,7 +26427,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "mx-auto" }, [
                       _c("h4", [
-                        _vm._v("Existencia: "),
+                        _vm._v("Existencias: "),
                         _c("strong", {
                           staticClass: "text-secondary",
                           domProps: { textContent: _vm._s(_vm.existencia) }
@@ -26459,8 +26452,8 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Cancelar "),
-                  _c("i", { staticClass: "far fa-times-circle" })
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
               )
             ])
@@ -26885,64 +26878,67 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
+                    _vm.opcion == 1
+                      ? _c("div", { staticClass: "form-group col-md-12" }, [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c(
+                            "select",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.tipo_movimiento,
-                              expression: "tipo_movimiento"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: _vm.hasError("tipo_movimiento_id")
-                            ? "is-invalid"
-                            : "",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.tipo_movimiento = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        _vm._l(_vm.lista_tipo_movimiento, function(
-                          tipo_movimiento
-                        ) {
-                          return _c("option", {
-                            key: tipo_movimiento.id,
-                            domProps: {
-                              value: tipo_movimiento,
-                              textContent: _vm._s(tipo_movimiento.nombre)
-                            }
-                          })
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _vm.hasError("tipo_movimiento_id")
-                        ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.errors.tipo_movimiento_id[0]) +
-                                "\n                                "
-                            )
-                          ])
-                        : _vm._e()
-                    ]),
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.tipo_movimiento,
+                                  expression: "tipo_movimiento"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: _vm.hasError("tipo_movimiento_id")
+                                ? "is-invalid"
+                                : "",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.tipo_movimiento = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            _vm._l(_vm.lista_tipo_movimiento, function(
+                              tipo_movimiento
+                            ) {
+                              return _c("option", {
+                                key: tipo_movimiento.id,
+                                domProps: {
+                                  value: tipo_movimiento,
+                                  textContent: _vm._s(tipo_movimiento.nombre)
+                                }
+                              })
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _vm.hasError("tipo_movimiento_id")
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.errors.tipo_movimiento_id[0]) +
+                                    "\n                                "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-12" }, [
                       _vm._m(2),
@@ -28113,7 +28109,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "mx-auto" }, [
                       _c("h4", [
-                        _vm._v("Existencia: "),
+                        _vm._v("Existencias: "),
                         _c("strong", {
                           staticClass: "text-secondary",
                           domProps: { textContent: _vm._s(_vm.existencia) }
@@ -28138,8 +28134,8 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Cancelar "),
-                  _c("i", { staticClass: "far fa-times-circle" })
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
               )
             ])
@@ -47399,10 +47395,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MovimientoCaja_vue_vue_type_template_id_8cf2b3ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MovimientoCaja.vue?vue&type=template&id=8cf2b3ae& */ "./resources/js/views/MovimientoCaja.vue?vue&type=template&id=8cf2b3ae&");
 /* harmony import */ var _MovimientoCaja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MovimientoCaja.vue?vue&type=script&lang=js& */ "./resources/js/views/MovimientoCaja.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _MovimientoCaja_vue_vue_type_custom_index_0_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MovimientoCaja.vue?vue&type=custom&index=0&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20'' */ "./resources/js/views/MovimientoCaja.vue?vue&type=custom&index=0&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20''");
-/* harmony import */ var _MovimientoCaja_vue_vue_type_custom_index_0_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_MovimientoCaja_vue_vue_type_custom_index_0_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _MovimientoCaja_vue_vue_type_custom_index_1_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MovimientoCaja.vue?vue&type=custom&index=1&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20'' */ "./resources/js/views/MovimientoCaja.vue?vue&type=custom&index=1&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20''");
-/* harmony import */ var _MovimientoCaja_vue_vue_type_custom_index_1_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_MovimientoCaja_vue_vue_type_custom_index_1_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -47421,38 +47413,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
-/* custom blocks */
-
-if (typeof _MovimientoCaja_vue_vue_type_custom_index_0_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_3___default.a === 'function') _MovimientoCaja_vue_vue_type_custom_index_0_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_3___default()(component)
-
-if (typeof _MovimientoCaja_vue_vue_type_custom_index_1_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_4___default.a === 'function') _MovimientoCaja_vue_vue_type_custom_index_1_blockType_select_class_form_control_v_model_tipo_movimiento_3Aclass_hasError_tipo_movimiento_id_20_3F_20_is_invalid_20_3A_20___WEBPACK_IMPORTED_MODULE_4___default()(component)
-
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/views/MovimientoCaja.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/MovimientoCaja.vue?vue&type=custom&index=0&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20''":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./resources/js/views/MovimientoCaja.vue?vue&type=custom&index=0&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20'' ***!
-  \***********************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/MovimientoCaja.vue?vue&type=custom&index=1&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20''":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./resources/js/views/MovimientoCaja.vue?vue&type=custom&index=1&blockType=select&class=form-control&v-model=tipo_movimiento&%3Aclass=hasError('tipo_movimiento_id')%20%3F%20'is-invalid'%20%3A%20'' ***!
-  \***********************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
 
 /***/ }),
 
@@ -47962,7 +47926,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

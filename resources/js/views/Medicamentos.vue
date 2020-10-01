@@ -1,4 +1,5 @@
 <template>
+
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -151,8 +152,8 @@
                                     <span class="badge outline-badge-no-check">MEDICAMENTO INACTIVO</span>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-hashtag"></i> Código</label>
@@ -167,14 +168,14 @@
 
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
-                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled> 
+                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
-                                    <input v-text="nombre" v-model="nombre" class="form-control" disabled> 
+                                    <input v-text="nombre" v-model="nombre" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group col-md-8">
@@ -198,7 +199,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Última compra</label>
-                                    <input v-text="fecha_ultima_compra" v-model="fecha_ultima_compra" class="form-control" disabled>    
+                                    <input v-text="fecha_ultima_compra" v-model="fecha_ultima_compra" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -212,13 +213,13 @@
                                 </div>
 
                                 <div class="mx-auto">
-                                    <h4>Existencia: <strong v-text="existencia" class="text-secondary"></strong> </h4>
+                                    <h4>Existencias: <strong v-text="existencia" class="text-secondary"></strong> </h4>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-cerrar" @click="closeModalMedicamento()">Cancelar <i class="far fa-times-circle"></i></button>
+                        <button type="button" class="btn btn-cerrar" @click="closeModalMedicamento()">Salir <i class="fas fa-sign-out-alt"></i></button>
                     </div>
                 </div>
             </div>

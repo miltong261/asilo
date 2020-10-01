@@ -65,7 +65,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
 
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-12" v-if="opcion==1">
                                     <label class="text-dark"><i class="fas fa-paste"></i> Tipo Movimiento</label>
                                     <select class="form-control" v-model="tipo_movimiento" :class="hasError('tipo_movimiento_id') ? 'is-invalid' : ''">
                                         <option v-for="tipo_movimiento in lista_tipo_movimiento" :key="tipo_movimiento.id" :value="tipo_movimiento" v-text="tipo_movimiento.nombre"></option>
@@ -120,6 +120,9 @@
 
                 lista_tipo_movimiento: [],
                 tipo_movimiento: 0,
+                tipo_movimiento_id: 0,
+                tipo_movimiento_entrada: 0,
+                tipo_movimiento_salida: 0,
 
                 caja: 0,
 
@@ -145,6 +148,9 @@
 
                         this.monto = data['monto']
                         this.observacion = data['observacion']
+                        this.tipo_movimiento_id = data['tipo_movimiento_id']
+                        this.tipo_movimiento_entrada = data['entrada']
+                        this.tipo_movimiento_salida = data['salida']
                         this.id = data['id']
                     }
                 }
@@ -180,9 +186,6 @@
                 let url = '/tipo_movimiento/combo';
                 axios.get(url).then(function (response) {
                     me.lista_tipo_movimiento = response.data
-                    $('select').select2({
-                        placeholder: 'Seleccione tipo de movimiento'
-                    })
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -247,11 +250,11 @@
                 let me = this
                 let url = '/movimientos/update'
                 axios.put(url,{
-                    'tipo_movimiento_id': this.tipo_movimiento['id'],
-                    '   monto': this.monto,
+                    'tipo_movimiento_id': this.tipo_movimiento_id,
+                    'monto': this.monto,
                     'observacion': this.observacion,
-                    'entrada': this.tipo_movimiento['entrada'],
-                    'salida': this.tipo_movimiento['salida'],
+                    'entrada': this.tipo_movimiento_entrada,
+                    'salida': this.tipo_movimiento_salida,
                     'id': this.id
                 }).then(function (response) {
                     me.backendResponse(response)
@@ -260,46 +263,10 @@
                         this.errors = error.response.data.errors
                 })
             },
-            change_select() {
-                let me = this;
-
-                $('select').on('change', function () {
-                    me.$emit('change', this.value)
-                })
-
-                me.$on('change', function(data) {
-                    this.tipo_movimiento = data
-                        console.log(this.tipo_movimiento)
-                })
-            },
         },
         mounted() {
             this.showList()
             this.showSaldo()
-            this.change_select()
         }
     }
 </script>
-
-<select class="form-control" v-model="tipo_movimiento" :class="hasError('tipo_movimiento_id') ? 'is-invalid' : ''">
-    <option v-for="tipo_movimiento in lista_tipo_movimiento" :key="tipo_movimiento.id" :value="tipo_movimiento" v-text="tipo_movimiento.nombre"></option>
-</select>
-
-<select class="form-control" v-model="tipo_movimiento" :class="hasError('tipo_movimiento_id') ? 'is-invalid' : ''">
-    <option v-for="tipo_movimiento in lista_tipo_movimiento" :key="tipo_movimiento.id" :value="tipo_movimiento.id" v-text="tipo_movimiento.nombre"></option>
-</select>
-
--Si vos te das cuenta, el primero donde esta su value dice tipo_movimiento y en el segundo donde esta value dice tipo_movimiento.id
--Es porque en el primero me devuelve un objeto {id: 1, entrada: 1, salida: 1} y en el segundo solo un valor, ejemplo: 1
--En este caso lo hice así porque cuando yo guardo necesito 3 cosas entonces pongo tipo_movimiento['id'] tipo_movimiento['entrada']
--Pero en los otros casos solo pondría tipo_movimiento
--En este caso como iban a ser 3 cosas le puse tipo_movimiento, pero si solo recogiera el id como en los otros casos lo llamaría tipo_movimiento_id
-
-Las cosas que tenes que agregar son
--en la lista donde listas el combo, en este caso en la línea 183
-$('select').select2({
-    placeholder: 'Seleccione tipo de movimiento'
-})
-
--crear una función en este caso change_select que esta en la línea 263
--llamar a esa función en el mounted como esta en la línea 279

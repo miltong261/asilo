@@ -18,6 +18,7 @@ class MovimientoRepository extends BaseRepository
         return $this->getModel()
         ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
         ->select('movimientos.*',
+            'tipo_movimiento.id as tipo_movimiento_id',
             'tipo_movimiento.nombre as tipo_movimiento_nombre',
             'tipo_movimiento.entrada',
             'tipo_movimiento.salida'

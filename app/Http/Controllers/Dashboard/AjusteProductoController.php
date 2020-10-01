@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AjusteProducto\AjusteProductoRequest;
 use Illuminate\Http\Request;
 use App\Repositories\AjusteProducto\AjusteProductoRepository;
 
@@ -33,7 +34,7 @@ class AjusteProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AjusteProductoRequest $request)
     {
         try {
             DB::beginTransaction();

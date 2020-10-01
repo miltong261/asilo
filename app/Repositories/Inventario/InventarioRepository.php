@@ -18,6 +18,7 @@ class InventarioRepository extends BaseRepository
         ->join('productos', 'productos.id', '=', 'inventario.producto_id')
         ->select('productos.id', 'productos.nombre')
         ->where('productos.asignacion', '1')
+        ->where('productos.estado', '1')
         ->get();
     }
 
@@ -27,6 +28,7 @@ class InventarioRepository extends BaseRepository
         ->join('productos', 'productos.id', '=', 'inventario.producto_id')
         ->select('productos.id', 'productos.nombre')
         ->where('productos.asignacion', '0')
+        ->where('productos.estado', '1')
         ->get();
     }
 }

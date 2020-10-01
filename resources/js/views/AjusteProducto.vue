@@ -10,15 +10,14 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Codigo</th>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i> Producto</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Producto</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
-                                    <th class="text-center"><i class="fas fa-pencil-alt"></i> Cantidad</th>
+                                    <th class="text-center"><i class="fas fa-plus"></i> Cantidad <i class="fas fa-minus"></i></th>
                                     <th class="text-center"><i class="fas fa-search"></i> Motivo</th>
-                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,7 +29,7 @@
                                     <td v-text="ajuste_producto.nombre_producto" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="ajuste_producto.entrada">
-                                            <span class="badge outline -badge-check"><i class="fa fa-check-circle"></i></span>
+                                            <span class="badge outline-badge-check"><i class="fa fa-check-circle"></i></span>
                                         </div>
                                         <div v-else>
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
@@ -46,10 +45,6 @@
                                     </td>
                                     <td v-text="ajuste_producto.cantidad" class="text-center"></td>
                                     <td v-text="ajuste_producto.observacion" class="text-center"></td>
-                                    <td class="text-center">
-                                        <button type="button" @click="openModal('update', ajuste_producto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -73,8 +68,8 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="fas fa-paste"></i> Producto</label>
-                                    <select class="form-control" v-model="producto" :class="hasError('producto_id') ? 'is-invalid' : ''">
-                                        <option v-for="producto in lista_producto" :key="producto.id" :value="producto" v-text="producto.nombre"></option>
+                                    <select class="form-control" v-model="producto_id" :class="hasError('producto_id') ? 'is-invalid' : ''">
+                                        <option v-for="producto in lista_producto" :key="producto.id" :value="producto.id" v-text="producto.nombre"></option>
                                     </select>
                                     <div v-if="hasError('producto_id')" class="invalid-feedback">
                                         {{ errors.producto_id[0] }}
@@ -114,7 +109,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cerrar" @click="closeModal()">Cancelar <i class="far fa-times-circle"></i></button>
                         <button type="button" v-if="opcion==1" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
-                        <button type="button" v-if="opcion==2" class="btn btn-warning" @click="update()">Actualizar <i class="fas fa-sync-alt"></i></button>
                     </div>
                 </div>
             </div>
@@ -137,7 +131,7 @@
                 observacion: '',
 
                 lista_producto: [],
-                producto:0,
+                producto_id: 0,
 
                 modal: 0,
                 titulo: '',
@@ -165,6 +159,7 @@
                         this.id = data['id']
                     }
                 }
+                this.producto_inventario()
             },
             closeModal() {
                 this.cantidad = ''
@@ -188,8 +183,21 @@
                     this.showList()
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }else{
-                        alerts.sweetAlert(response.data.status, response.data.message)
+                    alerts.sweetAlert(response.data.status, response.data.message)
                 }
+            },
+            producto_inventario() {
+                let me = this;
+                let url = '/inventario/producto';
+                axios.get(url).then(function (response) {
+                    me.lista_producto = response.data
+                    $('select').select2({
+                        placeholder: 'Seleccione el producto'
+                    })
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
             },
             dataTable() {
                 let datatable = $('#zero-config').DataTable()
@@ -221,6 +229,22 @@
                     console.log(error)
                 })
             },
+            store() {
+                let me = this
+                let url = '/ajuste_producto/store'
+                axios.post(url,{
+                    'producto_id': this.producto_id,
+                    'cantidad': this.cantidad,
+                    'observacion': this.observacion,
+                    'entrada': this.entrada,
+                    'salida': this.salida
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error =>{
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            },
             change_select() {
                 let me = this;
 
@@ -229,8 +253,8 @@
                 })
 
                 me.$on('change', function(data) {
-                    this.producto = data
-                        console.log(this.producto)
+                    this.producto_id = data
+                        console.log(this.producto_id)
                 })
             },
         },

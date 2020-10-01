@@ -21,17 +21,11 @@ class CreateDonacionesTable extends Migration
             //     ->references('id')
             //     ->on('users');
 
-            $table->unsignedBigInteger('donante_id');
-            $table->foreign('donante_id')
-                ->references('id')
-                ->on('donantes');
-
+            $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_donacion');
-            $table->date('fecha_anulacion')->nullable();
-            $table->boolean('estado');
-
-            $table->timestamps();
+            $table->string('donador')->default('Anónimo');
+            $table->string('direccion', 70)->default('Retalhuleu');
         });
     }
 

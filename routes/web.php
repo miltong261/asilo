@@ -76,6 +76,17 @@ Route::group(['prefix' => 'movimientos'], function () {
 
 /** Rutas de personal */
 
+// Áreas
+Route::group(['prefix' => 'areas'], function () {
+    Route::get('/', 'Dashboard\AreaController@index');
+    Route::get('/combo', 'Dashboard\AreaController@combobox');
+    Route::post('/store', 'Dashboard\AreaController@store');
+    Route::put('/update', 'Dashboard\AreaController@update');
+    Route::put('/activate', 'Dashboard\AreaController@activate');
+    Route::put('/desactivate', 'Dashboard\AreaController@desactivate');
+
+});
+
 // Puestos
 Route::group(['prefix' => 'puestos'], function () {
     Route::get('/', 'Dashboard\PuestoController@index');

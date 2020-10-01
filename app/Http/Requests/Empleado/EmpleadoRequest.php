@@ -24,7 +24,8 @@ class EmpleadoRequest extends FormRequest
     public function rules()
     {
         return [
-            'puesto_id' => 'required',
+            'area_id' => ['required'],
+            'puesto_id' => ['required'],
             'nombre' => ['required', 'string', 'min:5', 'max:35'],
             'apellido' => ['required', 'string', 'min:5', 'max:35'],
             'fecha_nacimiento' => ['required', 'date'],
@@ -37,6 +38,8 @@ class EmpleadoRequest extends FormRequest
     public function messages()
     {
         return [
+            'puesto_id.required' => 'El área es obligatorio',
+
             'puesto_id.required' => 'El puesto es obligatorio',
 
             'nombre.required' => 'El nombre es obligatorio',

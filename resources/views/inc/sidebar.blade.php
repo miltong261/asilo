@@ -100,6 +100,9 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="personal" data-parent="#accordionExample">
+                    <router-link tag="li" to="/areas" exact-active-class="active">
+                        <a>Áreas</a>
+                    </router-link>
                     <router-link tag="li" to="/puestos" exact-active-class="active">
                         <a>Puestos</a>
                     </router-link>

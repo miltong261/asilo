@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonantesTable extends Migration
+class CreateAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateDonantesTable extends Migration
      */
     public function up()
     {
-        Schema::create('donantes', function (Blueprint $table) {
+        Schema::create('areas', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('codigo', 20);
-            $table->string('nombre', 70)->nullable();
-            $table->string('direccion', 70)->nullable();
-            $table->integer('telefono')->nullable();
+            $table->string('codigo');
+            $table->string('nombre', 35);
+            $table->string('descripcion', 70)->nullable();
             $table->boolean('estado')->default(1);
 
             $table->timestamps();
@@ -33,6 +32,6 @@ class CreateDonantesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donantes');
+        Schema::dropIfExists('areas');
     }
 }

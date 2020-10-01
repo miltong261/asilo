@@ -16,8 +16,15 @@ class CreateEmpleadosTable extends Migration
         Schema::create('empleados', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('area_id');
+            $table->foreign('area_id')
+                ->references('id')
+                ->on('areas');
+
             $table->unsignedBigInteger('puesto_id');
-            $table->foreign('puesto_id')->references('id')->on('puestos');
+            $table->foreign('puesto_id')
+                ->references('id')
+                ->on('puestos');
 
             $table->string('codigo', 20);
             $table->date('fecha_ingreso');

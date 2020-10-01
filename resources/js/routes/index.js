@@ -29,6 +29,10 @@ export default new Router({
         },
         // Rutas de personal
         {
+            path: '/areas',
+            component: require('../views/Areas').default
+        },
+        {
             path: '/puestos',
             component: require('../views/Puestos').default
         },

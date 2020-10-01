@@ -11,6 +11,7 @@
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-store-alt"></i> Área</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
                                     <th class="text-center"><i class="fas fa-id-card"></i> Dpi</th>
@@ -23,6 +24,7 @@
                                 <tr v-for="(empleado, index) in lista_empleados" :key="empleado.id">
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="empleado.nombre + ' ' + empleado.apellido" class="text-center"></td>
+                                    <td v-text="empleado.area_nombre" class="text-center"></td>
                                     <td v-text="empleado.puesto_nombre" class="text-center"></td>
                                     <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
                                     <td v-text="empleado.dpi" class="text-center"></td>
@@ -83,38 +85,48 @@
                             </div>
 
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
                                     <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
                                     <div v-if="hasError('fecha_nacimiento')" class="invalid-feedback">
                                         {{ errors.fecha_nacimiento[0] }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
                                     <input type="text" name="dpi" v-model="dpi" class="form-control" :class="hasError('dpi') ? 'is-invalid' : ''" placeholder="Ingrese dpi...">
                                     <div v-if="hasError('dpi')" class="invalid-feedback">
                                         {{ errors.dpi[0] }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
-                                    <select class="form-control" :class="hasError('puesto_id') ? 'is-invalid' : ''" v-model="puesto_id">
-                                        <option value="0" disabled>Seleccione puesto</option>
-                                        <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>
-                                    </select>
-                                    <div v-if="hasError('puesto_id')" class="invalid-feedback">
-                                        {{ errors.puesto_id[0] }}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
                                     <input type="text" name="telefono" v-model="telefono" class="form-control" :class="hasError('telefono') ? 'is-invalid' : ''" placeholder="Ingrese teléfono...">
                                     <div v-if="hasError('telefono')" class="invalid-feedback">
                                         {{ errors.telefono[0] }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label class="text-dark"><i class="fas fa-user-tag"></i> Área</label>
+                                    <select class="form-control" :class="hasError('area_id') ? 'is-invalid' : ''" v-model="area_id">
+                                        <option v-for="area in lista_areas" :key="area.id" :value="area.id" v-text="area.nombre"></option>
+                                    </select>
+                                    <div v-if="hasError('area_id')" class="invalid-feedback">
+                                        {{ errors.area_id[0] }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
+                                    <select class="form-control" :class="hasError('puesto_id') ? 'is-invalid' : ''" v-model="puesto_id">
+                                        <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>
+                                    </select>
+                                    <div v-if="hasError('puesto_id')" class="invalid-feedback">
+                                        {{ errors.puesto_id[0] }}
                                     </div>
                                 </div>
                             </div>
@@ -149,6 +161,9 @@ export default {
         return {
             id: 0,
 
+            lista_areas: [],
+            area_id: 0,
+
             lista_puestos: [],
             puesto_id: 0,
 
@@ -179,6 +194,7 @@ export default {
                     this.modal = 2
                     this.titulo = "Actualización de empleados"
                     this.opcion = 2
+                    this.area_id = data['area_id']
                     this.puesto_id = data['puesto_id']
                     this.nombre = data['nombre']
                     this.apellido = data['apellido']
@@ -189,7 +205,8 @@ export default {
                     this.id = data['id']
                 }
             }
-            this.comboPuesto()
+            this.combo_puesto()
+            this.combo_area()
         },
         closeModal() {
             this.nombre = ''
@@ -199,6 +216,7 @@ export default {
             this.direccion = ''
             this.telefono = ''
 
+            this.area_id = 0
             this.puesto_id = 0
 
             this.modal = 0
@@ -220,11 +238,27 @@ export default {
                 alerts.sweetAlert(response.data.status, response.data.message)
             }
         },
-        comboPuesto() {
+        combo_area() {
+            let me = this;
+            let url = '/areas/combo';
+            axios.get(url).then(function (response) {
+                me.lista_areas = response.data
+                $('select').select2({
+                    placeholder: 'Seleccione el producto'
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        combo_puesto() {
             let me = this;
             let url = '/puestos/combo';
             axios.get(url).then(function (response) {
                 me.lista_puestos = response.data
+                $('select').select2({
+                    placeholder: 'Seleccione el producto'
+                })
             })
             .catch(function (error) {
                 console.log(error)
@@ -306,6 +340,7 @@ export default {
             let me = this
             let url = '/empleados/store'
             axios.post(url,{
+                'area_id': this.area_id,
                 'puesto_id': this.puesto_id,
                 'nombre': this.nombre,
                 'apellido': this.apellido,
@@ -324,6 +359,7 @@ export default {
             let me = this
             let url = 'empleados/update'
             axios.put(url,{
+                'area_id': this.area_id,
                 'puesto_id': this.puesto_id,
                 'nombre': this.nombre,
                 'apellido': this.apellido,
@@ -339,9 +375,33 @@ export default {
                     this.errors = error.response.data.errors
             })
         },
+        change_select_area() {
+            let me = this;
+
+            $('select').on('change', function () {
+                me.$emit('change', this.value)
+            })
+
+            me.$on('change', function(data) {
+                this.area_id = data
+            })
+        },
+        change_select_puesto() {
+            let me = this;
+
+            $('select').on('change', function () {
+                me.$emit('change', this.value)
+            })
+
+            me.$on('change', function(data) {
+                this.puesto_id = data
+            })
+        },
     },
     mounted() {
         this.showList()
+        this.change_select_area()
+        this.change_select_puesto()
     },
 }
 </script>

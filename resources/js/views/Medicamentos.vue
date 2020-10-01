@@ -75,7 +75,6 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <select class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
-                                        <option value="0" disabled>Seleccione unidad de medida</option>
                                         <option v-for="unidad_medida in lista_unidad_medida" :key="unidad_medida.id" :value="unidad_medida.id" v-text="unidad_medida.nombre"></option>
                                     </select>
                                     <div v-if="hasError('unidad_medida_id')" class="invalid-feedback">
@@ -86,7 +85,6 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
                                     <select class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
-                                        <option value="0" disabled>Seleccione tipo producto</option>
                                         <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
                                     </select>
                                     <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
@@ -397,6 +395,9 @@
                 let url = '/unidad_medida/combo_medicamento';
                 axios.get(url).then(function (response) {
                     me.lista_unidad_medida = response.data
+                    $('select').select2({
+                        placeholder: 'Seleccione el unidad de medida'
+                    })
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -407,6 +408,9 @@
                 let url = '/tipo_producto/combo_medicamento';
                 axios.get(url).then(function (response) {
                     me.lista_tipo_producto = response.data
+                    $('select').select2({
+                        placeholder: 'Seleccione el tipo de producto'
+                    })
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -474,10 +478,34 @@
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
-            }
+            },
+            change_select_unidad() {
+                let me = this;
+
+                $('select').on('change', function () {
+                    me.$emit('change', this.value)
+                })
+
+                me.$on('change', function(data) {
+                    this.unidad_medida_id = data
+                })
+            },
+            change_select_tipo() {
+                let me = this;
+
+                $('select').on('change', function () {
+                    me.$emit('change', this.value)
+                })
+
+                me.$on('change', function(data) {
+                    this.tipo_producto_id = data
+                })
+            },
         },
         mounted() {
             this.showList()
+            this.change_select_unidad()
+            this.change_select_tipo()
         },
     }
 </script>

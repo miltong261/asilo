@@ -2028,12 +2028,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2045,7 +2039,7 @@ __webpack_require__.r(__webpack_exports__);
       salida: false,
       observacion: '',
       lista_producto: [],
-      producto: 0,
+      producto_id: 0,
       modal: 0,
       titulo: '',
       opcion: 0,
@@ -2077,6 +2071,8 @@ __webpack_require__.r(__webpack_exports__);
             this.id = data['id'];
           }
       }
+
+      this.producto_inventario();
     },
     closeModal: function closeModal() {
       this.cantidad = '';
@@ -2100,6 +2096,18 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
+    },
+    producto_inventario: function producto_inventario() {
+      var me = this;
+      var url = '/inventario/producto';
+      axios.get(url).then(function (response) {
+        me.lista_producto = response.data;
+        $('select').select2({
+          placeholder: 'Seleccione el producto'
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     dataTable: function dataTable() {
       var datatable = $('#zero-config').DataTable();
@@ -2135,14 +2143,31 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    store: function store() {
+      var _this = this;
+
+      var me = this;
+      var url = '/ajuste_producto/store';
+      axios.post(url, {
+        'producto_id': this.producto_id,
+        'cantidad': this.cantidad,
+        'observacion': this.observacion,
+        'entrada': this.entrada,
+        'salida': this.salida
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this.errors = error.response.data.errors;
+      });
+    },
     change_select: function change_select() {
       var me = this;
       $('select').on('change', function () {
         me.$emit('change', this.value);
       });
       me.$on('change', function (data) {
-        this.producto = data;
-        console.log(this.producto);
+        this.producto_id = data;
+        console.log(this.producto_id);
       });
     }
   },
@@ -23300,29 +23325,7 @@ var render = function() {
                             domProps: {
                               textContent: _vm._s(ajuste_producto.observacion)
                             }
-                          }),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-warning mb-2 mr-2 rounded-circle",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.openModal(
-                                      "update",
-                                      ajuste_producto
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-sync-alt" })]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(5, true)
-                          ])
+                          })
                         ])
                       }),
                       0
@@ -23383,7 +23386,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(6),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c(
                         "select",
@@ -23392,8 +23395,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.producto,
-                              expression: "producto"
+                              value: _vm.producto_id,
+                              expression: "producto_id"
                             }
                           ],
                           staticClass: "form-control",
@@ -23410,7 +23413,7 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.producto = $event.target.multiple
+                              _vm.producto_id = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
@@ -23420,7 +23423,7 @@ var render = function() {
                           return _c("option", {
                             key: producto.id,
                             domProps: {
-                              value: producto,
+                              value: producto.id,
                               textContent: _vm._s(producto.nombre)
                             }
                           })
@@ -23441,7 +23444,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-12" }, [
-                    _vm._m(7),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -23492,7 +23495,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(8),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c(
                     "fieldset",
@@ -23612,7 +23615,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-2" }, [
                     _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(9),
+                      _vm._m(8),
                       _vm._v(" "),
                       _c("textarea", {
                         directives: [
@@ -23676,25 +23679,6 @@ var render = function() {
                       _c("i", { staticClass: "far fa-check-circle" })
                     ]
                   )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.opcion == 2
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-warning",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.update()
-                        }
-                      }
-                    },
-                    [
-                      _vm._v("Actualizar "),
-                      _c("i", { staticClass: "fas fa-sync-alt" })
-                    ]
-                  )
                 : _vm._e()
             ])
           ])
@@ -23716,7 +23700,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-hashtag" }),
-          _vm._v(" Codigo")
+          _vm._v(" Producto")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -23730,7 +23714,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user" }),
+          _c("i", { staticClass: "fas fa-store" }),
           _vm._v(" Nombre")
         ]),
         _vm._v(" "),
@@ -23745,18 +23729,14 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-pencil-alt" }),
-          _vm._v(" Cantidad")
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Cantidad "),
+          _c("i", { staticClass: "fas fa-minus" })
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Motivo")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-cogs" }),
-          _vm._v(" Opciones")
         ])
       ])
     ])
@@ -23765,7 +23745,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "badge outline -badge-check" }, [
+    return _c("span", { staticClass: "badge outline-badge-check" }, [
       _c("i", { staticClass: "fa fa-check-circle" })
     ])
   },
@@ -23792,16 +23772,6 @@ var staticRenderFns = [
     return _c("span", { staticClass: "badge outline-badge-no-check" }, [
       _c("i", { staticClass: "fa fa-times-circle" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-eliminar mb-2 mr-2 rounded-circle" },
-      [_c("i", { staticClass: "fa fa-trash-alt" })]
-    )
   },
   function() {
     var _vm = this

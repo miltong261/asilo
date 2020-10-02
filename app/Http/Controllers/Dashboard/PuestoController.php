@@ -25,7 +25,7 @@ class PuestoController extends Controller
     public function index()
     {
         return response()->json($this->puestoRepository->index(
-            ['id', 'nombre', 'codigo', 'estado']
+            ['id', 'nombre', 'descripcion', 'codigo', 'estado']
         ));
     }
 
@@ -50,7 +50,7 @@ class PuestoController extends Controller
             DB::beginTransaction();
 
             $this->puestoRepository->store($request->only(
-                'nombre')
+                'nombre', 'descripcion')
                 + ['codigo' => 'PUESTO-' . $this->puestoRepository->generateCode()]
             );
 
@@ -79,7 +79,7 @@ class PuestoController extends Controller
             DB::beginTransaction();
 
             $this->puestoRepository->update($request->only(
-                'nombre'),
+                'nombre', 'descripcion'),
                 $request->id);
 
             DB::commit();

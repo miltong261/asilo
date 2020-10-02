@@ -152,7 +152,7 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Ajuste de producto"
+                        this.titulo = "Ajuste de medicamento"
                         this.opcion = 1
                         break
                     }

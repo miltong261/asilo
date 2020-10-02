@@ -11,7 +11,7 @@
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-address-card"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -60,7 +60,7 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
-                                <label for="nombre"><i class="fas fa-user-tag"></i> Nombre</label>
+                                <label for="nombre"><i class="fas fa-address-card"></i> Nombre</label>
                                 <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese puesto...">
                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                     {{ errors.nombre[0] }}

@@ -11,7 +11,7 @@
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-thermometer-full"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-capsules"></i> Medicamento</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Producto</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>

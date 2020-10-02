@@ -11,7 +11,7 @@
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-paste"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>

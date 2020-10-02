@@ -12,7 +12,7 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-hashtag"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-tags"></i> Observación</th>
+                                    <th class="text-center"><i class="fas fa-search"></i> Observación</th>
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>

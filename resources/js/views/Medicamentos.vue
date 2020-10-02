@@ -13,7 +13,7 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-hashtag"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-briefcase-medical"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-tags"></i> Observación</th>
+                                    <th class="text-center"><i class="fas fa-search"></i> Observación</th>
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
@@ -266,13 +266,13 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro de producto"
+                        this.titulo = "Registro de medicamento"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización de producto"
+                        this.titulo = "Actualización de medicamento"
                         this.opcion = 2
 
                         this.unidad_medida_id = data['unidad_medida_id']

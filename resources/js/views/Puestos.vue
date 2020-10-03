@@ -12,6 +12,7 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-address-card"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-address-card"></i> Descripción</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -21,6 +22,7 @@
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="puesto.codigo" class="text-center"></td>
                                     <td v-text="puesto.nombre" class="text-center"></td>
+                                    <td v-text="puesto.descripcion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="puesto.estado">
                                             <span class="badge outline-badge-check">Activo</span>
@@ -30,9 +32,9 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         <template v-if="puesto.estado">
                                             <button type="button" @click="changeStatus('desactivate', puesto.id, puesto.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                            <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                         <template v-else>
                                             <button type="button" @click="changeStatus('activate', puesto.id, puesto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
@@ -60,10 +62,17 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
-                                <label for="nombre"><i class="fas fa-address-card"></i> Nombre</label>
+                                <label class="text-dar" for="nombre"><i class="fas fa-address-card"></i> Nombre</label>
                                 <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese puesto...">
                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                     {{ errors.nombre[0] }}
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-2">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark"><i class="fas fa-settings"></i> Descripción del puesto</label>
+                                    <textarea class="form-control" rows="3" name="descripcion" v-model="descripcion"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -88,6 +97,7 @@
                 id: 0,
                 lista_puestos: [],
                 nombre: '',
+                descripcion: '',
 
                 modal: 0,
                 titulo: '',
@@ -109,12 +119,14 @@
                         this.titulo = "Actualización de puesto"
                         this.opcion = 2
                         this.nombre = data['nombre']
+                        this.descripcion = data['descripcion']
                         this.id = data['id']
                     }
                 }
             },
             closeModal() {
                 this.nombre = ''
+                this.descripcion = ''
 
                 this.modal = 0
                 this.titulo = ''
@@ -197,8 +209,8 @@
                 });
             },
             showList() {
-                let me = this;
-                let url = '/puestos';
+                let me = this
+                let url = '/puestos'
                 axios.get(url).then(function (response) {
                     me.lista_puestos = response.data
                     me.dataTable();
@@ -212,6 +224,7 @@
                 let url = '/puestos/store'
                 axios.post(url,{
                     'nombre': this.nombre,
+                    'descripcion': this.descripcion
                 }).then(function (response) {
                     me.backendResponse(response)
                 }).catch(error =>{
@@ -224,6 +237,7 @@
                 let url = 'puestos/update'
                 axios.put(url,{
                     'nombre': this.nombre,
+                    'descripcion': this.descripcion,
                     'id': this.id
                 }).then(function (response){
                     me.backendResponse(response)

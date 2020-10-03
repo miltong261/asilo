@@ -24,8 +24,8 @@
                             <tbody>
                                 <tr v-for="(medicamento, index) in lista_medicamentos" :key="medicamento.id">
                                     <td v-text="index+1" class="text-center"></td>
-                                    <td v-text="medicamento.codigo" class="text-center"></td>
-                                    <td v-text="medicamento.nombre" class="text-center"></td>
+                                    <td v-text="medicamento.codigo_producto" class="text-center"></td>
+                                    <td v-text="medicamento.nombre_producto" class="text-center"></td>
                                     <td v-text="medicamento.observacion" class="text-center"></td>
                                     <td v-text="medicamento.unidad_nombre" class="text-center"></td>
                                     <td v-text="medicamento.categoria_nombre" class="text-center"></td>
@@ -74,7 +74,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
-                                    <select class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
+                                    <select id="select_unidad" class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
                                         <option v-for="unidad_medida in lista_unidad_medida" :key="unidad_medida.id" :value="unidad_medida.id" v-text="unidad_medida.nombre"></option>
                                     </select>
                                     <div v-if="hasError('unidad_medida_id')" class="invalid-feedback">
@@ -84,7 +84,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
-                                    <select class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
+                                    <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
                                         <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
                                     </select>
                                     <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
@@ -156,7 +156,6 @@
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-hashtag"></i> Código</label>
                                     <input v-text="codigo" v-model="codigo" class="form-control" disabled>
-                                    <!-- <p v-text="codigo"></p> -->
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -390,13 +389,29 @@
                     }
                 })
             },
+            change_select_unidad() {
+                let me = this
+
+                $('#select_unidad').on('change', function () {
+                    me.$emit('change', this.value)
+                    me.unidad_medida_id = this.value
+                })
+            },
+            change_select_tipo() {
+                let me = this
+
+                $('#select_tipo').on('change', function () {
+                    me.$emit('change', this.value)
+                    me.tipo_producto_id = this.value
+                })
+            },
             combo_medicamento_unidad_medida() {
                 let me = this
                 let url = '/unidad_medida/combo_medicamento';
                 axios.get(url).then(function (response) {
                     me.lista_unidad_medida = response.data
-                    $('select').select2({
-                        placeholder: 'Seleccione el unidad de medida'
+                    $('#select_unidad').select2({
+                        placeholder: 'Seleccione la unidad de medida'
                     })
                 })
                 .catch(function (error) {
@@ -405,10 +420,10 @@
             },
             combo_medicamento_tipo_producto() {
                 let me = this
-                let url = '/tipo_producto/combo_medicamento';
+                let url = '/tipo_producto/combo_medicamento'
                 axios.get(url).then(function (response) {
                     me.lista_tipo_producto = response.data
-                    $('select').select2({
+                    $('#select_tipo').select2({
                         placeholder: 'Seleccione el tipo de producto'
                     })
                 })
@@ -440,7 +455,7 @@
                 let url = '/medicamentos'
                 axios.get(url).then(function (response) {
                     me.lista_medicamentos = response.data
-                    me.dataTable();
+                    me.dataTable()
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -478,29 +493,7 @@
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
-            },
-            change_select_unidad() {
-                let me = this;
-
-                $('select').on('change', function () {
-                    me.$emit('change', this.value)
-                })
-
-                me.$on('change', function(data) {
-                    this.unidad_medida_id = data
-                })
-            },
-            change_select_tipo() {
-                let me = this;
-
-                $('select').on('change', function () {
-                    me.$emit('change', this.value)
-                })
-
-                me.$on('change', function(data) {
-                    this.tipo_producto_id = data
-                })
-            },
+            }
         },
         mounted() {
             this.showList()

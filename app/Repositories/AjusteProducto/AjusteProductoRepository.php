@@ -26,7 +26,7 @@ class AjusteProductoRepository extends BaseRepository
             return $this->getModel()
             ->join('productos', 'productos.id', '=', 'ajuste_producto.producto_id')
             ->select('ajuste_producto.*', 'productos.codigo as codigo_producto', 'productos.nombre as nombre_producto')
-            ->where('productos.asignacion', '2')
+            ->where('productos.asignacion', '0')
             ->get();
         }
     }

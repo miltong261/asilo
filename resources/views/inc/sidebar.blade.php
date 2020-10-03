@@ -33,7 +33,7 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="configuracion" data-parent="#accordionExample">
-                    <span>INVENTARIO</span>
+                    <span>Bodega</span>
                     <router-link tag="li" to="/categoria" exact-active-class="active">
                         <a>Categoría</a>
                     </router-link>
@@ -41,7 +41,7 @@
                         <a>Unidad de medida</a>
                     </router-link>
 
-                    <span>LOCALIDAD</span>
+                    <span>Localidad</span>
                     <router-link tag="li" to="/departamentos" exact-active-class="active">
                         <a>Departamentos</a>
                     </router-link>

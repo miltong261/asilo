@@ -112,7 +112,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-user-tag"></i> Área</label>
-                                    <select class="form-control" :class="hasError('area_id') ? 'is-invalid' : ''" v-model="area_id">
+                                    <select id="select_area" class="form-control" :class="hasError('area_id') ? 'is-invalid' : ''" v-model="area_id">
                                         <option v-for="area in lista_areas" :key="area.id" :value="area.id" v-text="area.nombre"></option>
                                     </select>
                                     <div v-if="hasError('area_id')" class="invalid-feedback">
@@ -122,7 +122,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-user-tag"></i> Puesto</label>
-                                    <select class="form-control" :class="hasError('puesto_id') ? 'is-invalid' : ''" v-model="puesto_id">
+                                    <select id="select_puesto" class="form-control" :class="hasError('puesto_id') ? 'is-invalid' : ''" v-model="puesto_id">
                                         <option v-for="puesto in lista_puestos" :key="puesto.id" :value="puesto.id" v-text="puesto.nombre"></option>
                                     </select>
                                     <div v-if="hasError('puesto_id')" class="invalid-feedback">
@@ -238,13 +238,29 @@ export default {
                 alerts.sweetAlert(response.data.status, response.data.message)
             }
         },
+        change_select_area() {
+            let me = this
+
+            $('#select_area').on('change', function () {
+                me.$emit('change', this.value)
+                me.area_id = this.value
+            })
+        },
+        change_select_puesto() {
+            let me = this
+
+            $('#select_puesto').on('change', function () {
+                me.$emit('change', this.value)
+                me.puesto_id = this.value
+            })
+        },
         combo_area() {
-            let me = this;
-            let url = '/areas/combo';
+            let me = this
+            let url = '/areas/combo'
             axios.get(url).then(function (response) {
                 me.lista_areas = response.data
-                $('select').select2({
-                    placeholder: 'Seleccione el producto'
+                $('#select_area').select2({
+                    placeholder: 'Seleccione el área'
                 })
             })
             .catch(function (error) {
@@ -252,12 +268,12 @@ export default {
             })
         },
         combo_puesto() {
-            let me = this;
-            let url = '/puestos/combo';
+            let me = this
+            let url = '/puestos/combo'
             axios.get(url).then(function (response) {
                 me.lista_puestos = response.data
-                $('select').select2({
-                    placeholder: 'Seleccione el producto'
+                $('#select_puesto').select2({
+                    placeholder: 'Seleccione el puesto'
                 })
             })
             .catch(function (error) {
@@ -265,47 +281,47 @@ export default {
             })
         },
         changeStatus(action, id, nombre) {
-                swal({
-                    title: 'Cambio de estado',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre el empleado "'+nombre+'"?',
-                    type: 'question',
-                    confirmButtonColor: '#25d5e4',
-                    cancelButtonColor: '#f8538d',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: '¡Cancelar!',
-                    confirmButtonClass: 'btn btn-guardar',
-                    cancelButtonClass: 'btn btn-cerrar',
-                    padding: '2em'
-                }).then((result) => {
-                    if (action == 'activate')
-                        var url = '/empleados/activate'
-                    else if (action == 'desactivate')
-                        var url = '/empleados/desactivate'
+            swal({
+                title: 'Cambio de estado',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el empleado "'+nombre+'"?',
+                type: 'question',
+                confirmButtonColor: '#25d5e4',
+                cancelButtonColor: '#f8538d',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: '¡Cancelar!',
+                confirmButtonClass: 'btn btn-guardar',
+                cancelButtonClass: 'btn btn-cerrar',
+                padding: '2em'
+            }).then((result) => {
+                if (action == 'activate')
+                    var url = '/empleados/activate'
+                else if (action == 'desactivate')
+                    var url = '/empleados/desactivate'
 
-                    if (result.value) {
-                        let me = this
-                        axios.put(url, {
-                            'id': id
-                        }).then(function (response) {
-                            me.showList()
-                            swal(
-                                'Cambio de estado',
-                                'Se ha cambiado el estado correctamente',
-                                'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
-                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                if (result.value) {
+                    let me = this
+                    axios.put(url, {
+                        'id': id
+                    }).then(function (response) {
+                        me.showList()
                         swal(
-                            'Cancelado',
-                            'Se ha cancelado la operación',
-                            'error'
+                            'Cambio de estado',
+                            'Se ha cambiado el estado correctamente',
+                            'success'
                         )
-                    }
-                })
-            },
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                } else if(result.dismiss === swal.DismissReason.cancel) {
+                    swal(
+                        'Cancelado',
+                        'Se ha cancelado la operación',
+                        'error'
+                    )
+                }
+            })
+        },
         dataTable() {
             let datatable = $('#zero-config').DataTable()
             datatable.destroy()
@@ -374,29 +390,7 @@ export default {
                 if(error.response.status == 422)
                     this.errors = error.response.data.errors
             })
-        },
-        change_select_area() {
-            let me = this;
-
-            $('select').on('change', function () {
-                me.$emit('change', this.value)
-            })
-
-            me.$on('change', function(data) {
-                this.area_id = data
-            })
-        },
-        change_select_puesto() {
-            let me = this;
-
-            $('select').on('change', function () {
-                me.$emit('change', this.value)
-            })
-
-            me.$on('change', function(data) {
-                this.puesto_id = data
-            })
-        },
+        }
     },
     mounted() {
         this.showList()

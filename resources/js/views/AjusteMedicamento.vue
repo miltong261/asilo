@@ -93,7 +93,7 @@
                                         {{ errors.cantidad[0] }}
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
 
                             <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
                             <fieldset class="border border-light rounded p-1">
@@ -110,7 +110,7 @@
                             </fieldset>
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
-                                    <label class="text-danger"><i class="fas fa-search"></i> Observaciones</label>
+                                    <label class="text-dark"><i class="fas fa-search"></i> Observaciones</label>
                                     <textarea class="form-control" rows="3" name="observacion" v-model="observacion"></textarea>
                                 </div>
                             </div>

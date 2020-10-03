@@ -3193,13 +3193,27 @@ __webpack_require__.r(__webpack_exports__);
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
+    change_select_area: function change_select_area() {
+      var me = this;
+      $('#select_area').on('change', function () {
+        me.$emit('change', this.value);
+        me.area_id = this.value;
+      });
+    },
+    change_select_puesto: function change_select_puesto() {
+      var me = this;
+      $('#select_puesto').on('change', function () {
+        me.$emit('change', this.value);
+        me.puesto_id = this.value;
+      });
+    },
     combo_area: function combo_area() {
       var me = this;
       var url = '/areas/combo';
       axios.get(url).then(function (response) {
         me.lista_areas = response.data;
-        $('select').select2({
-          placeholder: 'Seleccione el producto'
+        $('#select_area').select2({
+          placeholder: 'Seleccione el área'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -3210,8 +3224,8 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/puestos/combo';
       axios.get(url).then(function (response) {
         me.lista_puestos = response.data;
-        $('select').select2({
-          placeholder: 'Seleccione el producto'
+        $('#select_puesto').select2({
+          placeholder: 'Seleccione el puesto'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -3323,24 +3337,6 @@ __webpack_require__.r(__webpack_exports__);
         me.backendResponse(response);
       })["catch"](function (error) {
         if (error.response.status == 422) _this3.errors = error.response.data.errors;
-      });
-    },
-    change_select_area: function change_select_area() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.area_id = data;
-      });
-    },
-    change_select_puesto: function change_select_puesto() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.puesto_id = data;
       });
     }
   },
@@ -3790,7 +3786,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3940,13 +3935,27 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    change_select_unidad: function change_select_unidad() {
+      var me = this;
+      $('#select_unidad').on('change', function () {
+        me.$emit('change', this.value);
+        me.unidad_medida_id = this.value;
+      });
+    },
+    change_select_tipo: function change_select_tipo() {
+      var me = this;
+      $('#select_tipo').on('change', function () {
+        me.$emit('change', this.value);
+        me.tipo_producto_id = this.value;
+      });
+    },
     combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_medicamento';
       axios.get(url).then(function (response) {
         me.lista_unidad_medida = response.data;
-        $('select').select2({
-          placeholder: 'Seleccione el unidad de medida'
+        $('#select_unidad').select2({
+          placeholder: 'Seleccione la unidad de medida'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -3957,7 +3966,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/tipo_producto/combo_medicamento';
       axios.get(url).then(function (response) {
         me.lista_tipo_producto = response.data;
-        $('select').select2({
+        $('#select_tipo').select2({
           placeholder: 'Seleccione el tipo de producto'
         });
       })["catch"](function (error) {
@@ -4031,24 +4040,6 @@ __webpack_require__.r(__webpack_exports__);
         me.backendResponse(response);
       })["catch"](function (error) {
         if (error.response.status == 422) _this3.errors = error.response.data.errors;
-      });
-    },
-    change_select_unidad: function change_select_unidad() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.unidad_medida_id = data;
-      });
-    },
-    change_select_tipo: function change_select_tipo() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.tipo_producto_id = data;
       });
     }
   },
@@ -4722,13 +4713,27 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    change_select_unidad: function change_select_unidad() {
+      var me = this;
+      $('#select_unidad').on('change', function () {
+        me.$emit('change', this.value);
+        me.unidad_medida_id = this.value;
+      });
+    },
+    change_select_tipo: function change_select_tipo() {
+      var me = this;
+      $('#select_tipo').on('change', function () {
+        me.$emit('change', this.value);
+        me.tipo_producto_id = this.value;
+      });
+    },
     combo_producto_unidad_medida: function combo_producto_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_producto';
       axios.get(url).then(function (response) {
         me.lista_unidad_medida = response.data;
-        $('select').select2({
-          placeholder: 'Seleccione el unidad de medida'
+        $('#select_unidad').select2({
+          placeholder: 'Seleccione la unidad de medida'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -4739,7 +4744,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/tipo_producto/combo_producto';
       axios.get(url).then(function (response) {
         me.lista_tipo_producto = response.data;
-        $('select').select2({
+        $('#select_tipo').select2({
           placeholder: 'Seleccione el tipo de producto'
         });
       })["catch"](function (error) {
@@ -4813,24 +4818,6 @@ __webpack_require__.r(__webpack_exports__);
         me.backendResponse(response);
       })["catch"](function (error) {
         if (error.response.status == 422) _this3.errors = error.response.data.errors;
-      });
-    },
-    change_select_unidad: function change_select_unidad() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.unidad_medida_id = data;
-      });
-    },
-    change_select_tipo: function change_select_tipo() {
-      var me = this;
-      $('select').on('change', function () {
-        me.$emit('change', this.value);
-      });
-      me.$on('change', function (data) {
-        this.tipo_producto_id = data;
       });
     }
   },
@@ -4934,6 +4921,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4941,6 +4937,7 @@ __webpack_require__.r(__webpack_exports__);
       id: 0,
       lista_puestos: [],
       nombre: '',
+      descripcion: '',
       modal: 0,
       titulo: '',
       opcion: 0,
@@ -4966,12 +4963,14 @@ __webpack_require__.r(__webpack_exports__);
             this.titulo = "Actualización de puesto";
             this.opcion = 2;
             this.nombre = data['nombre'];
+            this.descripcion = data['descripcion'];
             this.id = data['id'];
           }
       }
     },
     closeModal: function closeModal() {
       this.nombre = '';
+      this.descripcion = '';
       this.modal = 0;
       this.titulo = '';
       this.opcion = 0;
@@ -5063,7 +5062,8 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/puestos/store';
       axios.post(url, {
-        'nombre': this.nombre
+        'nombre': this.nombre,
+        'descripcion': this.descripcion
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
@@ -5077,6 +5077,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = 'puestos/update';
       axios.put(url, {
         'nombre': this.nombre,
+        'descripcion': this.descripcion,
         'id': this.id
       }).then(function (response) {
         me.backendResponse(response);
@@ -24463,7 +24464,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-danger" }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observaciones")
     ])
@@ -25103,7 +25104,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-danger" }, [
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observaciones")
     ])
@@ -25226,21 +25227,6 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModal("update", area)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sync-alt" })]
-                              ),
-                              _vm._v(" "),
                               area.estado
                                 ? [
                                     _c(
@@ -25260,6 +25246,25 @@ var render = function() {
                                         }
                                       },
                                       [_c("i", { staticClass: "fas fa-lock" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-warning mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModal("update", area)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sync-alt"
+                                        })
+                                      ]
                                     )
                                   ]
                                 : [
@@ -26594,6 +26599,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           class: _vm.hasError("area_id") ? "is-invalid" : "",
+                          attrs: { id: "select_area" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -26649,6 +26655,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           class: _vm.hasError("puesto_id") ? "is-invalid" : "",
+                          attrs: { id: "select_puesto" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -27340,14 +27347,14 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.codigo)
+                              textContent: _vm._s(medicamento.codigo_producto)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.nombre)
+                              textContent: _vm._s(medicamento.nombre_producto)
                             }
                           }),
                           _vm._v(" "),
@@ -27566,6 +27573,7 @@ var render = function() {
                           class: _vm.hasError("unidad_medida_id")
                             ? "is-invalid"
                             : "",
+                          attrs: { id: "select_unidad" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -27625,6 +27633,7 @@ var render = function() {
                           class: _vm.hasError("tipo_producto_id")
                             ? "is-invalid"
                             : "",
+                          attrs: { id: "select_tipo" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -29250,6 +29259,7 @@ var render = function() {
                           class: _vm.hasError("unidad_medida_id")
                             ? "is-invalid"
                             : "",
+                          attrs: { id: "select_unidad" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -29309,6 +29319,7 @@ var render = function() {
                           class: _vm.hasError("tipo_producto_id")
                             ? "is-invalid"
                             : "",
+                          attrs: { id: "select_tipo" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -30194,6 +30205,13 @@ var render = function() {
                             domProps: { textContent: _vm._s(puesto.nombre) }
                           }),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(puesto.descripcion)
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             puesto.estado
                               ? _c("div", [
@@ -30221,21 +30239,6 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModal("update", puesto)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sync-alt" })]
-                              ),
-                              _vm._v(" "),
                               puesto.estado
                                 ? [
                                     _c(
@@ -30255,6 +30258,28 @@ var render = function() {
                                         }
                                       },
                                       [_c("i", { staticClass: "fas fa-lock" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-warning mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModal(
+                                              "update",
+                                              puesto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sync-alt"
+                                        })
+                                      ]
                                     )
                                   ]
                                 : [
@@ -30396,6 +30421,34 @@ var render = function() {
                           )
                         ])
                       : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-2" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.descripcion,
+                            expression: "descripcion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { rows: "3", name: "descripcion" },
+                        domProps: { value: _vm.descripcion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.descripcion = $event.target.value
+                          }
+                        }
+                      })
+                    ])
                   ])
                 ]
               )
@@ -30485,6 +30538,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-address-card" }),
+          _vm._v(" Descripción")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-lock" }),
           _vm._v(" Estado")
         ]),
@@ -30500,9 +30558,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "nombre" } }, [
+    return _c("label", { staticClass: "text-dar", attrs: { for: "nombre" } }, [
       _c("i", { staticClass: "fas fa-address-card" }),
       _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-settings" }),
+      _vm._v(" Descripción del puesto")
     ])
   }
 ]
@@ -31688,24 +31755,6 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModal(
-                                        "update",
-                                        tipo_movimiento
-                                      )
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sync-alt" })]
-                              ),
-                              _vm._v(" "),
                               tipo_movimiento.estado
                                 ? [
                                     _c(
@@ -31725,6 +31774,28 @@ var render = function() {
                                         }
                                       },
                                       [_c("i", { staticClass: "fas fa-lock" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-warning mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModal(
+                                              "update",
+                                              tipo_movimiento
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sync-alt"
+                                        })
+                                      ]
                                     )
                                   ]
                                 : [
@@ -32273,24 +32344,6 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModal(
-                                        "update",
-                                        tipo_producto
-                                      )
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sync-alt" })]
-                              ),
-                              _vm._v(" "),
                               tipo_producto.estado
                                 ? [
                                     _c(
@@ -32312,6 +32365,28 @@ var render = function() {
                                         }
                                       },
                                       [_c("i", { staticClass: "fas fa-lock" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-warning mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModal(
+                                              "update",
+                                              tipo_producto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sync-alt"
+                                        })
+                                      ]
                                     )
                                   ]
                                 : [
@@ -32868,24 +32943,6 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-warning mb-2 mr-2 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModal(
-                                        "update",
-                                        unidad_medida
-                                      )
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sync-alt" })]
-                              ),
-                              _vm._v(" "),
                               unidad_medida.estado
                                 ? [
                                     _c(
@@ -32907,6 +32964,28 @@ var render = function() {
                                         }
                                       },
                                       [_c("i", { staticClass: "fas fa-lock" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-warning mb-2 mr-2 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModal(
+                                              "update",
+                                              unidad_medida
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sync-alt"
+                                        })
+                                      ]
                                     )
                                   ]
                                 : [
@@ -49845,7 +49924,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

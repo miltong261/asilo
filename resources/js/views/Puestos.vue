@@ -62,7 +62,7 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
-                                <label class="text-dar" for="nombre"><i class="fas fa-address-card"></i> Nombre</label>
+                                <label class="text-dark" for="nombre"><i class="fas fa-address-card"></i> Nombre</label>
                                 <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese puesto...">
                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                     {{ errors.nombre[0] }}
@@ -71,7 +71,7 @@
 
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="fas fa-settings"></i> Descripción del puesto</label>
+                                    <label class="text-dark"><i class="fas fa-search"></i> Descripción del puesto</label>
                                     <textarea class="form-control" rows="3" name="descripcion" v-model="descripcion"></textarea>
                                 </div>
                             </div>

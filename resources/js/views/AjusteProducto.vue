@@ -10,9 +10,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Código</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Producto</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Producto</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
@@ -85,13 +85,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-12">
-                                <label class="text-dark" for="cantidad"><i class="fas fa-pencil-alt"></i> Cantidad</label>
-                                <input  @keyup.enter="store()" type="text" v-model="cantidad" class="form-control" :class="hasError('cantidad') ? 'is-invalid' : ''" name="cantidad"    >
-                                <div v-if="hasError('cantidad')" class="invalid-feedback">
-                                    {{ errors.cantidad[0] }}
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark" for="cantidad"><i class="fas fa-pencil-alt"></i> Cantidad</label>
+                                    <input  @keyup.enter="store()" type="text" v-model="cantidad" class="form-control" :class="hasError('cantidad') ? 'is-invalid' : ''" name="cantidad"    >
+                                    <div v-if="hasError('cantidad')" class="invalid-feedback">
+                                        {{ errors.cantidad[0] }}
+                                    </div>
                                 </div>
-                            </div>
+                            </div> 
 
                             <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
                             <fieldset class="border border-light rounded p-1">
@@ -152,7 +154,7 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Ajuste de medicamento"
+                        this.titulo = "Ajuste de producto"
                         this.opcion = 1
                         break
                     }

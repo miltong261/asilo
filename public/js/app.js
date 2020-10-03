@@ -2312,6 +2312,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2336,7 +2338,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Ajuste de medicamento";
+            this.titulo = "Ajuste de producto";
             this.opcion = 1;
             break;
           }
@@ -24357,7 +24359,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" Código")
         ]),
         _vm._v(" "),
@@ -24367,7 +24369,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" medicamento")
         ]),
         _vm._v(" "),
@@ -24741,56 +24743,58 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-12" }, [
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.cantidad,
-                          expression: "cantidad"
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.cantidad,
+                            expression: "cantidad"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("cantidad") ? "is-invalid" : "",
+                        attrs: { type: "text", name: "cantidad" },
+                        domProps: { value: _vm.cantidad },
+                        on: {
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.store()
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.cantidad = $event.target.value
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      class: _vm.hasError("cantidad") ? "is-invalid" : "",
-                      attrs: { type: "text", name: "cantidad" },
-                      domProps: { value: _vm.cantidad },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("cantidad")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.cantidad[0]) +
+                                "\n                                "
                             )
-                          ) {
-                            return null
-                          }
-                          return _vm.store()
-                        },
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.cantidad = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.hasError("cantidad")
-                      ? _c("div", { staticClass: "invalid-feedback" }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.errors.cantidad[0]) +
-                              "\n                            "
-                          )
-                        ])
-                      : _vm._e()
+                          ])
+                        : _vm._e()
+                    ])
                   ]),
                   _vm._v(" "),
                   _vm._m(7),
@@ -24997,7 +25001,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" Código")
         ]),
         _vm._v(" "),
@@ -25007,7 +25011,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" Producto")
         ]),
         _vm._v(" "),
@@ -25571,7 +25575,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "nombre" } }, [
+    return _c("label", { staticClass: "text-dark", attrs: { for: "nombre" } }, [
       _c("i", { staticClass: "fas fa-store-alt" }),
       _vm._v(" Nombre")
     ])
@@ -25580,10 +25584,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "descripcion" } }, [
-      _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Descripción")
-    ])
+    return _c(
+      "label",
+      { staticClass: "text-dark", attrs: { for: "descripcion" } },
+      [_c("i", { staticClass: "fas fa-search" }), _vm._v(" Descripción")]
+    )
   }
 ]
 render._withStripped = true
@@ -28275,7 +28280,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" Codigo")
         ]),
         _vm._v(" "),
@@ -28900,7 +28905,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" Transacción")
         ]),
         _vm._v(" "),
@@ -29943,7 +29948,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
+          _c("i", { staticClass: "fas fa-qrcode" }),
           _vm._v(" Codigo")
         ]),
         _vm._v(" "),
@@ -30558,7 +30563,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "text-dar", attrs: { for: "nombre" } }, [
+    return _c("label", { staticClass: "text-dark", attrs: { for: "nombre" } }, [
       _c("i", { staticClass: "fas fa-address-card" }),
       _vm._v(" Nombre")
     ])
@@ -30568,7 +30573,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-settings" }),
+      _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Descripción del puesto")
     ])
   }
@@ -32796,7 +32801,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "nombre" } }, [
+    return _c("label", { staticClass: "text-dark", attrs: { for: "nombre" } }, [
       _c("i", { staticClass: "fas fa-tags" }),
       _vm._v(" Nombre")
     ])
@@ -32805,7 +32810,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [
+    return _c("label", { staticClass: "text-dark" }, [
       _vm._v("Marcar "),
       _c("i", { staticClass: "fas fa-check" }),
       _vm._v("  para...")
@@ -33395,7 +33400,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "nombre" } }, [
+    return _c("label", { staticClass: "text-dark", attrs: { for: "nombre" } }, [
       _c("i", { staticClass: "fas fa-thermometer-full" }),
       _vm._v(" Nombre")
     ])
@@ -33404,7 +33409,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [
+    return _c("label", { staticClass: "text-dark" }, [
       _vm._v("Marcar "),
       _c("i", { staticClass: "fas fa-check" }),
       _vm._v("  para...")
@@ -49924,7 +49929,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

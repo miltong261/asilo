@@ -114,6 +114,8 @@ Route::group(['prefix' => 'empleados'], function () {
 // Residentes
 Route::group(['prefix' => 'residentes'], function () {
     Route::get('/', 'Dashboard\ResidenteController@index');
+    Route::post('/store', 'Dashboard\ResidenteController@store');
+    Route::put('/update', 'Dashboard\ResidenteController@update');
 });
 
 /** Rutas de inventario */

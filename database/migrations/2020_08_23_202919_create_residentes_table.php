@@ -36,17 +36,17 @@ class CreateResidentesTable extends Migration
             $table->string('nombre', 35);
             $table->string('apellido', 35);
             $table->date('fecha_nacimiento');
-            $table->integer('dpi')->unique();
+            $table->bigInteger('dpi')->unique();
             $table->string('familia', 70)->nullable();
             $table->string('direccion', 70)->nullable();
-            $table->integer('telefono_familia')->nullable();
+            $table->bigInteger('telefono_familia')->nullable();
             $table->string('persona_referida', 70)->nullable();
             $table->string('direccion_persona_referida', 70)->nullable();
-            $table->integer('telefono_persona_referida')->nullable();
+            $table->bigInteger('telefono_persona_referida')->nullable();
             $table->string('motivo');
-            $table->text('estado');
-            $table->text('historial');
-            $table->text('observacion')->nullable();
+            $table->string('estado');
+            $table->string('historial');
+            $table->string('observacion')->nullable();
 
             $table->timestamps();
         });

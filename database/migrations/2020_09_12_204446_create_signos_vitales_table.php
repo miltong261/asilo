@@ -27,7 +27,8 @@ class CreateSignosVitalesTable extends Migration
                 ->on('residentes');
 
             $table->date('fecha_registro');
-            $table->string('tiempo')->nullable(); // Día, tarde y noche
+            $table->time('hora_registro');
+            $table->string('tiempo'); // Día, tarde y noche
             $table->string('pulso', 15);
             $table->string('temperatura', 15);
             $table->string('presion', 35);

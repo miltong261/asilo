@@ -78,14 +78,14 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
-                                <label for="nombre"><i class="fas fa-tags"></i> Nombre</label>
+                                <label class="text-dark" for="nombre"><i class="fas fa-tags"></i> Nombre</label>
                                 <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese categoría...">
                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                     {{ errors.nombre[0] }}
                                 </div>
                             </div>
 
-                            <label>Marcar <i class="fas fa-check"></i>  para...</label>
+                            <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
                             <fieldset class="border border-light rounded p-1">
                                 <div class="n-chk text-center">
                                     <label class="new-control new-checkbox checkbox-outline-check">

@@ -10,9 +10,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Código</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> medicamento</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> medicamento</th>
                                     <th class="text-center"><i class="fas fa-briefcase-medical"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>

@@ -13,7 +13,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Transacción</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Transacción</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha</th>
                                     <th class="text-center"><i class="fas fa-paste"></i> Tipo movimiento</th>
                                     <th class="text-center"><i class="fas fa-search"></i> Observación</th>

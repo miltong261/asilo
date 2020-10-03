@@ -11,7 +11,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i> Codigo</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-briefcase-medical"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-search"></i> Observación</th>
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>

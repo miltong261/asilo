@@ -45,7 +45,7 @@ class AjusteProductoRepository extends BaseRepository
             ]);
         } else {
             $producto = Producto::findOrFail($request['producto_id']);
-            $inventario = Inventario::findOrFail($request['producto_id']);
+            $inventario = Inventario::where('producto_id', $request['producto_id']);
 
             if ($request['entrada'] == true) {
                 $inventario->existencia += $request['cantidad'];

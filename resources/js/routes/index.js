@@ -18,6 +18,14 @@ export default new Router({
             path: '/unidad_medida',
             component: require('../views/UnidadMedida').default
         },
+        {
+            path: '/departamentos',
+            component: require('../views/Departamentos').default
+        },
+        {
+            path: '/municipios',
+            component: require('../views/Municipios').default
+        },
         // Rutas de financiero
         {
             path: '/tipo_movimiento',
@@ -55,7 +63,7 @@ export default new Router({
             component: require('../views/AjusteProducto').default
         },
         {
-            path: '/productos',
+            path: '/articulos',
             component: require('../views/Productos').default
         },
         {

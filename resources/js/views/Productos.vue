@@ -255,13 +255,13 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro de producto"
+                        this.titulo = "Registro de artículo"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización de producto"
+                        this.titulo = "Actualización de artículo"
                         this.opcion = 2
 
                         this.unidad_medida_id = data['unidad_medida_id']

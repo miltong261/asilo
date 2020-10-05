@@ -151,8 +151,8 @@
                     <router-link tag="li" to="/medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>
                     </router-link>
-                    <router-link tag="li" to="/productos" exact-active-class="active">
-                        <a>Productos</a>
+                    <router-link tag="li" to="/articulos" exact-active-class="active">
+                        <a>Artículos</a>
                     </router-link>
                 </ul>
             </li>

@@ -24,8 +24,8 @@
                             <tbody>
                                 <tr v-for="(medicamento, index) in lista_medicamentos" :key="medicamento.id">
                                     <td v-text="index+1" class="text-center"></td>
-                                    <td v-text="medicamento.codigo_producto" class="text-center"></td>
-                                    <td v-text="medicamento.nombre_producto" class="text-center"></td>
+                                    <td v-text="medicamento.codigo" class="text-center"></td>
+                                    <td v-text="medicamento.nombre" class="text-center"></td>
                                     <td v-text="medicamento.observacion" class="text-center"></td>
                                     <td v-text="medicamento.unidad_nombre" class="text-center"></td>
                                     <td v-text="medicamento.categoria_nombre" class="text-center"></td>

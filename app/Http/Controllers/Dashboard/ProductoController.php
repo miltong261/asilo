@@ -40,7 +40,7 @@ class ProductoController extends Controller
                 ])
                 + ['fecha_registro' => Carbon::now()]
                 + ['asignacion' => 1]
-                + ['codigo' => 'PRODUCTO-' . $this->productoRepository->generateCodeProduct('producto')]
+                + ['codigo' => 'ARTÍCULO-' . $this->productoRepository->generateCodeProduct('producto')]
             );
 
             if ($guardar == 'exitoso') {
@@ -48,7 +48,7 @@ class ProductoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó correctamente al producto ' . $request->nombre
+                    'message' => 'Se guardó correctamente al artículo ' . $request->nombre
                 ]);
             } else {
                 return response()->json([
@@ -85,7 +85,7 @@ class ProductoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se actualizó correctamente al producto ' . $request->nombre
+                    'message' => 'Se actualizó correctamente el artículo ' . $request->nombre
                 ]);
             } else {
                 return response()->json([
@@ -111,7 +111,7 @@ class ProductoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se activó el movimiento'
+                    'message' => 'Se activó el artículo ' .$request->nombre
                 ]);
             }
         } catch (\Throwable $th) {
@@ -132,7 +132,7 @@ class ProductoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se desactivó el movimiento ' .$request->nombre
+                    'message' => 'Se desactivó el artículo ' .$request->nombre
                 ]);
             }
         } catch (\Throwable $th) {

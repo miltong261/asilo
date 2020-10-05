@@ -51,7 +51,21 @@ Route::group(['prefix' => 'unidad_medida'], function () {
     Route::put('/update', 'Dashboard\UnidadMedidaController@update');
     Route::put('/activate', 'Dashboard\UnidadMedidaController@activate');
     Route::put('/desactivate', 'Dashboard\UnidadMedidaController@desactivate');
+});
 
+// Departamento
+Route::group(['prefix' => 'departamentos'], function () {
+    Route::get('/', 'Dashboard\DepartamentoController@index');
+    Route::get('/combo', 'Dashboard\DepartamentoController@combobox');
+    Route::post('/store', 'Dashboard\DepartamentoController@store');
+    Route::put('/update', 'Dashboard\DepartamentoController@update');
+});
+
+// Municipios
+Route::group(['prefix' => 'municipios'], function () {
+    Route::get('/', 'Dashboard\MunicipioController@index');
+    Route::post('/store', 'Dashboard\MunicipioController@store');
+    Route::put('/update', 'Dashboard\MunicipioController@update');
 });
 
 /** Rutas de financiero */

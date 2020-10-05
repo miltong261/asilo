@@ -56,7 +56,7 @@ class AjusteProductoController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó con éxito el ajuste del producto'
+                    'message' => 'Se guardó con éxito el ajuste del producto '
                 ]);
             } else
                 return $guardar;

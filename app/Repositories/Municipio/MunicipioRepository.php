@@ -20,4 +20,11 @@ class MunicipioRepository extends BaseRepository
         ->orderBy('departamentos.nombre', 'asc')
         ->get();
     }
+
+    public function comboMunicipio($request)
+    {
+        $object = $this->getModel()->where('departamento_id', $request);
+
+        return $object->select('id', 'nombre')->orderBy('nombre')->get();
+    }
 }

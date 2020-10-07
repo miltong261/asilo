@@ -27,6 +27,11 @@ class MunicipioController extends Controller
         return response()->json($this->municipioRepository->indexMunicipio());
     }
 
+    public function combobox(Request $request)
+    {
+        return response()->json($this->municipioRepository->comboMunicipio($request->departamento_origen_id));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

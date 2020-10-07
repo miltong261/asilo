@@ -23,8 +23,12 @@ class ResidenteRepository extends BaseRepository
         ->select('residentes.*',
             'municipio_origen.nombre as municipio_origen_nombre',
             'municipio_dpi.nombre as municipio_dpi_nombre',
+            'municipio_origen.id as municipio_origen_id',
+            'municipio_dpi.id as municipio_dpi_id',
             'departamento_origen.nombre as departamento_origen_nombre',
-            'departamento_dpi.nombre as departamento_dpi_nombre'
+            'departamento_dpi.nombre as departamento_dpi_nombre',
+            'departamento_origen.id as departamento_origen_id',
+            'departamento_dpi.id as departamento_dpi_id',
         )
         ->get();
     }

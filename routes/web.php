@@ -64,6 +64,7 @@ Route::group(['prefix' => 'departamentos'], function () {
 // Municipios
 Route::group(['prefix' => 'municipios'], function () {
     Route::get('/', 'Dashboard\MunicipioController@index');
+    Route::get('/combo', 'Dashboard\MunicipioController@combobox');
     Route::post('/store', 'Dashboard\MunicipioController@store');
     Route::put('/update', 'Dashboard\MunicipioController@update');
 });

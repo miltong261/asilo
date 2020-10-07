@@ -12,12 +12,12 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
-                                    <th class="text-center"><i class="fas fa-qrcode"></i> medicamento</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i></i> medicamento</th>
                                     <th class="text-center"><i class="fas fa-briefcase-medical"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
                                     <th class="text-center"><i class="fas fa-plus"></i> Cantidad <i class="fas fa-minus"></i></th>
-                                    <th class="text-center"><i class="fas fa-search"></i> Motivo</th>
+                                    <th class="text-center"><i class="fas fa-search"></i> observacion</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,7 +96,6 @@
                             </div>
 
                             <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
-                            <fieldset class="border border-light rounded p-1">
                                 <div class="n-chk text-center">
                                     <label class="new-control new-checkbox checkbox-outline-check">
                                         <input type="checkbox" class="new-control-input"  name="entrada" v-model="entrada">
@@ -107,10 +106,9 @@
                                         <span class="new-control-indicator"></span>Salida
                                     </label>
                                 </div>
-                            </fieldset>
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="fas fa-search"></i> Observaciones</label>
+                                    <label class="text-dark"><i class="fas fa-search"></i> Observacion</label>
                                     <textarea class="form-control" rows="3" name="observacion" v-model="observacion"></textarea>
                                 </div>
                             </div>
@@ -163,6 +161,7 @@
                 this.medicamento_inventario()
             },
             closeModal() {
+                this.lista_medicamento = []
                 this.cantidad = ''
                 this.entrada = false
                 this.salida = false

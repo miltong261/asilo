@@ -13,7 +13,7 @@
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-capsules"></i> Medicamento</th>
-                                    <th class="text-center"><i class="fas fa-store"></i> Producto</th>
+                                    <th class="text-center"><i class="fas fa-store"></i> Artículo</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -86,7 +86,6 @@
                             </div>
 
                             <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
-                            <fieldset class="border border-light rounded p-1">
                                 <div class="n-chk text-center">
                                     <label class="new-control new-checkbox checkbox-outline-check">
                                         <input type="checkbox" class="new-control-input"  name="medicamento" v-model="medicamento">
@@ -94,10 +93,10 @@
                                     </label>
                                     <label class="new-control new-checkbox checkbox-outline-check">
                                         <input type="checkbox" class="new-control-input" name="producto" v-model="producto">
-                                        <span class="new-control-indicator"></span>Producto
+                                        <span class="new-control-indicator"></span>Artículo
                                     </label>
                                 </div>
-                            </fieldset>
+
                         </form>
                     </div>
                     <div class="modal-footer">

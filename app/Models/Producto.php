@@ -12,7 +12,7 @@ class Producto extends Model
         'tipo_producto_id',
         'codigo',
         'nombre',
-        'existencia_inicial',
+        'presentacion',
         'observacion',
         'asignacion',
         'fecha_registro',

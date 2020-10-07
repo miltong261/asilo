@@ -25,7 +25,7 @@ class AreaController extends Controller
     public function index()
     {
         return response()->json($this->areaRepository->index(
-            ['id', 'codigo', 'nombre', 'descripcion', 'estado']
+            ['id', 'codigo', 'nombre', 'estado']
         ));
     }
 
@@ -50,7 +50,7 @@ class AreaController extends Controller
             DB::beginTransaction();
 
             $this->areaRepository->store($request->only(
-                'nombre', 'descripcion')
+                'nombre')
                 + ['codigo' => 'ÁREA-' . $this->areaRepository->generateCode()]);
 
             DB::commit();
@@ -78,7 +78,7 @@ class AreaController extends Controller
             DB::beginTransaction();
 
             $this->areaRepository->update($request->only(
-                'nombre', 'descripcion'),
+                'nombre'),
                 $request->id);
 
             DB::commit();

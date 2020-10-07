@@ -485,6 +485,7 @@
                 this.historial = ''
                 this.observacion = ''
 
+                this.showList()
                 this.action = 1
                 this.opcion = 0
                 this.titulo = ''

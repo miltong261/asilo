@@ -5,13 +5,9 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
-        {
-            path: '/example',
-            component: require('../views/Example').default
-        },
         // Rutas de configuración
         {
-            path: '/categoria',
+            path: '/categorias',
             component: require('../views/TipoProducto').default
         },
         {
@@ -59,7 +55,7 @@ export default new Router({
             component: require('../views/AjusteMedicamento').default
         },
         {
-            path: '/ajuste_producto',
+            path: '/ajuste_articulo',
             component: require('../views/AjusteProducto').default
         },
         {
@@ -81,10 +77,6 @@ export default new Router({
             component: require('../views/Salidas').default
         },
         // Ruta de donaciones
-        {
-            path: '/donantes',
-            component: require('../views/Donantes').default
-        },
         {
             path: '/donaciones',
             component: require('../views/Donaciones').default

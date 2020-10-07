@@ -23,10 +23,8 @@ class CreateComprasTable extends Migration
 
             $table->date('fecha_registro');
             $table->date('fecha_compra');
-            $table->date('fecha_anulacion')->nullable();
             $table->string('documento', 15);
             $table->decimal('total', 8, 2);
-            $table->boolean('estado');
 
             $table->timestamps();
         });

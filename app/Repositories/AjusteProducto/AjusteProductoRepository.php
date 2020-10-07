@@ -19,13 +19,29 @@ class AjusteProductoRepository extends BaseRepository
         if ($type == 'producto') {
             return $this->getModel()
             ->join('productos', 'productos.id', '=', 'ajuste_producto.producto_id')
-            ->select('ajuste_producto.*', 'productos.codigo as codigo_producto', 'productos.nombre as nombre_producto')
+            ->join('tipo_producto as categoria', 'categoria.id', '=', 'productos.tipo_producto_id')
+            ->join('unidad_medida as unidad', 'unidad.id', '=', 'productos.unidad_medida_id')
+            ->select('ajuste_producto.*',
+            'categoria.nombre as nombre_categoria',
+            'unidad.nombre as nombre_unidad',
+            'productos.codigo as codigo_producto',
+            'productos.nombre as nombre_producto',
+            'productos.presentacion as presentacion_producto'
+            )
             ->where('productos.asignacion', '1')
             ->get();
         } elseif ($type == 'medicamento') {
             return $this->getModel()
             ->join('productos', 'productos.id', '=', 'ajuste_producto.producto_id')
-            ->select('ajuste_producto.*', 'productos.codigo as codigo_producto', 'productos.nombre as nombre_producto')
+            ->join('tipo_producto as categoria', 'categoria.id', '=', 'productos.tipo_producto_id')
+            ->join('unidad_medida as unidad', 'unidad.id', '=', 'productos.unidad_medida_id')
+            ->select('ajuste_producto.*',
+            'categoria.nombre as nombre_categoria',
+            'unidad.nombre as nombre_unidad',
+            'productos.codigo as codigo_producto',
+            'productos.nombre as nombre_producto',
+            'productos.presentacion as presentacion_producto'
+            )
             ->where('productos.asignacion', '0')
             ->get();
         }

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     protected $table = 'areas';
-    protected $fillable = ['codigo', 'nombre', 'descripcion', 'estado'];
+    protected $fillable = ['codigo', 'nombre', 'estado'];
 }

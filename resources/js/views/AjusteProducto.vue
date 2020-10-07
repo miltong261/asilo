@@ -10,20 +10,19 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
-                                    <th class="text-center"><i class="fas fa-qrcode"></i> Producto</th>
-                                    <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
+                                    <th class="text-center"><i class="fas fa-store"></i> Artículo</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
                                     <th class="text-center"><i class="fas fa-plus"></i> Cantidad <i class="fas fa-minus"></i></th>
-                                    <th class="text-center"><i class="fas fa-search"></i> observacion</th>
+                                    <th class="text-center"><i class="fas fa-search"></i> Observacion</th>
+                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(ajuste_producto, index) in lista_ajuste_producto" :key="ajuste_producto.id">
                                     <td v-text="index+1" class="text-center"></td>
-                                    <td v-text="ajuste_producto.codigo" class="text-center"></td>
                                     <td v-text="ajuste_producto.fecha_registro" class="text-center"></td>
                                     <td v-text="ajuste_producto.codigo_producto" class="text-center"></td>
                                     <td v-text="ajuste_producto.nombre_producto" class="text-center"></td>
@@ -51,8 +50,10 @@
                                             <span class="text-danger" v-text="ajuste_producto.cantidad"></span>
                                         </div>
                                     </td>
-                                    <!-- <td v-text="ajuste_producto.cantidad" class="text-center"></td> -->
                                     <td v-text="ajuste_producto.observacion" class="text-center"></td>
+                                    <td class="text-center">
+                                        <button type="button" @click="openModalAjuste(ajuste_producto)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -60,6 +61,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para guardar y actualizar -->
         <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -93,7 +96,7 @@
                                         {{ errors.cantidad[0] }}
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
                             <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
                                 <div class="n-chk text-center">
@@ -122,6 +125,71 @@
             </div>
         </div>
 
+        <!-- Modal para ver visualizar el ajuste -->
+        <div :class="{'mostrar': modalAjuste}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModalAjuste()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label><i class="fas fa-qrcode"></i> Código</label>
+                                    <input v-model="codigo_producto" class="form-control text-dark"  disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label><i class="fas fa-qrcode"></i> Unidad de medida</label>
+                                    <input v-model="nombre_unidad" class="form-control text-dark"  disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label><i class="fas fa-qrcode"></i> Categoría</label>
+                                    <input v-model="nombre_categoria" class="form-control text-dark"  disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label><i class="fas fa-qrcode"></i> Nombre del producto</label>
+                                    <input v-model="nombre_producto" class="form-control text-dark"  disabled>
+                                </div>
+
+                                <div class="form-group col-md-8">
+                                    <label><i class="fas fa-qrcode"></i> Presentación</label>
+                                    <input v-model="presentacion_producto" class="form-control text-dark"  disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label><i class="fas fa-qrcode"></i> Observación</label>
+                                    <input v-model="observacion" class="form-control text-dark"  disabled>
+                                </div>
+                            </div>
+
+                            <div v-if="ajuste==1">
+                                <h4 class="text-center">Entraron: <strong v-text="cantidad" class="text-secondary"></strong> unidades</h4>
+                            </div>
+
+                            <div class="mx-auto" v-else>
+                                <h4 class="text-center">Salieron: <strong v-text="cantidad" class="text-secondary"></strong> unidades</h4>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModalAjuste()">Salir <i class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -138,13 +206,22 @@
                 salida: false,
                 observacion: '',
 
+                nombre_categoria: '',
+                nombre_unidad: '',
+
                 lista_producto: [],
                 producto_id: 0,
+                codigo_producto: '',
+                nombre_producto: '',
+                presentacion_producto: '',
 
                 modal: 0,
                 titulo: '',
                 opcion: 0,
-                errors: []
+                errors: [],
+
+                modalAjuste: 0,
+                ajuste: ''
             }
         },
         methods: {
@@ -152,7 +229,7 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Ajuste de producto"
+                        this.titulo = "Ajuste de artículo"
                         this.opcion = 1
                         break
                     }
@@ -172,6 +249,38 @@
                 this.errors = []
 
                 alerts.sweetAlert('error', 'Operación cancelada')
+            },
+            openModalAjuste(data = []) {
+                this.modalAjuste = 1
+                this.titulo = 'AJUSTE DEL ARTÍCULO ' + data['nombre_producto'].toUpperCase()
+
+                this.nombre_categoria = data['nombre_categoria']
+                this.nombre_unidad = data['nombre_unidad']
+                this.codigo_producto = data['codigo_producto']
+                this.nombre_producto = data['nombre_producto']
+                this.presentacion_producto = data['presentacion_producto']
+                this.observacion = data['observacion']
+                this.cantidad = data['cantidad']
+
+                if (data['entrada'] == true)
+                    this.ajuste = 1
+                else if(data['salida'] == true)
+                    this.ajuste = 0
+            },
+            closeModalAjuste() {
+                this.nombre_categoria = ''
+                this.nombre_unidad = ''
+                this.codigo_producto = ''
+                this.nombre_producto = ''
+                this.presentacion_producto = ''
+                this.observacion =
+                this.cantidad = ''
+                this.ajuste = ''
+
+                this.modalAjuste = 0
+                this.titulo = ''
+
+                alerts.sweetAlert('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO')
             },
             hasError(field) {
                 return field in (this.errors)

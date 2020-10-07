@@ -24,8 +24,7 @@ class AreaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'max:35'],
-            'descripcion' => ['nullable', 'max:70']
+            'nombre' => ['required', 'max:35']
         ];
     }
 
@@ -34,9 +33,7 @@ class AreaRequest extends FormRequest
         return [
             'nombre.required' => 'El nombre es obligatorio',
             // 'nombre.exists' => 'El área ya existe',
-            'nombre.max' => 'Solo se permiten :max caracteres',
-
-            'descripcion.max' => 'Solo se permiten :max caracteres'
+            'nombre.max' => 'Solo se permiten :max caracteres'
         ];
     }
 }

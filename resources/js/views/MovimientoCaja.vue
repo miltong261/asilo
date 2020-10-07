@@ -67,7 +67,7 @@
 
                                 <div class="form-group col-md-12" v-if="opcion==1">
                                     <label class="text-dark"><i class="fas fa-paste"></i> Tipo Movimiento</label>
-                                    <select class="form-control" v-model="tipo_movimiento" :class="hasError('tipo_movimiento_id') ? 'is-invalid' : ''">
+                                    <select class="form-control" v-model="tipo_movimiento" :class="hasError('tipo_movimiento_id') ? 'is-invalid' : ''" placeholder="Ingrese tipo movimiento...">
                                         <option v-for="tipo_movimiento in lista_tipo_movimiento" :key="tipo_movimiento.id" :value="tipo_movimiento" v-text="tipo_movimiento.nombre"></option>
                                     </select>
                                     <div v-if="hasError('tipo_movimiento_id')" class="invalid-feedback">

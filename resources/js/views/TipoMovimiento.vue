@@ -79,7 +79,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group">
                                 <label class="text-dark" for="nombre"><i class="fas fa-paste"></i> Nombre</label>
-                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre">
+                                <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="nombre" placeholder="Ingrese tipo movimiento...">
                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                     {{ errors.nombre[0] }}
                                 </div>

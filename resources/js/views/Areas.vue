@@ -12,7 +12,6 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-search"></i> Descripción</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -22,7 +21,6 @@
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="area.codigo" class="text-center"></td>
                                     <td v-text="area.nombre" class="text-center"></td>
-                                    <td v-text="area.descripcion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="area.estado">
                                             <span class="badge outline-badge-check">Activo</span>
@@ -68,14 +66,6 @@
                                     {{ errors.nombre[0] }}
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="text-dark" for="descripcion"><i class="fas fa-search"></i> Descripción</label>
-                                <input  @keyup.enter="store()" type="text" v-model="descripcion" class="form-control" :class="hasError('descripcion') ? 'is-invalid' : ''" name="descripcion" placeholder="Ingrese descripción...">
-                                <div v-if="hasError('descripcion')" class="invalid-feedback">
-                                    {{ errors.descripcion[0] }}
-                                </div>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -98,7 +88,6 @@
                 id: 0,
                 lista_areas: [],
                 nombre: '',
-                descripcion: '',
 
                 modal: 0,
                 titulo: '',
@@ -120,14 +109,12 @@
                         this.titulo = "Actualización de área"
                         this.opcion = 2
                         this.nombre = data['nombre']
-                        this.descripcion = data['descripcion']
                         this.id = data['id']
                     }
                 }
             },
             closeModal() {
                 this.nombre = ''
-                this.descripcion = ''
 
                 this.modal = 0
                 this.titulo = ''
@@ -224,8 +211,7 @@
                 let me = this
                 let url = '/areas/store'
                 axios.post(url,{
-                    'nombre': this.nombre,
-                    'descripcion': this.descripcion
+                    'nombre': this.nombre
                 }).then(function (response) {
                     me.backendResponse(response)
                 }).catch(error =>{
@@ -238,7 +224,6 @@
                 let url = 'areas/update'
                 axios.put(url,{
                     'nombre': this.nombre,
-                    'descripcion': this.descripcion,
                     'id': this.id
                 }).then(function (response){
                     me.backendResponse(response)

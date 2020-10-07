@@ -18,7 +18,6 @@ class CreateAreasTable extends Migration
 
             $table->string('codigo');
             $table->string('nombre', 35);
-            $table->string('descripcion', 70)->nullable();
             $table->boolean('estado')->default(1);
 
             $table->timestamps();

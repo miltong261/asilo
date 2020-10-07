@@ -46,7 +46,6 @@ class AjusteProductoController extends Controller
 
             $guardar = $this->ajusteRepository->ajuste($request->only([
                 'producto_id', 'cantidad', 'entrada', 'salida', 'observacion'])
-                + ['codigo' => 'AJUSTE-' . $this->ajusteRepository->generateCode()]
                 + ['fecha_registro' => Carbon::now()],
                 null
             );

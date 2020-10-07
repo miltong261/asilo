@@ -38,9 +38,9 @@
                                     </td>
                                     <td class="text-center">
                                         <button type="button" @click="openModalMedicamento(medicamento)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                        <button type="button" @click="openModal('update', medicamento)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         <template v-if="medicamento.estado">
                                             <button type="button" @click="changeStatus('desactivate', medicamento.id, medicamento.nombre)" class="btn btn-eliminar mb-1 mr-1 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                            <button type="button" @click="openModal('update', medicamento)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                         <template v-else>
                                             <button type="button" @click="changeStatus('activate', medicamento.id, medicamento.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
@@ -92,7 +92,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
-                                    <input type="text" style="height:10px" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
+                                    <input type="text" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
                                     <div v-if="hasError('presentacion')" class="invalid-feedback">
                                         {{ errors.presentacion[0] }}
                                     </div>
@@ -292,7 +292,7 @@
             },
             openModalMedicamento(data = []) {
                 this.modalMedicamento = 1
-                this.titulo = 'VISUALIZACIÓN DE MEDICAMENTO'
+                this.titulo = 'MEDICAMENTO' + data['nombre'].toUpperCase()
 
                 this.codigo = data['codigo']
                 this.unidad_medida_nombre = data['unidad_nombre']

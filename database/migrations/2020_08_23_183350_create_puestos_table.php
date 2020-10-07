@@ -18,7 +18,6 @@ class CreatePuestosTable extends Migration
 
             $table->string('codigo', 20);
             $table->string('nombre', 35);
-            $table->string('descripcion', 70);
             $table->boolean('estado')->default(1);
 
             $table->timestamps();

@@ -35,7 +35,7 @@ class MedicamentoController extends Controller
             DB::beginTransaction();
 
             $guardar = $this->medicamentoRepository->storeProduct($request->only([
-                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'observacion', 'fecha_vencimiento'
+                'unidad_medida_id', 'tipo_producto_id', 'nombre', 'presentacion', 'observacion', 'fecha_vencimiento'
                 ])
                 + ['fecha_registro' => Carbon::now()]
                 + ['asignacion' => 0]

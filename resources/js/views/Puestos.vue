@@ -12,7 +12,6 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-address-card"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-search"></i> Descripción</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -22,7 +21,6 @@
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="puesto.codigo" class="text-center"></td>
                                     <td v-text="puesto.nombre" class="text-center"></td>
-                                    <td v-text="puesto.descripcion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="puesto.estado">
                                             <span class="badge outline-badge-check">Activo</span>
@@ -68,13 +66,6 @@
                                     {{ errors.nombre[0] }}
                                 </div>
                             </div>
-
-                            <div class="form-row mb-2">
-                                <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="fas fa-search"></i> Descripción del puesto</label>
-                                    <textarea class="form-control" rows="3" name="descripcion" v-model="descripcion"></textarea>
-                                </div>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -97,7 +88,6 @@
                 id: 0,
                 lista_puestos: [],
                 nombre: '',
-                descripcion: '',
 
                 modal: 0,
                 titulo: '',
@@ -119,14 +109,12 @@
                         this.titulo = "Actualización de puesto"
                         this.opcion = 2
                         this.nombre = data['nombre']
-                        this.descripcion = data['descripcion']
                         this.id = data['id']
                     }
                 }
             },
             closeModal() {
                 this.nombre = ''
-                this.descripcion = ''
 
                 this.modal = 0
                 this.titulo = ''
@@ -223,8 +211,7 @@
                 let me = this
                 let url = '/puestos/store'
                 axios.post(url,{
-                    'nombre': this.nombre,
-                    'descripcion': this.descripcion
+                    'nombre': this.nombre
                 }).then(function (response) {
                     me.backendResponse(response)
                 }).catch(error =>{
@@ -237,7 +224,6 @@
                 let url = 'puestos/update'
                 axios.put(url,{
                     'nombre': this.nombre,
-                    'descripcion': this.descripcion,
                     'id': this.id
                 }).then(function (response){
                     me.backendResponse(response)

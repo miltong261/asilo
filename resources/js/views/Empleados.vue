@@ -14,7 +14,6 @@
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Área</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
-                                    <th class="text-center"><i class="fas fa-id-card"></i> Dpi</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
@@ -27,7 +26,6 @@
                                     <td v-text="empleado.area_nombre" class="text-center"></td>
                                     <td v-text="empleado.puesto_nombre" class="text-center"></td>
                                     <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
-                                    <td v-text="empleado.dpi" class="text-center"></td>
                                     <td v-text="empleado.direccion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="empleado.estado">
@@ -38,9 +36,10 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <button type="button" @click="openModalEmpleado(empleado)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                         <template v-if="empleado.estado">
                                             <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                            <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                         <template v-else>
                                             <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
@@ -150,10 +149,85 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para visualizar al empleado -->
+        <div :class="{'mostrar': modalEmpleado}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModalEmpleado()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label><i class="fas fa-user"></i> Código</label>
+                                    <input type="text" name="codigo" v-model="codigo" class="form-control text-dark" disabled>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label><i class="fas fa-user"></i> nombre</label>
+                                    <input type="text" name="nombre" v-model="nombre" class="form-control text-dark" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-id-card"></i> Fecha de nacimiento</label>
+                                    <input type="text" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-phone-alt"></i> DPI</label>
+                                    <input type="text" name="dpi" v-model="dpi" class="form-control text-dark" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label><i class="far fa-calendar-alt"></i> Fecha de ingreso</label>
+                                    <input type="date" class="form-control text-dark" name="fecha_ingreso" v-model="fecha_ingreso" disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label><i class="far fa-calendar-alt"></i> Aréa</label>
+                                    <input type="text" class="form-control text-dark" name="area_nombre" v-model="area_nombre" disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label><i class="far fa-calendar-alt"></i> Puesto</label>
+                                    <input type="text" class="form-control text-dark" name="puesto_nombre" v-model="puesto_nombre" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-8">
+                                    <label><i class="fas fa-phone-alt"></i> Dirección</label>
+                                    <input type="text" name="direccion text-dark" v-model="direccion" class="form-control text-dark" disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                    <input type="text" name="telefono" v-model="telefono" class="form-control text-dark" disabled>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModalEmpleado()">Salir <i class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+var moment = require('moment')
 import * as alerts from '../functions/alerts.js'
 
 export default {
@@ -161,15 +235,20 @@ export default {
         return {
             id: 0,
 
+            codigo: '',
+
             lista_areas: [],
             area_id: 0,
+            area_nombre: '',
 
             lista_puestos: [],
             puesto_id: 0,
+            puesto_nombre: '',
 
             lista_empleados: [],
             nombre: '',
             apellido: '',
+            fecha_ingreso: '',
             fecha_nacimiento: '',
             dpi: '',
             direccion: '',
@@ -178,7 +257,9 @@ export default {
             modal: 0,
             titulo: '',
             opcion: 0,
-            errors: []
+            errors: [],
+
+            modalEmpleado: 0
         }
     },
     methods: {
@@ -225,6 +306,34 @@ export default {
             this.errors = []
 
             alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        openModalEmpleado(data = []) {
+            this.modalEmpleado = 1
+            this.titulo = 'EMPLEADO ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase()
+
+            this.area_nombre = data['area_nombre']
+            this.puesto_nombre = data['puesto_nombre']
+            this.codigo = data['codigo']
+            this.nombre = data['nombre'] + ' ' + data['apellido']
+            this.fecha_ingreso = data['fecha_ingreso'].moment().format('MMMM Do YYYY, h:mm:ss a')
+            this.fecha_nacimiento = data['fecha_nacimiento']
+            this.dpi = data['dpi']
+            this.direccion = data['direccion']
+            this.telefono = data['telefono']
+        },
+        closeModalEmpleado() {
+            this.modalEmpleado = 0
+            this.titulo = ''
+
+            this.area_nombre = ''
+            this.puesto_nombre = ''
+            this.codigo = ''
+            this.nombre = ''
+            this.fecha_ingreso = ''
+            this.fecha_nacimiento = ''
+            this.dpi = ''
+            this.direccion = ''
+            this.telefono = ''
         },
         hasError(field) {
                 return field in (this.errors)

@@ -34,8 +34,8 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="configuracion" data-parent="#accordionExample">
                     <span>Bodega</span>
-                    <router-link tag="li" to="/categoria" exact-active-class="active">
-                        <a>Categoría</a>
+                    <router-link tag="li" to="/categorias" exact-active-class="active">
+                        <a>Categorías</a>
                     </router-link>
                     <router-link tag="li" to="/unidad_medida" exact-active-class="active">
                         <a>Unidad de medida</a>
@@ -145,8 +145,8 @@
                     <router-link tag="li" to="/ajuste_medicamento" exact-active-class="active">
                         <a>Ajuste medicamento</a>
                     </router-link>
-                    <router-link tag="li" to="/ajuste_producto" exact-active-class="active">
-                        <a>Ajuste producto</a>
+                    <router-link tag="li" to="/ajuste_articulo" exact-active-class="active">
+                        <a>Ajuste artículo</a>
                     </router-link>
                     <router-link tag="li" to="/medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>

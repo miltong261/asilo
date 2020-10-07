@@ -29,7 +29,6 @@ class CreateSalidasTable extends Migration
             $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_salida');
-            $table->date('fecha_anulacion')->nullable();
 
             $table->timestamps();
         });

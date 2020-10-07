@@ -37,9 +37,9 @@
                                     </td>
                                     <td class="text-center">
                                         <button type="button" @click="openModalProducto(producto)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                        <button type="button" @click="openModal('update', producto)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         <template v-if="producto.estado">
                                             <button type="button" @click="changeStatus('desactivate', producto.id, producto.nombre)" class="btn btn-eliminar mb-1 mr-1 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                            <button type="button" @click="openModal('update', producto)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                         <template v-else>
                                             <button type="button" @click="changeStatus('activate', producto.id, producto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
@@ -91,12 +91,12 @@
 
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
-                                    <input type="text" style="height:10px" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
+                                    <input type="text" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
                                     <div v-if="hasError('presentacion')" class="invalid-feedback">
                                         {{ errors.presentacion[0] }}
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-store"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
@@ -170,14 +170,14 @@
                                     <label class="text-dark"><i class="fas fa-store"></i> Nombre</label>
                                     <input v-text="nombre" v-model="nombre" class="form-control" disabled>
                                 </div>
-                                
+
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
                                     <input v-text="presentacion" v-model="presentacion" class="form-control" disabled>
                                 </div>
                             </div>
 
-                            <div class="form-row mb-0">   
+                            <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="fas fa-search"></i> Observación</label>
                                     <input v-text="observacion" v-model="observacion" class="form-control" disabled>
@@ -292,7 +292,7 @@
             },
             openModalProducto(data = []) {
                 this.modalProducto = 1
-                this.titulo = 'VISUALIZACIÓN DE PRODUCTO'
+                this.titulo = 'PRODUCTO ' + data['nombre'].toUpperCase()
 
                 this.codigo = data['codigo']
                 this.unidad_medida_nombre = data['unidad_nombre']
@@ -478,7 +478,7 @@
                     'nombre': this.nombre,
                     'fecha_vencimiento': this.fecha_vencimiento,
                     'presentacion': this.presentacion,
-                    'observacion': this.observacion,
+                    'observacion': this.observacion
                 }).then(function (response) {
                     me.backendResponse(response)
                 }).catch(error =>{

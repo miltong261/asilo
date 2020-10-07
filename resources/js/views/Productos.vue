@@ -12,7 +12,6 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-search"></i> Observación</th>
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
@@ -25,7 +24,6 @@
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="producto.codigo" class="text-center"></td>
                                     <td v-text="producto.nombre" class="text-center"></td>
-                                    <td v-text="producto.observacion" class="text-center"></td>
                                     <td v-text="producto.unidad_nombre" class="text-center"></td>
                                     <td v-text="producto.categoria_nombre" class="text-center"></td>
                                     <td v-text="producto.existencia" class="text-center"></td>
@@ -71,7 +69,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <select id="select_unidad" class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
                                         <option v-for="unidad_medida in lista_unidad_medida" :key="unidad_medida.id" :value="unidad_medida.id" v-text="unidad_medida.nombre"></option>
@@ -81,7 +79,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
                                     <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
                                         <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
@@ -91,6 +89,14 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
+                                    <input type="text" style="height:10px" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
+                                    <div v-if="hasError('presentacion')" class="invalid-feedback">
+                                        {{ errors.presentacion[0] }}
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-store"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
@@ -143,7 +149,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-hashtag"></i> Código</label>
+                                    <label class="text-dark"><i class="fas fa-qrcode"></i> Código</label>
                                     <input v-text="codigo" v-model="codigo" class="form-control"  disabled>
                                     <!-- <p v-text="codigo"></p> -->
                                 </div>
@@ -160,12 +166,19 @@
                             </div>
 
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-store"></i> Nombre</label>
                                     <input v-text="nombre" v-model="nombre" class="form-control" disabled>
                                 </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
+                                    <input v-text="presentacion" v-model="presentacion" class="form-control" disabled>
+                                </div>
+                            </div>
 
-                                <div class="form-group col-md-8">
+                            <div class="form-row mb-0">   
+                                <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="fas fa-search"></i> Observación</label>
                                     <input v-text="observacion" v-model="observacion" class="form-control" disabled>
                                 </div>
@@ -225,6 +238,7 @@
                 lista_productos: [],
                 codigo: '',
                 nombre: '',
+                presentacion: '',
                 observacion: '',
                 fecha_registro: '',
                 fecha_vencimiento: '',
@@ -267,6 +281,7 @@
                         this.unidad_medida_id = data['unidad_medida_id']
                         this.tipo_producto_id = data['tipo_producto_id']
                         this.nombre = data['nombre']
+                        this.presentacion = data['presentacion']
                         this.observacion = data['observacion']
                         this.fecha_vencimiento = data['fecha_vencimiento']
                         this.id = data['id']
@@ -283,6 +298,7 @@
                 this.unidad_medida_nombre = data['unidad_nombre']
                 this.tipo_producto_nombre = data['categoria_nombre']
                 this.nombre = data['nombre']
+                this.presentacion = data['presentacion']
                 this.observacion = data['observacion'],
                 this.fecha_registro = data['fecha_registro']
                 this.fecha_vencimiento = data['fecha_vencimiento']
@@ -296,6 +312,7 @@
                 this.unidad_medida_id = 0
                 this.tipo_producto_id = 0
                 this.nombre = ''
+                this.presentacion = ''
                 this.observacion = ''
                 this.fecha_vencimiento = ''
 
@@ -311,6 +328,7 @@
                 this.unidad_medida_nombre = ''
                 this.tipo_producto_nombre = ''
                 this.nombre = ''
+                this.presentacion = ''
                 this.observacion = ''
                 this.fecha_registro = ''
                 this.fecha_vencimiento = ''
@@ -459,6 +477,7 @@
                     'tipo_producto_id': this.tipo_producto_id,
                     'nombre': this.nombre,
                     'fecha_vencimiento': this.fecha_vencimiento,
+                    'presentacion': this.presentacion,
                     'observacion': this.observacion,
                 }).then(function (response) {
                     me.backendResponse(response)
@@ -475,6 +494,7 @@
                     'tipo_producto_id': this.tipo_producto_id,
                     'nombre': this.nombre,
                     'fecha_vencimiento': this.fecha_vencimiento,
+                    'presentacion': this.presentacion,
                     'observacion': this.observacion,
                     'id': this.id
                 }).then(function (response) {

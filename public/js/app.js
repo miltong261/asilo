@@ -2036,8 +2036,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2071,6 +2069,7 @@ __webpack_require__.r(__webpack_exports__);
       this.medicamento_inventario();
     },
     closeModal: function closeModal() {
+      this.lista_medicamento = [];
       this.cantidad = '';
       this.entrada = false;
       this.salida = false;
@@ -2312,8 +2311,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2347,6 +2344,7 @@ __webpack_require__.r(__webpack_exports__);
       this.producto_inventario();
     },
     closeModal: function closeModal() {
+      this.lista_producto = [];
       this.cantidad = '';
       this.entrada = false;
       this.salida = false;
@@ -3987,6 +3985,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3995,6 +3996,7 @@ __webpack_require__.r(__webpack_exports__);
       lista_medicamentos: [],
       codigo: '',
       nombre: '',
+      presentacion: '',
       observacion: '',
       fecha_registro: '',
       fecha_vencimiento: '',
@@ -4037,6 +4039,7 @@ __webpack_require__.r(__webpack_exports__);
             this.unidad_medida_id = data['unidad_medida_id'];
             this.tipo_producto_id = data['tipo_producto_id'];
             this.nombre = data['nombre'];
+            this.presentacion = data['presentacion'];
             this.observacion = data['observacion'];
             this.fecha_vencimiento = data['fecha_vencimiento'];
             this.id = data['id'];
@@ -4054,6 +4057,7 @@ __webpack_require__.r(__webpack_exports__);
       this.unidad_medida_nombre = data['unidad_nombre'];
       this.tipo_producto_nombre = data['categoria_nombre'];
       this.nombre = data['nombre'];
+      this.presentacion = data['presentacion'];
       this.observacion = data['observacion'], this.fecha_registro = data['fecha_registro'];
       this.fecha_vencimiento = data['fecha_vencimiento'];
       this.fecha_ultima_compra = data['fecha_ultima_compra'];
@@ -4066,6 +4070,7 @@ __webpack_require__.r(__webpack_exports__);
       this.unidad_medida_id = 0;
       this.tipo_producto_id = 0;
       this.nombre = '';
+      this.presentacion = '';
       this.observacion = '';
       this.fecha_vencimiento = '';
       this.modal = 0;
@@ -4079,6 +4084,7 @@ __webpack_require__.r(__webpack_exports__);
       this.unidad_medida_nombre = '';
       this.tipo_producto_nombre = '';
       this.nombre = '';
+      this.presentacion = '';
       this.observacion = '';
       this.fecha_registro = '';
       this.fecha_vencimiento = '';
@@ -4217,6 +4223,7 @@ __webpack_require__.r(__webpack_exports__);
         'unidad_medida_id': this.unidad_medida_id,
         'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
+        'presentacion': this.presentacion,
         'fecha_vencimiento': this.fecha_vencimiento,
         'observacion': this.observacion
       }).then(function (response) {
@@ -4234,6 +4241,7 @@ __webpack_require__.r(__webpack_exports__);
         'unidad_medida_id': this.unidad_medida_id,
         'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
+        'presentacion': this.presentacion,
         'fecha_vencimiento': this.fecha_vencimiento,
         'observacion': this.observacion,
         'id': this.id
@@ -5003,6 +5011,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5011,6 +5032,7 @@ __webpack_require__.r(__webpack_exports__);
       lista_productos: [],
       codigo: '',
       nombre: '',
+      presentacion: '',
       observacion: '',
       fecha_registro: '',
       fecha_vencimiento: '',
@@ -5053,6 +5075,7 @@ __webpack_require__.r(__webpack_exports__);
             this.unidad_medida_id = data['unidad_medida_id'];
             this.tipo_producto_id = data['tipo_producto_id'];
             this.nombre = data['nombre'];
+            this.presentacion = data['presentacion'];
             this.observacion = data['observacion'];
             this.fecha_vencimiento = data['fecha_vencimiento'];
             this.id = data['id'];
@@ -5070,6 +5093,7 @@ __webpack_require__.r(__webpack_exports__);
       this.unidad_medida_nombre = data['unidad_nombre'];
       this.tipo_producto_nombre = data['categoria_nombre'];
       this.nombre = data['nombre'];
+      this.presentacion = data['presentacion'];
       this.observacion = data['observacion'], this.fecha_registro = data['fecha_registro'];
       this.fecha_vencimiento = data['fecha_vencimiento'];
       this.fecha_ultima_compra = data['fecha_ultima_compra'];
@@ -5082,6 +5106,7 @@ __webpack_require__.r(__webpack_exports__);
       this.unidad_medida_id = 0;
       this.tipo_producto_id = 0;
       this.nombre = '';
+      this.presentacion = '';
       this.observacion = '';
       this.fecha_vencimiento = '';
       this.modal = 0;
@@ -5095,6 +5120,7 @@ __webpack_require__.r(__webpack_exports__);
       this.unidad_medida_nombre = '';
       this.tipo_producto_nombre = '';
       this.nombre = '';
+      this.presentacion = '';
       this.observacion = '';
       this.fecha_registro = '';
       this.fecha_vencimiento = '';
@@ -5234,6 +5260,7 @@ __webpack_require__.r(__webpack_exports__);
         'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
         'fecha_vencimiento': this.fecha_vencimiento,
+        'presentacion': this.presentacion,
         'observacion': this.observacion
       }).then(function (response) {
         me.backendResponse(response);
@@ -5251,6 +5278,7 @@ __webpack_require__.r(__webpack_exports__);
         'tipo_producto_id': this.tipo_producto_id,
         'nombre': this.nombre,
         'fecha_vencimiento': this.fecha_vencimiento,
+        'presentacion': this.presentacion,
         'observacion': this.observacion,
         'id': this.id
       }).then(function (response) {
@@ -6341,8 +6369,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6633,7 +6659,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6812,8 +6837,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
-//
-//
 //
 //
 //
@@ -25049,121 +25072,109 @@ var render = function() {
                   _vm._v(" "),
                   _vm._m(7),
                   _vm._v(" "),
-                  _c(
-                    "fieldset",
-                    { staticClass: "border border-light rounded p-1" },
-                    [
-                      _c("div", { staticClass: "n-chk text-center" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                  _c("div", { staticClass: "n-chk text-center" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.entrada,
+                              expression: "entrada"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "entrada" },
+                          domProps: {
+                            checked: Array.isArray(_vm.entrada)
+                              ? _vm._i(_vm.entrada, null) > -1
+                              : _vm.entrada
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.entrada,
-                                  expression: "entrada"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.entrada,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.entrada = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.entrada = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "entrada" },
-                              domProps: {
-                                checked: Array.isArray(_vm.entrada)
-                                  ? _vm._i(_vm.entrada, null) > -1
-                                  : _vm.entrada
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.entrada,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.entrada = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.entrada = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.entrada = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.entrada = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Entrada\n                                ")
-                          ]
-                        ),
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Entrada\n                                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.salida,
+                              expression: "salida"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "salida" },
+                          domProps: {
+                            checked: Array.isArray(_vm.salida)
+                              ? _vm._i(_vm.salida, null) > -1
+                              : _vm.salida
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.salida,
-                                  expression: "salida"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.salida,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.salida = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.salida = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "salida" },
-                              domProps: {
-                                checked: Array.isArray(_vm.salida)
-                                  ? _vm._i(_vm.salida, null) > -1
-                                  : _vm.salida
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.salida,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.salida = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.salida = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.salida = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.salida = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Salida\n                                ")
-                          ]
-                        )
-                      ])
-                    ]
-                  ),
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Salida\n                                ")
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-2" }, [
                     _c("div", { staticClass: "form-group col-md-12" }, [
@@ -25288,7 +25299,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Motivo")
+          _vm._v(" observacion")
         ])
       ])
     ])
@@ -25360,7 +25371,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Observaciones")
+      _vm._v(" Observacion")
     ])
   }
 ]
@@ -25691,121 +25702,109 @@ var render = function() {
                   _vm._v(" "),
                   _vm._m(7),
                   _vm._v(" "),
-                  _c(
-                    "fieldset",
-                    { staticClass: "border border-light rounded p-1" },
-                    [
-                      _c("div", { staticClass: "n-chk text-center" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                  _c("div", { staticClass: "n-chk text-center" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.entrada,
+                              expression: "entrada"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "entrada" },
+                          domProps: {
+                            checked: Array.isArray(_vm.entrada)
+                              ? _vm._i(_vm.entrada, null) > -1
+                              : _vm.entrada
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.entrada,
-                                  expression: "entrada"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.entrada,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.entrada = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.entrada = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "entrada" },
-                              domProps: {
-                                checked: Array.isArray(_vm.entrada)
-                                  ? _vm._i(_vm.entrada, null) > -1
-                                  : _vm.entrada
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.entrada,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.entrada = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.entrada = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.entrada = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.entrada = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Entrada\n                                ")
-                          ]
-                        ),
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Entrada\n                                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.salida,
+                              expression: "salida"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "salida" },
+                          domProps: {
+                            checked: Array.isArray(_vm.salida)
+                              ? _vm._i(_vm.salida, null) > -1
+                              : _vm.salida
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.salida,
-                                  expression: "salida"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.salida,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.salida = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.salida = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "salida" },
-                              domProps: {
-                                checked: Array.isArray(_vm.salida)
-                                  ? _vm._i(_vm.salida, null) > -1
-                                  : _vm.salida
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.salida,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.salida = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.salida = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.salida = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.salida = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Salida\n                                ")
-                          ]
-                        )
-                      ])
-                    ]
-                  ),
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Salida\n                                ")
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-2" }, [
                     _c("div", { staticClass: "form-group col-md-12" }, [
@@ -25930,7 +25929,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Motivo")
+          _vm._v(" observacion")
         ])
       ])
     ])
@@ -25972,7 +25971,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-paste" }),
+      _c("i", { staticClass: "fas fa-store" }),
       _vm._v(" Producto")
     ])
   },
@@ -26002,7 +26001,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Observaciones")
+      _vm._v(" Observacion")
     ])
   }
 ]
@@ -28571,13 +28570,6 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(medicamento.observacion)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
                               textContent: _vm._s(medicamento.unidad_nombre)
                             }
                           }),
@@ -28765,7 +28757,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(1),
                       _vm._v(" "),
                       _c(
@@ -28825,7 +28817,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(2),
                       _vm._v(" "),
                       _c(
@@ -28885,8 +28877,50 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.presentacion,
+                            expression: "presentacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("presentacion") ? "is-invalid" : "",
+                        staticStyle: { height: "10px" },
+                        attrs: {
+                          type: "text",
+                          name: "presentacion",
+                          placeholder: "Ingrese presentacion..."
+                        },
+                        domProps: { value: _vm.presentacion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.presentacion = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("presentacion")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.presentacion[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(4),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -28927,7 +28961,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(4),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -28970,7 +29004,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(5),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29120,27 +29154,9 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "text-center mb-2 mr-2" }, [
-                    _vm.estado == 1
-                      ? _c("div", [
-                          _c(
-                            "span",
-                            { staticClass: "badge outline-badge-check" },
-                            [_vm._v("MEDICAMENTO ACTIVO")]
-                          )
-                        ])
-                      : _c("div", [
-                          _c(
-                            "span",
-                            { staticClass: "badge outline-badge-no-check" },
-                            [_vm._v("MEDICAMENTO INACTIVO")]
-                          )
-                        ])
-                  ]),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29169,7 +29185,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(7),
+                      _vm._m(8),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29198,7 +29214,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(8),
+                      _vm._m(9),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29228,8 +29244,8 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(9),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(10),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29257,8 +29273,39 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
-                      _vm._m(10),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.presentacion,
+                            expression: "presentacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.presentacion),
+                          value: _vm.presentacion
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.presentacion = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(12),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29289,7 +29336,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(11),
+                      _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29318,7 +29365,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-8" }, [
-                      _vm._m(12),
+                      _vm._m(14),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29349,7 +29396,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(13),
+                      _vm._m(15),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29378,7 +29425,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(14),
+                      _vm._m(16),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29407,7 +29454,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(15),
+                      _vm._m(17),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -29495,11 +29542,6 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Observación")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-thermometer-full" }),
           _vm._v(" Unidad medida")
         ]),
@@ -29549,6 +29591,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-box-open" }),
+      _vm._v(" Presentación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-briefcase-medical" }),
       _vm._v(" Nombre")
     ])
@@ -29576,7 +29627,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-hashtag" }),
+      _c("i", { staticClass: "fas fa-qrcode" }),
       _vm._v(" Código")
     ])
   },
@@ -29605,6 +29656,15 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-briefcase-medical" }),
       _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-box-open" }),
+      _vm._v(" Presentación")
     ])
   },
   function() {
@@ -30648,13 +30708,6 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: {
-                              textContent: _vm._s(producto.observacion)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
-                            domProps: {
                               textContent: _vm._s(producto.unidad_nombre)
                             }
                           }),
@@ -30837,7 +30890,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(1),
                       _vm._v(" "),
                       _c(
@@ -30897,7 +30950,7 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(2),
                       _vm._v(" "),
                       _c(
@@ -30957,8 +31010,50 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.presentacion,
+                            expression: "presentacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: _vm.hasError("presentacion") ? "is-invalid" : "",
+                        staticStyle: { height: "10px" },
+                        attrs: {
+                          type: "text",
+                          name: "presentacion",
+                          placeholder: "Ingrese presentacion..."
+                        },
+                        domProps: { value: _vm.presentacion },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.presentacion = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.hasError("presentacion")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.presentacion[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(4),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -30999,7 +31094,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-6" }, [
-                      _vm._m(4),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31042,7 +31137,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(5),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31194,7 +31289,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31223,7 +31318,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(7),
+                      _vm._m(8),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31252,7 +31347,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(8),
+                      _vm._m(9),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31282,8 +31377,8 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(9),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(10),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31311,8 +31406,39 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
-                      _vm._m(10),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.presentacion,
+                            expression: "presentacion"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { disabled: "" },
+                        domProps: {
+                          textContent: _vm._s(_vm.presentacion),
+                          value: _vm.presentacion
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.presentacion = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(12),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31343,7 +31469,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(11),
+                      _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31372,7 +31498,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-8" }, [
-                      _vm._m(12),
+                      _vm._m(14),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31403,7 +31529,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(13),
+                      _vm._m(15),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31432,7 +31558,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(14),
+                      _vm._m(16),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31461,7 +31587,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(15),
+                      _vm._m(17),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -31549,11 +31675,6 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Observación")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-thermometer-full" }),
           _vm._v(" Unidad medida")
         ]),
@@ -31603,6 +31724,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-box-open" }),
+      _vm._v(" Presentación")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-store" }),
       _vm._v(" Nombre")
     ])
@@ -31630,7 +31760,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-hashtag" }),
+      _c("i", { staticClass: "fas fa-qrcode" }),
       _vm._v(" Código")
     ])
   },
@@ -31659,6 +31789,15 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-store" }),
       _vm._v(" Nombre")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-box-open" }),
+      _vm._v(" Presentación")
     ])
   },
   function() {
@@ -32134,7 +32273,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-address-card" }),
+          _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Descripción")
         ]),
         _vm._v(" "),
@@ -34689,121 +34828,109 @@ var render = function() {
                   _vm._v(" "),
                   _vm._m(6),
                   _vm._v(" "),
-                  _c(
-                    "fieldset",
-                    { staticClass: "border border-light rounded p-1" },
-                    [
-                      _c("div", { staticClass: "n-chk text-center" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                  _c("div", { staticClass: "n-chk text-center" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.entrada,
+                              expression: "entrada"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "entrada" },
+                          domProps: {
+                            checked: Array.isArray(_vm.entrada)
+                              ? _vm._i(_vm.entrada, null) > -1
+                              : _vm.entrada
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.entrada,
-                                  expression: "entrada"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.entrada,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.entrada = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.entrada = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "entrada" },
-                              domProps: {
-                                checked: Array.isArray(_vm.entrada)
-                                  ? _vm._i(_vm.entrada, null) > -1
-                                  : _vm.entrada
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.entrada,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.entrada = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.entrada = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.entrada = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.entrada = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Entrada\n                                ")
-                          ]
-                        ),
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Entrada\n                                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.salida,
+                              expression: "salida"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "salida" },
+                          domProps: {
+                            checked: Array.isArray(_vm.salida)
+                              ? _vm._i(_vm.salida, null) > -1
+                              : _vm.salida
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.salida,
-                                  expression: "salida"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.salida,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.salida = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.salida = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "salida" },
-                              domProps: {
-                                checked: Array.isArray(_vm.salida)
-                                  ? _vm._i(_vm.salida, null) > -1
-                                  : _vm.salida
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.salida,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.salida = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.salida = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.salida = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.salida = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Salida\n                                ")
-                          ]
-                        )
-                      ])
-                    ]
-                  )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Salida\n                                ")
+                      ]
+                    )
+                  ])
                 ]
               )
             ]),
@@ -35286,123 +35413,110 @@ var render = function() {
                   _vm._v(" "),
                   _vm._m(6),
                   _vm._v(" "),
-                  _c(
-                    "fieldset",
-                    { staticClass: "border border-light rounded p-1" },
-                    [
-                      _c("div", { staticClass: "n-chk text-center" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                  _c("div", { staticClass: "n-chk text-center" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.medicamento,
+                              expression: "medicamento"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "medicamento" },
+                          domProps: {
+                            checked: Array.isArray(_vm.medicamento)
+                              ? _vm._i(_vm.medicamento, null) > -1
+                              : _vm.medicamento
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.medicamento,
-                                  expression: "medicamento"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.medicamento,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.medicamento = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.medicamento = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "medicamento" },
-                              domProps: {
-                                checked: Array.isArray(_vm.medicamento)
-                                  ? _vm._i(_vm.medicamento, null) > -1
-                                  : _vm.medicamento
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.medicamento,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.medicamento = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.medicamento = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.medicamento = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.medicamento = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v(
-                              "Medicamento\n                                "
-                            )
-                          ]
-                        ),
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Medicamento\n                                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto,
+                              expression: "producto"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "producto" },
+                          domProps: {
+                            checked: Array.isArray(_vm.producto)
+                              ? _vm._i(_vm.producto, null) > -1
+                              : _vm.producto
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.producto,
-                                  expression: "producto"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.producto,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.producto = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.producto = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "producto" },
-                              domProps: {
-                                checked: Array.isArray(_vm.producto)
-                                  ? _vm._i(_vm.producto, null) > -1
-                                  : _vm.producto
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.producto,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.producto = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.producto = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.producto = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.producto = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Producto\n                                ")
-                          ]
-                        )
-                      ])
-                    ]
-                  )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Artículo\n                                ")
+                      ]
+                    )
+                  ])
                 ]
               )
             ]),
@@ -35497,7 +35611,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Producto")
+          _vm._v(" Artículo")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -35885,123 +35999,110 @@ var render = function() {
                   _vm._v(" "),
                   _vm._m(6),
                   _vm._v(" "),
-                  _c(
-                    "fieldset",
-                    { staticClass: "border border-light rounded p-1" },
-                    [
-                      _c("div", { staticClass: "n-chk text-center" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                  _c("div", { staticClass: "n-chk text-center" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.medicamento,
+                              expression: "medicamento"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "medicamento" },
+                          domProps: {
+                            checked: Array.isArray(_vm.medicamento)
+                              ? _vm._i(_vm.medicamento, null) > -1
+                              : _vm.medicamento
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.medicamento,
-                                  expression: "medicamento"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.medicamento,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.medicamento = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.medicamento = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "medicamento" },
-                              domProps: {
-                                checked: Array.isArray(_vm.medicamento)
-                                  ? _vm._i(_vm.medicamento, null) > -1
-                                  : _vm.medicamento
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.medicamento,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.medicamento = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.medicamento = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.medicamento = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.medicamento = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v(
-                              "Medicamento\n                                "
-                            )
-                          ]
-                        ),
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass:
-                              "new-control new-checkbox checkbox-outline-check"
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Medicamento\n                                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "new-control new-checkbox checkbox-outline-check"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto,
+                              expression: "producto"
+                            }
+                          ],
+                          staticClass: "new-control-input",
+                          attrs: { type: "checkbox", name: "producto" },
+                          domProps: {
+                            checked: Array.isArray(_vm.producto)
+                              ? _vm._i(_vm.producto, null) > -1
+                              : _vm.producto
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.producto,
-                                  expression: "producto"
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.producto,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.producto = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.producto = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
                                 }
-                              ],
-                              staticClass: "new-control-input",
-                              attrs: { type: "checkbox", name: "producto" },
-                              domProps: {
-                                checked: Array.isArray(_vm.producto)
-                                  ? _vm._i(_vm.producto, null) > -1
-                                  : _vm.producto
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.producto,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.producto = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.producto = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.producto = $$c
-                                  }
-                                }
+                              } else {
+                                _vm.producto = $$c
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "new-control-indicator"
-                            }),
-                            _vm._v("Producto\n                                ")
-                          ]
-                        )
-                      ])
-                    ]
-                  )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "new-control-indicator" }),
+                        _vm._v("Artículo\n                                ")
+                      ]
+                    )
+                  ])
                 ]
               )
             ]),
@@ -36096,7 +36197,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Producto")
+          _vm._v(" Artículo")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -52820,7 +52921,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

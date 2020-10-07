@@ -12,7 +12,7 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                     <th class="text-center"><i class="fas fa-address-card"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-address-card"></i> Descripción</th>
+                                    <th class="text-center"><i class="fas fa-search"></i> Descripción</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>

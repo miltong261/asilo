@@ -86,7 +86,6 @@
                             </div>
 
                             <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
-                            <fieldset class="border border-light rounded p-1">
                                 <div class="n-chk text-center">
                                     <label class="new-control new-checkbox checkbox-outline-check">
                                         <input type="checkbox" class="new-control-input"  name="entrada" v-model="entrada">
@@ -97,7 +96,6 @@
                                         <span class="new-control-indicator"></span>Salida
                                     </label>
                                 </div>
-                            </fieldset>
                         </form>
                     </div>
                     <div class="modal-footer">

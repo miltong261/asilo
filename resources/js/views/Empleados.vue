@@ -166,7 +166,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label><i class="fas fa-user"></i> Código</label>
+                                    <label><i class="fas fa-qrcode"></i> Código</label>
                                     <input type="text" name="codigo" v-model="codigo" class="form-control text-dark" disabled>
                                 </div>
                                 <div class="form-group col-md-8">
@@ -177,12 +177,12 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label><i class="fas fa-id-card"></i> Fecha de nacimiento</label>
+                                    <label><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
                                     <input type="text" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label><i class="fas fa-phone-alt"></i> DPI</label>
+                                    <label><i class="fas fa-id-card"></i> DPI</label>
                                     <input type="text" name="dpi" v-model="dpi" class="form-control text-dark" disabled>
                                 </div>
                             </div>
@@ -194,19 +194,19 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label><i class="far fa-calendar-alt"></i> Aréa</label>
+                                    <label><i class="fas fa-store-alt"></i> Aréa</label>
                                     <input type="text" class="form-control text-dark" name="area_nombre" v-model="area_nombre" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label><i class="far fa-calendar-alt"></i> Puesto</label>
+                                    <label><i class="fas fa-address-card"></i> Puesto</label>
                                     <input type="text" class="form-control text-dark" name="puesto_nombre" v-model="puesto_nombre" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-8">
-                                    <label><i class="fas fa-phone-alt"></i> Dirección</label>
+                                    <label><i class="fas fa-street-view"></i> Dirección</label>
                                     <input type="text" name="direccion text-dark" v-model="direccion" class="form-control text-dark" disabled>
                                 </div>
 

@@ -46091,7 +46091,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(12),
                       _vm._v(" "),
                       _c("input", {
@@ -46117,7 +46117,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
@@ -46359,7 +46359,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
       _vm._v(" Unidad de medida")
     ])
   },
@@ -46368,7 +46368,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-tags" }),
       _vm._v(" Categoría")
     ])
   },
@@ -46377,7 +46377,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-briefcase-medical" }),
       _vm._v(" Nombre del medicamento")
     ])
   },
@@ -46386,7 +46386,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-box-open" }),
       _vm._v(" Presentación")
     ])
   },
@@ -46395,7 +46395,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observación")
     ])
   }
@@ -47040,7 +47040,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(12),
                       _vm._v(" "),
                       _c("input", {
@@ -47066,7 +47066,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
@@ -47308,7 +47308,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
       _vm._v(" Unidad de medida")
     ])
   },
@@ -47317,7 +47317,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-tags" }),
       _vm._v(" Categoría")
     ])
   },
@@ -47326,7 +47326,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-store" }),
       _vm._v(" Nombre del producto")
     ])
   },
@@ -47335,7 +47335,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-box-open" }),
       _vm._v(" Presentación")
     ])
   },
@@ -47344,7 +47344,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-qrcode" }),
+      _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Observación")
     ])
   }
@@ -49294,7 +49294,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-user" }),
+      _c("i", { staticClass: "fas fa-qrcode" }),
       _vm._v(" Código")
     ])
   },
@@ -49312,7 +49312,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-id-card" }),
+      _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha de nacimiento")
     ])
   },
@@ -49321,7 +49321,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-phone-alt" }),
+      _c("i", { staticClass: "fas fa-id-card" }),
       _vm._v(" DPI")
     ])
   },
@@ -49339,7 +49339,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _c("i", { staticClass: "fas fa-store-alt" }),
       _vm._v(" Aréa")
     ])
   },
@@ -49348,7 +49348,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _c("i", { staticClass: "fas fa-address-card" }),
       _vm._v(" Puesto")
     ])
   },
@@ -49357,7 +49357,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("i", { staticClass: "fas fa-phone-alt" }),
+      _c("i", { staticClass: "fas fa-street-view" }),
       _vm._v(" Dirección")
     ])
   },
@@ -50234,7 +50234,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
@@ -50263,7 +50263,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(14),
                       _vm._v(" "),
                       _c("input", {
@@ -50866,6 +50866,9 @@ var render = function() {
                               class: _vm.hasError("tipo_movimiento_id")
                                 ? "is-invalid"
                                 : "",
+                              attrs: {
+                                placeholder: "Ingrese tipo movimiento..."
+                              },
                               on: {
                                 change: function($event) {
                                   var $$selectedVal = Array.prototype.filter
@@ -52373,7 +52376,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
@@ -52402,7 +52405,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
+                    _c("div", { staticClass: "form-group col-md-6" }, [
                       _vm._m(14),
                       _vm._v(" "),
                       _c("input", {
@@ -55644,7 +55647,11 @@ var render = function() {
                       ],
                       staticClass: "form-control",
                       class: _vm.hasError("nombre") ? "is-invalid" : "",
-                      attrs: { type: "text", name: "nombre" },
+                      attrs: {
+                        type: "text",
+                        name: "nombre",
+                        placeholder: "Ingrese tipo movimiento..."
+                      },
                       domProps: { value: _vm.nombre },
                       on: {
                         keyup: function($event) {
@@ -73633,7 +73640,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

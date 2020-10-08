@@ -185,12 +185,12 @@
                             </div>
 
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de registro</label>
                                     <input v-text="fecha_registro" v-model="fecha_registro" class="form-control" disabled>
                                 </div>
 
-                                <div class="form-group col-md-8">
+                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i>  Fecha de vencimiento</label>
                                     <input v-text="fecha_vencimiento" v-model="fecha_vencimiento" class="form-control" disabled>
                                 </div>

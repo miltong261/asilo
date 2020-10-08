@@ -146,31 +146,31 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label><i class="fas fa-qrcode"></i> Unidad de medida</label>
+                                    <label><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <input v-model="nombre_unidad" class="form-control text-dark"  disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label><i class="fas fa-qrcode"></i> Categoría</label>
+                                    <label><i class="fas fa-tags"></i> Categoría</label>
                                     <input v-model="nombre_categoria" class="form-control text-dark"  disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-qrcode"></i> Nombre del medicamento</label>
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-briefcase-medical"></i> Nombre del medicamento</label>
                                     <input v-model="nombre_medicamento" class="form-control text-dark"  disabled>
                                 </div>
 
-                                <div class="form-group col-md-8">
-                                    <label><i class="fas fa-qrcode"></i> Presentación</label>
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-box-open"></i> Presentación</label>
                                     <input v-model="presentacion_medicamento" class="form-control text-dark"  disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
-                                    <label><i class="fas fa-qrcode"></i> Observación</label>
+                                    <label><i class="fas fa-search"></i> Observación</label>
                                     <input v-model="observacion" class="form-control text-dark"  disabled>
                                 </div>
                             </div>

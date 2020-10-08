@@ -15,7 +15,7 @@
                                         <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
                                         <th class="text-center"><i class="fas fa-user-check"></i> Nombre</th>
                                         <th class="text-center"><i class="fas fa-user-check"></i> Apellido</th>
-                                        <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
+                                        <th class="text-center"><i class="fas fa-pager"></i> Edad</th>
                                         <th class="text-center"><i class="fas fa-id-card"></i> DPI</th>
                                         <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                     </tr>
@@ -26,7 +26,7 @@
                                     <td v-text="residente.codigo" class="text-center"></td>
                                     <td v-text="residente.nombre" class="text-center"></td>
                                     <td v-text="residente.apellido" class="text-center"></td>
-                                    <td v-text="residente.fecha_nacimiento" class="text-center"></td>
+                                    <td v-text="residente.edad" class="text-center"></td>
                                     <td v-text="residente.dpi" class="text-center"></td>
 
                                     <td class="text-center">
@@ -249,35 +249,39 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label><i class="fas fa-qrcode"></i> Código</label>
                                     <input style="height:35px" v-model="codigo" class="form-control text-dark"  disabled>
                                 </div>
 
-                                <div class="form-group col-md-8">
+                                <div class="form-group col-md-5">
                                     <label><i class="fas fa-user-check"></i> Nombre completo</label>
                                     <input style="height:35px" v-model="nombre" class="form-control text-dark" disabled>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label><i class="far fa-calendar-alt"></i> Fecha nacimiento</label>
+                                    <input style="height:35px" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label><i class="fas fa-pager"></i> Edad</label>
+                                    <input style="height:35px" v-model="edad" class="form-control text-dark" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label><i class="far fa-calendar-alt"></i> Fecha nacimiento</label>
-                                    <input style="height:35px" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
-                                </div>
-                                <div class="form-group col-md-8">
                                     <label><i class="fas fa-street-view"></i> Lugar nacimiento</label>
                                     <input style="height:35px" class="form-control text-dark" v-model="lugar_nacimiento" disabled>
                                 </div>
-                            </div>
 
-                            <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label><i class="fas fa-id-card"></i> DPI</label>
                                     <input style="height:35px" class="form-control text-dark" v-model="dpi" disabled>
                                 </div>
 
-                                <div class="form-group col-md-8">
+                                <div class="form-group col-md-4">
                                     <label><i class="fas fa-street-view"></i> Extendido en:</label>
                                     <input style="height:35px" class="form-control text-dark" v-model="lugar_dpi_extendido" disabled>
                                 </div>
@@ -365,6 +369,7 @@
                 nombre: '',
                 apellido: '',
                 fecha_nacimiento: '',
+                edad : '',
                 dpi: '',
                 familia: '',
                 direccion: '',
@@ -451,6 +456,7 @@
                 this.codigo = data['codigo']
                 this.nombre = data['nombre'] + ' ' + data['apellido']
                 this.fecha_nacimiento = data['fecha_nacimiento']
+                this.edad = data['edad']
                 this.lugar_nacimiento = data['departamento_origen_nombre'] + ', ' + data['municipio_origen_nombre']
                 this.dpi = data['dpi']
                 this.lugar_dpi_extendido = data['departamento_dpi_nombre'] + ', ' + data['municipio_dpi_nombre']
@@ -497,6 +503,7 @@
                 this.codigo = ''
                 this.nombre = ''
                 this.fecha_nacimiento = ''
+                this.edad = ''
                 this.lugar_nacimiento = ''
                 this.dpi = ''
                 this.lugar_dpi_extendido = ''

@@ -13,7 +13,7 @@
                                     <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Área</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
-                                    <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha nacimiento</th>
+                                    <th class="text-cente"><i class="fas fa-pager"></i> Edad</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
@@ -25,7 +25,7 @@
                                     <td v-text="empleado.nombre + ' ' + empleado.apellido" class="text-center"></td>
                                     <td v-text="empleado.area_nombre" class="text-center"></td>
                                     <td v-text="empleado.puesto_nombre" class="text-center"></td>
-                                    <td v-text="empleado.fecha_nacimiento" class="text-center"></td>
+                                    <td v-text="empleado.edad" class="text-center"></td>
                                     <td v-text="empleado.direccion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="empleado.estado">
@@ -91,6 +91,7 @@
                                         {{ errors.fecha_nacimiento[0] }}
                                     </div>
                                 </div>
+
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
                                     <input type="text" name="dpi" v-model="dpi" class="form-control" :class="hasError('dpi') ? 'is-invalid' : ''" placeholder="Ingrese dpi...">
@@ -166,23 +167,28 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label><i class="fas fa-user"></i> Código</label>
+                                    <label><i class="fas fa-qrcode"></i> Código</label>
                                     <input type="text" name="codigo" v-model="codigo" class="form-control text-dark" disabled>
                                 </div>
                                 <div class="form-group col-md-8">
-                                    <label><i class="fas fa-user"></i> nombre</label>
+                                    <label><i class="fas fa-user"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control text-dark" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label><i class="fas fa-id-card"></i> Fecha de nacimiento</label>
+                                <div class="form-group col-md-4">
+                                    <label><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
                                     <input type="text" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
                                 </div>
 
+                                <div class="form-group col-md-2">
+                                    <label><i class="fas fa-pager"></i> Edad</label>
+                                    <input type="text" name="edad" v-model="edad" class="form-control text-dark" disabled>
+                                </div>
+
                                 <div class="form-group col-md-6">
-                                    <label><i class="fas fa-phone-alt"></i> DPI</label>
+                                    <label><i class="fas fa-id-card"></i> DPI</label>
                                     <input type="text" name="dpi" v-model="dpi" class="form-control text-dark" disabled>
                                 </div>
                             </div>
@@ -190,23 +196,23 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label><i class="far fa-calendar-alt"></i> Fecha de ingreso</label>
-                                    <input type="date" class="form-control text-dark" name="fecha_ingreso" v-model="fecha_ingreso" disabled>
+                                    <input type="date" class="form-control text-dark" name="fecha_ingreso" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label><i class="far fa-calendar-alt"></i> Aréa</label>
+                                    <label><i class="fas fa-store-alt"></i> Aréa</label>
                                     <input type="text" class="form-control text-dark" name="area_nombre" v-model="area_nombre" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label><i class="far fa-calendar-alt"></i> Puesto</label>
+                                    <label><i class="fas fa-address-card"></i> Puesto</label>
                                     <input type="text" class="form-control text-dark" name="puesto_nombre" v-model="puesto_nombre" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-8">
-                                    <label><i class="fas fa-phone-alt"></i> Dirección</label>
+                                    <label><i class="fas fa-street-view"></i> Dirección</label>
                                     <input type="text" name="direccion text-dark" v-model="direccion" class="form-control text-dark" disabled>
                                 </div>
 
@@ -248,8 +254,9 @@ export default {
             lista_empleados: [],
             nombre: '',
             apellido: '',
-            fecha_ingreso: '',
+            // fecha_ingreso: '',
             fecha_nacimiento: '',
+            edad: '',
             dpi: '',
             direccion: '',
             telefono: '',
@@ -296,6 +303,7 @@ export default {
             this.dpi = ''
             this.direccion = ''
             this.telefono = ''
+            // this.fecha_ingreso = ''
 
             this.area_id = 0
             this.puesto_id = 0
@@ -315,7 +323,7 @@ export default {
             this.puesto_nombre = data['puesto_nombre']
             this.codigo = data['codigo']
             this.nombre = data['nombre'] + ' ' + data['apellido']
-            this.fecha_ingreso = data['fecha_ingreso'].moment().format('MMMM Do YYYY, h:mm:ss a')
+            // this.fecha_ingreso = data['fecha_ingreso'].moment().format('MMMM Do YYYY, h:mm:ss a')
             this.fecha_nacimiento = data['fecha_nacimiento']
             this.dpi = data['dpi']
             this.direccion = data['direccion']
@@ -329,8 +337,9 @@ export default {
             this.puesto_nombre = ''
             this.codigo = ''
             this.nombre = ''
-            this.fecha_ingreso = ''
+            // this.fecha_ingreso = ''
             this.fecha_nacimiento = ''
+            this.edad = ''
             this.dpi = ''
             this.direccion = ''
             this.telefono = ''

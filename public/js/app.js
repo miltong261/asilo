@@ -3335,6 +3335,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -3352,8 +3358,9 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       lista_empleados: [],
       nombre: '',
       apellido: '',
-      fecha_ingreso: '',
+      // fecha_ingreso: '',
       fecha_nacimiento: '',
+      edad: '',
       dpi: '',
       direccion: '',
       telefono: '',
@@ -3403,7 +3410,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.fecha_nacimiento = '';
       this.dpi = '';
       this.direccion = '';
-      this.telefono = '';
+      this.telefono = ''; // this.fecha_ingreso = ''
+
       this.area_id = 0;
       this.puesto_id = 0;
       this.modal = 0;
@@ -3419,8 +3427,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.area_nombre = data['area_nombre'];
       this.puesto_nombre = data['puesto_nombre'];
       this.codigo = data['codigo'];
-      this.nombre = data['nombre'] + ' ' + data['apellido'];
-      this.fecha_ingreso = data['fecha_ingreso'].moment().format('MMMM Do YYYY, h:mm:ss a');
+      this.nombre = data['nombre'] + ' ' + data['apellido']; // this.fecha_ingreso = data['fecha_ingreso'].moment().format('MMMM Do YYYY, h:mm:ss a')
+
       this.fecha_nacimiento = data['fecha_nacimiento'];
       this.dpi = data['dpi'];
       this.direccion = data['direccion'];
@@ -3432,9 +3440,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.area_nombre = '';
       this.puesto_nombre = '';
       this.codigo = '';
-      this.nombre = '';
-      this.fecha_ingreso = '';
+      this.nombre = ''; // this.fecha_ingreso = ''
+
       this.fecha_nacimiento = '';
+      this.edad = '';
       this.dpi = '';
       this.direccion = '';
       this.telefono = '';
@@ -5770,6 +5779,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5779,7 +5792,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       id: 0,
       codigo: 0,
       lista_residentes: []
-    }, _defineProperty(_ref, "codigo", ''), _defineProperty(_ref, "nombre", ''), _defineProperty(_ref, "apellido", ''), _defineProperty(_ref, "fecha_nacimiento", ''), _defineProperty(_ref, "dpi", ''), _defineProperty(_ref, "familia", ''), _defineProperty(_ref, "direccion", ''), _defineProperty(_ref, "telefono_familia", ''), _defineProperty(_ref, "persona_referida", ''), _defineProperty(_ref, "direccion_persona_referida", ''), _defineProperty(_ref, "telefono_persona_referida", ''), _defineProperty(_ref, "motivo", ''), _defineProperty(_ref, "estado", ''), _defineProperty(_ref, "historial", ''), _defineProperty(_ref, "pulso", ''), _defineProperty(_ref, "temperatura", ''), _defineProperty(_ref, "presion", ''), _defineProperty(_ref, "peso", ''), _defineProperty(_ref, "observacion", ''), _defineProperty(_ref, "lista_departamentos_origen", []), _defineProperty(_ref, "lista_departamentos_dpi", []), _defineProperty(_ref, "departamento_origen_id", 0), _defineProperty(_ref, "departamento_dpi_id", 0), _defineProperty(_ref, "departamento_origen_nombre", ''), _defineProperty(_ref, "departamento_dpi_nombre", ''), _defineProperty(_ref, "lista_municipios_origen", []), _defineProperty(_ref, "lista_municipios_dpi", []), _defineProperty(_ref, "municipio_origen_id", 0), _defineProperty(_ref, "municipio_dpi_id", 0), _defineProperty(_ref, "municipio_origen_nombre", ''), _defineProperty(_ref, "municipio_dpi_nombre", ''), _defineProperty(_ref, "lugar_nacimiento", ''), _defineProperty(_ref, "lugar_dpi_extendido", ''), _defineProperty(_ref, "action", 1), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "opcion", 1), _defineProperty(_ref, "titulo", ''), _defineProperty(_ref, "errors", []), _ref;
+    }, _defineProperty(_ref, "codigo", ''), _defineProperty(_ref, "nombre", ''), _defineProperty(_ref, "apellido", ''), _defineProperty(_ref, "fecha_nacimiento", ''), _defineProperty(_ref, "edad", ''), _defineProperty(_ref, "dpi", ''), _defineProperty(_ref, "familia", ''), _defineProperty(_ref, "direccion", ''), _defineProperty(_ref, "telefono_familia", ''), _defineProperty(_ref, "persona_referida", ''), _defineProperty(_ref, "direccion_persona_referida", ''), _defineProperty(_ref, "telefono_persona_referida", ''), _defineProperty(_ref, "motivo", ''), _defineProperty(_ref, "estado", ''), _defineProperty(_ref, "historial", ''), _defineProperty(_ref, "pulso", ''), _defineProperty(_ref, "temperatura", ''), _defineProperty(_ref, "presion", ''), _defineProperty(_ref, "peso", ''), _defineProperty(_ref, "observacion", ''), _defineProperty(_ref, "lista_departamentos_origen", []), _defineProperty(_ref, "lista_departamentos_dpi", []), _defineProperty(_ref, "departamento_origen_id", 0), _defineProperty(_ref, "departamento_dpi_id", 0), _defineProperty(_ref, "departamento_origen_nombre", ''), _defineProperty(_ref, "departamento_dpi_nombre", ''), _defineProperty(_ref, "lista_municipios_origen", []), _defineProperty(_ref, "lista_municipios_dpi", []), _defineProperty(_ref, "municipio_origen_id", 0), _defineProperty(_ref, "municipio_dpi_id", 0), _defineProperty(_ref, "municipio_origen_nombre", ''), _defineProperty(_ref, "municipio_dpi_nombre", ''), _defineProperty(_ref, "lugar_nacimiento", ''), _defineProperty(_ref, "lugar_dpi_extendido", ''), _defineProperty(_ref, "action", 1), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "opcion", 1), _defineProperty(_ref, "titulo", ''), _defineProperty(_ref, "errors", []), _ref;
   },
   methods: {
     openForm: function openForm(metodo) {
@@ -5830,6 +5843,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.codigo = data['codigo'];
       this.nombre = data['nombre'] + ' ' + data['apellido'];
       this.fecha_nacimiento = data['fecha_nacimiento'];
+      this.edad = data['edad'];
       this.lugar_nacimiento = data['departamento_origen_nombre'] + ', ' + data['municipio_origen_nombre'];
       this.dpi = data['dpi'];
       this.lugar_dpi_extendido = data['departamento_dpi_nombre'] + ', ' + data['municipio_dpi_nombre'];
@@ -5874,6 +5888,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.codigo = '';
       this.nombre = '';
       this.fecha_nacimiento = '';
+      this.edad = '';
       this.lugar_nacimiento = '';
       this.dpi = '';
       this.lugar_dpi_extendido = '';
@@ -48225,9 +48240,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: {
-                              textContent: _vm._s(empleado.fecha_nacimiento)
-                            }
+                            domProps: { textContent: _vm._s(empleado.edad) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -48935,7 +48948,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(11),
                       _vm._v(" "),
                       _c("input", {
@@ -48965,8 +48978,34 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _vm._m(12),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.edad,
+                            expression: "edad"
+                          }
+                        ],
+                        staticClass: "form-control text-dark",
+                        attrs: { type: "text", name: "edad", disabled: "" },
+                        domProps: { value: _vm.edad },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.edad = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-6" }, [
+                      _vm._m(13),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -48993,38 +49032,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(13),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fecha_ingreso,
-                            expression: "fecha_ingreso"
-                          }
-                        ],
-                        staticClass: "form-control text-dark",
-                        attrs: {
-                          type: "date",
-                          name: "fecha_ingreso",
-                          disabled: ""
-                        },
-                        domProps: { value: _vm.fecha_ingreso },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.fecha_ingreso = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
+                    _vm._m(14),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(14),
+                      _vm._m(15),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -49054,7 +49065,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(15),
+                      _vm._m(16),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -49086,7 +49097,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-8" }, [
-                      _vm._m(16),
+                      _vm._m(17),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -49116,7 +49127,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(17),
+                      _vm._m(18),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -49195,9 +49206,9 @@ var staticRenderFns = [
           _vm._v(" Puesto")
         ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha nacimiento")
+        _c("th", { staticClass: "text-cente" }, [
+          _c("i", { staticClass: "fas fa-pager" }),
+          _vm._v(" Edad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -49304,7 +49315,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("i", { staticClass: "fas fa-user" }),
-      _vm._v(" nombre")
+      _vm._v(" Nombre")
     ])
   },
   function() {
@@ -49321,6 +49332,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
+      _c("i", { staticClass: "fas fa-pager" }),
+      _vm._v(" Edad")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
       _c("i", { staticClass: "fas fa-id-card" }),
       _vm._v(" DPI")
     ])
@@ -49329,9 +49349,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("i", { staticClass: "far fa-calendar-alt" }),
-      _vm._v(" Fecha de ingreso")
+    return _c("div", { staticClass: "form-group col-md-4" }, [
+      _c("label", [
+        _c("i", { staticClass: "far fa-calendar-alt" }),
+        _vm._v(" Fecha de ingreso")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control text-dark",
+        attrs: { type: "date", name: "fecha_ingreso", disabled: "" }
+      })
     ])
   },
   function() {
@@ -53271,9 +53298,7 @@ var render = function() {
                                 _c("td", {
                                   staticClass: "text-center",
                                   domProps: {
-                                    textContent: _vm._s(
-                                      residente.fecha_nacimiento
-                                    )
+                                    textContent: _vm._s(residente.edad)
                                   }
                                 }),
                                 _vm._v(" "),
@@ -54530,7 +54555,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _vm._m(18),
                       _vm._v(" "),
                       _c("input", {
@@ -54557,7 +54582,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
+                    _c("div", { staticClass: "form-group col-md-5" }, [
                       _vm._m(19),
                       _vm._v(" "),
                       _c("input", {
@@ -54582,11 +54607,9 @@ var render = function() {
                           }
                         }
                       })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row mb-0" }, [
-                    _c("div", { staticClass: "form-group col-md-4" }, [
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-3" }, [
                       _vm._m(20),
                       _vm._v(" "),
                       _c("input", {
@@ -54613,8 +54636,37 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
+                    _c("div", { staticClass: "form-group col-md-2" }, [
                       _vm._m(21),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.edad,
+                            expression: "edad"
+                          }
+                        ],
+                        staticClass: "form-control text-dark",
+                        staticStyle: { height: "35px" },
+                        attrs: { disabled: "" },
+                        domProps: { value: _vm.edad },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.edad = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(22),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54638,12 +54690,10 @@ var render = function() {
                           }
                         }
                       })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row mb-0" }, [
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(22),
+                      _vm._m(23),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54669,8 +54719,8 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-8" }, [
-                      _vm._m(23),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _vm._m(24),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54699,7 +54749,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(24),
+                      _vm._m(25),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54726,7 +54776,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(25),
+                      _vm._m(26),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54753,7 +54803,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(26),
+                      _vm._m(27),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54782,7 +54832,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(27),
+                      _vm._m(28),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54809,7 +54859,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(28),
+                      _vm._m(29),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54836,7 +54886,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(29),
+                      _vm._m(30),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54865,7 +54915,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(30),
+                      _vm._m(31),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54892,7 +54942,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(31),
+                      _vm._m(32),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54919,7 +54969,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group col-md-4" }, [
-                      _vm._m(32),
+                      _vm._m(33),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -54948,7 +54998,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-12" }, [
-                      _vm._m(33),
+                      _vm._m(34),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -55029,8 +55079,8 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha nacimiento")
+          _c("i", { staticClass: "fas fa-pager" }),
+          _vm._v(" Edad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -55223,6 +55273,15 @@ var staticRenderFns = [
     return _c("label", [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v(" Fecha nacimiento")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("i", { staticClass: "fas fa-pager" }),
+      _vm._v(" Edad")
     ])
   },
   function() {

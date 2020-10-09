@@ -20,4 +20,13 @@ class EmpleadoRepository extends BaseRepository
         ->select('empleados.*', 'puestos.nombre as puesto_nombre', 'areas.nombre as area_nombre')
         ->get();
     }
+
+    public function comboboxEmpleado() {
+        return $this->getModel()
+        ->join('areas', 'areas.id', '=', 'empleados.area_id')
+        ->select('empleados.id', 'empleados.nombre as nombre_empleado', 'empleados.apellido as apellido_empleado', 'areas.nombre as nombre_area')
+        ->where('empleados.estado', 1)
+        ->orderBy('empleados.nombre', 'asc')
+        ->get();
+    }
 }

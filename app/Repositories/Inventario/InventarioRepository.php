@@ -31,4 +31,47 @@ class InventarioRepository extends BaseRepository
         ->where('productos.estado', '1')
         ->get();
     }
+
+    public function inventarioSalidas($type)
+    {
+        if ($type == 'producto')
+            $asignacion = 1;
+        elseif ($type == 'medicamento')
+            $asignacion = 0;
+
+        return $this->getModel()
+        ->join('productos', 'productos.id', '=', 'inventario.producto_id')
+        ->select('inventario.producto_id',
+        'inventario.existencia',
+        'productos.codigo as codigo_producto',
+        'productos.nombre as nombre_producto',
+        'productos.presentacion as presentacion_producto',
+        'productos.observacion as observacion_producto'
+        )
+        ->where('inventario.existencia', '>', 0)
+        ->where('productos.estado', 1)
+        ->where('productos.asignacion', $asignacion)
+        ->get();
+    }
+
+    public function inventarioEntradas($type)
+    {
+        if ($type == 'producto')
+            $asignacion = 1;
+        elseif ($type == 'medicamento')
+            $asignacion = 0;
+
+        return $this->getModel()
+        ->join('productos', 'productos.id', '=', 'inventario.producto_id')
+        ->select('inventario.producto_id',
+        'inventario.existencia',
+        'productos.codigo as codigo_producto',
+        'productos.nombre as nombre_producto',
+        'productos.presentacion as presentacion_producto',
+        'productos.observacion as observacion_producto'
+        )
+        ->where('productos.estado', 1)
+        ->where('productos.asignacion', $asignacion)
+        ->get();
+    }
 }

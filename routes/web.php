@@ -116,6 +116,7 @@ Route::group(['prefix' => 'puestos'], function () {
 // Empleados
 Route::group(['prefix' => 'empleados'], function () {
     Route::get('/', 'Dashboard\EmpleadoController@index');
+    Route::get('/combo', 'Dashboard\EmpleadoController@combobox');
     Route::post('/store', 'Dashboard\EmpleadoController@store');
     Route::put('/update', 'Dashboard\EmpleadoController@update');
     Route::put('/activate', 'Dashboard\EmpleadoController@activate');
@@ -164,6 +165,10 @@ Route::group(['prefix' => 'productos'], function () {
 Route::group(['prefix' => 'inventario'], function () {
     Route::get('/combo_producto', 'Dashboard\InventarioController@comboboxProducto');
     Route::get('/combo_medicamento', 'Dashboard\InventarioController@comboboxMedicamento');
+    Route::get('/listar_producto_salida', 'Dashboard\InventarioController@listarProductosSalidas');
+    Route::get('/listar_medicamento_salida', 'Dashboard\InventarioController@listarMedicamentosSalidas');
+    Route::get('/listar_producto_entrada', 'Dashboard\InventarioController@listarProductosEntradas');
+    Route::get('/listar_medicamento_entrada', 'Dashboard\InventarioController@listarMedicamentosEntradas');
 });
 
 /** Ruta de entradas */
@@ -176,17 +181,16 @@ Route::group(['prefix' => 'compras'], function () {
 
 Route::group(['prefix' => 'salidas'], function () {
     Route::get('/' ,'Dashboard\SalidaController@index');
+    Route::get('/cabecera', 'Dashboard\SalidaController@cabecera');
+    Route::get('/detalle', 'Dashboard\SalidaController@detalle');
+    Route::post('/store', 'Dashboard\SalidaController@store');
 });
 
 /** Rutas de donaciones */
 
-Route::group(['prefix' => 'donantes'], function () {
-    Route::get('/', 'Dashboard\DonanteController@index');
-    Route::get('/combo', 'Dashboard\DonanteController@combobox');
-    Route::post('/store', 'Dashboard\DonanteController@store');
-    Route::put('/update', 'Dashboard\DonanteController@update');
-});
-
 Route::group(['prefix' => 'donaciones'], function () {
     Route::get('/' ,'Dashboard\DonacionController@index');
+    Route::get('/cabecera', 'Dashboard\DonacionController@cabecera');
+    Route::get('/detalle', 'Dashboard\DonacionController@detalle');
+    Route::post('/store', 'Dashboard\DonacionController@store');
 });

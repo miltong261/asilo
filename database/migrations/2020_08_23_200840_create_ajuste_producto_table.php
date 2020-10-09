@@ -16,21 +16,21 @@ class CreateAjusteProductoTable extends Migration
         Schema::create('ajuste_producto', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')
+            //     ->references('id')
+            //     ->on('users');
 
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')
                 ->references('id')
                 ->on('productos');
 
+            $table->date('fecha_registro');
             $table->integer('cantidad');
-            $table->boolean('entrada');
-            $table->boolean('salida');
-            $table->text('observacion')->nullable();
-
+            $table->boolean('entrada')->nullable();
+            $table->boolean('salida')->nullable();
+            $table->string('observacion', 70);
 
             $table->timestamps();
         });

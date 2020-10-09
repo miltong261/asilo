@@ -24,7 +24,7 @@ class PuestoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|min:8|max:35'
+            'nombre' => 'required|max:35'
         ];
     }
 
@@ -32,8 +32,7 @@ class PuestoRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El nombre es obligatorio',
-            'nombre.min' => 'Mínimo',
-            'nombre.max' => 'Máximo',
+            'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
         ];
     }
 }

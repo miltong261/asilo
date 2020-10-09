@@ -26,3 +26,23 @@
     background-color: #3b3f5c;
     color: white;
 }
+
+.outline-badge-check{
+    color:#25d5e4;
+    background-color:transparent;
+    border:1px solid #25d5e4;
+}
+
+.outline-badge-no-check{
+    color:#f8538d;
+    background-color:transparent;
+    border:1px solid #f8538d;
+}
+
+.new-control.new-checkbox.checkbox-outline-check>input:checked~span.new-control-indicator{border:2px solid #25d5e4}
+
+.new-control.new-checkbox.checkbox-outline-check>input:checked~span.new-control-indicator:after{border-color:#25d5e4}
+
+.border-fieldset{
+    border-color: rgb(136, 142, 168, .4) !important; 
+}

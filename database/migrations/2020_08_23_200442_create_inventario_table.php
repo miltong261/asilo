@@ -21,7 +21,7 @@ class CreateInventarioTable extends Migration
                 ->references('id')
                 ->on('productos');
 
-            $table->integer('existencia');
+            $table->integer('existencia')->default(0);
 
             $table->timestamps();
         });

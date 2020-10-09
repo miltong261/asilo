@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\UnidadMedida;
 use Illuminate\Database\Seeder;
 
 class UnidadMedidaSeeder extends Seeder
@@ -11,6 +12,6 @@ class UnidadMedidaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(UnidadMedida::class, 20)->create();
     }
 }

@@ -16,10 +16,10 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')
+            //     ->references('id')
+            //     ->on('users');
 
             $table->unsignedBigInteger('unidad_medida_id');
             $table->foreign('unidad_medida_id')
@@ -31,14 +31,17 @@ class CreateProductosTable extends Migration
                 ->references('id')
                 ->on('tipo_producto');
 
+            $table->string('codigo', 20);
             $table->string('nombre', 35);
-            $table->text('observacion')->nullable();
-            $table->date('fecha_creacion');
+            $table->string('presentacion', 70);
+            $table->string('observacion', 70)->nullable();
+            $table->boolean('asignacion'); // 0 -> Medicamento o 1 -> producto
+            $table->date('fecha_registro');
             $table->date('fecha_vencimiento');
-            $table->date('fecha_ultima_compra');
-            $table->date('fecha_ultima_salida');
-            $table->date('fecha_ultimo_ajuste');
-
+            $table->date('fecha_ultima_compra')->nullable();
+            $table->date('fecha_ultima_salida')->nullable();
+            $table->date('fecha_ultimo_ajuste')->nullable();
+            $table->boolean('estado')->default(1);
 
             $table->timestamps();
         });

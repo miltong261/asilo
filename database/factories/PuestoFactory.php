@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Puesto::class, function (Faker $faker) {
     return [
+        'codigo' => '1',
         'nombre' => $faker->name
     ];
 });

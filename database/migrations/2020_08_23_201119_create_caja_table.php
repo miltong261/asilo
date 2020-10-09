@@ -16,13 +16,8 @@ class CreateCajaTable extends Migration
         Schema::create('caja', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('movimiento_caja_id');
-            $table->foreign('movimiento_caja_id')
-                ->references('id')
-                ->on('movimiento_caja');
-
-            $table->decimal('monto', 8, 2);
-            $table->text('observacion')->nullable();
+            $table->string('nombre', 15);
+            $table->decimal('saldo', 8, 2);
 
             $table->timestamps();
         });

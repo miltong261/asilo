@@ -12,6 +12,6 @@ class TipoProductoSeeder extends Seeder
      */
     public function run()
     {
-        factory(TipoProducto::class, 50)->create();
+        factory(TipoProducto::class, 20)->create();
     }
 }

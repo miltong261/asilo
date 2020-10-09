@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Municipio\MunicipioRequest;
 use Illuminate\Http\Request;
+use App\Repositories\Municipio\MunicipioRepository;
 
+use Illuminate\Support\Facades\DB;
 class MunicipioController extends Controller
 {
+    protected $municipioRepository;
+
+    public function __construct(MunicipioRepository $municipioRepository)
+    {
+        $this->municipioRepository = $municipioRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +24,12 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->municipioRepository->indexMunicipio());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function combobox(Request $request)
     {
-        //
+        return response()->json($this->municipioRepository->comboMunicipio($request->departamento_origen_id));
     }
 
     /**
@@ -33,9 +38,25 @@ class MunicipioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MunicipioRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $this->municipioRepository->store($request->only(
+                'departamento_id', 'nombre'
+            ));
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Se guardó correctamente al municipio ' .$request->nombre
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
     }
 
     /**
@@ -45,8 +66,24 @@ class MunicipioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MunicipioRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $this->municipioRepository->update($request->only(
+                'departamento_id', 'nombre'
+            ), $request->id);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Se actualizó correctamente al municipio ' .$request->nombre
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
     }
 }

@@ -16,7 +16,11 @@ class CreateTipoProductoTable extends Migration
         Schema::create('tipo_producto', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('codigo', 20);
             $table->string('nombre', 35);
+            $table->boolean('medicamento')->nullable();
+            $table->boolean('producto')->nullable();
+            $table->boolean('estado')->default(1);
 
             $table->timestamps();
         });

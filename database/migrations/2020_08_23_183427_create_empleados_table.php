@@ -16,17 +16,25 @@ class CreateEmpleadosTable extends Migration
         Schema::create('empleados', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('puesto_id');
-            $table->foreign('puesto_id')->references('id')->on('puestos');
+            $table->unsignedBigInteger('area_id');
+            $table->foreign('area_id')
+                ->references('id')
+                ->on('areas');
 
+            $table->unsignedBigInteger('puesto_id');
+            $table->foreign('puesto_id')
+                ->references('id')
+                ->on('puestos');
+
+            $table->string('codigo', 20);
             $table->date('fecha_ingreso');
             $table->string('nombre', 35);
             $table->string('apellido', 35);
             $table->date('fecha_nacimiento');
-            $table->integer('dpi', false, true)->length(13)->unique();
-            $table->integer('telefono', false, true)->length(8)->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->text('direccion');
+            $table->bigInteger('dpi');
+            $table->string('direccion', 70);
+            $table->bigInteger('telefono');
+            $table->boolean('estado')->default(1);
 
             $table->timestamps();
         });

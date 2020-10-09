@@ -16,9 +16,11 @@ class CreateUnidadMedidaTable extends Migration
         Schema::create('unidad_medida', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('codigo', 20);
             $table->string('nombre',35);
-            $table->boolean('medicamento');
-            $table->boolean('producto');
+            $table->boolean('medicamento')->nullable();
+            $table->boolean('producto')->nullable();
+            $table->boolean('estado')->default(1);
 
             $table->timestamps();
         });

@@ -9,18 +9,37 @@
                         <table id="zero-config" class="table table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Dirección</th>
-                                    <th class="text-center">Opciones</th>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                    <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
+                                    <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
+                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="example in listaExample " :key="example.id">
-                                    <td v-text="example.nombre"></td>
-                                    <td v-text="example.direccion"></td>
+                                <tr v-for="(movimientoCaja, index) in lista_movimientoCaja" :key="movimientoCaja.id">
+                                    <td v-text="index+1" class="text-center"></td>
+                                    <td v-text="movimientoCaja.codigo" class="text-center"></td>
+                                    <td v-text="movimientoCaja.cantidad" class="text-center"></td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', example)" class="btn btn-warning mb-2">Actualizar <i class="fas fa-sync-alt"></i></button>
-                                        <button class="btn btn-eliminar mb-2">Eliminar <i class="fa fa-trash-alt"></i></button>
+                                        <div v-if="movimientoCaja.entrada">
+                                            <span class="badge outline -badge-check"><i class="fa fa-check-circle"></i></span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div v-if="movimientoCaja.salida">
+                                            <span class="badge outline-badge-check"><i class="fa fa-check-circle"></i></span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" @click="openModal('update', movimientoCaja)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <button class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -29,7 +48,6 @@
                 </div>
             </div>
         </div>
-
         <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -43,17 +61,29 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                            <div class="form-group">
-                                <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
-                                <input type="text" v-model="nombre" class="form-control" name="nombre" placeholder="Ingrese Nombre">
-                                <span style="color:red" v-if="errors.nombre">{{errors.nombre[0]}}</span>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark" for="cantidad"><i class="fas fa-pencil-alt"></i> Nombre</label>
+                                    <input  @keyup.enter="store()" type="text" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" name="cantidad"    >
+                                    <div v-if="hasError('cantidad')" class="invalid-feedback">
+                                        {{ errors.cantidad[0] }}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label><i class="fas fa-map-marker-alt"></i> Dirección</label>
-                                <textarea class="form-control" v-model="direccion" name="direccion" rows="3" placeholder="Ingrese su dirección"></textarea>
-                                <span style="color:red" v-if="errors.direccion">{{errors.direccion[0]}}</span>
-                            </div>
+                            <label class="text-dark">Marcar <i class="fas fa-check"></i>  para...</label>
+                            <fieldset class="border border-light rounded p-1">
+                                <div class="n-chk text-center">
+                                    <label class="new-control new-checkbox checkbox-outline-check">
+                                        <input type="checkbox" class="new-control-input"  name="entrada" v-model="entrada">
+                                        <span class="new-control-indicator"></span>Entrada
+                                    </label>
+                                    <label class="new-control new-checkbox checkbox-outline-check">
+                                        <input type="checkbox" class="new-control-input" name="salida" v-model="salida">
+                                        <span class="new-control-indicator"></span>Salida
+                                    </label>
+                                </div>
+                            </fieldset>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -74,9 +104,10 @@
         data() {
             return {
                 id: 0,
-                listaExample: [],
+                lista_movimientoCaja: [],
                 nombre: '',
-                direccion: '',
+                entrada: false,
+                salida: false,
 
                 modal: 0,
                 titulo: '',
@@ -89,23 +120,25 @@
                 switch(metodo){
                     case 'create': {
                         this.modal = 1
-                        this.titulo = "Registro de ejemplos"
+                        this.titulo = "Registro movimiento"
                         this.opcion = 1
                         break
                     }
                     case 'update': {
                         this.modal = 2
-                        this.titulo = "Actualización de ejemplos"
+                        this.titulo = "Actualización movimiento"
                         this.opcion = 2
                         this.nombre = data['nombre']
-                        this.direccion = data['direccion']
+                        this.entrada = data['entrada']
+                        this.salida = data['salida']
                         this.id = data['id']
                     }
                 }
             },
             closeModal() {
                 this.nombre = ''
-                this.direccion = ''
+                this.entrada = false
+                this.salida = false
 
                 this.modal = 0
                 this.titulo = ''
@@ -114,19 +147,20 @@
 
                 alerts.sweetAlert('error', 'Operación cancelada')
             },
-            showList() {
-                let me = this;
-                let url = '/example';
-                axios.get(url).then(function (response) {
-                    me.listaExample = response.data
-                    me.dataTable();
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            hasError(field) {
+                return field in (this.errors)
+            },
+            backendResponse(response) {
+                if(response.data.status == 'success'){
+                    this.closeModal()
+                    this.showList()
+                    alerts.sweetAlert(response.data.status, response.data.message)
+                }else{
+                        alerts.sweetAlert(response.data.status, response.data.message)
+                }
             },
             dataTable() {
-                var datatable = $('#zero-config').DataTable()
+                let datatable = $('#zero-config').DataTable()
                 datatable.destroy()
                 this.$nextTick(function() {
                     $('#zero-config').DataTable( {
@@ -144,37 +178,17 @@
                     } );
                 });
             },
-            store(){
-                let me = this
-                var url = '/example/store'
-                axios.post(url,{
-                    'nombre': this.nombre,
-                    'direccion': this.direccion,
-                }).then(function (response) {
-                    me.closeModal()
-                    me.showList()
-                    alerts.sweetAlert('success', 'Se guardó correctamente')
-                }).catch(error =>{
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
+            showList() {
+                let me = this;
+                let url = '/movimientos';
+                axios.get(url).then(function (response) {
+                    me.lista_movimientoCaja = response.data
+                    me.dataTable();
+                })
+                .catch(function (error) {
+                    console.log(error)
                 })
             },
-            update(){
-                let me = this
-                var url = 'example/update'
-                axios.put(url,{
-                    'nombre': this.nombre,
-                    'direccion': this.direccion,
-                    'id': this.id
-                }).then(function (response){
-                    me.closeModal()
-                    me.showList()
-                    alerts.sweetAlert('success', 'Se actualizó correctamente')
-                }).catch(error =>{
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
-            }
         },
         mounted() {
             this.showList()

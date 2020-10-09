@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventario extends Model
 {
-    public function producto()
-    {
-        return $this->belongsTo('App\Models\Producto');
-    }
+    protected $table = 'inventario';
+    protected $fillable = ['producto_id', 'existencia'];
 }

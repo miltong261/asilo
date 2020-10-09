@@ -21,10 +21,10 @@ class CreateSalidasTable extends Migration
             //     ->references('id')
             //     ->on('users');
 
-            // $table->unsignedBigInteger('empleado_id');
-            // $table->foreign('empleado_id')
-            //     ->references('id')
-            //     ->on('empleados');
+            $table->unsignedBigInteger('empleado_id');
+            $table->foreign('empleado_id')
+                ->references('id')
+                ->on('empleados');
 
             $table->string('codigo', 20);
             $table->date('fecha_registro');

@@ -31,6 +31,11 @@ export default new Router({
             path: '/movimiento_caja',
             component: require('../views/MovimientoCaja').default
         },
+        // Rutas de autenticación
+        {
+            path: '/usuarios',
+            component: require('../views/Usuarios').default
+        },
         // Rutas de personal
         {
             path: '/areas',
@@ -48,6 +53,15 @@ export default new Router({
         {
             path: '/residentes',
             component: require('../views/Residentes').default
+        },
+        // Rutas para enfermería
+        {
+            path: '/signos',
+            component: require('../views/Signos').default
+        },
+        {
+            path: '/notas',
+            component: require('../views/Notas').default
         },
         // Rutas de inventario
         {

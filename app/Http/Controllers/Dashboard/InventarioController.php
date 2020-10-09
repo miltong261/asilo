@@ -24,4 +24,24 @@ class InventarioController extends Controller
     {
         return response()->json($this->inventarioRepository->inventarioMedicamento());
     }
+
+    public function listarProductosSalidas()
+    {
+        return response()->json($this->inventarioRepository->inventarioSalidas('producto'));
+    }
+
+    public function listarMedicamentosSalidas()
+    {
+        return response()->json($this->inventarioRepository->inventarioSalidas('medicamento'));
+    }
+
+    public function listarProductosEntradas()
+    {
+        return response()->json($this->inventarioRepository->inventarioEntradas('producto'));
+    }
+
+    public function listarMedicamentosEntradas()
+    {
+        return response()->json($this->inventarioRepository->inventarioEntradas('medicamento'));
+    }
 }

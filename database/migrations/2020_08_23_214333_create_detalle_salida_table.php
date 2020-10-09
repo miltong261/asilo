@@ -28,7 +28,7 @@ class CreateDetalleSalidaTable extends Migration
 
             $table->integer('cantidad');
 
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

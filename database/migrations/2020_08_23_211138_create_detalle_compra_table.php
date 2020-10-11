@@ -27,9 +27,7 @@ class CreateDetalleCompraTable extends Migration
                 ->on('productos');
 
             $table->integer('cantidad');
-            $table->decimal('costo', 8, 2);
-
-            $table->timestamps();
+            $table->decimal('precio', 8, 2);
         });
     }
 

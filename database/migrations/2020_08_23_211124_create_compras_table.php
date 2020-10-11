@@ -21,6 +21,7 @@ class CreateComprasTable extends Migration
             //     ->references('id')
             //     ->on('users');
 
+            $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_compra');
             $table->string('documento', 15);

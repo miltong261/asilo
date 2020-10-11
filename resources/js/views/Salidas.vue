@@ -347,15 +347,14 @@
         methods: {
             openForm(){
                 this.action = 2
-                this.showList()
-                this.dataTable('#listado')
+                this.destroyTable('#listado')
                 document.getElementById('openForm').style.display = 'none'
                 this.combo_empleado()
             },
             closeForm() {
                 this.action = 1
+                this.destroyTable('#listado_producto')
                 this.showList()
-                this.dataTable('#listado')
                 document.getElementById('openForm').style.display = 'block'
 
                 this.fecha_salida = '',
@@ -372,72 +371,76 @@
                 this.error_empleado = 0
                 this.error_empleado_msg = []
 
-                alerts.sweetAlert('error', 'Operación cancelada')
+                alerts.sweetAlert('error', 'Salida cancelada')
             },
             openModalProducto() {
                 this.modalProducto = 1
                 this.titulo = 'Lista de productos'
 
                 this.lista_inventario
-                this.dataTable('#listado_producto')
             },
             closeModalProducto() {
                 this.modalProducto = 0
                 this.titulo = ''
-
-                alerts.sweetAlert('success', 'Acción finalizada')
             },
             hasError(field) {
                 return field in (this.errors)
             },
             otherError() {
+                let errores = 0
+
                 if (!this.arrayDetalle.length) {
                     alerts.sweetAlert('error', 'No hay productos seleccionados')
+                    errores = 1
                 }
+
+                if (this.arrayDetalle.length) {
+                    for (var i = 0; i < this.arrayDetalle.length; i++) {
+                        if (this.arrayDetalle[i].cantidad == 0 || this.arrayDetalle[i].cantidad == '') {
+                            alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
+                            errores = 1
+                        }
+                    }
+                }
+
                 if(this.empleado_id == 0) {
                     this.error_empleado = 1
                     this.error_empleado_msg.push("No ha seleccionado al empleado que solicita los productos")
-                    console.log(this.error_empleado_msg)
+                    errores = 1
                 }
+
+                return errores
             },
             backendResponse(response) {
                 if(response.data.status == 'success'){
                     this.closeForm()
-                    this.dataTable('#listado_producto')
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }else{
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }
             },
-            productoEncontrado(id) {
-                var encontrado = false, i
-
-                for (i = 0; i < this.arrayDetalle.length; i++) {
-                    if(this.arrayDetalle[i].producto_id == id)
-                        encontrado = true
-                }
-
-                return encontrado
+            dataTable(table) {
+                var datatable = $(table).DataTable()
+                datatable.destroy()
+                this.$nextTick(function() {
+                    $(table).DataTable( {
+                        "oLanguage": {
+                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                            "sSearchPlaceholder": "Buscar...",
+                            "sLengthMenu": "Resultado :  _MENU_",
+                        },
+                        "stripeClasses": [],
+                        "lengthMenu": [5, 10, 20, 50],
+                        "pageLength": 5,
+                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                    } );
+                });
             },
-            eliminarProductoDetalle(index) {
-                let me = this
-                me.arrayDetalle.splice(index, 1)
-            },
-            agregarDetalle(data = []) {
-                let me = this;
-
-                if (me.productoEncontrado(data['producto_id'])) {
-                    alerts.sweetAlert('error', 'El producto ya esta en la lista')
-                } else {
-                    me.arrayDetalle.push({
-                        producto_id: data['producto_id'],
-                        codigo_producto: data['codigo_producto'],
-                        nombre_producto: data['nombre_producto'],
-                        presentacion_producto: data['presentacion_producto'],
-                        observacion_producto: data['observacion_producto'],
-                        cantidad: 1
-                    })
-                }
+            destroyTable(table) {
+                var datatable = $(table).DataTable()
+                datatable.destroy()
             },
             change_select_empleado() {
                 let me = this
@@ -463,25 +466,6 @@
                     console.log(error)
                 })
             },
-            dataTable(table) {
-                var datatable = $(table).DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $(table).DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
             showInventario(type) {
                 let me = this
                 var url
@@ -502,6 +486,36 @@
                     console.log(error)
                 })
             },
+            agregarDetalle(data = []) {
+                let me = this;
+
+                if (me.productoEncontrado(data['producto_id'])) {
+                    alerts.sweetAlert('error', 'El producto ya esta en la lista')
+                } else {
+                    me.arrayDetalle.push({
+                        producto_id: data['producto_id'],
+                        codigo_producto: data['codigo_producto'],
+                        nombre_producto: data['nombre_producto'],
+                        presentacion_producto: data['presentacion_producto'],
+                        observacion_producto: data['observacion_producto'],
+                        cantidad: 1
+                    })
+                }
+            },
+            productoEncontrado(id) {
+                var encontrado = false, i
+
+                for (i = 0; i < this.arrayDetalle.length; i++) {
+                    if(this.arrayDetalle[i].producto_id == id)
+                        encontrado = true
+                }
+
+                return encontrado
+            },
+            eliminarProductoDetalle(index) {
+                let me = this
+                me.arrayDetalle.splice(index, 1)
+            },
             showList() {
                 let me = this;
                 let url = '/salidas';
@@ -517,18 +531,19 @@
                 let me = this
                 let url = '/salidas/store'
 
-                me.otherError()
-
-                axios.post(url, {
-                    'empleado_id': this.empleado_id,
-                    'fecha_salida': this.fecha_salida,
-                    'arrayData': this.arrayDetalle
-                }).then(function (response) {
-                    me.backendResponse(response)
-                }).catch(error => {
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
+                if (me.otherError()) return
+                else {
+                    axios.post(url, {
+                        'empleado_id': this.empleado_id,
+                        'fecha_salida': this.fecha_salida,
+                        'arrayData': this.arrayDetalle
+                    }).then(function (response) {
+                        me.backendResponse(response)
+                    }).catch(error => {
+                        if(error.response.status == 422)
+                            this.errors = error.response.data.errors
+                    })
+                }
             },
             showSalida(id) {
                 let me = this
@@ -590,4 +605,3 @@
         },
     }
 </script>
-

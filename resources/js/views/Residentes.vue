@@ -17,6 +17,7 @@
                                         <th class="text-center"><i class="fas fa-user-check"></i> Apellido</th>
                                         <th class="text-center"><i class="fas fa-pager"></i> Edad</th>
                                         <th class="text-center"><i class="fas fa-id-card"></i> DPI</th>
+                                        <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                         <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                     </tr>
                                 </thead>
@@ -30,8 +31,24 @@
                                     <td v-text="residente.dpi" class="text-center"></td>
 
                                     <td class="text-center">
+                                        <div v-if="residente.estado">
+                                            <span class="badge outline-badge-check">Activo</span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge outline-badge-no-check">Inactivo</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="text-center">
                                         <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                         <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <template v-if="residente.estado">
+                                            <button type="button" @click="changeStatus('desactivate', residente.id, residente.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        </template>
+                                        <template v-else>
+                                            <button type="button" @click="changeStatus('activate', residente.id, residente.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                        </template>
+                                        <button type="button" @click="openDeceased(residente)" class="btn btn-secondary mb-1 mr-1 rounded-circle"> <i class="fas fa-cross"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -534,6 +551,48 @@
                 }else{
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }
+            },
+            changeStatus(action, id, nombre) {
+                swal({
+                    title: 'Cambio de estado',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el residente "'+nombre+'"?',
+                    type: 'question',
+                    confirmButtonColor: '#25d5e4',
+                    cancelButtonColor: '#f8538d',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: '¡Cancelar!',
+                    confirmButtonClass: 'btn btn-guardar',
+                    cancelButtonClass: 'btn btn-cerrar',
+                    padding: '2em'
+                }).then((result) => {
+                    if (action == 'activate')
+                        var url = '/residentes/activate'
+                    else if (action == 'desactivate')
+                        var url = '/residentes/desactivate'
+
+                    if (result.value) {
+                        let me = this
+                        axios.put(url, {
+                            'id': id
+                        }).then(function (response) {
+                            me.showList()
+                            swal(
+                                'Cambio de estado',
+                                'Se ha cambiado el estado correctamente',
+                                'success'
+                            )
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                        swal(
+                            'Cancelado',
+                            'Se ha cancelado la operación',
+                            'error'
+                        )
+                    }
+                })
             },
             dataTable() {
                 let datatable = $('#zero-config').DataTable()

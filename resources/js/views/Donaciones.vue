@@ -289,7 +289,7 @@
     export default {
         data() {
             return {
-                // Lista de salidas
+                // Lista de donaciones
                 id: 0,
                 lista_donaciones: [],
 
@@ -316,10 +316,10 @@
                 // Listar los productos de inventario
                 modalProducto: 0,
                 lista_inventario: [],
-                // Agregar los productos al detalle de la salida
+                // Agregar los productos al detalle de la donación
                 arrayDetalle: [],
 
-                // Acción del template (1 para listado de salidas y 2 para registro)
+                // Acción del template (1 para listado de donaciones y 2 para registro)
                 action: 1,
 
                 titulo: '',
@@ -336,16 +336,15 @@
             }
         },
         methods: {
-            openForm(){
+            openForm() {
                 this.action = 2
-                this.showList()
-                this.dataTable('#listado')
+                this.destroyTable('#listado')
                 document.getElementById('openForm').style.display = 'none'
             },
             closeForm() {
                 this.action = 1
+                this.destroyTable('#listado_producto')
                 this.showList()
-                this.dataTable('#listado')
                 document.getElementById('openForm').style.display = 'block'
 
                 this.fecha_donacion = ''
@@ -377,47 +376,29 @@
                 return field in (this.errors)
             },
             otherError() {
+                let errores = 0
                 if (!this.arrayDetalle.length) {
                     alerts.sweetAlert('error', 'No hay productos seleccionados')
+                    errores = 1
                 }
+
+                if (this.arrayDetalle.length) {
+                    for (var i = 0; i < this.arrayDetalle.length; i++){
+                        if (this.arrayDetalle[i].cantidad == 0 || this.arrayDetalle[i].cantidad == '') {
+                            alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
+                            errores = 1
+                        }
+                    }
+                }
+
+                return errores
             },
             backendResponse(response) {
                 if(response.data.status == 'success'){
                     this.closeForm()
-                    this.dataTable('#listado_producto')
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }else{
                         alerts.sweetAlert(response.data.status, response.data.message)
-                }
-            },
-            productoEncontrado(id) {
-                var encontrado = false, i
-
-                for (i = 0; i < this.arrayDetalle.length; i++) {
-                    if(this.arrayDetalle[i].producto_id == id)
-                        encontrado = true
-                }
-
-                return encontrado
-            },
-            eliminarProductoDetalle(index) {
-                let me = this
-                me.arrayDetalle.splice(index, 1)
-            },
-            agregarDetalle(data = []) {
-                let me = this;
-
-                if (me.productoEncontrado(data['producto_id'])) {
-                    alerts.sweetAlert('error', 'El producto ya esta en la lista')
-                } else {
-                    me.arrayDetalle.push({
-                        producto_id: data['producto_id'],
-                        codigo_producto: data['codigo_producto'],
-                        nombre_producto: data['nombre_producto'],
-                        presentacion_producto: data['presentacion_producto'],
-                        observacion_producto: data['observacion_producto'],
-                        cantidad: 1
-                    })
                 }
             },
             dataTable(table) {
@@ -439,6 +420,10 @@
                     } );
                 });
             },
+            destroyTable(table) {
+                var datatable = $(table).DataTable()
+                datatable.destroy()
+            },
             showInventario(type) {
                 let me = this
                 var url
@@ -459,11 +444,41 @@
                     console.log(error)
                 })
             },
+            agregarDetalle(data = []) {
+                let me = this;
+
+                if (me.productoEncontrado(data['producto_id'])) {
+                    alerts.sweetAlert('error', 'El producto ya esta en la lista')
+                } else {
+                    me.arrayDetalle.push({
+                        producto_id: data['producto_id'],
+                        codigo_producto: data['codigo_producto'],
+                        nombre_producto: data['nombre_producto'],
+                        presentacion_producto: data['presentacion_producto'],
+                        observacion_producto: data['observacion_producto'],
+                        cantidad: 1
+                    })
+                }
+            },
+            productoEncontrado(id) {
+                var encontrado = false, i
+
+                for (i = 0; i < this.arrayDetalle.length; i++) {
+                    if(this.arrayDetalle[i].producto_id == id)
+                        encontrado = true
+                }
+
+                return encontrado
+            },
+            eliminarProductoDetalle(index) {
+                let me = this
+                me.arrayDetalle.splice(index, 1)
+            },
             showList() {
                 let me = this;
                 let url = '/donaciones';
                 axios.get(url).then(function (response) {
-                    me.lista_donaciones = response.data,
+                    me.lista_donaciones = response.data
                     me.dataTable('#listado');
                 })
                 .catch(function (error) {
@@ -474,19 +489,20 @@
                 let me = this
                 let url = '/donaciones/store'
 
-                me.otherError()
-
-                axios.post(url, {
-                    'fecha_donacion': this.fecha_donacion,
-                    'donador': this.donador,
-                    'direccion': this.direccion,
-                    'arrayData': this.arrayDetalle
-                }).then(function (response) {
-                    me.backendResponse(response)
-                }).catch(error => {
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
+                if (me.otherError()) return
+                else {
+                    axios.post(url, {
+                        'fecha_donacion': this.fecha_donacion,
+                        'donador': this.donador,
+                        'direccion': this.direccion,
+                        'arrayData': this.arrayDetalle
+                    }).then(function (response) {
+                        me.backendResponse(response)
+                    }).catch(error => {
+                        if(error.response.status == 422)
+                            this.errors = error.response.data.errors
+                    })
+                }
             },
             showDonacion(id) {
                 let me = this
@@ -531,7 +547,6 @@
             closeShowDonacion() {
                 this.action = 1
                 this.showList()
-                this.dataTable('#listado')
                 document.getElementById('openForm').style.display = 'block'
 
                 this.donacion_codigo = 0
@@ -554,4 +569,3 @@
         },
     }
 </script>
-

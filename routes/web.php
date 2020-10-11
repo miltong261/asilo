@@ -175,6 +175,9 @@ Route::group(['prefix' => 'inventario'], function () {
 
 Route::group(['prefix' => 'compras'], function () {
     Route::get('/' ,'Dashboard\CompraController@index');
+    Route::get('/cabecera', 'Dashboard\CompraController@cabecera');
+    Route::get('/detalle', 'Dashboard\CompraController@detalle');
+    Route::post('/store', 'Dashboard\CompraController@store');
 });
 
 /** Rutas de salidas */

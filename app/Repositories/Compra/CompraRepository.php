@@ -1,0 +1,139 @@
+<?php
+
+namespace App\Repositories\Compra;
+
+use App\Models\Compra;
+use App\Models\DetalleCompra;
+use App\Models\Inventario;
+use App\Models\TipoMovimiento;
+use App\Models\Movimiento;
+use App\Models\Caja;
+use App\Repositories\BaseRepository;
+use App\Repositories\Movimiento\MovimientoRepository;
+
+use Illuminate\Support\Facades\DB;
+
+class CompraRepository extends BaseRepository
+{
+    protected $movimientoRepository;
+
+    public function __construct(MovimientoRepository $movimientoRepository)
+    {
+        $this->movimientoRepository = $movimientoRepository;
+    }
+
+    public function getModel()
+    {
+        return new Compra();
+    }
+
+    public function indexCompra()
+    {
+        return $this->getModel()
+        ->select('id', 'codigo', 'fecha_registro', 'fecha_compra', 'documento', 'total')
+        ->get();
+    }
+
+    public function storeCompra(array $request, array $data)
+    {
+        try {
+            DB::beginTransaction();
+
+            $caja = Caja::findOrFail(1);
+
+            if ($caja->saldo < $request['total']){
+                DB::rollback();
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'El saldo de caja es insuficiente, saldo en caja ' . $caja->saldo
+                ]);
+            } else {
+                try {
+                    $encabezado = $this->getModel()->create($request);
+
+                    foreach ($data as $key => $detalle) {
+                        $inventario = Inventario::findOrFail($detalle['producto_id']);
+
+                        if ($inventario) {
+                            try {
+                                $inventario->existencia += $detalle['cantidad'];
+                                $inventario->update(['existencia' => $inventario->existencia]);
+
+                                $detalle_compra = new DetalleCompra();
+                                $detalle_compra->compra_id = $encabezado->id;
+                                $detalle_compra->producto_id = $detalle['producto_id'];
+                                $detalle_compra->cantidad = $detalle['cantidad'];
+                                $detalle_compra->precio = $detalle['precio'];
+                                $detalle_compra->save();
+                            } catch (\Throwable $th) {
+                                DB::rollBack();
+                                return $th;
+                            }
+                        }
+                    }
+
+                    $movimiento = new Movimiento();
+                    $movimiento->caja_id = 1;
+                    $movimiento->tipo_movimiento_id = 1;
+                    $movimiento->no_transaccion = 'TRANSACCIÓN' . $this->movimientoRepository->generateCode();
+                    $movimiento->fecha_registro = $request['fecha_registro'];
+                    $movimiento->monto = $request['total'];
+                    $movimiento->observacion = 'Código de compra, ' . $request['codigo'];
+                    $movimiento->save();
+
+                    $caja->update(['saldo' => ($caja->saldo - $request['total'])]);
+
+                    DB::commit();
+
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Se realizó la compra correctamente'
+                    ]);
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+                    return $th;
+                }
+            }
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function obtenerCabeceraCompra($request)
+    {
+        return $this->getModel()
+        ->select(
+            'codigo',
+            'fecha_registro',
+            'fecha_compra',
+            'documento',
+            'total'
+        )
+        ->take(1)
+        ->where('id', $request)
+        ->get();
+    }
+
+    public function obtenerDetalleCompra($request)
+    {
+        return
+        DetalleCompra::join('productos', 'productos.id', '=', 'detalle_compra.producto_id')
+        ->select(
+            'detalle_compra.cantidad',
+            'detalle_compra.precio',
+            'productos.codigo as codigo_producto',
+            'productos.nombre as nombre_producto',
+            'productos.presentacion as presentacion_producto',
+            'productos.observacion as observacion_producto'
+        )
+        ->where('detalle_compra.compra_id', $request)
+        ->orderBy('productos.id', 'asc')
+        ->get();
+    }
+
+    public function obtenerPdf($request)
+    {
+
+    }
+}

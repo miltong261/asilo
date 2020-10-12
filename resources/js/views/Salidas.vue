@@ -55,58 +55,58 @@
                                 <h5 class="text-secondary"><strong>BODEGA DE INSUMOS</strong></h5>
                             </div>
                         </div>
-                        <!-- Encabezado -->
-                        <fieldset class="border border-fieldset rounded p-3">
-                            <label class="text-danger">Encabezado</label>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de salida</label>
-                                    <input type="date" class="form-control" name="fecha_salida" v-model="fecha_salida" :class="hasError('fecha_salida') ? 'is-invalid' : ''">
-                                    <div v-if="hasError('fecha_salida')" class="invalid-feedback">
-                                        {{ errors.fecha_salida[0] }}
+
+                        <div class="d-flex justify-content-between">
+                            <!-- Encabezado -->
+                            <fieldset class="border border-fieldset rounded p-3 col-md-8 float-left">
+                                <label class="text-danger">Encabezado</label>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de salida</label>
+                                        <input type="date" class="form-control" name="fecha_salida" v-model="fecha_salida" :class="hasError('fecha_salida') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('fecha_salida')" class="invalid-feedback">
+                                            {{ errors.fecha_salida[0] }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="text-dark"><i class="fas fa-user"></i> Empleado que solicita </label>
+                                        <select id="select_empleado" class="form-control" name="empleado_id" v-model="empleado_id">
+                                            <option v-for="empleado in lista_empleados" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre_empleado+' '+empleado.apellido_empleado"></option>
+                                        </select>
+                                        <div v-if="error_empleado==1" style="color:#e7515a">
+                                            <strong>{{ error_empleado_msg[0] }}</strong>
+                                        </div>
                                     </div>
                                 </div>
+                            </fieldset>
 
-                                <div class="form-group col-md-5">
-                                    <label class="text-dark"><i class="fas fa-user"></i> Empleado que solicita </label>
-                                    <select id="select_empleado" class="form-control" name="empleado_id" v-model="empleado_id">
-                                        <option v-for="empleado in lista_empleados" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre_empleado+' '+empleado.apellido_empleado"></option>
-                                    </select>
-                                    <div v-if="error_empleado==1" style="color:#e7515a">
-                                        <strong>{{ error_empleado_msg[0] }}</strong>
+                            <br class="p-1">
+
+                            <!-- Búsqueda -->
+                            <fieldset class="border border-fieldset rounded p-3 col-md-4 float-right">
+                                <label class="text-info">Búsqueda</label>
+                                <div class="form-row">
+                                    <div class="col-md-12 form-group" v-if="option_enabled">
+                                        <label for="" class="text-dark"><i class="fas fa-store"></i> Medicamento o artículo</label>
+                                        <select id="select_option" class="form-control" name="select_option" v-model="select_option" @change="showInventario(select_option)">
+                                            <option v-for="option in options" :key="option.value" :value="option.value" v-text="option.type"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-9 form-group" v-if="option_enabled==0">
+                                        <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
+                                        <select id="select_producto" class="form-control" v-model="producto_id">
+                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-1 form-group" style="padding:30px" v-if="option_enabled==0">
+                                        <button  @click="openModalProducto()" class="btn btn-info mb-2 mr-2 rounded-circle"> <i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
-
-                                <div class="form-group col-md-3">
-                                    <label class="text-dark"><i class="fas fa-store-alt"></i> Área</label>
-                                    <input id="area" type="text" class="form-control" name="area_empleado" v-model="area_empleado">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <br>
-
-                        <!-- Búsqueda -->
-                        <fieldset class="border border-fieldset rounded p-3">
-                            <label class="text-info">Búsqueda</label>
-                            <div class="form-row">
-                                <div class="col-md-4 form-group" v-if="option_enabled">
-                                    <select id="select_option" class="form-control" name="select_option" v-model="select_option" @change="showInventario(select_option)">
-                                        <option v-for="option in options" :key="option.value" :value="option.value" v-text="option.type"></option>
-                                    </select>
-                                </div>
-
-                                <!-- <div class="col-md-4 form-group" v-if="option_enabled==0">
-                                    <select class="form-control" name="buscar_producto" v-model="buscar_producto" >
-                                        <option> Opción 1 </option>
-                                    </select>
-                                </div> -->
-
-                                <div class="col-md-1 form-group" v-if="option_enabled==0">
-                                    <button  @click="openModalProducto()" class="btn btn-info mb-2 mr-2 rounded-circle"> <i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </fieldset>
+                            </fieldset>
+                        </div>
 
                         <br>
 
@@ -324,6 +324,7 @@
                 // Listar los productos de inventario
                 modalProducto: 0,
                 lista_inventario: [],
+                producto_id: 0,
                 // Agregar los productos al detalle de la salida
                 arrayDetalle: [],
 
@@ -473,6 +474,35 @@
                     console.log(error)
                 })
             },
+            change_select_producto() {
+                let me = this
+
+                $('#select_producto').on('change', function () {
+                    me.$emit('change', this.value)
+                    me.producto_id = this.value
+
+                    me.selected_producto(me.producto_id)
+                    me.producto_id = 0
+                })
+            },
+            selected_producto(id) {
+                for (var i = 0; i < this.lista_inventario.length; i++) {
+                    if (id == this.lista_inventario[i].producto_id) {
+                        if (this.productoEncontrado(id)) {
+                            alerts.sweetAlert('error', 'El producto ya esta en la lista')
+                        } else {
+                            this.arrayDetalle.push({
+                                producto_id: this.lista_inventario[i].producto_id,
+                                codigo_producto: this.lista_inventario[i].codigo_producto,
+                                nombre_producto: this.lista_inventario[i].nombre_producto,
+                                presentacion_producto: this.lista_inventario[i].presentacion_producto,
+                                observacion_producto: this.lista_inventario[i].observacion_producto,
+                                cantidad: 1
+                            })
+                        }
+                    }
+                }
+            },
             showInventario(type) {
                 let me = this
                 var url
@@ -489,6 +519,10 @@
                 axios.get(url).then(function (response) {
                     me.lista_inventario = response.data
                     me.dataTable('#listado_producto')
+                    $('#select_producto').select2({
+                        placeholder: 'Seleccione el producto'
+                    })
+                    me.change_select_producto()
                 }).catch(function (error) {
                     console.log(error)
                 })
@@ -566,7 +600,7 @@
                     cabecera = response.data
 
                     me.salida_codigo = cabecera[0]['codigo']
-                    me.salida_nombre_empleado = cabecera[0]['nombre_empleado'].toUpperCase() + ' ' + cabecera[0]['apellido_empleado'].toUpperCase()
+                    me.salida_nombre_empleado = cabecera[0]['nombre_empleado'] + ' ' + cabecera[0]['apellido_empleado']
                     me.salida_nombre_area = cabecera[0]['nombre_area']
                     me.salida_fecha_registro = cabecera[0]['fecha_registro']
                     me.salida_fecha_salida = cabecera[0]['fecha_salida']

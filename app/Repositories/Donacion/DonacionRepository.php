@@ -4,6 +4,7 @@ namespace App\Repositories\Donacion;
 
 use App\Models\Donacion;
 use App\Models\DetalleDonacion;
+use App\Models\Producto;
 use App\Models\Inventario;
 use App\Repositories\BaseRepository;
 

@@ -4,6 +4,7 @@ namespace App\Repositories\Compra;
 
 use App\Models\Compra;
 use App\Models\DetalleCompra;
+use App\Models\Producto;
 use App\Models\Inventario;
 use App\Models\TipoMovimiento;
 use App\Models\Movimiento;
@@ -66,6 +67,9 @@ class CompraRepository extends BaseRepository
                                 $detalle_compra->cantidad = $detalle['cantidad'];
                                 $detalle_compra->precio = $detalle['precio'];
                                 $detalle_compra->save();
+
+                                $ultima_compra = Producto::findOrFail($detalle_compra->producto_id);
+                                $ultima_compra->update(['fecha_ultima_compra' => $request['fecha_registro']]);
                             } catch (\Throwable $th) {
                                 DB::rollBack();
                                 return $th;

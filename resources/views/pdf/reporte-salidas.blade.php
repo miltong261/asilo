@@ -3,26 +3,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Salidas</title>
-    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/public/assets/css/style-salidas.css">
-    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/public/assets/css/main.min.css">
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
+    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-salidas.css">
+    <link rel="stylesheet" href="../../assets/css/style-salidas.css">  
+     <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
     <body>
         <header>
             @foreach ($encabezado_salida as $encabezado)
             <table class="text-center" id="tabla-encabezado">
                 <tr>
-                    <td id="td-img"> <img src="/var/www/html/proyectos/asilo/public/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen"> </td>
-                    <td>  <h3 class="text-secondary"> ASILO DE ANCIANOS RETALHULEU</h3>
+                    <td id="td-img">
+                        <img src="C:/xampp/htdocs/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                    </td>
+                    <td> 
+                        <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
                         <h5> Residenciales Ciudad Palmeras </h5>
                         <h5>Cantón Recuerdo Ocosito, Retalhuleu </h5>
                         <h4> BODEGA DE INSUMOS</h4>
-                    <td> <h3 class="text-secondary" id="codigo">{{ $encabezado->codigo }}</h3> </td>
+                    <td style="display: table-cell;vertical-align: middle;">
+                        <h4 id="codigo">{{ $encabezado->codigo }}</h4>
+                    </td>
                 </tr>
             </table>
 
             <table id="tabla-empleado">
                 <tr>
-                    <td style="width: 20%" > <strong>Empleado que solicita: </strong></td>
+                    <td style="width: 35%" > <strong>Empleado que solicita: </strong></td>
                     <td > {{ $encabezado->nombre_empleado .' '. $encabezado->apellido_empleado }} </td>
                 </tr>
                 <tr>
@@ -47,7 +52,7 @@
             <table id="tabla-datos" class="text-center table ">
                 <thead>
                     <tr id="fila-encabezado">
-                        <th style="width: 10%;">  <i class="fas fa-hashtag"></i> </th>
+                        <th style="width: 10%;"> # </th>
                         <th> <i class="fas fa-qrcode"></i> CÓDIGO</th>
                         <th> <i class="fas fa-store"></i> NOMBRE</th>
                         <th> <i class="fas fa-store"></i> PRESENTACIÓN</th>
@@ -55,7 +60,7 @@
                         <th> <i class="fas fa-sort-numeric-up-alt"></i> CANTIDAD</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody  style="text-align: center;">
                     <tr>
                         <td>{{ $index+1 }}</td>
                         <td>{{ $detalle->codigo_producto }}</td>
@@ -63,7 +68,6 @@
                         <td>{{ $detalle->presentacion_producto }}</td>
                         <td>{{ $detalle->observacion_producto }}</td>
                         <td > {{ $detalle->cantidad }}</td>
-                        <td>1</td>
                     </tr>
                 </tbody>
             </table>
@@ -76,18 +80,19 @@
                 <tr>
                     <td >Recibió (F)</td>
                     <td class="info"></td>
-
-                    <td>Entregó </td>
-                    <td class="info"></td>
-
-                    <td>Autorizó (F)</td>
+                    <td>Nombre </td>
                     <td class="info"></td>
                 </tr>
+
                 <tr>
+                    <td>Autorizó (F)</td>
+                    <td class="info"></td>
                     <td>Nombre</td>
                     <td class="info"></td>
+                </tr>
 
-                    <td>Nombre</td>
+                <tr>
+                    <td>Entregó (F)</td>
                     <td class="info"></td>
 
                     <td>Nombre</td>

@@ -1,4 +1,3 @@
-
 body {
         font-family: Arial, sans-serif; 
         font-size: 14px;
@@ -15,28 +14,11 @@ table:not(#tabla-empleado){
         text-align: center
 }
 
-#tabla-datos:not(th):not(td){        
-        background: lightslategray;
-}
-
-#tabla-datos, #tabla-datos td, #tabla-datos th
-{
-        border: solid 0.5pt lightslategray;
-        background: #f1f2f3;
-        
-}
 
 #fila-encabezado th{
         display: table-cell;
         vertical-align: middle;
-}
-
-#tabla-datos{
-        margin-top: 2%; 
-}
-
-#tabla-datos td, #tabla-datos th{
-      height: 50px;
+        color:#5c1ac3; /* text-secondary */
 }
 
 #logo{
@@ -45,10 +27,10 @@ table:not(#tabla-empleado){
         margin-left: 2%;
         margin-right: 2%;
 }
-
 #tabla-encabezado{
         text-align: center;
         width: 100%;
+        margin-bottom: 2%;
 }
 
 #tabla-encabezado h3,
@@ -58,25 +40,25 @@ table:not(#tabla-empleado){
 }
 
 #tabla-encabezado h4{
-        margin-top: 2%; 
+        margin-top: 0%; 
+        margin-bottom:0; 
+        color:#5c1ac3; /* text-secondary */
 }
 
 #tabla-encabezado td{
-        width: 30%;
+        width: 33%;
+        display: table-cell;
+        vertical-align: middle;
 }
-
-
-
 #codigo{
         float: right;
         margin-right: 10%;
 }
 
 #imagen{
-        float: left;
-        width: 25%;
-        align-items: left; 
+        width: 50%;
 }
+
 
 footer{
         bottom: 0;
@@ -92,6 +74,24 @@ footer{
         
 }
 .info{
-        width: 25%;
+        width: 35%;
         border-bottom: solid gray; 
+}
+
+#tabla-datos{
+        margin-top: 2%; 
+        border-radius: 2%; 
+}
+
+#tabla-datos td, #tabla-datos th{
+      height: 50px;
+}
+
+#tabla-datos:not(th):not(td){        
+        background: lightslategray;
+}
+
+#tabla-datos, #tabla-datos tr, #tabla-datos td, #tabla-datos th{
+        border: solid 1pt lightslategray;
+        background: white;
 }

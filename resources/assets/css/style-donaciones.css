@@ -1,14 +1,20 @@
 body {
         font-family: Arial, sans-serif; 
         font-size: 14px;
-        width: 80%;
-        margin: auto;
-        display: block;
+        width: 100%;
+        margin: 0;
+        background-color: white;
+}
+
+body,html{
+        height: 100%;
+        width: 100%;
 }
 
 table{
         width: 100%;
 }
+
 table:not(#tabla-donador){
         text-align: center
 }
@@ -16,10 +22,12 @@ table:not(#tabla-donador){
 #fila-encabezado th{
         display: table-cell;
         vertical-align: middle;
+        color:#5c1ac3; /* text-secondary */
 }
 
 #tabla-datos{
         margin-top: 2%; 
+        border-radius: 2%; 
 }
 
 #tabla-datos td, #tabla-datos th{
@@ -30,10 +38,9 @@ table:not(#tabla-donador){
         background: lightslategray;
 }
 
-#tabla-datos, #tabla-datos td, #tabla-datos th{
-        border: solid 0.5pt lightslategray;
-        background: #f1f2f3;
-        
+#tabla-datos, #tabla-datos tr, #tabla-datos td, #tabla-datos th{
+        border: solid 1pt lightslategray;
+        background: white;
 }
 
 #logo{
@@ -43,41 +50,36 @@ table:not(#tabla-donador){
         margin-right: 2%;
 }
 
-#tabla-encabezado{
-        text-align: center;
-        width: 100%;
+#container h3,
+#container h5{
+        margin:  0;
 }
 
-#tabla-encabezado h3,
-#tabla-encabezado h5{
-        margin-top: 0;
-        margin-bottom: 0;  
-}
-
-#tabla-encabezado h4{
-        margin-top: 2%; 
-}
-
-#tabla-encabezado td{
-        width: 30%;
+#container h4{
+        margin-top: 0%; 
+        margin-bottom: 0%;
+        color:#5c1ac3
 }
 
 #codigo{
         float: right;
         margin-right: 10%;
+        margin-top: 5%; 
+        color:#5c1ac3
 }
 
 #imagen{
-        float: left;
-        width: 25%;
-        align-items: left; 
+        width: 50%;
 }
 
+#pie td{
+        text-align: center;
+        
+}
 .info{
-        width: 43%;
+        width: 35%;
         border-bottom: solid gray; 
 }
-
 footer{
         bottom: 0;
         position: relative;
@@ -89,4 +91,28 @@ footer{
 
 #pie td{
         text-align: center;
+}
+
+#tabla-encabezado{
+        text-align: center;
+        width: 100%;
+        margin-bottom: 2%;
+}
+
+#tabla-encabezado h3,
+#tabla-encabezado h5{
+        margin-top: 0;
+        margin-bottom: 0;  
+}
+
+#tabla-encabezado h4{
+        margin-top: 0%; 
+        margin-bottom:0; 
+        color:#5c1ac3; /* text-secondary */
+}
+
+#tabla-encabezado td{
+        width: 33%;
+        display: table-cell;
+        vertical-align: middle;
 }

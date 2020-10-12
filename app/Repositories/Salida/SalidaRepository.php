@@ -4,6 +4,7 @@ namespace App\Repositories\Salida;
 
 use App\Models\Salida;
 use App\Models\DetalleSalida;
+use App\Models\Producto;
 use App\Models\Inventario;
 use App\Repositories\BaseRepository;
 
@@ -50,6 +51,9 @@ class SalidaRepository extends BaseRepository
                             $detalle_salida->producto_id = $detalle['producto_id'];
                             $detalle_salida->cantidad = $detalle['cantidad'];
                             $detalle_salida->save();
+
+                            $ultima_salida = Producto::findOrFail($detalle_salida->producto_id);
+                            $ultima_salida->update(['fecha_ultima_salida' => $request['fecha_registro']]);
                         } else {
                             DB::rollback();
                             return response()->json([

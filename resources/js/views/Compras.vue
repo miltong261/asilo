@@ -56,45 +56,52 @@
                             </div>
                         </div>
 
-                        <!-- Encabezado -->
-                        <fieldset class="border border-fieldset rounded p-3">
-                            <label class="text-danger">Encabezado</label>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-3">
-                                    <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de compra</label>
-                                    <input type="date" class="form-control" name="fecha_compra" v-model="fecha_compra" :class="hasError('fecha_salida') ? 'is-invalid' : ''">
-                                    <div v-if="hasError('fecha_compra')" class="invalid-feedback">
-                                        {{ errors.fecha_compra[0] }}
+                        <div class="d-flex justify-content-between">
+                            <!-- Encabezado -->
+                            <fieldset class="border border-fieldset rounded p-3 col-md-8 float-left">
+                                <label class="text-danger">Encabezado</label>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de compra</label>
+                                        <input type="date" class="form-control" name="fecha_compra" v-model="fecha_compra" :class="hasError('fecha_salida') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('fecha_compra')" class="invalid-feedback">
+                                            {{ errors.fecha_compra[0] }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="text-dark"><i class="fas fa-store-alt"></i> Documento</label>
+                                        <input id="area" type="text" class="form-control" name="documento" v-model="documento">
                                     </div>
                                 </div>
+                            </fieldset>
 
-                                <div class="form-group col-md-3">
-                                    <label class="text-dark"><i class="fas fa-store-alt"></i> Documento</label>
-                                    <input id="area" type="text" class="form-control" name="documento" v-model="documento">
+                            <br class="p-1">
+
+                            <!-- Búsqueda -->
+                            <fieldset class="border border-fieldset rounded p-3 col-md-4 float-right">
+                                <label class="text-info">Búsqueda</label>
+                                <div class="form-row">
+                                    <div class="col-md-12 form-group" v-if="option_enabled">
+                                        <label for="" class="text-dark"><i class="fas fa-store"></i> Medicamento o artículo</label>
+                                        <select id="select_option" class="form-control" name="select_option" v-model="select_option" @change="showInventario(select_option)">
+                                            <option v-for="option in options" :key="option.value" :value="option.value" v-text="option.type"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-9 form-group" v-if="option_enabled==0">
+                                        <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
+                                        <select id="select_producto" class="form-control" v-model="producto_id">
+                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-1 form-group" style="padding:30px" v-if="option_enabled==0">
+                                        <button  @click="openModalProducto()" class="btn btn-info mb-2 mr-2 rounded-circle"> <i class="fas fa-search"></i></button>
+                                    </div>
                                 </div>
-
-                                <div class="form-group col-md-3"></div>
-
-
-                                <div class="col-md-3 form-group" v-if="option_enabled">
-                                    <label class="text-info">Búsqueda</label>
-                                    <select id="select_option" class="form-control" name="select_option" v-model="select_option" @change="showInventario(select_option)">
-                                        <option v-for="option in options" :key="option.value" :value="option.value" v-text="option.type"></option>
-                                    </select>
-                                </div>
-
-                                <!-- <div class="col-md-2 form-group" v-if="option_enabled==0">
-                                    <label class="text-info">Búsqueda</label>
-                                    <select class="form-control" name="buscar_producto">
-                                        <option> Opción 1 </option>
-                                    </select>
-                                </div> -->
-
-                                <div class="form-group col-md-1 mb-0" style="padding:30px"  v-if="option_enabled==0">
-                                    <button  @click="openModalProducto()" class="btn btn-info mb-2 mr-2 rounded-circle"> <i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </fieldset>
+                            </fieldset>
+                        </div>
 
                         <br>
 
@@ -201,6 +208,7 @@
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
+                                            <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Precio</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
@@ -211,6 +219,7 @@
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td v-text="detalle.cantidad"></td>
+                                            <td v-text="detalle.precio"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -317,6 +326,7 @@
                 // Listar los productos de inventario
                 modalProducto: 0,
                 lista_inventario: [],
+                producto_id: 0,
                 // Agregar los productos al detalle de la compra
                 arrayDetalle: [],
 
@@ -450,9 +460,43 @@
                 axios.get(url).then(function (response) {
                     me.lista_inventario = response.data
                     me.dataTable('#listado_producto')
+                    $('#select_producto').select2({
+                        placeholder: 'Seleccione el producto'
+                    })
+                    me.change_select_producto()
                 }).catch(function (error) {
                     console.log(error)
                 })
+            },
+            change_select_producto() {
+                let me = this
+
+                $('#select_producto').on('change', function () {
+                    me.$emit('change', this.value)
+                    me.producto_id = this.value
+
+                    me.selected_producto(me.producto_id)
+                    me.producto_id = 0
+                })
+            },
+            selected_producto(id) {
+                for (var i = 0; i < this.lista_inventario.length; i++) {
+                    if (id == this.lista_inventario[i].producto_id) {
+                        if (this.productoEncontrado(id)) {
+                            alerts.sweetAlert('error', 'El producto ya esta en la lista')
+                        } else {
+                            this.arrayDetalle.push({
+                                producto_id: this.lista_inventario[i].producto_id,
+                                codigo_producto: this.lista_inventario[i].codigo_producto,
+                                nombre_producto: this.lista_inventario[i].nombre_producto,
+                                presentacion_producto: this.lista_inventario[i].presentacion_producto,
+                                observacion_producto: this.lista_inventario[i].observacion_producto,
+                                cantidad: 1,
+                                precio: 1
+                            })
+                        }
+                    }
+                }
             },
             agregarDetalle(data = []) {
                 let me = this;

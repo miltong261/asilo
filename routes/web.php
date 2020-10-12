@@ -204,3 +204,7 @@ Route::group(['prefix' => 'donaciones'], function () {
     Route::post('/store', 'Dashboard\DonacionController@store');
     Route::get('/pdf/{id}', 'Dashboard\DonacionController@pdf');
 });
+
+// Dashboard
+
+// Route::get('dashboard', 'Dasboard\DashboardController');

@@ -290,6 +290,7 @@
 </template>
 
 <script>
+    var moment = require('moment')
     import * as alerts from '../functions/alerts.js'
 
     export default {
@@ -388,6 +389,7 @@
             },
             otherError() {
                 let errores = 0
+                let actual = moment()
 
                 if (!this.arrayDetalle.length) {
                     alerts.sweetAlert('error', 'No hay productos seleccionados')
@@ -403,11 +405,16 @@
                     }
                 }
 
-                if(this.empleado_id == 0) {
+                if (this.empleado_id == 0) {
                     this.error_empleado = 1
                     this.error_empleado_msg.push("No ha seleccionado al empleado que solicita los productos")
                     errores = 1
                 }
+
+                // if (moment(this.fecha_salida).isAfter(actual)){
+                //     alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                //     errores = 1
+                // }
 
                 return errores
             },
@@ -597,7 +604,7 @@
                 alerts.sweetAlert('success', 'INSPECCIÓN FINALIZADA')
             },
             pdf(id) {
-
+                window.open('/salidas/pdf/'+ id + ',' + '_blank');
             }
         },
         mounted() {

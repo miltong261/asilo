@@ -61,8 +61,8 @@ class SalidaController extends Controller
         return response()->json($this->salidaRepository->obtenerDetalleSalida($request->id));
     }
 
-    public function pdf(Request $request)
+    public function pdf($id)
     {
-
+        return $this->salidaRepository->pdfSalida($id);
     }
 }

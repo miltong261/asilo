@@ -284,6 +284,7 @@
 </template>
 
 <script>
+    var moment = require('moment')
     import * as alerts from '../functions/alerts.js'
 
     export default {
@@ -377,6 +378,8 @@
             },
             otherError() {
                 let errores = 0
+                let actual = moment()
+
                 if (!this.arrayDetalle.length) {
                     alerts.sweetAlert('error', 'No hay productos seleccionados')
                     errores = 1
@@ -390,6 +393,12 @@
                         }
                     }
                 }
+
+                // if (moment(this.fecha_salida).isAfter(actual)){
+                //     alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                //     errores = 1
+                //     console.log(actual)
+                // }
 
                 return errores
             },
@@ -561,7 +570,7 @@
                 alerts.sweetAlert('success', 'INSPECCIÓN FINALIZADA')
             },
             pdf(id) {
-
+                window.open('/donaciones/pdf/'+ id + ',' + '_blank');
             }
         },
         mounted() {

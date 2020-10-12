@@ -78,17 +78,17 @@
 
                                 <div class="col-md-3 form-group" v-if="option_enabled">
                                     <label class="text-info">Búsqueda</label>
-                                    <select id="select_option" class="form-control" name="select_option" v-model="select_option">
+                                    <select id="select_option" class="form-control" name="select_option" v-model="select_option" @change="showInventario(select_option)">
                                         <option v-for="option in options" :key="option.value" :value="option.value" v-text="option.type"></option>
                                     </select>
                                 </div>
 
-                                <div class="col-md-2 form-group" v-if="option_enabled==0">
+                                <!-- <div class="col-md-2 form-group" v-if="option_enabled==0">
                                     <label class="text-info">Búsqueda</label>
                                     <select class="form-control" name="buscar_producto">
                                         <option> Opción 1 </option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group col-md-1 mb-0" style="padding:30px"  v-if="option_enabled==0">
                                     <button  @click="openModalProducto()" class="btn btn-info mb-2 mr-2 rounded-circle"> <i class="fas fa-search"></i></button>
@@ -284,6 +284,7 @@
 </template>
 
 <script>
+    var moment = require('moment')
     import * as alerts from '../functions/alerts.js'
 
     export default {
@@ -375,6 +376,7 @@
             },
             otherError() {
                 let errores = 0
+                let actual = moment()
 
                 if (!this.arrayDetalle.length) {
                     alerts.sweetAlert('error', 'No hay productos seleccionados')
@@ -393,6 +395,11 @@
                         }
                     }
                 }
+
+                // if (moment(this.fecha_salida).isAfter(actual)){
+                //     alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                //     errores = 1
+                // }
 
                 return errores
             },
@@ -565,7 +572,6 @@
         },
         mounted() {
             this.showList()
-            $('#select_option').select2()
         },
         computed: {
             calcularTotal: function() {

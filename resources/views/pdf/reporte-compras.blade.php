@@ -3,47 +3,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Compras</title>
-    <link rel="stylesheet" href="../../assets/css/style-compras.css">
-    <link rel="stylesheet" href="../../../public/assets/css/main.min.css">
+    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/public/assets/css/style-compras.css">
+    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/public/assets/css/main.min.css">
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
     <body>
-        @foreach ($reserva as $r)
         <header>
+            @foreach ($encabezado_compra as $encabezado)
             <table class="text-center" id="tabla-encabezado">
                 <tr>
-                    <td id="td-img"> <img src="../../assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen"> </td>
+                    <td id="td-img"> <img src="/var/www/html/proyectos/asilo/public/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen"> </td>
                     <td>  <h3 class="text-secondary"> ASILO DE ANCIANOS RETALHULEU</h3>
                         <h5> Residenciales Ciudad Palmeras </h5>
                         <h5>Cantón Recuerdo Ocosito, Retalhuleu </h5>
                         <h4> BODEGA DE INSUMOS</h4>
-                    <td> <h3 class="text-secondary" id="codigo">Factura No. 000</h3> </td>
+                    <td> <h3 class="text-secondary" id="codigo">{{ $encabezado_compra }}</h3> </td>
                 </tr>
             </table>
 
             <table id="tabla-empleado">
                 <tr>
-                    <td style="width: 20%" > <strong>Empleado: </strong></td>
-                    <td > </td>
-                </tr>
-                <tr>
-                    <td> <strong>Área: </strong> </td> 
-                    <td> </td>
+                    <td style="width: 20%" > <strong>Documento: </strong></td>
+                    <td > {{ $encabezado->documento }} </td>
                 </tr>
                 <tr>
                     <td > <strong>Fecha de Registro: </strong> </td>
-                    <td> </td>
+                    <td> {{ $encabezado->fecha_registro }} </td>
                 </tr>
                 <tr>
                     <td > <strong>Fecha de Compra: </strong> </td>
-                    <td> </td>
+                    <td> {{ $encabezado->fecha_compra }} </td>
                 </tr>
             </table>
-
+            @endforeach
         </header>
-        
-        @endforeach
 
-
+        @foreach ($detalle_compra as $index => $detalle)
         <!-- INICIO TABLA -->
         <div class="table-responsive">
                 <table id="tabla-datos" class="text-center table ">

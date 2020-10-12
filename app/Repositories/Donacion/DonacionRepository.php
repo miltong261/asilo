@@ -81,8 +81,12 @@ class DonacionRepository extends BaseRepository
         ->get();
     }
 
-    public function obtenerPdf($request)
+    public function pdfDonacion($id)
     {
+        $encabezado_donacion = $this->obtenerCabeceraDonacion($id);
+        $detalle_donacion = $this->obtenerDetalleDonacion($id);
 
+        $pdf = \PDF::loadView('pdf.reporte-donaciones', compact('encabezado_donacion', 'detalle_donacion'));
+        return $pdf->download('pdf-'.$encabezado_donacion[0]->codigo.'.pdf');
     }
 }

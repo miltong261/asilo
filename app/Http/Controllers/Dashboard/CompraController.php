@@ -54,8 +54,8 @@ class CompraController extends Controller
         return response()->json($this->compraRepository->obtenerDetalleCompra($request->id));
     }
 
-    public function pdf(Request $request)
+    public function pdf($id)
     {
-
+        return $compraRepository->pdfCompra($id);
     }
 }

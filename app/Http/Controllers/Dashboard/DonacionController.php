@@ -67,8 +67,8 @@ class DonacionController extends Controller
         return response()->json($this->donacionRepository->obtenerDetalleDonacion($request->id));
     }
 
-    public function pdf(Request $request)
+    public function pdf($id)
     {
-
+        return $this->donacionRepository->pdfDonacion($id);
     }
 }

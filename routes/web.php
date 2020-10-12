@@ -132,6 +132,10 @@ Route::group(['prefix' => 'residentes'], function () {
     Route::get('/', 'Dashboard\ResidenteController@index');
     Route::post('/store', 'Dashboard\ResidenteController@store');
     Route::put('/update', 'Dashboard\ResidenteController@update');
+    Route::get('/pdf/{id}', 'Dashboard\ResidenteController@pdf');
+    // Route::get('/pdf', function () {
+    //     return view('pdf.formulario');
+    // });
 });
 
 /** Rutas de inventario */
@@ -178,6 +182,7 @@ Route::group(['prefix' => 'compras'], function () {
     Route::get('/cabecera', 'Dashboard\CompraController@cabecera');
     Route::get('/detalle', 'Dashboard\CompraController@detalle');
     Route::post('/store', 'Dashboard\CompraController@store');
+    Route::get('/pdf/{id}', 'Dashboard\CompraController@pdf');
 });
 
 /** Rutas de salidas */
@@ -187,6 +192,7 @@ Route::group(['prefix' => 'salidas'], function () {
     Route::get('/cabecera', 'Dashboard\SalidaController@cabecera');
     Route::get('/detalle', 'Dashboard\SalidaController@detalle');
     Route::post('/store', 'Dashboard\SalidaController@store');
+    Route::get('/pdf/{id}', 'Dashboard\SalidaController@pdf');
 });
 
 /** Rutas de donaciones */
@@ -196,4 +202,5 @@ Route::group(['prefix' => 'donaciones'], function () {
     Route::get('/cabecera', 'Dashboard\DonacionController@cabecera');
     Route::get('/detalle', 'Dashboard\DonacionController@detalle');
     Route::post('/store', 'Dashboard\DonacionController@store');
+    Route::get('/pdf/{id}', 'Dashboard\DonacionController@pdf');
 });

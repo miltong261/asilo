@@ -1,0 +1,74 @@
+body{
+        font-family: Arial, sans-serif; 
+        font-size: 14px;
+        width: 80%;
+        height: 100%;
+        margin: auto;
+        display: block;
+}
+
+
+table{
+        width: 100%;
+}
+
+table:not(#tabla-fecha){
+        text-align: center
+}
+
+#fila-encabezado {
+        display: table-cell;
+        vertical-align: middle;
+}
+
+#tabla-datos{
+        margin-top: 2%;  
+        margin-bottom: 5%;  
+        height: 100%;  
+}
+   
+#tabla-datos, #tabla-datos td, #tabla-datos th{
+        border: solid 0.5pt #f1f2f3;
+        text-align: left;
+}
+
+#tabla-datos th:not(.firma){
+      height: 40;
+}
+
+
+#tabla-encabezado{
+        text-align: center;
+        width: 100%;
+}
+
+#tabla-encabezado h3,
+#tabla-encabezado h5{
+        margin-top: 0;
+        margin-bottom: 0;  
+}
+
+#tabla-encabezado h4{
+        margin-top: 2%; 
+}
+
+#tabla-encabezado td{
+        width: 30%;
+}
+
+#codigo{
+        float: right;
+        margin-right: 10%;
+}
+
+#imagen{
+        float: left;
+        width: 25%;
+}
+
+footer{
+        bottom: 0;
+        position: absolute;
+  
+        width: 80%;
+}

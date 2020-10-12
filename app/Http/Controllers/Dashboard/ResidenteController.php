@@ -11,7 +11,6 @@ use App\Repositories\Residente\ResidenteRepository;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Laravel\Ui\Presets\React;
 
 class ResidenteController extends Controller
 {
@@ -133,5 +132,10 @@ class ResidenteController extends Controller
             DB::rollback();
             return $th;
         }
+    }
+
+    public function pdf($id)
+    {
+        return $this->residenteRepository->pdfResidente($id);
     }
 }

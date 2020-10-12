@@ -70,13 +70,6 @@ class SalidaRepository extends BaseRepository
             DB::rollBack();
             return $th;
         }
-
-
-
-
-
-        // if($encabezado)
-        //     return 'exitoso';
     }
 
     public function obtenerCabeceraSalida($request)
@@ -113,8 +106,12 @@ class SalidaRepository extends BaseRepository
         ->get();
     }
 
-    public function obtenerPdf($request)
+    public function pdfSalida($id)
     {
+        $encabezado_salida = $this->obtenerCabeceraSalida($id);
+        $detalle_salida = $this->obtenerDetalleSalida($id);
 
+        $pdf = \PDF::loadView('pdf.reporte-salidas', compact('encabezado_salida', 'detalle_salida'));
+        return $pdf->download('pdf-'.$encabezado_salida[0]->codigo.'.pdf');
     }
 }

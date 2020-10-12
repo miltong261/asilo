@@ -196,7 +196,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label><i class="far fa-calendar-alt"></i> Fecha de ingreso</label>
-                                    <input type="date" class="form-control text-dark" name="fecha_ingreso" disabled>
+                                    <input type="date" class="form-control text-dark" name="fecha_ingreso" v-model="fecha_ingreso" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -254,7 +254,7 @@ export default {
             lista_empleados: [],
             nombre: '',
             apellido: '',
-            // fecha_ingreso: '',
+            fecha_ingreso: '',
             fecha_nacimiento: '',
             edad: '',
             dpi: '',
@@ -323,11 +323,15 @@ export default {
             this.puesto_nombre = data['puesto_nombre']
             this.codigo = data['codigo']
             this.nombre = data['nombre'] + ' ' + data['apellido']
-            // this.fecha_ingreso = data['fecha_ingreso'].moment().format('MMMM Do YYYY, h:mm:ss a')
+            this.fecha_ingreso = data['fecha_ingreso']
             this.fecha_nacimiento = data['fecha_nacimiento']
             this.dpi = data['dpi']
             this.direccion = data['direccion']
             this.telefono = data['telefono']
+
+            let actual = moment()
+
+            this.edad = actual.diff(this.fecha_nacimiento, 'years')
         },
         closeModalEmpleado() {
             this.modalEmpleado = 0
@@ -337,7 +341,7 @@ export default {
             this.puesto_nombre = ''
             this.codigo = ''
             this.nombre = ''
-            // this.fecha_ingreso = ''
+            this.fecha_ingreso = ''
             this.fecha_nacimiento = ''
             this.edad = ''
             this.dpi = ''

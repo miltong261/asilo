@@ -132,8 +132,12 @@ class CompraRepository extends BaseRepository
         ->get();
     }
 
-    public function obtenerPdf($request)
+    public function pdfCompra($id)
     {
+        $encabezado_compra = $this->obtenerCabeceraCompra($id);
+        $detalle_compra = $this->obtenerDetalleCompra($id);
 
+        $pdf = \PDF::loadView('pdf.reporte-compras', compact('encabezado_compra', 'detalle_compra'));
+        return $pdf->download('pdf-'.$encabezado_compra[0]->codigo.'.pdf');
     }
 }

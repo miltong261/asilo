@@ -13,10 +13,9 @@
                                     <tr>
                                         <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
+                                        <th class="text-center"><i class="fas fa-calendar-alt"></i> Ingresó</th>
                                         <th class="text-center"><i class="fas fa-user-check"></i> Nombre</th>
                                         <th class="text-center"><i class="fas fa-user-check"></i> Apellido</th>
-                                        <th class="text-center"><i class="fas fa-pager"></i> Edad</th>
-                                        <th class="text-center"><i class="fas fa-id-card"></i> DPI</th>
                                         <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                         <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                     </tr>
@@ -25,10 +24,9 @@
                                     <tr v-for="(residente, index) in lista_residentes " :key="residente.id">
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="residente.codigo" class="text-center"></td>
+                                    <td v-text="residente.fecha_ingreso" class="text-center"></td>
                                     <td v-text="residente.nombre" class="text-center"></td>
                                     <td v-text="residente.apellido" class="text-center"></td>
-                                    <td v-text="residente.edad" class="text-center"></td>
-                                    <td v-text="residente.dpi" class="text-center"></td>
 
                                     <td class="text-center">
                                         <div v-if="residente.estado">
@@ -40,6 +38,7 @@
                                     </td>
 
                                     <td class="text-center">
+                                        <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                         <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                         <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         <template v-if="residente.estado">
@@ -198,37 +197,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- <div class="form-row mb-0">
-                                            <div class="form-group col-md-2">
-                                                <label class="text-dark"><i class="fas fa-heartbeat"></i> Pulso</label>
-                                                <input type="text" class="form-control" :class="hasError('pulso') ? 'is-invalid' : ''" name="pulso" v-model="pulso">
-                                                <div v-if="hasError('pulso')" class="invalid-feedback">
-                                                    {{ errors.pulso[0] }}
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label class="text-dark"><i class="fas fa-thermometer-three-quarters"></i> Temperatura</label>
-                                                <input type="text" class="form-control" :class="hasError('temperatura') ? 'is-invalid' : ''" name="temperatura" v-model="temperatura">
-                                                <div v-if="hasError('temperatura')" class="invalid-feedback">
-                                                    {{ errors.temperatura[0] }}
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-stethoscope"></i> Presión arterial</label>
-                                                <input type="text" class="form-control" :class="hasError('presion') ? 'is-invalid' : ''" name="presion" v-model="presion">
-                                                <div v-if="hasError('presion')" class="invalid-feedback">
-                                                    {{ errors.presion[0] }}
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-weight"></i> Peso</label>
-                                                <input type="text" class="form-control" :class="hasError('peso') ? 'is-invalid' : ''" name="peso" v-model="peso">
-                                                <div v-if="hasError('peso')" class="invalid-feedback">
-                                                    {{ errors.peso[0] }}
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </fieldset>
 
                                     <div class="form-row mb-0">
@@ -374,7 +342,8 @@
 </template>
 
 <script>
-    import * as alerts from '../functions/alerts.js'
+var moment = require('moment')
+import * as alerts from '../functions/alerts.js'
 
     export default {
         data() {
@@ -487,6 +456,9 @@
                 this.estado = data['estado']
                 this.historial = data['historial']
                 this.observacion = data['observacion']
+
+                let actual = moment()
+                this.edad = actual.diff(this.fecha_nacimiento, 'years')
             },
             closeForm(){
                 this.departamento_origen_id = 0
@@ -775,6 +747,9 @@
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
+            },
+            pdf(id) {
+                window.open('/residentes/pdf/'+ id + ',' + '_blank');
             }
         },
         mounted() {

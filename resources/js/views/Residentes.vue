@@ -234,7 +234,7 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label><i class="fas fa-qrcode"></i> Código</label>
                                     <input style="height:35px" v-model="codigo" class="form-control text-dark"  disabled>
                                 </div>
@@ -244,7 +244,7 @@
                                     <input style="height:35px" v-model="nombre" class="form-control text-dark" disabled>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
                                     <label><i class="far fa-calendar-alt"></i> Fecha nacimiento</label>
                                     <input style="height:35px" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
                                 </div>

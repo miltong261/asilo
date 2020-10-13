@@ -376,8 +376,6 @@
             closeModalProducto() {
                 this.modalProducto = 0
                 this.titulo = ''
-
-                alerts.sweetAlert('success', 'Acción finalizada')
             },
             hasError(field) {
                 return field in (this.errors)

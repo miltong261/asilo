@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css">
-    <link rel="stylesheet" href="../../assets/css/style-formulario.css">  
+    {{-- <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> --}}
+    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css">
+    {{-- <link rel="stylesheet" href="../../assets/css/style-formulario.css">   --}}
 </head>
 <body>
     <header>
         <table class="text-center" id="tabla-encabezado">
             <tr>
                 <td id="td-img">
-                    <img src="C:/xampp/htdocs/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                    <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                 </td>
-                <td> 
+                <td>
                     <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
                     <h5> Residenciales Ciudad Palmeras </h5>
                     <h5>Cantón Recuerdo Ocosito, Retalhuleu </h5>
-                </td>   
+                </td>
                 <td></td>
                 <tr>
                 <td colspan="3">  <strong> <h4 style="margin-top: 1%; text-decoration: underline black;" >  DATOS PERSONALES</h4> </strong> </td>
                 </tr>
-                
+
             </tr>
         </table>
 
@@ -70,13 +71,13 @@
                     <tr>
                         <th class="titulo">Dirección:</th>
                         <th colspan="3"> {{ $residente->direccion }} </th>
-                        
+
                     </tr>
 
                     <tr>
                         <th class="titulo">Persona referida:</th>
                         <th > {{ $residente->persona_referida }} </th>
-                       
+
                     </tr>
 
                     <tr>
@@ -86,7 +87,7 @@
                     <tr>
                         <th class="titulo">Dirección:</th>
                         <th colspan="3"> {{ $residente->direccion_persona_referida }} </th>
-                        
+
                     </tr>
 
                     <tr>
@@ -95,7 +96,7 @@
                     </tr>
                     <tr>
                         <th class="titulo">Estado del residente</th>
-                        <th  colspan="3"> {{ $residente->estado }} </th>                     
+                        <th  colspan="3"> {{ $residente->estado }} </th>
                     </tr>
 
                     <tr>

@@ -61,7 +61,7 @@
                             <fieldset class="border border-fieldset rounded p-3 col-md-8 float-left">
                                 <label class="text-danger">Encabezado</label>
                                 <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-3">
                                         <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de salida</label>
                                         <input type="date" class="form-control" name="fecha_salida" v-model="fecha_salida" :class="hasError('fecha_salida') ? 'is-invalid' : ''">
                                         <div v-if="hasError('fecha_salida')" class="invalid-feedback">
@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-5">
                                         <label class="text-dark"><i class="fas fa-user"></i> Empleado que solicita </label>
                                         <select id="select_empleado" class="form-control" name="empleado_id" v-model="empleado_id">
                                             <option v-for="empleado in lista_empleados" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre_empleado+' '+empleado.apellido_empleado"></option>
@@ -77,6 +77,11 @@
                                         <div v-if="error_empleado==1" style="color:#e7515a">
                                             <strong>{{ error_empleado_msg[0] }}</strong>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label class="text-dark"><i class="fas fa-store-alt"></i> Área</label>
+                                        <input type="text" class="form-control" name="fecha_salida" v-model="area_nombre" disabled>
                                     </div>
                                 </div>
                             </fieldset>
@@ -304,6 +309,7 @@
                 fecha_salida: '',
                 lista_empleados: [],
                 empleado_id: 0,
+                area_nombre: '',
                 area_empleado: '',
 
                 /**Búsqueda */
@@ -456,9 +462,16 @@
                 $('#select_empleado').on('change', function () {
                     me.$emit('change', this.value)
                     me.empleado_id = this.value
+                    me.selected_empleado(me.empleado_id)
                     if (me.empleado_id != 0)
                         me.error_empleado = 0
                 })
+            },
+            selected_empleado(id) {
+                for (var i = 0; i < this.lista_empleados.length; i++) {
+                    if (id == this.lista_empleados[i].id)
+                        this.area_nombre = this.lista_empleados[i].nombre_area
+                }
             },
             combo_empleado() {
                 let me = this

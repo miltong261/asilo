@@ -39,9 +39,6 @@ class ResidenteController extends Controller
      */
     public function store(ResidenteRequest $request)
     {
-        try {
-
-
             // $residente = $request->only([
             //     'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'
             // ])
@@ -66,6 +63,7 @@ class ResidenteController extends Controller
             // }else
             //     return $guardar;
 
+        try {
             DB::beginTransaction();
 
             $this->residenteRepository->store($request->only([

@@ -5,6 +5,23 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
+        // Rutas para dashboard
+        {
+            path: '/dashboard',
+            component: require('../views/Dashboard').default
+        },
+        {
+            path: '/dashboard_articulos',
+            component: require('../views/DashboardArticulos').default
+        },
+        {
+            path: '/dashboard_medicamentos',
+            component: require('../views/DashboardMedicamentos').default
+        },
+        {
+            path: '/dashboard_compras',
+            component: require('../views/DashboardCompras').default
+        },
         // Rutas de configuración
         {
             path: '/categorias',

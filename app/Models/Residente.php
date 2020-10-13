@@ -20,6 +20,7 @@ class Residente extends Model
         'direccion',
         'telefono_familia',
         'persona_referida',
+        'direccion_persona_referida',
         'telefono_persona_referida',
         'motivo',
         'estado',

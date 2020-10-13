@@ -207,4 +207,11 @@ Route::group(['prefix' => 'donaciones'], function () {
 
 // Dashboard
 
-// Route::get('dashboard', 'Dasboard\DashboardController');
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('/', 'Dashboard\DashboardController');
+    Route::get('/dashboard_articulos', 'Dashboard\DashboardArticulosController');
+    Route::get('/dashboard_medicamentos', 'Dashboard\DashboardMedicamentosController');
+    Route::get('/dashboard_compras', 'Dashboard\DashboardComprasController');
+});
+
+

@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Area;
 use Illuminate\Database\Seeder;
-use App\Models\Caja;
 
-class CajaSeeder extends Seeder
+class AreaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,9 @@ class CajaSeeder extends Seeder
      */
     public function run()
     {
-        Caja::create(array(
-            'nombre' => 'Administración',
-            'saldo' => 5000
+        Area::create(array(
+            'codigo' => 'ÁREA-0001',
+            'nombre' => 'Administración'
         ));
     }
 }

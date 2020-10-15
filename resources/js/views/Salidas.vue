@@ -102,7 +102,7 @@
                                     <div class="col-md-9 form-group" v-if="option_enabled==0">
                                         <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
                                         <select id="select_producto" class="form-control" v-model="producto_id">
-                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto"></option>
+                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+' / '+producto.nombre_unidad"></option>
                                         </select>
                                     </div>
 
@@ -123,8 +123,8 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
-                                            <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
@@ -134,8 +134,8 @@
                                     <tbody class="text-center" v-if="arrayDetalle.length">
                                         <tr v-for="(detalle, index) in arrayDetalle" :key="detalle.id">
                                             <td v-text="index+1"></td>
-                                            <td v-text="detalle.codigo_producto"></td>
                                             <td v-text="detalle.nombre_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
@@ -210,6 +210,7 @@
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                             <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
@@ -220,6 +221,7 @@
                                             <td v-text="index+1"></td>
                                             <td v-text="detalle.codigo_producto"></td>
                                             <td v-text="detalle.nombre_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td v-text="detalle.cantidad"></td>
@@ -258,8 +260,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
-                                        <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                         <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                         <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
@@ -269,8 +271,8 @@
                                 <tbody class="text-center">
                                     <tr  v-for="(producto, index) in lista_inventario" :key="producto.producto_id">
                                         <td v-text="index+1"></td>
-                                        <td v-text="producto.codigo_producto"></td>
                                         <td v-text="producto.nombre_producto"></td>
+                                        <td v-text="producto.nombre_unidad"></td>
                                         <td v-text="producto.presentacion_producto"></td>
                                         <td v-text="producto.observacion_producto"></td>
                                         <td v-text="producto.existencia"></td>
@@ -285,7 +287,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-cerrar" @click="closeModalProducto()">Cancelar <i class="far fa-times-circle"></i></button>
+                        <button type="button" class="btn btn-cerrar" @click="closeModalProducto()">Salir <i class="fas fa-sign-out-alt"></i></button>
                     </div>
                 </div>
             </div>
@@ -357,6 +359,7 @@
                 this.action = 2
                 this.destroyTable('#listado')
                 document.getElementById('openForm').style.display = 'none'
+                this.fecha_salida = moment().format('YYYY-MM-DD')
                 this.combo_empleado()
             },
             closeForm() {
@@ -508,6 +511,7 @@
                                 producto_id: this.lista_inventario[i].producto_id,
                                 codigo_producto: this.lista_inventario[i].codigo_producto,
                                 nombre_producto: this.lista_inventario[i].nombre_producto,
+                                nombre_unidad: this.lista_inventario[i].nombre_unidad,
                                 presentacion_producto: this.lista_inventario[i].presentacion_producto,
                                 observacion_producto: this.lista_inventario[i].observacion_producto,
                                 cantidad: 1
@@ -548,8 +552,8 @@
                 } else {
                     me.arrayDetalle.push({
                         producto_id: data['producto_id'],
-                        codigo_producto: data['codigo_producto'],
                         nombre_producto: data['nombre_producto'],
+                        nombre_unidad: data['nombre_unidad'],
                         presentacion_producto: data['presentacion_producto'],
                         observacion_producto: data['observacion_producto'],
                         cantidad: 1
@@ -628,7 +632,7 @@
                     me.arrayDetalle = response.data
 
                     for(var i = 0; i < me.arrayDetalle.length; i++)
-                        me.cantidad_suma += me.arrayDetalle[0]['cantidad']
+                        me.cantidad_suma += me.arrayDetalle[i].cantidad
                 }).catch(function (error) {
                     console.log(error)
                 })

@@ -25,9 +25,7 @@ class DonacionController extends Controller
      */
     public function index()
     {
-        return response()->json($this->donacionRepository->index(
-            ['id', 'codigo', 'donador', 'direccion', 'fecha_registro', 'fecha_donacion']
-        ));
+        return response()->json($this->donacionRepository->indexDonacion());
     }
 
     /**

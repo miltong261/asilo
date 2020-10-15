@@ -29,4 +29,12 @@ class EmpleadoRepository extends BaseRepository
         ->orderBy('empleados.nombre', 'asc')
         ->get();
     }
+
+    public function comboboxUsuario() {
+        return $this->getModel()
+        ->select('id', 'nombre', 'apellido')
+        ->where('estado', 1)
+        ->orderBy('nombre', 'asc')
+        ->get();
+    }
 }

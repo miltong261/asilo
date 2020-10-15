@@ -292,7 +292,7 @@
             },
             openModalMedicamento(data = []) {
                 this.modalMedicamento = 1
-                this.titulo = 'MEDICAMENTO' + data['nombre'].toUpperCase()
+                this.titulo = 'MEDICAMENTO ' + data['nombre'].toUpperCase()
 
                 this.codigo = data['codigo']
                 this.unidad_medida_nombre = data['unidad_nombre']

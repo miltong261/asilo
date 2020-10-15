@@ -28,7 +28,7 @@ class ProductoRequest extends FormRequest
             'tipo_producto_id' => ['required'],
             'nombre' => ['required', 'max:35'],
             // 'observacion' => ['nullable', 'max:70'],
-            'fecha_vencimiento' => ['required', 'date']
+            'fecha_vencimiento' => ['nullable', 'date']
         ];
     }
 
@@ -44,7 +44,7 @@ class ProductoRequest extends FormRequest
 
             // 'observacion.max' => 'La observación debe contener como máximo :max caracteres',
 
-            'fecha_vencimiento.required' => 'La fecha es obligatoria',
+            // 'fecha_vencimiento.required' => 'La fecha es obligatoria',
             'fecha_vencimiento.date' => 'Fecha invalida'
         ];
     }

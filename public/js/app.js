@@ -3253,6 +3253,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 2;
       this.destroyTable('#listado');
       document.getElementById('openForm').style.display = 'none';
+      this.fecha_compra = moment().format('YYYY-MM-DD');
     },
     closeForm: function closeForm() {
       this.action = 1;
@@ -3387,6 +3388,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
               nombre_producto: this.lista_inventario[i].nombre_producto,
               presentacion_producto: this.lista_inventario[i].presentacion_producto,
               observacion_producto: this.lista_inventario[i].observacion_producto,
+              nombre_unidad: this.lista_inventario[i].nombre_unidad,
               cantidad: 1,
               precio: 1
             });
@@ -3403,8 +3405,9 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       } else {
         me.arrayDetalle.push({
           producto_id: data['producto_id'],
-          codigo_producto: data['codigo_producto'],
+          // codigo_producto: data['codigo_producto'],
           nombre_producto: data['nombre_producto'],
+          nombre_unidad: data['nombre_unidad'],
           presentacion_producto: data['presentacion_producto'],
           observacion_producto: data['observacion_producto'],
           cantidad: 1,
@@ -3476,7 +3479,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.arrayDetalle = response.data;
 
         for (var i = 0; i < me.arrayDetalle.length; i++) {
-          me.cantidad_suma += me.arrayDetalle[0]['cantidad'];
+          me.cantidad_suma += me.arrayDetalle[i].cantidad;
         }
       })["catch"](function (error) {
         console.log(error);
@@ -3496,7 +3499,9 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.arrayDetalle = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'INSPECCIÓN FINALIZADA');
     },
-    pdf: function pdf(id) {}
+    pdf: function pdf(id) {
+      window.open('/compras/pdf/' + id + ',' + '_blank');
+    }
   },
   mounted: function mounted() {
     this.showList();
@@ -4666,6 +4671,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -4717,6 +4724,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 2;
       this.destroyTable('#listado');
       document.getElementById('openForm').style.display = 'none';
+      this.fecha_donacion = moment().format('YYYY-MM-DD');
     },
     closeForm: function closeForm() {
       this.action = 1;
@@ -4849,6 +4857,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
               nombre_producto: this.lista_inventario[i].nombre_producto,
               presentacion_producto: this.lista_inventario[i].presentacion_producto,
               observacion_producto: this.lista_inventario[i].observacion_producto,
+              nombre_unidad: this.lista_inventario[i].nombre_unidad,
               cantidad: 1
             });
           }
@@ -4864,8 +4873,9 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       } else {
         me.arrayDetalle.push({
           producto_id: data['producto_id'],
-          codigo_producto: data['codigo_producto'],
+          // codigo_producto: data['codigo_producto'],
           nombre_producto: data['nombre_producto'],
+          nombre_unidad: data['nombre_unidad'],
           presentacion_producto: data['presentacion_producto'],
           observacion_producto: data['observacion_producto'],
           cantidad: 1
@@ -4925,8 +4935,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       axios.get(url_cabecera).then(function (response) {
         cabecera = response.data;
         me.donacion_codigo = cabecera[0]['codigo'];
-        if (cabecera[0]['donador'] == null) me.donacion_donador = 'Anónimo';else me.donacion_donador = cabecera[0]['donador'];
-        if (cabecera[0]['direccion'] == null) me.donacion_donador_direccion = 'Retalhuleu, Retalhuleu';else me.donacion_donador_direccion = cabecera[0]['direccion'];
+        me.donacion_donador = cabecera[0]['donador'];
+        me.donacion_donador_direccion = cabecera[0]['direccion'];
         me.donacion_fecha_registro = cabecera[0]['fecha_registro'];
         me.donacion_fecha_donacion = cabecera[0]['fecha_donacion'];
       })["catch"](function (error) {
@@ -4937,7 +4947,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.arrayDetalle = response.data;
 
         for (var i = 0; i < me.arrayDetalle.length; i++) {
-          me.cantidad_suma += me.arrayDetalle[0]['cantidad'];
+          me.cantidad_suma += me.arrayDetalle[i].cantidad;
         }
       })["catch"](function (error) {
         console.log(error);
@@ -5319,6 +5329,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.dpi = '';
       this.direccion = '';
       this.telefono = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de empleado exitosa');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -5791,7 +5802,7 @@ __webpack_require__.r(__webpack_exports__);
     openModalMedicamento: function openModalMedicamento() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalMedicamento = 1;
-      this.titulo = 'MEDICAMENTO' + data['nombre'].toUpperCase();
+      this.titulo = 'MEDICAMENTO ' + data['nombre'].toUpperCase();
       this.codigo = data['codigo'];
       this.unidad_medida_nombre = data['unidad_nombre'];
       this.tipo_producto_nombre = data['categoria_nombre'];
@@ -7393,6 +7404,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -8577,6 +8590,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -8632,6 +8647,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 2;
       this.destroyTable('#listado');
       document.getElementById('openForm').style.display = 'none';
+      this.fecha_salida = moment().format('YYYY-MM-DD');
       this.combo_empleado();
     },
     closeForm: function closeForm() {
@@ -8774,6 +8790,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
               producto_id: this.lista_inventario[i].producto_id,
               codigo_producto: this.lista_inventario[i].codigo_producto,
               nombre_producto: this.lista_inventario[i].nombre_producto,
+              nombre_unidad: this.lista_inventario[i].nombre_unidad,
               presentacion_producto: this.lista_inventario[i].presentacion_producto,
               observacion_producto: this.lista_inventario[i].observacion_producto,
               cantidad: 1
@@ -8814,8 +8831,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       } else {
         me.arrayDetalle.push({
           producto_id: data['producto_id'],
-          codigo_producto: data['codigo_producto'],
           nombre_producto: data['nombre_producto'],
+          nombre_unidad: data['nombre_unidad'],
           presentacion_producto: data['presentacion_producto'],
           observacion_producto: data['observacion_producto'],
           cantidad: 1
@@ -8885,7 +8902,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.arrayDetalle = response.data;
 
         for (var i = 0; i < me.arrayDetalle.length; i++) {
-          me.cantidad_suma += me.arrayDetalle[0]['cantidad'];
+          me.cantidad_suma += me.arrayDetalle[i].cantidad;
         }
       })["catch"](function (error) {
         console.log(error);
@@ -67457,7 +67474,9 @@ var render = function() {
                                             domProps: {
                                               value: producto.producto_id,
                                               textContent: _vm._s(
-                                                producto.nombre_producto
+                                                producto.nombre_producto +
+                                                  " / " +
+                                                  producto.nombre_unidad
                                               )
                                             }
                                           })
@@ -67547,7 +67566,7 @@ var render = function() {
                                                 _c("td", {
                                                   domProps: {
                                                     textContent: _vm._s(
-                                                      detalle.codigo_producto
+                                                      detalle.nombre_producto
                                                     )
                                                   }
                                                 }),
@@ -67555,7 +67574,7 @@ var render = function() {
                                                 _c("td", {
                                                   domProps: {
                                                     textContent: _vm._s(
-                                                      detalle.nombre_producto
+                                                      detalle.nombre_unidad
                                                     )
                                                   }
                                                 }),
@@ -67681,39 +67700,36 @@ var render = function() {
                                               ]
                                             )
                                           }),
-                                          _c("br"),
-                                          _vm._v(" "),
-                                          _c("tr", [
-                                            _c("td", {
-                                              attrs: { colspan: "7" }
-                                            }),
-                                            _vm._v(" "),
-                                            _vm._m(8),
-                                            _vm._v(" "),
-                                            _c(
-                                              "td",
-                                              {
-                                                staticStyle: {
-                                                  "background-color": "#CEECF5"
-                                                }
-                                              },
-                                              [
-                                                _c("h5", [
-                                                  _vm._v(
-                                                    "Q " +
-                                                      _vm._s(
-                                                        (_vm.total =
-                                                          _vm.calcularTotal)
-                                                      )
-                                                  )
-                                                ])
-                                              ]
-                                            )
-                                          ])
+                                          _c("br")
                                         ],
                                         2
                                       )
                                     : _vm._e()
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "form-group col-md-12 text-center"
+                                },
+                                [
+                                  _c("h5", [
+                                    _c(
+                                      "strong",
+                                      { staticClass: "text-secondary" },
+                                      [_vm._v("TOTAL: ")]
+                                    ),
+                                    _c("span", [
+                                      _vm._v(
+                                        "Q " +
+                                          _vm._s(
+                                            (_vm.total = _vm.calcularTotal)
+                                          )
+                                      )
+                                    ])
+                                  ])
                                 ]
                               )
                             ])
@@ -67764,9 +67780,9 @@ var render = function() {
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
-                        _vm._m(9),
+                        _vm._m(8),
                         _vm._v(" "),
-                        _vm._m(10),
+                        _vm._m(9),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group float-right" }, [
                           _c("h5", { staticClass: "text-secondary p-5" }, [
@@ -67833,7 +67849,7 @@ var render = function() {
                               staticStyle: { width: "100%" }
                             },
                             [
-                              _vm._m(11),
+                              _vm._m(10),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -67861,6 +67877,14 @@ var render = function() {
                                       domProps: {
                                         textContent: _vm._s(
                                           detalle.nombre_producto
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          detalle.nombre_unidad
                                         )
                                       }
                                     }),
@@ -67986,7 +68010,7 @@ var render = function() {
                     attrs: { id: "listado_producto" }
                   },
                   [
-                    _vm._m(12),
+                    _vm._m(11),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -67999,13 +68023,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(producto.codigo_producto)
+                              textContent: _vm._s(producto.nombre_producto)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(producto.nombre_producto)
+                              textContent: _vm._s(producto.nombre_unidad)
                             }
                           }),
                           _vm._v(" "),
@@ -68067,8 +68091,8 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Cancelar "),
-                  _c("i", { staticClass: "far fa-times-circle" })
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
               )
             ])
@@ -68197,13 +68221,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-qrcode" }),
-          _vm._v(" Código")
+          _c("i", { staticClass: "fas fa-store" }),
+          _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Nombre")
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -68232,24 +68256,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "td",
-      {
-        staticClass: "rounded",
-        staticStyle: { "background-color": "#CEECF5" },
-        attrs: { colspan: "1" }
-      },
-      [
-        _c("h5", { staticStyle: { color: "#1b55e2" } }, [
-          _c("strong", [_vm._v("Total:")])
-        ])
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -68304,6 +68310,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-store" }),
           _vm._v(" Presentación")
         ]),
@@ -68336,13 +68347,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-qrcode" }),
-          _vm._v(" Código")
+          _c("i", { staticClass: "fas fa-store" }),
+          _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Nombre")
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -69337,7 +69348,7 @@ var render = function() {
                             _c("div", { staticClass: "form-row mb-0" }, [
                               _c(
                                 "div",
-                                { staticClass: "form-group col-md-2" },
+                                { staticClass: "form-group col-md-3" },
                                 [
                                   _vm._m(3),
                                   _vm._v(" "),
@@ -69356,6 +69367,7 @@ var render = function() {
                                       : "",
                                     attrs: {
                                       type: "date",
+                                      id: "fecha",
                                       name: "fecha_donacion"
                                     },
                                     domProps: { value: _vm.fecha_donacion },
@@ -69407,7 +69419,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "form-group col-md-6" },
+                                { staticClass: "form-group col-md-5" },
                                 [
                                   _vm._m(5),
                                   _vm._v(" "),
@@ -69575,7 +69587,9 @@ var render = function() {
                                             domProps: {
                                               value: producto.producto_id,
                                               textContent: _vm._s(
-                                                producto.nombre_producto
+                                                producto.nombre_producto +
+                                                  " / " +
+                                                  producto.nombre_unidad
                                               )
                                             }
                                           })
@@ -69659,7 +69673,7 @@ var render = function() {
                                             _c("td", {
                                               domProps: {
                                                 textContent: _vm._s(
-                                                  detalle.codigo_producto
+                                                  detalle.nombre_producto
                                                 )
                                               }
                                             }),
@@ -69667,7 +69681,7 @@ var render = function() {
                                             _c("td", {
                                               domProps: {
                                                 textContent: _vm._s(
-                                                  detalle.nombre_producto
+                                                  detalle.nombre_unidad
                                                 )
                                               }
                                             }),
@@ -69918,6 +69932,14 @@ var render = function() {
                                     _c("td", {
                                       domProps: {
                                         textContent: _vm._s(
+                                          detalle.nombre_unidad
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(
                                           detalle.presentacion_producto
                                         )
                                       }
@@ -70036,13 +70058,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(producto.codigo_producto)
+                              textContent: _vm._s(producto.nombre_producto)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(producto.nombre_producto)
+                              textContent: _vm._s(producto.nombre_unidad)
                             }
                           }),
                           _vm._v(" "),
@@ -70104,8 +70126,8 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Cancelar "),
-                  _c("i", { staticClass: "far fa-times-circle" })
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
               )
             ])
@@ -70248,13 +70270,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-qrcode" }),
-          _vm._v(" Código")
+          _c("i", { staticClass: "fas fa-store" }),
+          _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Nombre")
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -70332,6 +70354,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-store" }),
           _vm._v(" Presentación")
         ]),
@@ -70359,13 +70386,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-qrcode" }),
-          _vm._v(" Código")
+          _c("i", { staticClass: "fas fa-store" }),
+          _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Nombre")
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -70491,11 +70518,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             staticClass: "text-center",
-                            domProps: { textContent: _vm._s(empleado.edad) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "text-center",
                             domProps: {
                               textContent: _vm._s(empleado.direccion)
                             }
@@ -70528,88 +70550,98 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-info mb-1 mr-1 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModalEmpleado(empleado)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-eye" })]
-                              ),
-                              _vm._v(" "),
-                              empleado.estado
+                              empleado.puesto_nombre != "Administrador"
                                 ? [
                                     _c(
                                       "button",
                                       {
                                         staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                          "btn btn-info mb-1 mr-1 rounded-circle",
                                         attrs: { type: "button" },
                                         on: {
                                           click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              empleado.id,
-                                              empleado.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-warning mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.openModal(
-                                              "update",
+                                            return _vm.openModalEmpleado(
                                               empleado
                                             )
                                           }
                                         }
                                       },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    )
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    empleado.estado
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "desactivate",
+                                                    empleado.id,
+                                                    empleado.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-lock"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    "update",
+                                                    empleado
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-sync-alt"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "activate",
+                                                    empleado.id,
+                                                    empleado.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-unlock"
+                                              })
+                                            ]
+                                          )
+                                        ]
                                   ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              empleado.id,
-                                              empleado.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
-                                        })
-                                      ]
-                                    )
-                                  ]
+                                : _vm._e()
                             ],
                             2
                           )
@@ -71483,11 +71515,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user-tag" }),
           _vm._v(" Puesto")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-cente" }, [
-          _c("i", { staticClass: "fas fa-pager" }),
-          _vm._v(" Edad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -76042,73 +76069,81 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              puesto.estado
+                              puesto.nombre != "Administrador"
                                 ? [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              puesto.id,
-                                              puesto.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-warning mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.openModal(
-                                              "update",
-                                              puesto
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    )
+                                    puesto.estado
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "desactivate",
+                                                    puesto.id,
+                                                    puesto.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-lock"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    "update",
+                                                    puesto
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-sync-alt"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "activate",
+                                                    puesto.id,
+                                                    puesto.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-unlock"
+                                              })
+                                            ]
+                                          )
+                                        ]
                                   ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              puesto.id,
-                                              puesto.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
-                                        })
-                                      ]
-                                    )
-                                  ]
+                                : _vm._e()
                             ],
                             2
                           )
@@ -79132,7 +79167,9 @@ var render = function() {
                                             domProps: {
                                               value: producto.producto_id,
                                               textContent: _vm._s(
-                                                producto.nombre_producto
+                                                producto.nombre_producto +
+                                                  " / " +
+                                                  producto.nombre_unidad
                                               )
                                             }
                                           })
@@ -79216,7 +79253,7 @@ var render = function() {
                                             _c("td", {
                                               domProps: {
                                                 textContent: _vm._s(
-                                                  detalle.codigo_producto
+                                                  detalle.nombre_producto
                                                 )
                                               }
                                             }),
@@ -79224,7 +79261,7 @@ var render = function() {
                                             _c("td", {
                                               domProps: {
                                                 textContent: _vm._s(
-                                                  detalle.nombre_producto
+                                                  detalle.nombre_unidad
                                                 )
                                               }
                                             }),
@@ -79473,6 +79510,14 @@ var render = function() {
                                     _c("td", {
                                       domProps: {
                                         textContent: _vm._s(
+                                          detalle.nombre_unidad
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(
                                           detalle.presentacion_producto
                                         )
                                       }
@@ -79591,13 +79636,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(producto.codigo_producto)
+                              textContent: _vm._s(producto.nombre_producto)
                             }
                           }),
                           _vm._v(" "),
                           _c("td", {
                             domProps: {
-                              textContent: _vm._s(producto.nombre_producto)
+                              textContent: _vm._s(producto.nombre_unidad)
                             }
                           }),
                           _vm._v(" "),
@@ -79659,8 +79704,8 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v("Cancelar "),
-                  _c("i", { staticClass: "far fa-times-circle" })
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
               )
             ])
@@ -79803,13 +79848,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-qrcode" }),
-          _vm._v(" Código")
+          _c("i", { staticClass: "fas fa-store" }),
+          _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Nombre")
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -79887,6 +79932,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-store" }),
           _vm._v(" Presentación")
         ]),
@@ -79914,13 +79964,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-qrcode" }),
-          _vm._v(" Código")
+          _c("i", { staticClass: "fas fa-store" }),
+          _vm._v(" Nombre")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-store" }),
-          _vm._v(" Nombre")
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Unidad")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [

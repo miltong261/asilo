@@ -61,9 +61,9 @@
                             <fieldset class="border border-fieldset rounded p-3 col-md-8 float-left">
                                 <label class="text-danger">Encabezado</label>
                                 <div class="form-row mb-0">
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-3">
                                         <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de donación</label>
-                                        <input type="date" class="form-control" name="fecha_donacion" v-model="fecha_donacion" :class="hasError('fecha_donacion') ? 'is-invalid' : ''">
+                                        <input type="date" id="fecha" class="form-control" name="fecha_donacion" v-model="fecha_donacion" :class="hasError('fecha_donacion') ? 'is-invalid' : ''">
                                     </div>
 
                                     <div class="form-group col-md-4">
@@ -71,7 +71,7 @@
                                         <input type="text" class="form-control" name="donador" v-model="donador" placeholder="Ingrese donador...">
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-5">
                                         <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
                                         <input type="text" class="form-control" name="direccion" v-model="direccion" placeholder="Ingrese dirección...">
                                     </div>
@@ -94,7 +94,7 @@
                                     <div class="col-md-9 form-group" v-if="option_enabled==0">
                                         <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
                                         <select id="select_producto" class="form-control" v-model="producto_id">
-                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto"></option>
+                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+' / '+producto.nombre_unidad"></option>
                                         </select>
                                     </div>
 
@@ -115,8 +115,8 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
-                                            <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
@@ -126,8 +126,8 @@
                                     <tbody class="text-center" v-if="arrayDetalle.length">
                                         <tr v-for="(detalle, index) in arrayDetalle" :key="detalle.id">
                                             <td v-text="index+1"></td>
-                                            <td v-text="detalle.codigo_producto"></td>
                                             <td v-text="detalle.nombre_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
@@ -204,6 +204,7 @@
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                             <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
@@ -214,6 +215,7 @@
                                             <td v-text="index+1"></td>
                                             <td v-text="detalle.codigo_producto"></td>
                                             <td v-text="detalle.nombre_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td v-text="detalle.cantidad"></td>
@@ -252,8 +254,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
-                                        <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                         <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                         <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
@@ -263,8 +265,8 @@
                                 <tbody class="text-center">
                                     <tr  v-for="(producto, index) in lista_inventario" :key="producto.producto_id">
                                         <td v-text="index+1"></td>
-                                        <td v-text="producto.codigo_producto"></td>
                                         <td v-text="producto.nombre_producto"></td>
+                                        <td v-text="producto.nombre_unidad"></td>
                                         <td v-text="producto.presentacion_producto"></td>
                                         <td v-text="producto.observacion_producto"></td>
                                         <td v-text="producto.existencia"></td>
@@ -279,7 +281,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-cerrar" @click="closeModalProducto()">Cancelar <i class="far fa-times-circle"></i></button>
+                        <button type="button" class="btn btn-cerrar" @click="closeModalProducto()">Salir <i class="fas fa-sign-out-alt"></i></button>
                     </div>
                 </div>
             </div>
@@ -347,6 +349,7 @@
                 this.action = 2
                 this.destroyTable('#listado')
                 document.getElementById('openForm').style.display = 'none'
+                this.fecha_donacion = moment().format('YYYY-MM-DD')
             },
             closeForm() {
                 this.action = 1
@@ -484,6 +487,7 @@
                                 nombre_producto: this.lista_inventario[i].nombre_producto,
                                 presentacion_producto: this.lista_inventario[i].presentacion_producto,
                                 observacion_producto: this.lista_inventario[i].observacion_producto,
+                                nombre_unidad: this.lista_inventario[i].nombre_unidad,
                                 cantidad: 1
                             })
                         }
@@ -498,8 +502,9 @@
                 } else {
                     me.arrayDetalle.push({
                         producto_id: data['producto_id'],
-                        codigo_producto: data['codigo_producto'],
+                        // codigo_producto: data['codigo_producto'],
                         nombre_producto: data['nombre_producto'],
+                        nombre_unidad : data['nombre_unidad'],
                         presentacion_producto: data['presentacion_producto'],
                         observacion_producto: data['observacion_producto'],
                         cantidad: 1
@@ -564,14 +569,8 @@
                     cabecera = response.data
 
                     me.donacion_codigo = cabecera[0]['codigo']
-                    if (cabecera[0]['donador'] == null)
-                        me.donacion_donador = 'Anónimo'
-                    else
-                        me.donacion_donador = cabecera[0]['donador']
-                    if (cabecera[0]['direccion'] == null)
-                        me.donacion_donador_direccion = 'Retalhuleu, Retalhuleu'
-                    else
-                        me.donacion_donador_direccion = cabecera[0]['direccion']
+                    me.donacion_donador = cabecera[0]['donador']
+                    me.donacion_donador_direccion = cabecera[0]['direccion']
                     me.donacion_fecha_registro = cabecera[0]['fecha_registro']
                     me.donacion_fecha_donacion = cabecera[0]['fecha_donacion']
                 }).catch(function (error) {
@@ -584,7 +583,7 @@
                     me.arrayDetalle = response.data
 
                     for(var i = 0; i < me.arrayDetalle.length; i++)
-                        me.cantidad_suma += me.arrayDetalle[0]['cantidad']
+                        me.cantidad_suma += me.arrayDetalle[i].cantidad
 
                 }).catch(function (error) {
                     console.log(error)

@@ -30,12 +30,14 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <template v-if="puesto.estado">
-                                            <button type="button" @click="changeStatus('desactivate', puesto.id, puesto.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
-                                            <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        </template>
-                                        <template v-else>
-                                            <button type="button" @click="changeStatus('activate', puesto.id, puesto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                        <template v-if="puesto.nombre != 'Administrador'">
+                                            <template v-if="puesto.estado">
+                                                <button type="button" @click="changeStatus('desactivate', puesto.id, puesto.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                            </template>
+                                            <template v-else>
+                                                <button type="button" @click="changeStatus('activate', puesto.id, puesto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            </template>
                                         </template>
                                     </td>
                                 </tr>

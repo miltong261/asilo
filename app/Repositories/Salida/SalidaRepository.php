@@ -28,6 +28,7 @@ class SalidaRepository extends BaseRepository
             'empleados.apellido as apellido_empleado',
             'areas.nombre as nombre_area'
         )
+        ->orderBy('fecha_salida', 'desc')
         ->get();
     }
 
@@ -98,12 +99,14 @@ class SalidaRepository extends BaseRepository
     {
         return
         DetalleSalida::join('productos', 'productos.id', '=', 'detalle_salida.producto_id')
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
         ->select(
             'detalle_salida.cantidad',
             'productos.codigo as codigo_producto',
             'productos.nombre as nombre_producto',
             'productos.presentacion as presentacion_producto',
-            'productos.observacion as observacion_producto'
+            'productos.observacion as observacion_producto',
+            'unidad_medida.nombre as nombre_unidad'
         )
         ->where('detalle_salida.salida_id', $request)
         ->orderBy('productos.id', 'asc')

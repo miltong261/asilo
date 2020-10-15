@@ -27,7 +27,7 @@
 
             <table id="tabla-empleado">
                 <tr>
-                    <td style="width: 35%" > <strong>Empleado que solicita: </strong></td>
+                    <td style="width: 35%" > <strong>Solicitó: </strong></td>
                     <td > {{ $encabezado->nombre_empleado .' '. $encabezado->apellido_empleado }} </td>
                 </tr>
                 <tr>
@@ -46,34 +46,35 @@
             @endforeach
         </header>
 
-        @foreach ($detalle_salida as $index => $detalle)
         <!-- INICIO TABLA -->
         <div class="table-responsive">
             <table id="tabla-datos" class="text-center table ">
                 <thead>
                     <tr id="fila-encabezado">
                         <th style="width: 10%;"> # </th>
-                        <th> <i class="fas fa-qrcode"></i> CÓDIGO</th>
                         <th> <i class="fas fa-store"></i> NOMBRE</th>
+                        <th> <i class="fas fa-store"></i> UNIDAD</th>
                         <th> <i class="fas fa-store"></i> PRESENTACIÓN</th>
                         <th> <i class="fas fa-search"></i> OBSERVACIÓN</th>
                         <th> <i class="fas fa-sort-numeric-up-alt"></i> CANTIDAD</th>
                     </tr>
                 </thead>
+
+                @foreach ($detalle_salida as $index => $detalle)
                 <tbody  style="text-align: center;">
                     <tr>
                         <td>{{ $index+1 }}</td>
-                        <td>{{ $detalle->codigo_producto }}</td>
                         <td >{{ $detalle->nombre_producto }}</td>
+                        <td >{{ $detalle->nombre_unidad }}</td>
                         <td>{{ $detalle->presentacion_producto }}</td>
                         <td>{{ $detalle->observacion_producto }}</td>
                         <td > {{ $detalle->cantidad }}</td>
                     </tr>
                 </tbody>
+                @endforeach
             </table>
         </div> <!--fin tabla responsive -->
         <!-- FIN TABLA DATOS -->
-        @endforeach
 
         <footer>
             <table id="pie">

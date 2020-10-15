@@ -17,6 +17,14 @@ class DonacionRepository extends BaseRepository
         return new Donacion();
     }
 
+    public function indexDonacion()
+    {
+        return $this->getModel()
+        ->select('id', 'codigo', 'donador', 'direccion', 'fecha_registro', 'fecha_donacion')
+        ->orderBy('fecha_donacion', 'desc')
+        ->get();
+    }
+
     public function storeDonacion(array $request, array $data )
     {
         try {
@@ -70,12 +78,14 @@ class DonacionRepository extends BaseRepository
     {
         return
         DetalleDonacion::join('productos', 'productos.id', '=', 'detalle_donacion.producto_id')
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
         ->select(
             'detalle_donacion.cantidad',
             'productos.codigo as codigo_producto',
             'productos.nombre as nombre_producto',
             'productos.presentacion as presentacion_producto',
-            'productos.observacion as observacion_producto'
+            'productos.observacion as observacion_producto',
+            'unidad_medida.nombre as nombre_unidad'
         )
         ->where('detalle_donacion.donacion_id', $request)
         ->orderBy('productos.id', 'asc')

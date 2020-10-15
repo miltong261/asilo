@@ -3,8 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Compras</title>
-    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-compras.css">
-    <link rel="stylesheet" href="../../assets/css/style-compras.css">  
+    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-compras.css">
+    <link rel="stylesheet" href="../../assets/css/style-compras.css">
      <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
     <body>
         <header>
@@ -12,9 +12,9 @@
             <table class="text-center" id="tabla-encabezado">
                 <tr>
                     <td id="td-img">
-                        <img src="C:/xampp/htdocs/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                        <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                     </td>
-                    <td> 
+                    <td>
                         <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
                         <h5> Residenciales Ciudad Palmeras </h5>
                         <h5>Cantón Recuerdo Ocosito, Retalhuleu </h5>
@@ -42,44 +42,47 @@
             @endforeach
         </header>
 
-        @foreach ($detalle_compra as $index => $detalle)
         <!-- INICIO TABLA -->
         <div class="table-responsive">
             <table id="tabla-datos" class="text-center table ">
                 <thead>
                     <tr id="fila-encabezado">
                         <th style="width: 10%;"> # </th>
-                        <th> <i class="fas fa-qrcode"></i> CÓDIGO</th>
                         <th> <i class="fas fa-store"></i> NOMBRE</th>
-                        <th> PRECIO </th>
+                        <th> <i class="fas fa-store"></i> UNIDAD</th>
                         <th> <i class="fas fa-store"></i> PRESENTACIÓN</th>
                         <th> <i class="fas fa-search"></i> OBSERVACIÓN</th>
                         <th> <i class="fas fa-sort-numeric-up-alt"></i> CANTIDAD</th>
+                        <th> <i class="fas fa-sort-numeric-up-alt"></i> PRECIO</th>
                     </tr>
                 </thead>
+                @foreach ($detalle_compra as $index => $detalle)
                 <tbody  style="text-align: center;">
                     <tr>
                         <td>{{ $index+1 }}</td>
-                        <td>{{ $detalle->codigo_producto }}</td>
                         <td >{{ $detalle->nombre_producto }}</td>
-                        <td> 1 </td>
+                        <td >{{ $detalle->nombre_unidad }}</td>
                         <td>{{ $detalle->presentacion_producto }}</td>
                         <td>{{ $detalle->observacion_producto }}</td>
                         <td > {{ $detalle->cantidad }}</td>
+                        <td >Q {{ $detalle->precio }}</td>
                     </tr>
                 </tbody>
+                @endforeach
+                @foreach ($encabezado_compra as $encabezado)
                 <tfoot>
                     <tr>
-                        <th style="  color:#5c1ac3;" colspan="6">TOTAL</th>
-                        <th> 1</th>
+                        <th style="  color:#5c1ac3;" colspan="5">TOTAL</th>
+                        <th colspan="2">Q {{ $encabezado->total }}</th>
                     </tr>
                 </tfoot>
+                @endforeach
             </table>
         </div> <!--fin tabla responsive -->
         <!-- FIN TABLA DATOS -->
 
         <footer>
-            <table id="pie">
+            {{-- <table id="pie">
                 <tr>
                     <td >Recibió (F)</td>
                     <td class="info"></td>
@@ -101,7 +104,7 @@
                     <td>Nombre</td>
                     <td class="info"></td>
                 </tr>
-            </table>
+            </table> --}}
         </footer>
     </body>
 </html>

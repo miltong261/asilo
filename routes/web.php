@@ -22,11 +22,16 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-// Rutas de ejemplo
-Route::group(['prefix' => 'example'], function () {
-    Route::get('/', 'Dashboard\ExampleController@index');
-    Route::post('/store', 'Dashboard\ExampleController@store');
-    Route::put('/update', 'Dashboard\ExampleController@update');
+// Rutas autenticación
+Route::group(['prefix' => 'usuarios'], function () {
+    Route::get('/', 'Dashboard\UserController@index');
+    Route::get('/empleado', 'Dashboard\EmpleadoController@usuarios');
+    Route::post('/store', 'Dashboard\UserController@store');
+    Route::put('/update', 'Dashboard\UserController@update');
+});
+
+Route::group(['prefix' => 'roles'], function () {
+    Route::get('/combo', 'Dashboard\RolController@combobox');
 });
 
 /** Rutas de configuración */

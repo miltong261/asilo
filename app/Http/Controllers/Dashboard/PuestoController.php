@@ -31,11 +31,7 @@ class PuestoController extends Controller
 
     public function combobox()
     {
-        return response()->json($this->puestoRepository->listarCombo(
-            ['id', 'nombre'],
-            null,
-            'nombre'
-        ));
+        return response()->json($this->puestoRepository->comboboxPuesto());
     }
 
     /**

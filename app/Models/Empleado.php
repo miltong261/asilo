@@ -24,4 +24,9 @@ class Empleado extends Model
     {
         return $this->belongsTo('App\Models\Puesto');
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 }

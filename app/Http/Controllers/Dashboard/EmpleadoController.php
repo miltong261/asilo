@@ -34,6 +34,11 @@ class EmpleadoController extends Controller
         return response()->json($this->empleadoRepository->comboboxEmpleado());
     }
 
+    public function usuarios()
+    {
+        return response()->json($this->empleadoRepository->comboboxUsuario());
+    }
+
     /**
      * Store a newly created resource in storage.
      *

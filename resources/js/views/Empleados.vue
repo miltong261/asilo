@@ -13,7 +13,6 @@
                                     <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Área</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
-                                    <th class="text-cente"><i class="fas fa-pager"></i> Edad</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
@@ -25,7 +24,6 @@
                                     <td v-text="empleado.nombre + ' ' + empleado.apellido" class="text-center"></td>
                                     <td v-text="empleado.area_nombre" class="text-center"></td>
                                     <td v-text="empleado.puesto_nombre" class="text-center"></td>
-                                    <td v-text="empleado.edad" class="text-center"></td>
                                     <td v-text="empleado.direccion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="empleado.estado">
@@ -36,13 +34,15 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModalEmpleado(empleado)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                        <template v-if="empleado.estado">
-                                            <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
-                                            <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        </template>
-                                        <template v-else>
-                                            <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                        <template v-if="empleado.puesto_nombre != 'Administrador'">
+                                            <button type="button" @click="openModalEmpleado(empleado)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                            <template v-if="empleado.estado">
+                                                <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                            </template>
+                                            <template v-else>
+                                                <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            </template>
                                         </template>
                                     </td>
                                 </tr>
@@ -347,6 +347,8 @@ export default {
             this.dpi = ''
             this.direccion = ''
             this.telefono = ''
+
+            alerts.sweetAlert('success', 'Visualización de empleado exitosa')
         },
         hasError(field) {
                 return field in (this.errors)

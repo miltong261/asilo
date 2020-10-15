@@ -56,6 +56,6 @@ class CompraController extends Controller
 
     public function pdf($id)
     {
-        return $compraRepository->pdfCompra($id);
+        return $this->compraRepository->pdfCompra($id);
     }
 }

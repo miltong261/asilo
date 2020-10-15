@@ -32,6 +32,7 @@ class CompraRepository extends BaseRepository
     {
         return $this->getModel()
         ->select('id', 'codigo', 'fecha_registro', 'fecha_compra', 'documento', 'total')
+        ->orderBy('fecha_compra', 'desc')
         ->get();
     }
 
@@ -123,13 +124,15 @@ class CompraRepository extends BaseRepository
     {
         return
         DetalleCompra::join('productos', 'productos.id', '=', 'detalle_compra.producto_id')
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
         ->select(
             'detalle_compra.cantidad',
             'detalle_compra.precio',
             'productos.codigo as codigo_producto',
             'productos.nombre as nombre_producto',
             'productos.presentacion as presentacion_producto',
-            'productos.observacion as observacion_producto'
+            'productos.observacion as observacion_producto',
+            'unidad_medida.nombre as nombre_unidad'
         )
         ->where('detalle_compra.compra_id', $request)
         ->orderBy('productos.id', 'asc')

@@ -16,6 +16,21 @@ class UserRepository extends BaseRepository
         return new User();
     }
 
+    public function indexUsuario()
+    {
+        return $this->getModel()
+        ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
+        ->select('users.id',
+            'users.fecha_registro',
+            'users.estado',
+            'users.usuario',
+            'empleados.nombre',
+            'empleados.apellido'
+        )
+        ->orderBy('users.id', 'asc')
+        ->get();
+    }
+
     public function storeUser(array $request)
     {
         try {

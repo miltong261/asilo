@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->userRepository->indexUsuario());
     }
 
     /**
@@ -52,5 +52,30 @@ class UserController extends Controller
             + ['codigo' => $this->userRepository->generateCode()],
             $request->id
         );
+    }
+
+    public function activate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $activar = $this->userRepository->estado('activar', $request->id);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+    }
+
+    public function desactivate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $desactivar = $this->userRepository->estado('desactivar', $request->id);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
     }
 }

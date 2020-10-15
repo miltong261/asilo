@@ -28,6 +28,8 @@ Route::group(['prefix' => 'usuarios'], function () {
     Route::get('/empleado', 'Dashboard\EmpleadoController@usuarios');
     Route::post('/store', 'Dashboard\UserController@store');
     Route::put('/update', 'Dashboard\UserController@update');
+    Route::put('/activate', 'Dashboard\UserController@activate');
+    Route::put('/desactivate', 'Dashboard\UserController@desactivate');
 });
 
 Route::group(['prefix' => 'roles'], function () {

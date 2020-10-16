@@ -41,6 +41,7 @@ class MedicamentoController extends Controller
                 + ['fecha_registro' => Carbon::now()]
                 + ['asignacion' => 0]
                 + ['codigo' => 'MEDICAMENTO-' . $this->medicamentoRepository->generateCodeProduct('medicamento')]
+                + ['user_id' => \Auth::user()->id]
             );
 
             if ($guardar == 'exitoso') {

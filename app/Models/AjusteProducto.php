@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class AjusteProducto extends Model
 {
     protected $table = 'ajuste_producto';
-    protected $fillable = ['producto_id', 'fecha_registro', 'cantidad', 'entrada', 'salida', 'observacion'];
+    protected $fillable = [
+        'user_id',
+        'producto_id',
+        'fecha_registro',
+        'cantidad',
+        'entrada',
+        'salida',
+        'observacion'];
 
     public function user()
     {

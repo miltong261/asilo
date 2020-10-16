@@ -16,10 +16,10 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->unsignedBigInteger('unidad_medida_id');
             $table->foreign('unidad_medida_id')

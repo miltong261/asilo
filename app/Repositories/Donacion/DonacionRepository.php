@@ -20,8 +20,16 @@ class DonacionRepository extends BaseRepository
     public function indexDonacion()
     {
         return $this->getModel()
-        ->select('id', 'codigo', 'donador', 'direccion', 'fecha_registro', 'fecha_donacion')
-        ->orderBy('codigo', 'desc')
+        ->join('users', 'users.id', '=', 'donaciones.user_id')
+        ->select('donaciones.id',
+            'donaciones.codigo',
+            'donaciones.donador',
+            'donaciones.direccion',
+            'donaciones.fecha_registro',
+            'donaciones.fecha_donacion',
+            'users.usuario as nombre_usuario'
+        )
+        ->orderBy('donaciones.codigo', 'desc')
         ->get();
     }
 
@@ -62,12 +70,14 @@ class DonacionRepository extends BaseRepository
     public function obtenerCabeceraDonacion($request)
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'donaciones.user_id')
         ->select(
-            'codigo',
-            'fecha_registro',
-            'fecha_donacion',
-            'donador',
-            'direccion'
+            'users.usuario as nombre_usuario',
+            'donaciones.codigo',
+            'donaciones.fecha_registro',
+            'donaciones.fecha_donacion',
+            'donaciones.donador',
+            'donaciones.direccion'
         )
         ->take(1)
         ->where('id', $request)

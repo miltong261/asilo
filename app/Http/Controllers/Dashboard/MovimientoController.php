@@ -25,7 +25,7 @@ class MovimientoController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) return redirect('/asilo');
+        // if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->movimientoRepository->indexMovimiento());
     }
 
@@ -49,7 +49,8 @@ class MovimientoController extends Controller
                 'tipo_movimiento_id', 'monto', 'observacion'])
                 + ['caja_id' => 1]
                 + ['fecha_registro' => Carbon::now()]
-                + ['no_transaccion' => 'TRANSACCION- ' . $this->movimientoRepository->generateCode()],
+                + ['no_transaccion' => 'TRANSACCION- ' . $this->movimientoRepository->generateCode()]
+                + ['user_id' => \Auth::user()->id],
                 $request->entrada,
                 $request->salida,
                 null

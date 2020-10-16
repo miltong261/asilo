@@ -25,10 +25,13 @@ class ProductoRepository extends BaseRepository
             $asignacion = 0;
 
         return $this->getModel()
+            ->join('users', 'users.id', '=', 'productos.user_id')
             ->join('inventario', 'inventario.producto_id', '=', 'productos.id')
             ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
             ->join('tipo_producto', 'tipo_producto.id', '=', 'productos.tipo_producto_id')
             ->select('productos.*',
+                'users.usuario as nombre_usuario',
+                'users.rol_id',
                 'inventario.existencia',
                 'unidad_medida.nombre as unidad_nombre',
                 'tipo_producto.nombre as categoria_nombre'

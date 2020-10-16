@@ -8,6 +8,7 @@ class Residente extends Model
 {
     protected $table = 'residentes';
     protected $fillable = [
+        'user_id',
         'municipio_origen',
         'municipio_dpi',
         'codigo',
@@ -27,6 +28,11 @@ class Residente extends Model
         'historial',
         'observacion'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 
     public function signosVitales()
     {

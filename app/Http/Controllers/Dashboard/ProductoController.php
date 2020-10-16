@@ -42,6 +42,7 @@ class ProductoController extends Controller
                 + ['fecha_registro' => Carbon::now()]
                 + ['asignacion' => 1]
                 + ['codigo' => 'ARTÍCULO-' . $this->productoRepository->generateCodeProduct('producto')]
+                + ['user_id' => \Auth::user()->id]
             );
 
             if ($guardar == 'exitoso') {

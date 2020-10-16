@@ -71,6 +71,7 @@ class ResidenteController extends Controller
                 'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'])
                 + ['codigo' => 'RESIDENTE-' . $this->residenteRepository->generateCode()]
                 + ['fecha_ingreso' => Carbon::now()]
+                + ['user_id' => \Auth::user()->id]
             );
 
             DB::commit();

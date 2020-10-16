@@ -16,6 +16,11 @@ class CreateMovimientosTable extends Migration
         Schema::create('movimientos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
+
             $table->unsignedBigInteger('caja_id');
             $table->foreign('caja_id')
                 ->references('id')

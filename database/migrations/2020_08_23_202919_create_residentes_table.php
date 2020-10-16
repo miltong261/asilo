@@ -16,10 +16,10 @@ class CreateResidentesTable extends Migration
         Schema::create('residentes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->unsignedBigInteger('municipio_origen');
             $table->foreign('municipio_origen')

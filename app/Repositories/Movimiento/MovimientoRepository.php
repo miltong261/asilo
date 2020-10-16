@@ -16,8 +16,11 @@ class MovimientoRepository extends BaseRepository
     public function indexMovimiento()
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'movimientos.user_id')
         ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
         ->select('movimientos.*',
+            'users.usuario as nombre_usuario',
+            'users.rol_id',
             'tipo_movimiento.id as tipo_movimiento_id',
             'tipo_movimiento.nombre as tipo_movimiento_nombre',
             'tipo_movimiento.entrada',

@@ -48,7 +48,8 @@ class AjusteProductoController extends Controller
 
             $guardar = $this->ajusteRepository->ajuste($request->only([
                 'producto_id', 'cantidad', 'entrada', 'salida', 'observacion'])
-                + ['fecha_registro' => Carbon::now()],
+                + ['fecha_registro' => Carbon::now()]
+                + ['user_id' => \Auth::user()->id],
                 null
             );
 

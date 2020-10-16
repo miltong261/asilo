@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Donacion extends Model
 {
     protected $table = 'donaciones';
-    protected $fillable = ['codigo', 'fecha_registro', 'fecha_donacion', 'donador', 'direccion'];
+    protected $fillable = [
+        'user_id',
+        'codigo',
+        'fecha_registro',
+        'fecha_donacion',
+        'donador',
+        'direccion'
+    ];
 
     public function user()
     {

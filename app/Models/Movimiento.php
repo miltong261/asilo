@@ -8,6 +8,7 @@ class Movimiento extends Model
 {
     protected $table = 'movimientos';
     protected $fillable = [
+        'user_id',
         'caja_id',
         'tipo_movimiento_id',
         'no_transaccion',
@@ -15,6 +16,11 @@ class Movimiento extends Model
         'monto',
         'observacion'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 
     public function caja()
     {

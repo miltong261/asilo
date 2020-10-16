@@ -18,11 +18,14 @@ class ResidenteRepository extends BaseRepository
     public function indexResidente()
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'residentes.user_id')
         ->join('municipios as municipio_origen', 'municipio_origen.id', '=', 'residentes.municipio_origen')
         ->join('municipios as municipio_dpi', 'municipio_dpi.id', '=', 'residentes.municipio_dpi')
         ->join('departamentos as departamento_origen', 'departamento_origen.id', '=', 'municipio_origen.departamento_id')
         ->join('departamentos as departamento_dpi', 'departamento_dpi.id', '=', 'municipio_dpi.departamento_id')
         ->select('residentes.*',
+            'users.usuario as nombre_usuario',
+            'users.rol_id',
             'municipio_origen.nombre as municipio_origen_nombre',
             'municipio_dpi.nombre as municipio_dpi_nombre',
             'municipio_origen.id as municipio_origen_id',

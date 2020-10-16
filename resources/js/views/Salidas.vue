@@ -20,6 +20,7 @@
                                         <th class="text-center"> <i class="fas fa-user"></i> Solicitó</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de salida</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
                                 </thead>
@@ -31,6 +32,7 @@
                                         <td class="text-center" v-text="salida.nombre_empleado+' '+salida.apellido_empleado"></td>
                                         <td class="text-center" v-text="salida.fecha_registro"></td>
                                         <td class="text-center" v-text="salida.fecha_salida"></td>
+                                        <td class="text-center" v-text="salida.nombre_usuario" ></td>
                                         <td class="text-center">
                                             <button type="button" @click="showSalida(salida.id)" class="btn rounded-circle btn-info mb-1"> <i class="fas fa-eye"></i></button>
                                             <button type="button" @click="pdf(salida.id)" class="btn rounded-circle btn-danger mb-1"> <i class="fas fa-file-pdf"></i></button>
@@ -195,6 +197,9 @@
                                     </tr>
                                     <tr>
                                         <td><i class="fas fa-store-alt"></i> <strong>Área: </strong>{{ salida_nombre_area }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ salida_nombre_usuario }}</td>
                                     </tr>
                                 </table>
                             </div>

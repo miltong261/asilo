@@ -2104,6 +2104,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2284,6 +2292,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2928,6 +2944,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4735,6 +4757,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5803,6 +5830,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6086,6 +6121,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
 //
 //
 //
@@ -7105,6 +7142,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7169,7 +7214,7 @@ __webpack_require__.r(__webpack_exports__);
     openModalProducto: function openModalProducto() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalProducto = 1;
-      this.titulo = 'PRODUCTO ' + data['nombre'].toUpperCase();
+      this.titulo = 'ARTÍCULO ' + data['nombre'].toUpperCase();
       this.codigo = data['codigo'];
       this.unidad_medida_nombre = data['unidad_nombre'];
       this.tipo_producto_nombre = data['categoria_nombre'];
@@ -8657,6 +8702,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -9339,6 +9389,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
 //
 //
 //
@@ -65391,6 +65443,15 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(
+                                ajuste_medicamento.nombre_usuario
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             _c(
                               "button",
@@ -65804,6 +65865,24 @@ var render = function() {
                   }
                 },
                 [
+                  _c("div", { staticClass: "mx-auto" }, [
+                    _c(
+                      "h5",
+                      {
+                        staticClass: "text-secondary",
+                        attrs: { align: "center" }
+                      },
+                      [
+                        _vm._v("Registró: "),
+                        _c("strong", {
+                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(9),
@@ -66060,6 +66139,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Observacion")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -66339,6 +66423,15 @@ var render = function() {
                             staticClass: "text-center",
                             domProps: {
                               textContent: _vm._s(ajuste_producto.observacion)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(
+                                ajuste_producto.nombre_usuario
+                              )
                             }
                           }),
                           _vm._v(" "),
@@ -66753,6 +66846,24 @@ var render = function() {
                   }
                 },
                 [
+                  _c("div", { staticClass: "mx-auto" }, [
+                    _c(
+                      "h5",
+                      {
+                        staticClass: "text-secondary",
+                        attrs: { align: "center" }
+                      },
+                      [
+                        _vm._v("Registró: "),
+                        _c("strong", {
+                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(9),
@@ -67009,6 +67120,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Observacion")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -67685,6 +67801,13 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.nombre_usuario)
+                                  }
+                                }),
+                                _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _c(
                                     "button",
@@ -68325,6 +68448,15 @@ var render = function() {
                                 _c("strong", [_vm._v("Documento: ")]),
                                 _vm._v(_vm._s(_vm.compra_documento))
                               ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", [
+                                _c("i", { staticClass: "fas fa-user" }),
+                                _vm._v(" "),
+                                _c("strong", [_vm._v("Registró: ")]),
+                                _vm._v(_vm._s(_vm.compra_nombre_usuario))
+                              ])
                             ])
                           ])
                         ])
@@ -68629,6 +68761,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "far fa-calendar-alt" }),
           _vm._v(" Fecha de compra")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -69779,6 +69916,13 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.nombre_usuario)
+                                  }
+                                }),
+                                _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _c(
                                     "button",
@@ -70373,6 +70517,15 @@ var render = function() {
                                 _c("strong", [_vm._v("Dirección: ")]),
                                 _vm._v(_vm._s(_vm.donacion_donador_direccion))
                               ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", [
+                                _c("i", { staticClass: "fas fa-user" }),
+                                _vm._v(" "),
+                                _c("strong", [_vm._v("Registró: ")]),
+                                _vm._v(_vm._s(_vm.donacion_nombre_usuario))
+                              ])
                             ])
                           ])
                         ])
@@ -70671,6 +70824,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-calendar-alt" }),
           _vm._v(" Fecha de donación")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -72310,6 +72468,13 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(medicamento.nombre_usuario)
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             medicamento.estado
                               ? _c("div", [
@@ -72879,6 +73044,24 @@ var render = function() {
                   }
                 },
                 [
+                  _c("div", { staticClass: "mx-auto" }, [
+                    _c(
+                      "h5",
+                      {
+                        staticClass: "text-secondary",
+                        attrs: { align: "center" }
+                      },
+                      [
+                        _vm._v("Registró: "),
+                        _c("strong", {
+                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(7),
@@ -73282,6 +73465,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-lock" }),
           _vm._v(" Estado")
         ]),
@@ -73596,6 +73784,13 @@ var render = function() {
                                 ])
                               : _vm._e()
                           ]),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(movimiento.nombre_usuario)
+                            }
+                          }),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -73941,6 +74136,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-money-bill" }),
           _vm._v(" Salida")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -75322,6 +75522,13 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(producto.nombre_usuario)
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             producto.estado
                               ? _c("div", [
@@ -75889,6 +76096,24 @@ var render = function() {
                   }
                 },
                 [
+                  _c("div", { staticClass: "mx-auto" }, [
+                    _c(
+                      "h5",
+                      {
+                        staticClass: "text-secondary",
+                        attrs: { align: "center" }
+                      },
+                      [
+                        _vm._v("Registró: "),
+                        _c("strong", {
+                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(7),
@@ -76289,6 +76514,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-store-alt" }),
           _vm._v(" Existencia")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -79301,6 +79531,13 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(salida.nombre_usuario)
+                                  }
+                                }),
+                                _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _c(
                                     "button",
@@ -79955,6 +80192,15 @@ var render = function() {
                                 _c("strong", [_vm._v("Área: ")]),
                                 _vm._v(_vm._s(_vm.salida_nombre_area))
                               ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", [
+                                _c("i", { staticClass: "fas fa-user" }),
+                                _vm._v(" "),
+                                _c("strong", [_vm._v("Registró: ")]),
+                                _vm._v(_vm._s(_vm.salida_nombre_usuario))
+                              ])
                             ])
                           ])
                         ])
@@ -80251,6 +80497,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "far fa-calendar-alt" }),
           _vm._v(" Fecha de salida")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -81393,6 +81644,15 @@ var render = function() {
                               : _c("div", [_vm._m(4, true)])
                           ]),
                           _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: {
+                              textContent: _vm._s(
+                                tipo_movimiento.nombre_usuario
+                              )
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
                             tipo_movimiento.estado
                               ? _c("div", [
@@ -81807,6 +82067,11 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-shopping-cart" }),
           _vm._v(" Salida")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró: ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -100901,7 +101166,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -96,6 +96,7 @@ export default {
                     },
                     options: {
                         scales: {
+                              yAxes : [{ ticks : { beginAtZero : true } }],
                             xAxes: [{ barPercentage: 0.4 }]
                         },
                         scaleBeginAtZero: false
@@ -128,6 +129,7 @@ export default {
                     },
                     options: {
                         scales: {
+                              yAxes : [{ ticks : { beginAtZero : true } }],
                             xAxes: [{ barPercentage: 0.4 }]
                         },
                         scaleBeginAtZero: false

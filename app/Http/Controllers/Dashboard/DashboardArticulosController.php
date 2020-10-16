@@ -22,6 +22,7 @@ class DashboardArticulosController extends Controller
         ->whereYear('salidas.fecha_salida', $anio)
         ->where('productos.asignacion', 1)
         ->groupBy(DB::raw('MONTHNAME(salidas.fecha_salida)'), DB::raw('YEAR(salidas.fecha_salida)'))
+        ->orderby('mes', 'desc')
         ->get();
 
         $donaciones = DB::table('detalle_donacion as d_donacion')
@@ -33,6 +34,7 @@ class DashboardArticulosController extends Controller
         ->whereYear('donaciones.fecha_donacion', $anio)
         ->where('productos.asignacion', 1)
         ->groupBy(DB::raw('MONTHNAME(donaciones.fecha_donacion)'), DB::raw('YEAR(donaciones.fecha_donacion)'))
+        ->orderby('mes', 'desc')
         ->get();
 
         return ['salidas' => $salidas, 'anio' => $anio, 'donaciones' => $donaciones];

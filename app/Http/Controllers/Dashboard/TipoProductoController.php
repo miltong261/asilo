@@ -23,8 +23,9 @@ class TipoProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->tipoProductoRepository->index(
             ['id', 'codigo', 'nombre', 'medicamento', 'producto', 'estado']
         ));

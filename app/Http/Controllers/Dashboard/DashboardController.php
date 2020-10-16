@@ -11,6 +11,7 @@ class DashboardController extends Controller
 {
     public function __invoke(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         $anio = date('Y');
 
         $salidas = DB::table('movimientos')

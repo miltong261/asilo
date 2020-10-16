@@ -19,8 +19,9 @@ class MedicamentoController extends Controller
         $this->medicamentoRepository = $medicamentoRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->medicamentoRepository->indexProducto('medicamento'));
     }
     /**

@@ -11,6 +11,7 @@ class DashboardComprasController extends Controller
 {
     public function __invoke(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         $anio = date('Y');
 
         $compras_articulo = DB::table('detalle_compra as d_compra')

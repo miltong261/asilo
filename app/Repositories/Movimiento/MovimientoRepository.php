@@ -23,7 +23,7 @@ class MovimientoRepository extends BaseRepository
             'tipo_movimiento.entrada',
             'tipo_movimiento.salida'
         )
-        ->orderBy('movimientos.fecha_registro', 'desc')
+        ->orderBy('movimientos.no_transaccion', 'desc')
         ->get();
     }
 

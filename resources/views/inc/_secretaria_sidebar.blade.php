@@ -63,7 +63,7 @@
                     <router-link tag="li" to="/tipo_movimiento" exact-active-class="active">
                         <a>Tipo movimiento</a>
                     </router-link>
-                    <router-link tag="li" to="/movimiento_caja" exact-active-class="active">
+                    <router-link tag="li" to="/movimientos" exact-active-class="active">
                         <a>Movimientos de caja</a>
                     </router-link>
                 </ul>

@@ -102,7 +102,7 @@
                                     <div class="col-md-9 form-group" v-if="option_enabled==0">
                                         <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
                                         <select id="select_producto" class="form-control" v-model="producto_id">
-                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+' / '+producto.nombre_unidad"></option>
+                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+'/ '+producto.presentacion_producto+' '+producto.nombre_unidad"></option>
                                         </select>
                                     </div>
 
@@ -124,8 +124,8 @@
                                         <tr>
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
-                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
                                             <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
@@ -135,8 +135,8 @@
                                         <tr v-for="(detalle, index) in arrayDetalle" :key="detalle.id">
                                             <td v-text="index+1"></td>
                                             <td v-text="detalle.nombre_producto"></td>
-                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
                                                 <input onkeypress="return event.charCode >= 48" v-model="detalle.cantidad" type="number" value="2" class="form-control">
@@ -210,8 +210,8 @@
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                             <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
-                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
                                         </tr>
@@ -221,8 +221,8 @@
                                             <td v-text="index+1"></td>
                                             <td v-text="detalle.codigo_producto"></td>
                                             <td v-text="detalle.nombre_producto"></td>
-                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td v-text="detalle.cantidad"></td>
                                         </tr>
@@ -261,8 +261,8 @@
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
-                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                         <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                         <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
@@ -272,8 +272,8 @@
                                     <tr  v-for="(producto, index) in lista_inventario" :key="producto.producto_id">
                                         <td v-text="index+1"></td>
                                         <td v-text="producto.nombre_producto"></td>
-                                        <td v-text="producto.nombre_unidad"></td>
                                         <td v-text="producto.presentacion_producto"></td>
+                                        <td v-text="producto.nombre_unidad"></td>
                                         <td v-text="producto.observacion_producto"></td>
                                         <td v-text="producto.existencia"></td>
                                         <td>
@@ -410,6 +410,9 @@
                     for (var i = 0; i < this.arrayDetalle.length; i++) {
                         if (this.arrayDetalle[i].cantidad == 0 || this.arrayDetalle[i].cantidad == '') {
                             alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
+                            errores = 1
+                        } else if (this.arrayDetalle[i].cantidad < 0) {
+                            alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto' + this.arrayDetalle[i].nombre_producto)
                             errores = 1
                         }
                     }

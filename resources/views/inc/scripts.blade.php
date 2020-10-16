@@ -25,9 +25,12 @@
 <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
 <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
 
- {{-- Tables Datatable Basic --}}
- <script src="{{asset('plugins/table/datatable/datatables.min.js')}}"></script>
+{{-- Tables Datatable Basic --}}
+<script src="{{asset('plugins/table/datatable/datatables.min.js')}}"></script>
 
-  {{-- FontAwesome --}}
-  <script src="{{asset('assets/js/fontawesome/all.min.js')}}"></script>
+{{-- FontAwesome --}}
+<script src="{{asset('assets/js/fontawesome/all.min.js')}}"></script>
+
+{{-- ChartJS --}}
+<script src="{{asset('assets/js/chartjs/Chart.min.js')}}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

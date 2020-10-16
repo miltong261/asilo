@@ -6,7 +6,7 @@
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div v-for="saldo in caja" :key="saldo.id" class="text-center">
-                        <span>Saldo en caja: <strong class="text-secondary">Q{{ saldo.saldo }}</strong></span>
+                        <span>Saldo en caja: <strong class="text-secondary">Q {{ saldo.saldo }}</strong></span>
                     </div>
                     <div class="table-responsive mb-0 mt-0">
                         <table id="zero-config" class="table table-hover" style="width:100%">
@@ -31,16 +31,18 @@
                                     <td v-text="movimiento.observacion" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="movimiento.entrada">
-                                            <span class="badge outline-badge-check" v-text="'Q'+movimiento.monto"></span>
+                                            <span class="badge outline-badge-check" v-text="'Q '+movimiento.monto"></span>
                                         </div>
                                     </td>
                                     <td class="text-center">
                                         <div v-if="movimiento.salida">
-                                            <span class="badge outline-badge-no-check" v-text="'Q'+movimiento.monto"></span>
+                                            <span class="badge outline-badge-no-check" v-text="'Q '+movimiento.monto"></span>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <template v-if="movimiento.tipo_movimiento_nombre!='Compra'">
+                                            <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>

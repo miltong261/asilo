@@ -1,0 +1,97 @@
+body {
+        font-family: Arial, sans-serif; 
+        font-size: 14px;
+        width: 80%;
+
+        margin: auto;
+        display: block;
+}
+
+table{
+        width: 100%;
+}
+table:not(#tabla-empleado){
+        text-align: center
+}
+
+
+#fila-encabezado th{
+        display: table-cell;
+        vertical-align: middle;
+        color:#5c1ac3; /* text-secondary */
+}
+
+#logo{
+        float: left;
+        margin-top: 1%;
+        margin-left: 2%;
+        margin-right: 2%;
+}
+#tabla-encabezado{
+        text-align: center;
+        width: 100%;
+        margin-bottom: 2%;
+}
+
+#tabla-encabezado h3,
+#tabla-encabezado h5{
+        margin-top: 0;
+        margin-bottom: 0;  
+}
+
+#tabla-encabezado h4{
+        margin-top: 0%; 
+        margin-bottom:0; 
+        color:#5c1ac3; /* text-secondary */
+}
+
+#tabla-encabezado td{
+        width: 33%;
+        display: table-cell;
+        vertical-align: middle;
+}
+#codigo{
+        float: right;
+        margin-right: 10%;
+}
+
+#imagen{
+        width: 50%;
+}
+
+
+footer{
+        bottom: 0;
+        position: relative;
+        margin-top: 5%;
+        margin-bottom: 1%;
+        width: 100%;
+        height: 40px;
+}
+
+#pie td{
+        text-align: center;
+        
+}
+.info{
+        width: 35%;
+        border-bottom: solid gray; 
+}
+
+#tabla-datos{
+        margin-top: 2%; 
+        border-radius: 2%; 
+}
+
+#tabla-datos td, #tabla-datos th{
+      height: 50px;
+}
+
+#tabla-datos:not(th):not(td){        
+        background: lightslategray;
+}
+
+#tabla-datos, #tabla-datos tr, #tabla-datos td, #tabla-datos th{
+        border: solid 1pt lightslategray;
+        background: white;
+}

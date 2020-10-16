@@ -3,10 +3,21 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Compra\CompraRequest;
+use App\Repositories\Compra\CompraRepository;
 use Illuminate\Http\Request;
+
+use Carbon\Carbon;
 
 class CompraController extends Controller
 {
+    protected $compraRepository;
+
+    public function __construct(CompraRepository $compraRepository)
+    {
+        $this->compraRepository = $compraRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +25,7 @@ class CompraController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->compraRepository->indexCompra());
     }
 
     /**
@@ -33,20 +34,28 @@ class CompraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompraRequest $request)
     {
-        //
+        return $this->compraRepository->storeCompra($request->only([
+            'fecha_compra', 'documento', 'total'])
+            + ['fecha_registro' => Carbon::now()]
+            + ['codigo' => 'ADQUISICIÓN-' . $this->compraRepository->generateCode()],
+            $request->arrayData
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function cabecera(Request $request)
     {
-        //
+        return response()->json($this->compraRepository->obtenerCabeceraCompra($request->id));
+    }
+
+    public function detalle(Request $request)
+    {
+        return response()->json($this->compraRepository->obtenerDetalleCompra($request->id));
+    }
+
+    public function pdf($id)
+    {
+        return $this->compraRepository->pdfCompra($id);
     }
 }

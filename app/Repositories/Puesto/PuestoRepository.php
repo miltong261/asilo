@@ -11,4 +11,14 @@ class PuestoRepository extends BaseRepository
     {
         return new Puesto();
     }
+
+    public function comboboxPuesto()
+    {
+        return $this->getModel()
+        ->select('id', 'nombre')
+        ->where('nombre', '!=', 'Administrador')
+        ->where('estado', 1)
+        ->orderBy('nombre', 'asc')
+        ->get();
+    }
 }

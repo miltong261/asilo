@@ -5,6 +5,23 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
+        // Rutas para dashboard
+        {
+            path: '/dashboard',
+            component: require('../views/Dashboard').default
+        },
+        {
+            path: '/dashboard_articulos',
+            component: require('../views/DashboardArticulos').default
+        },
+        {
+            path: '/dashboard_medicamentos',
+            component: require('../views/DashboardMedicamentos').default
+        },
+        {
+            path: '/dashboard_compras',
+            component: require('../views/DashboardCompras').default
+        },
         // Rutas de configuración
         {
             path: '/categorias',
@@ -31,6 +48,11 @@ export default new Router({
             path: '/movimiento_caja',
             component: require('../views/MovimientoCaja').default
         },
+        // Rutas de autenticación
+        {
+            path: '/usuarios',
+            component: require('../views/Usuarios').default
+        },
         // Rutas de personal
         {
             path: '/areas',
@@ -48,6 +70,15 @@ export default new Router({
         {
             path: '/residentes',
             component: require('../views/Residentes').default
+        },
+        // Rutas para enfermería
+        {
+            path: '/signos',
+            component: require('../views/Signos').default
+        },
+        {
+            path: '/notas',
+            component: require('../views/Notas').default
         },
         // Rutas de inventario
         {

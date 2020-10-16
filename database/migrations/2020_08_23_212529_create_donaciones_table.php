@@ -24,8 +24,10 @@ class CreateDonacionesTable extends Migration
             $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_donacion');
-            $table->string('donador')->default('Anónimo');
-            $table->string('direccion', 70)->default('Retalhuleu');
+            $table->string('donador')->nullable();
+            $table->string('direccion', 70)->nullable();
+
+            $table->timestamps();
         });
     }
 

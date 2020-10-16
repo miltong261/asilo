@@ -11,7 +11,6 @@ use App\Repositories\Residente\ResidenteRepository;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Laravel\Ui\Presets\React;
 
 class ResidenteController extends Controller
 {
@@ -40,9 +39,6 @@ class ResidenteController extends Controller
      */
     public function store(ResidenteRequest $request)
     {
-        try {
-
-
             // $residente = $request->only([
             //     'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'
             // ])
@@ -67,6 +63,7 @@ class ResidenteController extends Controller
             // }else
             //     return $guardar;
 
+        try {
             DB::beginTransaction();
 
             $this->residenteRepository->store($request->only([
@@ -133,5 +130,10 @@ class ResidenteController extends Controller
             DB::rollback();
             return $th;
         }
+    }
+
+    public function pdf($id)
+    {
+        return $this->residenteRepository->pdfResidente($id);
     }
 }

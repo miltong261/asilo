@@ -37,7 +37,7 @@ class CreateProductosTable extends Migration
             $table->string('observacion', 70)->nullable();
             $table->boolean('asignacion'); // 0 -> Medicamento o 1 -> producto
             $table->date('fecha_registro');
-            $table->date('fecha_vencimiento');
+            $table->date('fecha_vencimiento')->nullable();
             $table->date('fecha_ultima_compra')->nullable();
             $table->date('fecha_ultima_salida')->nullable();
             $table->date('fecha_ultimo_ajuste')->nullable();

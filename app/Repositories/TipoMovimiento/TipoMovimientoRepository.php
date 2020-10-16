@@ -39,4 +39,13 @@ class TipoMovimientoRepository extends BaseRepository
             }
         }
     }
+
+    public function comboboxTipoMovimiento()
+    {
+        return $this->getModel()
+        ->select('id', 'nombre', 'entrada', 'salida', 'estado')
+        ->where('estado', 1)
+        ->where('nombre', '!=', 'Compra')
+        ->get();
+    }
 }

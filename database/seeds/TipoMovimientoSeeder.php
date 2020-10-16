@@ -19,5 +19,13 @@ class TipoMovimientoSeeder extends Seeder
             'salida' => 1,
             'estado' => 1
         ));
+
+        TipoMovimiento::create(array(
+            'codigo' => 'MOVIMIENTO-0002',
+            'nombre' => 'Donación',
+            'entrada' => 1,
+            'salida' => 0,
+            'estado' => 1
+        ));
     }
 }

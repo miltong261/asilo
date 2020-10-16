@@ -16,5 +16,10 @@ class AreaSeeder extends Seeder
             'codigo' => 'ÁREA-0001',
             'nombre' => 'Administración'
         ));
+
+        Area::create(array(
+            'codigo' => 'ÁREA-0002',
+            'nombre' => 'Enfermería'
+        ));
     }
 }

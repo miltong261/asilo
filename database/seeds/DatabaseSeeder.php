@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoMovimientoSeeder::class);
         $this->call(CajaSeeder::class);
         $this->call(RolSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

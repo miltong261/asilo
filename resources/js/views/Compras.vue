@@ -20,7 +20,7 @@
                                         <th class="text-center"> <i class="fas fa-file"></i> Documento</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de compra</th>
-                                        <!-- <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de salida</th> -->
+                                        <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de salida</th>
                                         <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
@@ -33,7 +33,7 @@
                                         <td class="text-center" v-text="compra.documento"></td>
                                         <td class="text-center" v-text="compra.fecha_registro"></td>
                                         <td class="text-center" v-text="compra.fecha_compra"></td>
-                                        <td class="text-center" v-text="compra.nombre_usuario" ></td>
+                                        <td class="text-center" v-text="compra.nombre_usuario"></td>
                                         <td class="text-center">
                                             <button type="button" @click="showCompra(compra.id)" class="btn rounded-circle btn-info mb-1"> <i class="fas fa-eye"></i></button>
                                             <button type="button" @click="pdf(compra.id)" class="btn rounded-circle btn-danger mb-1"> <i class="fas fa-file-pdf"></i></button>

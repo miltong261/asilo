@@ -15,6 +15,7 @@
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -27,6 +28,7 @@
                                     <td v-text="producto.unidad_nombre" class="text-center"></td>
                                     <td v-text="producto.categoria_nombre" class="text-center"></td>
                                     <td v-text="producto.existencia" class="text-center"></td>
+                                    <td v-text="producto.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="producto.estado">
                                             <span class="badge outline-badge-check">Activo</span>
@@ -147,6 +149,12 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
+                            <div class="mx-auto">
+                                <h5 align="center" class="text-secondary">Registró: <strong v-text="nombre_usuario"></strong> </h5>
+                            </div>
+
+                            <br>
+
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-qrcode"></i> Código</label>
@@ -292,7 +300,7 @@
             },
             openModalProducto(data = []) {
                 this.modalProducto = 1
-                this.titulo = 'PRODUCTO ' + data['nombre'].toUpperCase()
+                this.titulo = 'ARTÍCULO ' + data['nombre'].toUpperCase()
 
                 this.codigo = data['codigo']
                 this.unidad_medida_nombre = data['unidad_nombre']

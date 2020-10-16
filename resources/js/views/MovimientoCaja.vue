@@ -19,6 +19,7 @@
                                     <th class="text-center"><i class="fas fa-search"></i> Observación</th>
                                     <th class="text-center"><i class="fas fa-money-bill"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-money-bill"></i> Salida</th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -39,6 +40,7 @@
                                             <span class="badge outline-badge-no-check" v-text="'Q '+movimiento.monto"></span>
                                         </div>
                                     </td>
+                                    <td v-text="movimiento.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
                                         <template v-if="movimiento.tipo_movimiento_nombre!='Compra'">
                                             <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>

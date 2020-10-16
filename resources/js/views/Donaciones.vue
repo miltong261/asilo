@@ -20,6 +20,7 @@
                                         <th class="text-center"> <i class="fas fa-street-view"></i> Dirección</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de donación</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
                                 </thead>
@@ -31,6 +32,7 @@
                                         <td class="text-center" v-text="donacion.direccion"></td>
                                         <td class="text-center" v-text="donacion.fecha_registro"></td>
                                         <td class="text-center" v-text="donacion.fecha_donacion"></td>
+                                        <td class="text-center" v-text="donacion.nombre_usuario"></td>
                                         <td class="text-center">
                                             <button type="button" @click="showDonacion(donacion.id)" class="btn rounded-circle btn-info mb-1"> <i class="fas fa-eye"></i></button>
                                             <button type="button" @click="pdf(donacion.id)" class="btn rounded-circle btn-danger mb-1"> <i class="fas fa-file-pdf"></i></button>
@@ -187,6 +189,9 @@
                                     </tr>
                                     <tr>
                                         <td><i class="fas fa-street-view"></i> <strong>Dirección: </strong>{{ donacion_donador_direccion }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ donacion_nombre_usuario }}</td>
                                     </tr>
                                 </table>
                             </div>

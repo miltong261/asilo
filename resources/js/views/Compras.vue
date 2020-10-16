@@ -130,10 +130,10 @@
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
-                                                <input onkeypress="return event.charCode >= 48" v-model="detalle.cantidad" type="number" value="2" class="form-control">
+                                                <input onkeypress="" v-model="detalle.cantidad" type="number" value="2" class="form-control">
                                             </td>
                                             <td>
-                                                <input onkeypress="return event.charCode >= 48" v-model="detalle.precio" type="number" value="2" class="form-control">
+                                                <input onkeypress="" v-model="detalle.precio" type="number" value="2" class="form-control">
                                             </td>
                                             <td>
                                                 <button class="btn btn-eliminar mb-2 mr-2 rounded-circle" @click="eliminarProductoDetalle(index)"> <i class="fa fa-trash-alt"></i></button>
@@ -225,7 +225,7 @@
                                 </table>
                             </div>
                             <h6 class="text-center">Cantidad de productos comprados: <strong class="text-secondary">{{ cantidad_suma }}</strong></h6>
-                            <h6 class="text-center">TOTAL : <strong class="text-secondary">Q{{ cantidad_suma }}</strong></h6>
+                            <h6 class="text-center">TOTAL : <strong class="text-secondary">Q{{ compra_total }}</strong></h6>
                         </fieldset>
 
                         <br>

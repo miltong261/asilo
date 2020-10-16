@@ -23,7 +23,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <p>Salidas de artículos en los últimos meses.</p>
+                                            <p>Salidas de medicamentos en los últimos meses.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <p>Donaciones de artículos en los últimos meses.</p>
+                                            <p>Donaciones de medicamentos en los últimos meses.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -54,10 +54,13 @@
 </template>
 
 <script>
-
+ var moment = require('moment');
+ require("moment/min/locales.min");
+moment.locale('es');
 var Chart = require('chart.js');
 
 export default {
+    
     data() {
         return {
             salidas: [],
@@ -95,9 +98,11 @@ export default {
                     },
                     options: {
                         scales: {
-                            xAxes: [{ barPercentage: 0.4 }]
+                            
+                            xAxes: [{ barPercentage: 0.4 }],
+                            yAxes : [{ ticks : { beginAtZero : true } }]
                         },
-                        scaleBeginAtZero: false
+                        scaleBeginAtZero: true
                     }
                 })
             })
@@ -127,9 +132,10 @@ export default {
                     },
                     options: {
                         scales: {
+                            yAxes : [{ ticks : { beginAtZero : true } }],
                             xAxes: [{ barPercentage: 0.4 }]
                         },
-                        scaleBeginAtZero: false
+                        scaleBeginAtZero: true
                     }
                 })
             })

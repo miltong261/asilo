@@ -3,6 +3,7 @@ namespace App\Repositories\Empleado;
 
 use App\Models\Puesto;
 use App\Models\Empleado;
+use App\User;
 use App\Repositories\BaseRepository;
 
 class EmpleadoRepository extends BaseRepository
@@ -36,5 +37,22 @@ class EmpleadoRepository extends BaseRepository
         ->where('estado', 1)
         ->orderBy('nombre', 'asc')
         ->get();
+    }
+
+    /** Método para cambiar de estado */
+    public function estadoEmpleado($action, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+        $user = User::where('empleado_id', $id);
+
+        if ($action == 'activar') {
+            $object->estado = 1;
+            $user->update(['estado' => 1, 'password' => bcrypt($user->usuario)]);
+        } elseif ($action == 'desactivar') {
+            $object->estado = 0;
+            $user->update(['estado' => 0, 'primer_login' => 0]);
+        }
+
+        return $object->save();
     }
 }

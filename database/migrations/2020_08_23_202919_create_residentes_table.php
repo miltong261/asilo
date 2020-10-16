@@ -47,6 +47,8 @@ class CreateResidentesTable extends Migration
             $table->string('estado');
             $table->string('historial');
             $table->string('observacion')->nullable();
+            $table->boolean('activo')->default(1);
+            $table->boolean('defuncion')->default(0);
 
             $table->timestamps();
         });

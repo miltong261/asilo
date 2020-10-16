@@ -134,6 +134,47 @@ class ResidenteController extends Controller
         }
     }
 
+    public function activate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $activar = $this->residenteRepository->activo('activar', $request->id);
+
+            if ($activar)
+                DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+    }
+
+    public function desactivate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $desactivar = $this->residenteRepository->activo('desactivar', $request->id);
+
+            if ($desactivar)
+                DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+    }
+
+    public function defuncion(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $residente = $this->residenteRepository->activo('murio', $request->id);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return $th;
+        }
+    }
+
     public function pdf($id)
     {
         return $this->residenteRepository->pdfResidente($id);

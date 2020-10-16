@@ -126,8 +126,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\EmpleadoController@update');
             Route::put('/activate', 'Dashboard\EmpleadoController@activate');
             Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
-            Route::put('/activate', 'Dashboard\EmpleadoController@activate');
-            Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
         });
 
         /** Rutas de hogar */
@@ -137,6 +135,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', 'Dashboard\ResidenteController@index');
             Route::post('/store', 'Dashboard\ResidenteController@store');
             Route::put('/update', 'Dashboard\ResidenteController@update');
+            Route::put('/activate', 'Dashboard\ResidenteController@activate');
+            Route::put('/desactivate', 'Dashboard\ResidenteController@desactivate');
+            Route::put('/defuncion', 'Dashboard\ResidenteController@defuncion');
             Route::get('/pdf/{id}', 'Dashboard\ResidenteController@pdf');
         });
 

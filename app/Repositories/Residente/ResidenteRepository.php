@@ -78,6 +78,22 @@ class ResidenteRepository extends BaseRepository
         if ($object && $signos) return 'exitoso';
     }
 
+    public function activo($type, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+
+        if ($type == 'activar')
+            $object->activo = 1;
+        elseif ( $type == 'desactivar')
+            $object->activo = 0;
+        elseif ($type == 'murio') {
+            $object->activo = 0;
+            $object->defuncion = 1;
+        }
+
+        return $object->save();
+    }
+
     public function pdfResidente($id)
     {
         $data = $this->getModel()

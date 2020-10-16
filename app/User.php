@@ -18,6 +18,7 @@ class User extends Authenticatable
         'fecha_registro',
         'usuario',
         'password',
+        'primer_loring',
         'estado'
     ];
 

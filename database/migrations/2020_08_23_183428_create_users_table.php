@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->date('fecha_registro');
             $table->string('usuario')->unique();
             $table->string('password');
+            $table->boolean('primer_login')->default(0);
             $table->boolean('estado')->default(1);
             $table->timestamps();
         });

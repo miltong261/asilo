@@ -16,5 +16,15 @@ class PuestoSeeder extends Seeder
             'codigo' => 'PUESTO-0001',
             'nombre' => 'Administrador'
         ));
+
+        Puesto::create(array(
+            'codigo' => 'PUESTO-0002',
+            'nombre' => 'Secretaria'
+        ));
+
+        Puesto::create(array(
+            'codigo' => 'PUESTO-0003',
+            'nombre' => 'Enfermera'
+        ));
     }
 }

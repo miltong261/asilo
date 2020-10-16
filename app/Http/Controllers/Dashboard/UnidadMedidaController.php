@@ -23,8 +23,9 @@ class UnidadMedidaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->unidadMedidaRepository->index(
             ['id', 'codigo', 'nombre', 'medicamento', 'producto', 'estado']
         ));

@@ -23,13 +23,15 @@ class AjusteProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexProducto()
+    public function indexProducto(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->ajusteRepository->indexAjuste('producto'));
     }
 
-    public function indexMedicamento()
+    public function indexMedicamento(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->ajusteRepository->indexAjuste('medicamento'));
     }
 

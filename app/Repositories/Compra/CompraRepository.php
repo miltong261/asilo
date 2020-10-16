@@ -32,7 +32,7 @@ class CompraRepository extends BaseRepository
     {
         return $this->getModel()
         ->select('id', 'codigo', 'fecha_registro', 'fecha_compra', 'documento', 'total')
-        ->orderBy('fecha_compra', 'desc')
+        ->orderBy('codigo', 'desc')
         ->get();
     }
 

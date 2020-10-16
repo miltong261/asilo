@@ -5,6 +5,10 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
+        {
+            path: '/bienvenida',
+            component: require('../views/Bienvenida').default
+        },
         // Rutas para dashboard
         {
             path: '/dashboard',
@@ -45,7 +49,7 @@ export default new Router({
             component: require('../views/TipoMovimiento').default
         },
         {
-            path: '/movimiento_caja',
+            path: '/movimientos',
             component: require('../views/MovimientoCaja').default
         },
         // Rutas de autenticación

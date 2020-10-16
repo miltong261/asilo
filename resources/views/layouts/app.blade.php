@@ -37,7 +37,6 @@
 
 
             <div id="content" class="main-content">
-
                 <router-view></router-view>
 
                 @include('inc.footer')

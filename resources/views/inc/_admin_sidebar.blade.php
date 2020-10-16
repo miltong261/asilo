@@ -1,9 +1,22 @@
 <!--  BEGIN SIDEBAR  -->
 <div class="sidebar-wrapper sidebar-theme">
-
     <nav id="sidebar">
         <div class="shadow-bottom"></div>
         <ul class="list-unstyled menu-categories" id="accordionExample">
+            <li class="menu">
+                <a href="#bienvenida" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-home"></i>
+                        <span>Asilo, Retalhuleu</span>
+                    </div>
+                </a>
+                <ul class=" submenu list-unstyled" id="bienvenida" data-parent="#accordionExample">
+                    <router-link tag="li" to="/bienvenida" exact-active-class="active">
+                        <a>Bienvenida</a>
+                    </router-link>
+                </ul>
+            </li>
+
             <li class="menu">
                 <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -75,7 +88,7 @@
                     <router-link tag="li" to="/tipo_movimiento" exact-active-class="active">
                         <a>Tipo movimiento</a>
                     </router-link>
-                    <router-link tag="li" to="/movimiento_caja" exact-active-class="active">
+                    <router-link tag="li" to="/movimientos" exact-active-class="active">
                         <a>Movimientos de caja</a>
                     </router-link>
                 </ul>
@@ -225,6 +238,7 @@
                     </router-link>
                 </ul>
             </li>
+
             {{-- Donaciones --}}
             <li class="menu">
                 <a href="#donaciones" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

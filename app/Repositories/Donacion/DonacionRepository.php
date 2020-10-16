@@ -21,7 +21,7 @@ class DonacionRepository extends BaseRepository
     {
         return $this->getModel()
         ->select('id', 'codigo', 'donador', 'direccion', 'fecha_registro', 'fecha_donacion')
-        ->orderBy('fecha_donacion', 'desc')
+        ->orderBy('codigo', 'desc')
         ->get();
     }
 

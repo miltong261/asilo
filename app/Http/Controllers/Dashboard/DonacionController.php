@@ -23,8 +23,10 @@ class DonacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
+        $page_name = 'mis bolas';
         return response()->json($this->donacionRepository->indexDonacion());
     }
 

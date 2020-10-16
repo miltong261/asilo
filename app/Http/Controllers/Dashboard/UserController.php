@@ -7,6 +7,8 @@ use App\Http\Requests\User\UserUpdateRequest;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepository;
 
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     protected $userRepository;
@@ -35,6 +37,7 @@ class UserController extends Controller
     {
         return $this->userRepository->storeUser($request->only([
             'rol_id', 'empleado_id'])
+            + ['codigo' => $this->userRepository->generateCode()]
         );
     }
 
@@ -60,6 +63,7 @@ class UserController extends Controller
             DB::beginTransaction();
 
             $activar = $this->userRepository->estado('activar', $request->id);
+            DB::commit();
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -73,6 +77,7 @@ class UserController extends Controller
             DB::beginTransaction();
 
             $desactivar = $this->userRepository->estado('desactivar', $request->id);
+            DB::commit();
 
         } catch (\Throwable $th) {
             DB::rollBack();

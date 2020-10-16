@@ -16,6 +16,7 @@ class RolRepository extends BaseRepository
     {
         return $this->getModel()
         ->select('id', 'nombre')
+        ->where('nombre', '!=', 'Administrador')
         ->orderBy('nombre', 'asc')
         ->get();
     }

@@ -10,6 +10,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i></th>
                                     <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Área</th>
                                     <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
@@ -21,6 +22,7 @@
                             <tbody>
                                 <tr v-for="(empleado, index) in lista_empleados" :key="empleado.id">
                                     <td v-text="index+1" class="text-center"></td>
+                                    <td v-text="empleado.codigo" class="text-center"></td>
                                     <td v-text="empleado.nombre + ' ' + empleado.apellido" class="text-center"></td>
                                     <td v-text="empleado.area_nombre" class="text-center"></td>
                                     <td v-text="empleado.puesto_nombre" class="text-center"></td>

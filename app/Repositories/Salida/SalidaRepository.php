@@ -20,15 +20,17 @@ class SalidaRepository extends BaseRepository
     public function indexSalida()
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'salidas.user_id')
         ->join('empleados', 'empleados.id', '=', 'salidas.empleado_id')
         ->join('areas', 'areas.id', '=', 'empleados.area_id')
         ->select(
             'salidas.*',
+            'users.usuario as nombre_usuario',
             'empleados.nombre as nombre_empleado',
             'empleados.apellido as apellido_empleado',
             'areas.nombre as nombre_area'
         )
-        ->orderBy('fecha_salida', 'desc')
+        ->orderBy('codigo', 'desc')
         ->get();
     }
 
@@ -80,9 +82,11 @@ class SalidaRepository extends BaseRepository
     public function obtenerCabeceraSalida($request)
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'salidas.user_id')
         ->join('empleados', 'empleados.id', '=', 'salidas.empleado_id')
         ->join('areas', 'areas.id', '=', 'empleados.area_id')
         ->select(
+            'users.usuario as nombre_usuario',
             'salidas.codigo',
             'salidas.fecha_registro',
             'salidas.fecha_salida',

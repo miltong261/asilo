@@ -16,15 +16,15 @@ class CreateComprasTable extends Migration
         Schema::create('compras', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_compra');
-            $table->string('documento', 15);
+            $table->string('documento', 35)->nullable();
             $table->decimal('total', 8, 2);
 
             $table->timestamps();

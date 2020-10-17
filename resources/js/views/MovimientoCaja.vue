@@ -16,9 +16,10 @@
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Transacción</th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha</th>
                                     <th class="text-center"><i class="fas fa-paste"></i> Tipo movimiento</th>
-                                    <th class="text-center"><i class="fas fa-search"></i> Observación</th>
+                                    <th class="text-center"><i class="fas fa-search"></i> Concepto</th>
                                     <th class="text-center"><i class="fas fa-money-bill"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-money-bill"></i> Salida</th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Registró</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -39,8 +40,9 @@
                                             <span class="badge outline-badge-no-check" v-text="'Q '+movimiento.monto"></span>
                                         </div>
                                     </td>
+                                    <td v-text="movimiento.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
-                                        <template v-if="movimiento.tipo_movimiento_nombre!='Compra'">
+                                        <template v-if="movimiento.tipo_movimiento_nombre!='Compra'&&movimiento.tipo_movimiento_nombre!='Donación'">
                                             <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                     </td>
@@ -87,8 +89,8 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="fas fa-search"></i> Observación</label>
-                                    <input type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese observación...">
+                                    <label class="text-dark"><i class="fas fa-search"></i> Concepto</label>
+                                    <input type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese concepto...">
                                     <div v-if="hasError('observacion')" class="invalid-feedback">
                                         {{ errors.observacion[0] }}
                                     </div>

@@ -22,8 +22,9 @@ class SalidaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->salidaRepository->indexSalida());
     }
 
@@ -38,7 +39,8 @@ class SalidaController extends Controller
         $guardar = $this->salidaRepository->storeSalida($request->only([
             'empleado_id', 'fecha_salida'])
             + ['fecha_registro' => Carbon::now()]
-            + ['codigo' => 'REQUISICIÓN-' . $this->salidaRepository->generateCode()],
+            + ['codigo' => 'REQUISICIÓN-' . $this->salidaRepository->generateCode()]
+            + ['user_id' => \Auth::user()->id],
             $request->arrayData
         );
 

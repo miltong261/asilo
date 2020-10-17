@@ -11,6 +11,7 @@ class DashboardComprasController extends Controller
 {
     public function __invoke(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         $anio = date('Y');
 
         $compras_articulo = DB::table('detalle_compra as d_compra')
@@ -22,6 +23,7 @@ class DashboardComprasController extends Controller
         ->whereYear('compras.fecha_compra', $anio)
         ->where('productos.asignacion', 1)
         ->groupBy(DB::raw('MONTHNAME(compras.fecha_compra)'), DB::raw('YEAR(compras.fecha_compra)'))
+        ->orderby('mes', 'desc')
         ->get();
 
         $compras_medicamento = DB::table('detalle_compra as d_compra')
@@ -33,6 +35,7 @@ class DashboardComprasController extends Controller
         ->whereYear('compras.fecha_compra', $anio)
         ->where('productos.asignacion', 0)
         ->groupBy(DB::raw('MONTHNAME(compras.fecha_compra)'), DB::raw('YEAR(compras.fecha_compra)'))
+        ->orderby('mes', 'desc')
         ->get();
 
         return ['compras_articulo' => $compras_articulo, 'anio' => $anio, 'compras_medicamento' => $compras_medicamento];

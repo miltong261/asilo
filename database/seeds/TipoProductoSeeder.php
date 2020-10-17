@@ -12,6 +12,32 @@ class TipoProductoSeeder extends Seeder
      */
     public function run()
     {
-        factory(TipoProducto::class, 20)->create();
+        TipoProducto::create(array(
+            'codigo' => 'CATEGORIA-0001',
+            'nombre' => 'Medicina',
+            'medicamento' => 1,
+            'producto' => 0
+        ));
+
+        TipoProducto::create(array(
+            'codigo' => 'CATEGORIA-0002',
+            'nombre' => 'Utensilios médicos',
+            'medicamento' => 1,
+            'producto' => 0
+        ));
+
+        TipoProducto::create(array(
+            'codigo' => 'CATEGORIA-0003',
+            'nombre' => 'Perecedero',
+            'medicamento' => 0,
+            'producto' => 1
+        ));
+
+        TipoProducto::create(array(
+            'codigo' => 'CATEGORIA-0004',
+            'nombre' => 'No perecedero',
+            'medicamento' => 0,
+            'producto' => 1
+        ));
     }
 }

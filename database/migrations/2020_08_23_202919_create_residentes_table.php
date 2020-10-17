@@ -16,10 +16,10 @@ class CreateResidentesTable extends Migration
         Schema::create('residentes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->unsignedBigInteger('municipio_origen');
             $table->foreign('municipio_origen')
@@ -47,6 +47,8 @@ class CreateResidentesTable extends Migration
             $table->string('estado');
             $table->string('historial');
             $table->string('observacion')->nullable();
+            $table->boolean('activo')->default(1);
+            $table->boolean('defuncion')->default(0);
 
             $table->timestamps();
         });

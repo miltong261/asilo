@@ -31,8 +31,16 @@ class CompraRepository extends BaseRepository
     public function indexCompra()
     {
         return $this->getModel()
-        ->select('id', 'codigo', 'fecha_registro', 'fecha_compra', 'documento', 'total')
-        ->orderBy('fecha_compra', 'desc')
+        ->join('users', 'users.id', '=', 'compras.user_id')
+        ->select('compras.id',
+            'compras.codigo',
+            'compras.fecha_registro',
+            'compras.fecha_compra',
+            'compras.documento',
+            'compras.total',
+            'users.usuario as nombre_usuario'
+        )
+        ->orderBy('compras.codigo', 'desc')
         ->get();
     }
 
@@ -79,6 +87,7 @@ class CompraRepository extends BaseRepository
                     }
 
                     $movimiento = new Movimiento();
+                    $movimiento->user_id = $request['user_id'];
                     $movimiento->caja_id = 1;
                     $movimiento->tipo_movimiento_id = 1;
                     $movimiento->no_transaccion = 'TRANSACCIÓN' . $this->movimientoRepository->generateCode();
@@ -108,12 +117,14 @@ class CompraRepository extends BaseRepository
     public function obtenerCabeceraCompra($request)
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'compras.user_id')
         ->select(
-            'codigo',
-            'fecha_registro',
-            'fecha_compra',
-            'documento',
-            'total'
+            'users.usuario as nombre_usuario',
+            'compras.codigo',
+            'compras.fecha_registro',
+            'compras.fecha_compra',
+            'compras.documento',
+            'compras.total'
         )
         ->take(1)
         ->where('id', $request)

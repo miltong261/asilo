@@ -20,6 +20,7 @@
                                         <th class="text-center"> <i class="fas fa-user"></i> Solicitó</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de salida</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
                                 </thead>
@@ -31,6 +32,7 @@
                                         <td class="text-center" v-text="salida.nombre_empleado+' '+salida.apellido_empleado"></td>
                                         <td class="text-center" v-text="salida.fecha_registro"></td>
                                         <td class="text-center" v-text="salida.fecha_salida"></td>
+                                        <td class="text-center" v-text="salida.nombre_usuario" ></td>
                                         <td class="text-center">
                                             <button type="button" @click="showSalida(salida.id)" class="btn rounded-circle btn-info mb-1"> <i class="fas fa-eye"></i></button>
                                             <button type="button" @click="pdf(salida.id)" class="btn rounded-circle btn-danger mb-1"> <i class="fas fa-file-pdf"></i></button>
@@ -102,7 +104,7 @@
                                     <div class="col-md-9 form-group" v-if="option_enabled==0">
                                         <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
                                         <select id="select_producto" class="form-control" v-model="producto_id">
-                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+' / '+producto.nombre_unidad"></option>
+                                            <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+'/ '+producto.presentacion_producto+' '+producto.nombre_unidad"></option>
                                         </select>
                                     </div>
 
@@ -124,8 +126,8 @@
                                         <tr>
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
-                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
                                             <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
@@ -135,8 +137,8 @@
                                         <tr v-for="(detalle, index) in arrayDetalle" :key="detalle.id">
                                             <td v-text="index+1"></td>
                                             <td v-text="detalle.nombre_producto"></td>
-                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
                                                 <input onkeypress="return event.charCode >= 48" v-model="detalle.cantidad" type="number" value="2" class="form-control">
@@ -196,6 +198,9 @@
                                     <tr>
                                         <td><i class="fas fa-store-alt"></i> <strong>Área: </strong>{{ salida_nombre_area }}</td>
                                     </tr>
+                                    <tr>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ salida_usuario }}</td>
+                                    </tr>
                                 </table>
                             </div>
                         </fieldset>
@@ -210,8 +215,8 @@
                                             <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                             <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
-                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                            <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
                                         </tr>
@@ -221,8 +226,8 @@
                                             <td v-text="index+1"></td>
                                             <td v-text="detalle.codigo_producto"></td>
                                             <td v-text="detalle.nombre_producto"></td>
-                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.presentacion_producto"></td>
+                                            <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td v-text="detalle.cantidad"></td>
                                         </tr>
@@ -261,8 +266,8 @@
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
-                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                         <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                         <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
@@ -272,8 +277,8 @@
                                     <tr  v-for="(producto, index) in lista_inventario" :key="producto.producto_id">
                                         <td v-text="index+1"></td>
                                         <td v-text="producto.nombre_producto"></td>
-                                        <td v-text="producto.nombre_unidad"></td>
                                         <td v-text="producto.presentacion_producto"></td>
+                                        <td v-text="producto.nombre_unidad"></td>
                                         <td v-text="producto.observacion_producto"></td>
                                         <td v-text="producto.existencia"></td>
                                         <td>
@@ -346,6 +351,7 @@
 
                 /** Ver salida */
                 //Encabezado
+                salida_usuario: '',
                 salida_codigo: 0,
                 salida_nombre_empleado: '',
                 salida_nombre_area: '',
@@ -410,6 +416,9 @@
                     for (var i = 0; i < this.arrayDetalle.length; i++) {
                         if (this.arrayDetalle[i].cantidad == 0 || this.arrayDetalle[i].cantidad == '') {
                             alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
+                            errores = 1
+                        } else if (this.arrayDetalle[i].cantidad < 0) {
+                            alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto' + this.arrayDetalle[i].nombre_producto)
                             errores = 1
                         }
                     }
@@ -616,6 +625,7 @@
                 axios.get(url_cabecera).then(function (response) {
                     cabecera = response.data
 
+                    me.salida_usuario = cabecera[0]['nombre_usuario']
                     me.salida_codigo = cabecera[0]['codigo']
                     me.salida_nombre_empleado = cabecera[0]['nombre_empleado'] + ' ' + cabecera[0]['apellido_empleado']
                     me.salida_nombre_area = cabecera[0]['nombre_area']
@@ -643,6 +653,7 @@
                 this.dataTable('#listado')
                 document.getElementById('openForm').style.display = 'block'
 
+                this.salida_usuario = ''
                 this.salida_codigo = 0
                 this.salida_fecha_registro = ''
                 this.salida_fecha_salida = ''

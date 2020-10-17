@@ -19,9 +19,11 @@ class MedicamentoController extends Controller
         $this->medicamentoRepository = $medicamentoRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->medicamentoRepository->indexProducto('medicamento'));
+        if (!$request->ajax()) return redirect('/asilo');
+        $rol = \Auth::user()->rol_id;
+        return response()->json(['query' => $this->medicamentoRepository->indexProducto('medicamento'), 'rol' => $rol]);
     }
     /**
      * Store a newly created resource in storage.
@@ -40,6 +42,7 @@ class MedicamentoController extends Controller
                 + ['fecha_registro' => Carbon::now()]
                 + ['asignacion' => 0]
                 + ['codigo' => 'MEDICAMENTO-' . $this->medicamentoRepository->generateCodeProduct('medicamento')]
+                + ['user_id' => \Auth::user()->id]
             );
 
             if ($guardar == 'exitoso') {

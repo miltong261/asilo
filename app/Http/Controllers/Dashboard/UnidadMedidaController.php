@@ -23,11 +23,13 @@ class UnidadMedidaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->unidadMedidaRepository->index(
+        if (!$request->ajax()) return redirect('/asilo');
+        $rol = \Auth::user()->rol_id;
+        return response()->json(['query' => $this->unidadMedidaRepository->index(
             ['id', 'codigo', 'nombre', 'medicamento', 'producto', 'estado']
-        ));
+        ), 'rol' => $rol]);
     }
 
     public function comboboxMedicamento()

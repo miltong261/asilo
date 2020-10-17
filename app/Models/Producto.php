@@ -8,6 +8,7 @@ class Producto extends Model
 {
     protected $table = 'productos';
     protected $fillable = [
+        'user_id',
         'unidad_medida_id',
         'tipo_producto_id',
         'codigo',

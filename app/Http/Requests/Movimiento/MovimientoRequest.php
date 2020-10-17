@@ -39,7 +39,7 @@ class MovimientoRequest extends FormRequest
             'monto.numeric' => 'Solo se aceptan números',
             'monto.between' => 'El monto es incorrecto',
 
-            'observacion.required' => 'La observación no puede quedar vacía',
+            'observacion.required' => 'El concepto no puede quedar vacío',
             'observacion.max' => 'Solo se permiten :max caracteres'
         ];
     }

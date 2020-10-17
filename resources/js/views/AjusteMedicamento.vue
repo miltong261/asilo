@@ -17,6 +17,7 @@
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
                                     <th class="text-center"><i class="fas fa-plus"></i> Cantidad <i class="fas fa-minus"></i></th>
                                     <th class="text-center"><i class="fas fa-search"></i> Observacion</th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Registró </th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,7 @@
                                         </div>
                                     </td>
                                     <td v-text="ajuste_medicamento.observacion" class="text-center"></td>
+                                    <td v-text="ajuste_medicamento.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
                                         <button type="button" @click="openModalAjuste(ajuste_medicamento)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                     </td>

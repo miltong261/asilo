@@ -23,8 +23,9 @@ class DonacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->donacionRepository->indexDonacion());
     }
 
@@ -43,7 +44,8 @@ class DonacionController extends Controller
         $guardar = $this->donacionRepository->storeDonacion($request->only([
             'donador', 'direccion', 'fecha_donacion'])
             + ['fecha_registro' => Carbon::now()]
-            + ['codigo' => 'DONACIÓN-' . $this->donacionRepository->generateCode()],
+            + ['codigo' => 'DONACIÓN-' . $this->donacionRepository->generateCode()]
+            + ['user_id' => \Auth::user()->id],
             $request->arrayData
         );
 

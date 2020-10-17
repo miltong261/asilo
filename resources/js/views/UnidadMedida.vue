@@ -48,12 +48,17 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <template v-if="unidad_medida.estado">
-                                            <button type="button" @click="changeStatus('desactivate', unidad_medida.id, unidad_medida.nombre, unidad_medida.medicamento, unidad_medida.producto)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
-                                            <button type="button" @click="openModal('update', unidad_medida)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <template v-if="rol_id==1">
+                                            <template v-if="unidad_medida.estado">
+                                                <button type="button" @click="changeStatus('desactivate', unidad_medida.id, unidad_medida.nombre, unidad_medida.medicamento, unidad_medida.producto)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                <button type="button" @click="openModal('update', unidad_medida)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                            </template>
+                                            <template v-else>
+                                                <button type="button" @click="changeStatus('activate', unidad_medida.id, unidad_medida.nombre, unidad_medida.medicamento, unidad_medida.producto)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            </template>
                                         </template>
                                         <template v-else>
-                                            <button type="button" @click="changeStatus('activate', unidad_medida.id, unidad_medida.nombre, unidad_medida.medicamento, unidad_medida.producto)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            <button type="button" @click="openModal('update', unidad_medida)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                     </td>
                                 </tr>
@@ -124,7 +129,9 @@
                 modal: 0,
                 titulo: '',
                 opcion: 0,
-                errors: []
+                errors: [],
+
+                rol_id: 0
             }
         },
         methods: {
@@ -236,7 +243,8 @@
                 let me = this;
                 let url = '/unidad_medida';
                 axios.get(url).then(function (response) {
-                    me.lista_unidad_medida = response.data
+                    me.lista_unidad_medida = response.data.query
+                    me.rol_id = response.data.rol
                     me.dataTable();
                 })
                 .catch(function (error) {

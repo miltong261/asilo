@@ -19,9 +19,11 @@ class ProductoController extends Controller
         $this->productoRepository = $productoRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->productoRepository->indexProducto('producto'));
+        if (!$request->ajax()) return redirect('/asilo');
+        $rol = \Auth::user()->rol_id;
+        return response()->json(['query' => $this->productoRepository->indexProducto('producto'), 'rol' => $rol]);
     }
 
     /**
@@ -41,6 +43,7 @@ class ProductoController extends Controller
                 + ['fecha_registro' => Carbon::now()]
                 + ['asignacion' => 1]
                 + ['codigo' => 'ARTÍCULO-' . $this->productoRepository->generateCodeProduct('producto')]
+                + ['user_id' => \Auth::user()->id]
             );
 
             if ($guardar == 'exitoso') {

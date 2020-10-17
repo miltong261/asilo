@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Salida extends Model
 {
     protected $table = 'salidas';
-    protected $fillable = ['empleado_id', 'codigo', 'fecha_registro', 'fecha_salida'];
+    protected $fillable = [
+        'user_id',
+        'empleado_id',
+        'codigo',
+        'fecha_registro',
+        'fecha_salida'
+    ];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
 
     public function empleado()

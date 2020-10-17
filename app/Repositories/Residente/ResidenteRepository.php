@@ -18,11 +18,14 @@ class ResidenteRepository extends BaseRepository
     public function indexResidente()
     {
         return $this->getModel()
+        ->join('users', 'users.id', '=', 'residentes.user_id')
         ->join('municipios as municipio_origen', 'municipio_origen.id', '=', 'residentes.municipio_origen')
         ->join('municipios as municipio_dpi', 'municipio_dpi.id', '=', 'residentes.municipio_dpi')
         ->join('departamentos as departamento_origen', 'departamento_origen.id', '=', 'municipio_origen.departamento_id')
         ->join('departamentos as departamento_dpi', 'departamento_dpi.id', '=', 'municipio_dpi.departamento_id')
         ->select('residentes.*',
+            'users.usuario as nombre_usuario',
+            'users.rol_id',
             'municipio_origen.nombre as municipio_origen_nombre',
             'municipio_dpi.nombre as municipio_dpi_nombre',
             'municipio_origen.id as municipio_origen_id',
@@ -73,6 +76,22 @@ class ResidenteRepository extends BaseRepository
         $signos->update($requestSignos);
 
         if ($object && $signos) return 'exitoso';
+    }
+
+    public function activo($type, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+
+        if ($type == 'activar')
+            $object->activo = 1;
+        elseif ( $type == 'desactivar')
+            $object->activo = 0;
+        elseif ($type == 'murio') {
+            $object->activo = 0;
+            $object->defuncion = 1;
+        }
+
+        return $object->save();
     }
 
     public function pdfResidente($id)

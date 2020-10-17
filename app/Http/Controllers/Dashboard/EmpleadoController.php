@@ -24,8 +24,9 @@ class EmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->empleadoRepository->indexEmpleado());
     }
 
@@ -118,15 +119,10 @@ class EmpleadoController extends Controller
         try {
             DB::beginTransaction();
 
-            $activar = $this->empleadoRepository->estado('activar', $request->id);
+            $activar = $this->empleadoRepository->estadoEmpleado('activar', $request->id);
 
             if ($activar) {
                 DB::commit();
-
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'Se activó al empleado'
-                ]);
             }
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -139,15 +135,10 @@ class EmpleadoController extends Controller
         try {
             DB::beginTransaction();
 
-            $desactivar = $this->empleadoRepository->estado('desactivar', $request->id);
+            $desactivar = $this->empleadoRepository->estadoEmpleado('desactivar', $request->id);
 
             if ($desactivar) {
                 DB::commit();
-
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'Se desactivó al empleado ' .$request->nombre
-                ]);
             }
         } catch (\Throwable $th) {
             DB::rollBack();

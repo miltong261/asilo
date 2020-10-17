@@ -3,24 +3,31 @@
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+/****************************** Rutas acceder al login ******************************/
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/change_password', 'Auth\PasswordChangeController@change')->name('change_password');
+Route::post('/change_password', 'Auth\PasswordChangeController@newPassword');
 
-    Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'Auth\LoginController@login');
-    Route::get('/change_password', 'Auth\PasswordChangeController@change')->name('change_password');
-    Route::post('/change_password', 'Auth\PasswordChangeController@newPassword');
-
-
+/****************************** Rutas para usuarios autenticados ******************************/
 Route::group(['middleware' => 'auth'], function () {
-    /** Ruta principal */
+    /******************** Ruta principal ********************/
     Route::get('/asilo', function () {
         return view('layouts.app');
     })->name('asilo');
 
+    /******************** Ruta para cerrar sesión ********************/
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    // Rutas para el administrador
+    /******************** Rutas para el administrador ********************/
     Route::group(['middleware' => 'Administrador'], function () {
-        // Rutas autenticación
+        /********** Rutas de autenticación **********/
+        // Roles
+        Route::group(['prefix' => 'roles'], function () {
+            Route::get('/combo', 'Dashboard\RolController@combobox');
+        });
+
+        // Usuarios
         Route::group(['prefix' => 'usuarios'], function () {
             Route::get('/', 'Dashboard\UserController@index');
             Route::get('/empleado', 'Dashboard\EmpleadoController@usuarios');
@@ -30,12 +37,26 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/desactivate', 'Dashboard\UserController@desactivate');
         });
 
-        Route::group(['prefix' => 'roles'], function () {
-            Route::get('/combo', 'Dashboard\RolController@combobox');
+        /********** Rutas de financiero **********/
+        // Tipo de movimiento
+        Route::group(['prefix' => 'tipo_movimiento'], function () {
+            Route::get('/', 'Dashboard\TipoMovimientoController@index');
+            Route::get('/combo', 'Dashboard\TipoMovimientoController@combobox');
+            Route::post('/store', 'Dashboard\TipoMovimientoController@store');
+            Route::put('/update', 'Dashboard\TipoMovimientoController@update');
+            Route::put('/activate', 'Dashboard\TipoMovimientoController@activate');
+            Route::put('/desactivate', 'Dashboard\TipoMovimientoController@desactivate');
         });
 
-        /** Rutas de configuración */
+        // Movimiento
+        Route::group(['prefix' => 'movimientos'], function () {
+            Route::get('/', 'Dashboard\MovimientoController@index');
+            Route::get('/saldo', 'Dashboard\MovimientoController@showSaldo');
+            Route::post('/store', 'Dashboard\MovimientoController@store');
+            Route::put('/update', 'Dashboard\MovimientoController@update');
+        });
 
+        /********** Rutas de configuración **********/
         // Tipo de producto
         Route::group(['prefix' => 'tipo_producto'], function () {
             Route::get('/', 'Dashboard\TipoProductoController@index');
@@ -74,28 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\MunicipioController@update');
         });
 
-        /** Rutas de financiero */
-
-        // Tipo de movimiento
-        Route::group(['prefix' => 'tipo_movimiento'], function () {
-            Route::get('/', 'Dashboard\TipoMovimientoController@index');
-            Route::get('/combo', 'Dashboard\TipoMovimientoController@combobox');
-            Route::post('/store', 'Dashboard\TipoMovimientoController@store');
-            Route::put('/update', 'Dashboard\TipoMovimientoController@update');
-            Route::put('/activate', 'Dashboard\TipoMovimientoController@activate');
-            Route::put('/desactivate', 'Dashboard\TipoMovimientoController@desactivate');
-        });
-
-        // Movimiento
-        Route::group(['prefix' => 'movimientos'], function () {
-            Route::get('/', 'Dashboard\MovimientoController@index');
-            Route::get('/saldo', 'Dashboard\MovimientoController@showSaldo');
-            Route::post('/store', 'Dashboard\MovimientoController@store');
-            Route::put('/update', 'Dashboard\MovimientoController@update');
-        });
-
-        /** Rutas de personal */
-
+        /********** Rutas de personal **********/
         // Áreas
         Route::group(['prefix' => 'areas'], function () {
             Route::get('/', 'Dashboard\AreaController@index');
@@ -126,22 +126,21 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\EmpleadoController@update');
             Route::put('/activate', 'Dashboard\EmpleadoController@activate');
             Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
-            Route::put('/activate', 'Dashboard\EmpleadoController@activate');
-            Route::put('/desactivate', 'Dashboard\EmpleadoController@desactivate');
         });
 
-        /** Rutas de hogar */
-
+        /********** Rutas de hogar **********/
         // Residentes
         Route::group(['prefix' => 'residentes'], function () {
             Route::get('/', 'Dashboard\ResidenteController@index');
             Route::post('/store', 'Dashboard\ResidenteController@store');
             Route::put('/update', 'Dashboard\ResidenteController@update');
+            Route::put('/activate', 'Dashboard\ResidenteController@activate');
+            Route::put('/desactivate', 'Dashboard\ResidenteController@desactivate');
+            Route::put('/defuncion', 'Dashboard\ResidenteController@defuncion');
             Route::get('/pdf/{id}', 'Dashboard\ResidenteController@pdf');
         });
 
-        /** Rutas de inventario */
-
+        /********** Rutas de inventario **********/
         // Ajuste de medicamento
         Route::group(['prefix' => 'ajuste_producto'], function () {
             Route::get('/producto', 'Dashboard\AjusteProductoController@indexProducto');
@@ -177,7 +176,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/listar_medicamento_entrada', 'Dashboard\InventarioController@listarMedicamentosEntradas');
         });
 
-        /** Ruta de entradas */
+        /********** Ruta de entradas **********/
 
         Route::group(['prefix' => 'compras'], function () {
             Route::get('/' ,'Dashboard\CompraController@index');
@@ -187,7 +186,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\CompraController@pdf');
         });
 
-        /** Rutas de salidas */
+        /********** Rutas de salidas **********/
 
         Route::group(['prefix' => 'salidas'], function () {
             Route::get('/' ,'Dashboard\SalidaController@index');
@@ -197,7 +196,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\SalidaController@pdf');
         });
 
-        /** Rutas de donaciones */
+        /********** Rutas de donaciones **********/
 
         Route::group(['prefix' => 'donaciones'], function () {
             Route::get('/' ,'Dashboard\DonacionController@index');
@@ -207,7 +206,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\DonacionController@pdf');
         });
 
-        /** Rutas para dashboard */
+        /********** Rutas para dashboard **********/
 
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/', 'Dashboard\DashboardController');
@@ -217,10 +216,9 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-    /** Rutas para la secretaria */
+    /******************** Rutas para la secretaria ********************/
     Route::group(['middleware' => 'Secretaria'], function () {
-        /** Rutas de configuración */
-
+        /********** Rutas de configuración **********/
         // Tipo de producto
         Route::group(['prefix' => 'tipo_producto'], function () {
             Route::get('/', 'Dashboard\TipoProductoController@index');
@@ -239,24 +237,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\UnidadMedidaController@update');
         });
 
-        // Tipo de movimiento
-        Route::group(['prefix' => 'tipo_movimiento'], function () {
-            Route::get('/', 'Dashboard\TipoMovimientoController@index');
-            Route::get('/combo', 'Dashboard\TipoMovimientoController@combobox');
-            Route::post('/store', 'Dashboard\TipoMovimientoController@store');
-            Route::put('/update', 'Dashboard\TipoMovimientoController@update');
-        });
-
-        // Movimiento
-        Route::group(['prefix' => 'movimientos'], function () {
-            Route::get('/', 'Dashboard\MovimientoController@index');
-            Route::get('/saldo', 'Dashboard\MovimientoController@showSaldo');
-            Route::post('/store', 'Dashboard\MovimientoController@store');
-            Route::put('/update', 'Dashboard\MovimientoController@update');
-        });
-
-        /** Rutas de hogar */
-
+        /********** Rutas de hogar **********/
         // Residentes
         Route::group(['prefix' => 'residentes'], function () {
             Route::get('/', 'Dashboard\ResidenteController@index');
@@ -265,8 +246,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\ResidenteController@pdf');
         });
 
-        /** Rutas de inventario */
-
+        /********** Rutas de inventario **********/
         // Ajuste de medicamento
         Route::group(['prefix' => 'ajuste_producto'], function () {
             Route::get('/producto', 'Dashboard\AjusteProductoController@indexProducto');
@@ -302,7 +282,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/listar_medicamento_entrada', 'Dashboard\InventarioController@listarMedicamentosEntradas');
         });
 
-        /** Rutas de salidas */
+        /********** Rutas de salidas **********/
 
         Route::group(['prefix' => 'salidas'], function () {
             Route::get('/' ,'Dashboard\SalidaController@index');
@@ -312,7 +292,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\SalidaController@pdf');
         });
 
-        /** Rutas de donaciones */
+        /********** Rutas de donaciones **********/
 
         Route::group(['prefix' => 'donaciones'], function () {
             Route::get('/' ,'Dashboard\DonacionController@index');
@@ -322,7 +302,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\DonacionController@pdf');
         });
 
-        /** Rutas para dashboard */
+        /********** Rutas para dashboard **********/
 
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/dashboard_articulos', 'Dashboard\DashboardArticulosController');
@@ -331,18 +311,8 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-    /** Rutas para la enfermera */
+    /******************** Rutas para la enfermera ********************/
     Route::group(['middleware' => 'Enfermera'], function () {
 
     });
 });
-
-
-
-// Route::get('/asilo', function () {
-//     return view('layouts.app');
-// })->name('asilo');
-
-// Route::get('/', function () {
-//     return view('dashboard');
-// });

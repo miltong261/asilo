@@ -23,8 +23,9 @@ class CompraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->compraRepository->indexCompra());
     }
 
@@ -39,7 +40,8 @@ class CompraController extends Controller
         return $this->compraRepository->storeCompra($request->only([
             'fecha_compra', 'documento', 'total'])
             + ['fecha_registro' => Carbon::now()]
-            + ['codigo' => 'ADQUISICIÓN-' . $this->compraRepository->generateCode()],
+            + ['codigo' => 'ADQUISICIÓN-' . $this->compraRepository->generateCode()]
+            + ['user_id' => \Auth::user()->id],
             $request->arrayData
         );
     }

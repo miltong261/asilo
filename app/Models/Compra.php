@@ -8,15 +8,17 @@ class Compra extends Model
 {
     protected $table = 'compras';
     protected $fillable = [
+        'user_id',
         'codigo',
         'fecha_registro',
         'fecha_compra',
         'documento',
         'total'
     ];
+
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
 
     public function productos()

@@ -20,7 +20,7 @@
                                         <th class="text-center"> <i class="fas fa-street-view"></i> Dirección</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de donación</th>
-                                        <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
                                 </thead>
@@ -191,7 +191,7 @@
                                         <td><i class="fas fa-street-view"></i> <strong>Dirección: </strong>{{ donacion_donador_direccion }}</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ donacion_nombre_usuario }}</td>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ donacion_usuario }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -341,6 +341,7 @@
 
                 /** Ver donación */
                 //Encabezado
+                donacion_usuario: '',
                 donacion_codigo: 0,
                 donacion_donador: '',
                 donacion_donador_direccion: '',
@@ -576,6 +577,7 @@
                 axios.get(url_cabecera).then(function (response) {
                     cabecera = response.data
 
+                    me.donacion_usuario = cabecera[0]['nombre_usuario']
                     me.donacion_codigo = cabecera[0]['codigo']
                     me.donacion_donador = cabecera[0]['donador']
                     me.donacion_donador_direccion = cabecera[0]['direccion']
@@ -602,6 +604,7 @@
                 this.showList()
                 document.getElementById('openForm').style.display = 'block'
 
+                this.donacion_usuario = ''
                 this.donacion_codigo = 0
                 this.donacion_fecha_registro = ''
                 this.donacion_fecha_donacion = ''

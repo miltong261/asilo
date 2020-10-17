@@ -18,9 +18,10 @@ class DashboardController extends Controller
         ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
         ->select(DB::raw('DAYNAME(movimientos.fecha_registro) as dias'),
         DB::raw('YEAR(movimientos.fecha_registro) as anio'),
-        DB::raw('monto'))
+        DB::raw('SUM(monto) as monto'))
         ->whereYear('movimientos.fecha_registro', $anio)
         ->where('tipo_movimiento.salida', 1)
+        ->groupBy(DB::raw('DAYNAME(movimientos.fecha_registro)'), DB::raw('YEAR(movimientos.fecha_registro)'))
         ->get();
 
 
@@ -28,9 +29,10 @@ class DashboardController extends Controller
         ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
         ->select(DB::raw('DAYNAME(movimientos.fecha_registro) as dias'),
         DB::raw('YEAR(movimientos.fecha_registro) as anio'),
-        DB::raw('monto'))
+        DB::raw('SUM(monto) as monto'))
         ->whereYear('movimientos.fecha_registro', $anio)
         ->where('tipo_movimiento.entrada', 1)
+        ->groupBy(DB::raw('DAYNAME(movimientos.fecha_registro)'), DB::raw('YEAR(movimientos.fecha_registro)'))
         ->get();
 
         $caja = DB::table('caja')

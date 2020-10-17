@@ -80,7 +80,7 @@ class DonacionRepository extends BaseRepository
             'donaciones.direccion'
         )
         ->take(1)
-        ->where('id', $request)
+        ->where('donaciones.id', $request)
         ->get();
     }
 

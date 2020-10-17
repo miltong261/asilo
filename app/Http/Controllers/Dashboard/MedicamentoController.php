@@ -22,7 +22,8 @@ class MedicamentoController extends Controller
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
-        return response()->json($this->medicamentoRepository->indexProducto('medicamento'));
+        $rol = \Auth::user()->rol_id;
+        return response()->json(['query' => $this->medicamentoRepository->indexProducto('medicamento'), 'rol' => $rol]);
     }
     /**
      * Store a newly created resource in storage.

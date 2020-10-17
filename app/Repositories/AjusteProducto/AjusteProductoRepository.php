@@ -24,7 +24,6 @@ class AjusteProductoRepository extends BaseRepository
             ->join('unidad_medida as unidad', 'unidad.id', '=', 'productos.unidad_medida_id')
             ->select('ajuste_producto.*',
             'users.usuario as nombre_usuario',
-            'users.rol',
             'categoria.nombre as nombre_categoria',
             'unidad.nombre as nombre_unidad',
             'productos.codigo as codigo_producto',
@@ -41,7 +40,6 @@ class AjusteProductoRepository extends BaseRepository
             ->join('unidad_medida as unidad', 'unidad.id', '=', 'productos.unidad_medida_id')
             ->select('ajuste_producto.*',
             'users.usuario as nombre_usuario',
-            'users.rol_id',
             'categoria.nombre as nombre_categoria',
             'unidad.nombre as nombre_unidad',
             'productos.codigo as codigo_producto',

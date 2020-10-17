@@ -22,28 +22,28 @@ class UserSeeder extends Seeder
             'password' => bcrypt('milton-0001')
         ));
 
-        User::create(array(
-            'rol_id' => 1,
-            'empleado_id' => 2,
-            'fecha_registro' => Carbon::now(),
-            'usuario' => 'maria-0002',
-            'password' => bcrypt('maria-0002')
-        ));
+        // User::create(array(
+        //     'rol_id' => 1,
+        //     'empleado_id' => 2,
+        //     'fecha_registro' => Carbon::now(),
+        //     'usuario' => 'maria-0002',
+        //     'password' => bcrypt('maria-0002')
+        // ));
 
         User::create(array(
             'rol_id' => 2,
             'empleado_id' => 2,
             'fecha_registro' => Carbon::now(),
-            'usuario' => 'secretaria-0003',
-            'password' => bcrypt('secretaria-0003')
+            'usuario' => 'secretaria-0002',
+            'password' => bcrypt('secretaria-0002')
         ));
 
         User::create(array(
             'rol_id' => 3,
             'empleado_id' => 3,
             'fecha_registro' => Carbon::now(),
-            'usuario' => 'enfermera-0004',
-            'password' => bcrypt('enfermera-0004')
+            'usuario' => 'enfermera-0003',
+            'password' => bcrypt('enfermera-0003')
         ));
 
 

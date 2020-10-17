@@ -26,9 +26,10 @@ class TipoProductoController extends Controller
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
-        return response()->json($this->tipoProductoRepository->index(
+        $rol = \Auth::user()->rol_id;
+        return response()->json(['query' => $this->tipoProductoRepository->index(
             ['id', 'codigo', 'nombre', 'medicamento', 'producto', 'estado']
-        ));
+        ), 'rol' => $rol]);
     }
 
     public function comboboxMedicamento()

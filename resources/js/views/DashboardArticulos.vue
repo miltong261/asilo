@@ -87,7 +87,7 @@ export default {
                     data: {
                         labels: me.salidas_meses,
                         datasets: [{
-                            label: 'Cantidad de productos',
+                            label: 'Cantidad de artículos',
                             data: me.salidas_cantidad,
                             backgroundColor: '#e7515a',
                             borderWidth: '10'
@@ -120,7 +120,7 @@ export default {
                     data: {
                         labels: me.donaciones_meses,
                         datasets: [{
-                            label: 'Cantidad de productos',
+                            label: 'Cantidad de artículos',
                             data: me.donaciones_cantidad,
                             backgroundColor: '#bae7ff',
                             borderWidth: '10'

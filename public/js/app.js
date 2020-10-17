@@ -2106,12 +2106,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2292,12 +2286,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2756,6 +2744,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2930,6 +2920,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2944,9 +2949,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
-//
-//
-//
 //
 //
 //
@@ -3282,6 +3284,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       /** Ver compra */
       //Encabezado
+      compra_usuario: '',
       compra_codigo: 0,
       compra_fecha_registro: '',
       compra_fecha_compra: '',
@@ -3514,6 +3517,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var cabecera = [];
       axios.get(url_cabecera).then(function (response) {
         cabecera = response.data;
+        me.compra_usuario = cabecera[0]['nombre_usuario'];
         me.compra_codigo = cabecera[0]['codigo'];
         me.compra_fecha_registro = cabecera[0]['fecha_registro'];
         me.compra_fecha_compra = cabecera[0]['fecha_compra'];
@@ -3533,11 +3537,12 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         console.log(error);
       });
     },
-    closeShowSalida: function closeShowSalida() {
+    closeShowCompra: function closeShowCompra() {
       this.action = 1;
       this.showList();
       this.dataTable('#listado');
       document.getElementById('openForm').style.display = 'block';
+      this.compra_usuario = '';
       this.compra_codigo = 0;
       this.compra_fecha_registro = '';
       this.compra_fecha_compra = '';
@@ -3854,7 +3859,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
           data: {
             labels: me.salidas_meses,
             datasets: [{
-              label: 'Cantidad de productos',
+              label: 'Cantidad de artículos',
               data: me.salidas_cantidad,
               backgroundColor: '#e7515a',
               borderWidth: '10'
@@ -3892,7 +3897,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
           data: {
             labels: me.donaciones_meses,
             datasets: [{
-              label: 'Cantidad de productos',
+              label: 'Cantidad de artículos',
               data: me.donaciones_cantidad,
               backgroundColor: '#bae7ff',
               borderWidth: '10'
@@ -4018,7 +4023,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
           data: {
             labels: me.articulos_meses,
             datasets: [{
-              label: 'Cantidad de productos',
+              label: 'Cantidad de artículos',
               data: me.articulos_cantidad,
               backgroundColor: '#e7515a',
               borderWidth: '10'
@@ -4056,7 +4061,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
           data: {
             labels: me.medicamento_meses,
             datasets: [{
-              label: 'Cantidad de productos',
+              label: 'Cantidad de medicamentos',
               data: me.medicamento_cantidad,
               backgroundColor: '#bae7ff',
               borderWidth: '10'
@@ -4187,7 +4192,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
           data: {
             labels: me.salidas_meses,
             datasets: [{
-              label: 'Cantidad de productos',
+              label: 'Cantidad de medicamentos',
               data: me.salidas_cantidad,
               backgroundColor: '#e7515a',
               borderWidth: '10'
@@ -4225,7 +4230,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
           data: {
             labels: me.donaciones_meses,
             datasets: [{
-              label: 'Cantidad de productos',
+              label: 'Cantidad de medicamentos',
               data: me.donaciones_cantidad,
               backgroundColor: '#bae7ff',
               borderWidth: '10'
@@ -4800,6 +4805,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       /** Ver donación */
       //Encabezado
+      donacion_usuario: '',
       donacion_codigo: 0,
       donacion_donador: '',
       donacion_donador_direccion: '',
@@ -5026,6 +5032,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var cabecera = [];
       axios.get(url_cabecera).then(function (response) {
         cabecera = response.data;
+        me.donacion_usuario = cabecera[0]['nombre_usuario'];
         me.donacion_codigo = cabecera[0]['codigo'];
         me.donacion_donador = cabecera[0]['donador'];
         me.donacion_donador_direccion = cabecera[0]['direccion'];
@@ -5049,6 +5056,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 1;
       this.showList();
       document.getElementById('openForm').style.display = 'block';
+      this.donacion_usuario = '';
       this.donacion_codigo = 0;
       this.donacion_fecha_registro = '';
       this.donacion_fecha_donacion = '';
@@ -5079,6 +5087,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
 //
 //
 //
@@ -5838,6 +5848,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5865,7 +5920,10 @@ __webpack_require__.r(__webpack_exports__);
       titulo: '',
       opcion: 0,
       errors: [],
-      modalMedicamento: 0
+      modalMedicamento: 0,
+      lista_vencimiento: [],
+      modalVencimiento: 0,
+      rol_id: 0
     };
   },
   methods: {
@@ -5946,6 +6004,18 @@ __webpack_require__.r(__webpack_exports__);
       this.modalMedicamento = 0;
       this.titulo = '';
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de medicamento exitosa');
+    },
+    openVencimiento: function openVencimiento() {
+      this.modalVencimiento = 1;
+      this.titulo = 'VENCIMIENTO DE MEDICAMENTOS';
+      this.destroyTable('#listado');
+      this.showVencimiento();
+    },
+    closeVencimiento: function closeVencimiento() {
+      this.destroyTable('#listado_producto');
+      this.modalVencimiento = 0;
+      this.showList();
+      this.lista_vencimiento = [];
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -6030,11 +6100,11 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    dataTable: function dataTable() {
-      var datatable = $('#zero-config').DataTable();
+    dataTable: function dataTable(table) {
+      var datatable = $(table).DataTable();
       datatable.destroy();
       this.$nextTick(function () {
-        $('#zero-config').DataTable({
+        $(table).DataTable({
           "oLanguage": {
             "oPaginate": {
               "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
@@ -6054,15 +6124,24 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
+    destroyTable: function destroyTable(table) {
+      var datatable = $(table).DataTable();
+      datatable.destroy();
+    },
     showList: function showList() {
       var me = this;
       var url = '/medicamentos';
       axios.get(url).then(function (response) {
-        me.lista_medicamentos = response.data;
-        me.dataTable();
+        me.lista_medicamentos = response.data.query;
+        me.rol_id = response.data.rol;
+        me.dataTable('#listado');
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    showVencimiento: function showVencimiento() {
+      var me = this;
+      me.dataTable('#listado_producto');
     },
     store: function store() {
       var _this2 = this;
@@ -7150,6 +7229,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7177,7 +7302,10 @@ __webpack_require__.r(__webpack_exports__);
       titulo: '',
       opcion: 0,
       errors: [],
-      modalProducto: 0
+      modalProducto: 0,
+      lista_vencimiento: [],
+      modalVencimiento: 0,
+      rol_id: 0
     };
   },
   methods: {
@@ -7258,6 +7386,18 @@ __webpack_require__.r(__webpack_exports__);
       this.modalProducto = 0;
       this.titulo = '';
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de producto exitosa');
+    },
+    openVencimiento: function openVencimiento() {
+      this.modalVencimiento = 1;
+      this.titulo = 'VENCIMIENTO DE ARTÍCULOS';
+      this.destroyTable('#listado');
+      this.showVencimiento();
+    },
+    closeVencimiento: function closeVencimiento() {
+      this.destroyTable('#listado_producto');
+      this.modalVencimiento = 0;
+      this.showList();
+      this.lista_vencimiento = [];
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -7342,11 +7482,11 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    dataTable: function dataTable() {
-      var datatable = $('#zero-config').DataTable();
+    dataTable: function dataTable(table) {
+      var datatable = $(table).DataTable();
       datatable.destroy();
       this.$nextTick(function () {
-        $('#zero-config').DataTable({
+        $(table).DataTable({
           "oLanguage": {
             "oPaginate": {
               "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
@@ -7366,15 +7506,24 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
+    destroyTable: function destroyTable(table) {
+      var datatable = $(table).DataTable();
+      datatable.destroy();
+    },
     showList: function showList() {
       var me = this;
       var url = '/productos';
       axios.get(url).then(function (response) {
-        me.lista_productos = response.data;
-        me.dataTable();
+        me.lista_productos = response.data.query;
+        me.rol_id = response.data.rol;
+        me.dataTable('#listado');
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    showVencimiento: function showVencimiento() {
+      var me = this;
+      me.dataTable('#listado_producto');
     },
     store: function store() {
       var _this2 = this;
@@ -8029,6 +8178,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -8040,7 +8210,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       id: 0,
       codigo: 0,
       lista_residentes: []
-    }, _defineProperty(_ref, "codigo", ''), _defineProperty(_ref, "nombre", ''), _defineProperty(_ref, "apellido", ''), _defineProperty(_ref, "fecha_nacimiento", ''), _defineProperty(_ref, "edad", ''), _defineProperty(_ref, "dpi", ''), _defineProperty(_ref, "familia", ''), _defineProperty(_ref, "direccion", ''), _defineProperty(_ref, "telefono_familia", ''), _defineProperty(_ref, "persona_referida", ''), _defineProperty(_ref, "direccion_persona_referida", ''), _defineProperty(_ref, "telefono_persona_referida", ''), _defineProperty(_ref, "motivo", ''), _defineProperty(_ref, "estado", ''), _defineProperty(_ref, "historial", ''), _defineProperty(_ref, "pulso", ''), _defineProperty(_ref, "temperatura", ''), _defineProperty(_ref, "presion", ''), _defineProperty(_ref, "peso", ''), _defineProperty(_ref, "observacion", ''), _defineProperty(_ref, "lista_departamentos_origen", []), _defineProperty(_ref, "lista_departamentos_dpi", []), _defineProperty(_ref, "departamento_origen_id", 0), _defineProperty(_ref, "departamento_dpi_id", 0), _defineProperty(_ref, "departamento_origen_nombre", ''), _defineProperty(_ref, "departamento_dpi_nombre", ''), _defineProperty(_ref, "lista_municipios_origen", []), _defineProperty(_ref, "lista_municipios_dpi", []), _defineProperty(_ref, "municipio_origen_id", 0), _defineProperty(_ref, "municipio_dpi_id", 0), _defineProperty(_ref, "municipio_origen_nombre", ''), _defineProperty(_ref, "municipio_dpi_nombre", ''), _defineProperty(_ref, "lugar_nacimiento", ''), _defineProperty(_ref, "lugar_dpi_extendido", ''), _defineProperty(_ref, "action", 1), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "opcion", 1), _defineProperty(_ref, "titulo", ''), _defineProperty(_ref, "errors", []), _ref;
+    }, _defineProperty(_ref, "codigo", ''), _defineProperty(_ref, "nombre", ''), _defineProperty(_ref, "apellido", ''), _defineProperty(_ref, "fecha_nacimiento", ''), _defineProperty(_ref, "edad", ''), _defineProperty(_ref, "dpi", ''), _defineProperty(_ref, "familia", ''), _defineProperty(_ref, "direccion", ''), _defineProperty(_ref, "telefono_familia", ''), _defineProperty(_ref, "persona_referida", ''), _defineProperty(_ref, "direccion_persona_referida", ''), _defineProperty(_ref, "telefono_persona_referida", ''), _defineProperty(_ref, "motivo", ''), _defineProperty(_ref, "estado", ''), _defineProperty(_ref, "historial", ''), _defineProperty(_ref, "pulso", ''), _defineProperty(_ref, "temperatura", ''), _defineProperty(_ref, "presion", ''), _defineProperty(_ref, "peso", ''), _defineProperty(_ref, "observacion", ''), _defineProperty(_ref, "lista_departamentos_origen", []), _defineProperty(_ref, "lista_departamentos_dpi", []), _defineProperty(_ref, "departamento_origen_id", 0), _defineProperty(_ref, "departamento_dpi_id", 0), _defineProperty(_ref, "departamento_origen_nombre", ''), _defineProperty(_ref, "departamento_dpi_nombre", ''), _defineProperty(_ref, "lista_municipios_origen", []), _defineProperty(_ref, "lista_municipios_dpi", []), _defineProperty(_ref, "municipio_origen_id", 0), _defineProperty(_ref, "municipio_dpi_id", 0), _defineProperty(_ref, "municipio_origen_nombre", ''), _defineProperty(_ref, "municipio_dpi_nombre", ''), _defineProperty(_ref, "lugar_nacimiento", ''), _defineProperty(_ref, "lugar_dpi_extendido", ''), _defineProperty(_ref, "action", 1), _defineProperty(_ref, "modal", 0), _defineProperty(_ref, "opcion", 1), _defineProperty(_ref, "titulo", ''), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "rol_id", 0), _ref;
   },
   methods: {
     openForm: function openForm(metodo) {
@@ -8168,12 +8338,12 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
-    changeStatus: function changeStatus(action, id, nombre) {
+    changeStatus: function changeStatus(action, id, nombre, apellido) {
       var _this = this;
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el residente "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el residente ' + nombre + ' ' + apellido + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -8193,6 +8363,39 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           }).then(function (response) {
             me.showList();
             swal('Cambio de estado', 'Se ha cambiado el estado correctamente', 'success');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal('Cancelado', 'Se ha cancelado la operación', 'error');
+        }
+      });
+    },
+    death: function death(id, nombre, apellido) {
+      var _this2 = this;
+
+      swal({
+        title: 'Fallecimiento',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el residente ' + nombre + ' ' + apellido + '?',
+        type: 'question',
+        confirmButtonColor: '#25d5e4',
+        cancelButtonColor: '#f8538d',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: '¡Cancelar!',
+        confirmButtonClass: 'btn btn-guardar',
+        cancelButtonClass: 'btn btn-cerrar',
+        padding: '2em'
+      }).then(function (result) {
+        var url = '/residentes/defuncion';
+
+        if (result.value) {
+          var me = _this2;
+          axios.put(url, {
+            'id': id
+          }).then(function (response) {
+            me.showList();
+            swal('Fallecimiento', 'Se ha realizado la acción correctamente', 'success');
           })["catch"](function (error) {
             console.log(error);
           });
@@ -8322,7 +8525,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var me = this;
       var url = '/residentes';
       axios.get(url).then(function (response) {
-        me.lista_residentes = response.data;
+        me.lista_residentes = response.data.query;
+        me.rol_id = response.data.rol;
         console.log(response.data);
         me.dataTable();
       })["catch"](function (error) {
@@ -8330,7 +8534,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       });
     },
     store: function store() {
-      var _this2 = this;
+      var _this3 = this;
 
       var me = this;
       var url = '/residentes/store';
@@ -8354,11 +8558,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this2.errors = error.response.data.errors;
+        if (error.response.status == 422) _this3.errors = error.response.data.errors;
       });
     },
     update: function update() {
-      var _this3 = this;
+      var _this4 = this;
 
       var me = this;
       var url = '/residentes/update';
@@ -8380,7 +8584,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       }).then(function (response) {
         me.backendResponse(response);
       })["catch"](function (error) {
-        if (error.response.status == 422) _this3.errors = error.response.data.errors;
+        if (error.response.status == 422) _this4.errors = error.response.data.errors;
       });
     },
     pdf: function pdf(id) {
@@ -8749,6 +8953,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       /** Ver salida */
       //Encabezado
+      salida_usuario: '',
       salida_codigo: 0,
       salida_nombre_empleado: '',
       salida_nombre_area: '',
@@ -9007,6 +9212,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var cabecera = [];
       axios.get(url_cabecera).then(function (response) {
         cabecera = response.data;
+        me.salida_usuario = cabecera[0]['nombre_usuario'];
         me.salida_codigo = cabecera[0]['codigo'];
         me.salida_nombre_empleado = cabecera[0]['nombre_empleado'] + ' ' + cabecera[0]['apellido_empleado'];
         me.salida_nombre_area = cabecera[0]['nombre_area'];
@@ -9031,6 +9237,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.showList();
       this.dataTable('#listado');
       document.getElementById('openForm').style.display = 'block';
+      this.salida_usuario = '';
       this.salida_codigo = 0;
       this.salida_fecha_registro = '';
       this.salida_fecha_salida = '';
@@ -9793,6 +10000,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -9805,7 +10019,8 @@ __webpack_require__.r(__webpack_exports__);
       modal: 0,
       titulo: '',
       opcion: 0,
-      errors: []
+      errors: [],
+      rol_id: 0
     };
   },
   methods: {
@@ -9916,7 +10131,8 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/tipo_producto';
       axios.get(url).then(function (response) {
-        me.lista_tipo_producto = response.data;
+        me.lista_tipo_producto = response.data.query;
+        me.rol_id = response.data.rol;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
@@ -10082,6 +10298,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -10094,7 +10315,8 @@ __webpack_require__.r(__webpack_exports__);
       modal: 0,
       titulo: '',
       opcion: 0,
-      errors: []
+      errors: [],
+      rol_id: 0
     };
   },
   methods: {
@@ -10205,7 +10427,8 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       var url = '/unidad_medida';
       axios.get(url).then(function (response) {
-        me.lista_unidad_medida = response.data;
+        me.lista_unidad_medida = response.data.query;
+        me.rol_id = response.data.rol;
         me.dataTable();
       })["catch"](function (error) {
         console.log(error);
@@ -10460,6 +10683,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeForm: function closeForm() {
       this.id = '';
+      this.usuario = '';
       this.password = '';
       this.password_confirm = '';
       this.modalForm = 0;
@@ -65865,24 +66089,6 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "mx-auto" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass: "text-secondary",
-                        attrs: { align: "center" }
-                      },
-                      [
-                        _vm._v("Registró: "),
-                        _c("strong", {
-                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(9),
@@ -66143,7 +66349,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -66846,24 +67052,6 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "mx-auto" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass: "text-secondary",
-                        attrs: { align: "center" }
-                      },
-                      [
-                        _vm._v("Registró: "),
-                        _c("strong", {
-                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(9),
@@ -67371,70 +67559,81 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              area.estado
+                              area.id != 1 && area.id != 2
                                 ? [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              area.id,
-                                              area.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-warning mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.openModal("update", area)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    )
+                                    area.estado
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "desactivate",
+                                                    area.id,
+                                                    area.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-lock"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    "update",
+                                                    area
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-sync-alt"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "activate",
+                                                    area.id,
+                                                    area.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-unlock"
+                                              })
+                                            ]
+                                          )
+                                        ]
                                   ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              area.id,
-                                              area.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
-                                        })
-                                      ]
-                                    )
-                                  ]
+                                : _vm._e()
                             ],
                             2
                           )
@@ -67688,9 +67887,57 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _vm._v("\n    HOLA dafafafa\n    "),
-      _c("h1", [_vm._v("Hola")])
+    return _c("div", { staticClass: "layout-px-spacing" }, [
+      _c("div", { staticClass: "row layout-top-spacing" }, [
+        _c(
+          "div",
+          { staticClass: "col-xl-12 col-lg-12 col-sm-12 layout-spacing" },
+          [
+            _c("div", { staticClass: "form-group p-0" }, [
+              _c("h4", { staticClass: "text-danger text-center " }, [
+                _c("strong", [
+                  _vm._v("Universidad Mariano Gálvez de Guatemala")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "text-info text-center " }, [
+                _c("strong", [
+                  _vm._v(
+                    "Facultad de Ingeniería en Sistemas de Información y Ciencias de la Computación"
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("h4", { staticClass: "text-center " }, [
+                _vm._v("Retalhuleu, Retalhuleu")
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "text-center " }, [
+                _vm._v("Seminario 2020")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group text-center p-0" }, [
+              _c("img", {
+                staticClass: "rounded mx-auto d-block",
+                attrs: {
+                  src: "assets/img/logo-formulario.jpeg",
+                  alt: "logo",
+                  height: "450px"
+                }
+              }),
+              _vm._v(" "),
+              _c("h1", { staticClass: "text-center" }, [
+                _c("strong", [_vm._v("Asociación Civil de Ministerio")])
+              ]),
+              _vm._v(" "),
+              _c("h2", { staticClass: "text-center text-secondary" }, [
+                _c("strong", [_vm._v("Shadai Nueva Familia")])
+              ])
+            ])
+          ]
+        )
+      ])
     ])
   }
 ]
@@ -68455,7 +68702,7 @@ var render = function() {
                                 _c("i", { staticClass: "fas fa-user" }),
                                 _vm._v(" "),
                                 _c("strong", [_vm._v("Registró: ")]),
-                                _vm._v(_vm._s(_vm.compra_nombre_usuario))
+                                _vm._v(_vm._s(_vm.compra_usuario))
                               ])
                             ])
                           ])
@@ -68580,7 +68827,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: {
                             click: function($event) {
-                              return _vm.closeShowSalida()
+                              return _vm.closeShowCompra()
                             }
                           }
                         },
@@ -68764,13 +69011,8 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha de salida")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -70529,7 +70771,7 @@ var render = function() {
                                 _c("i", { staticClass: "fas fa-user" }),
                                 _vm._v(" "),
                                 _c("strong", [_vm._v("Registró: ")]),
-                                _vm._v(_vm._s(_vm.donacion_nombre_usuario))
+                                _vm._v(_vm._s(_vm.donacion_usuario))
                               ])
                             ])
                           ])
@@ -70833,7 +71075,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -71154,6 +71396,11 @@ var render = function() {
                           _c("td", {
                             staticClass: "text-center",
                             domProps: { textContent: _vm._s(index + 1) }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            staticClass: "text-center",
+                            domProps: { textContent: _vm._s(empleado.codigo) }
                           }),
                           _vm._v(" "),
                           _c("td", {
@@ -72166,6 +72413,10 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-qrcode" })
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
           _vm._v(" Nombre")
         ]),
@@ -72402,6 +72653,23 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "button",
+            {
+              staticClass: "btn btn-cerrar mb-2",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openVencimiento()
+                }
+              }
+            },
+            [
+              _vm._v("Productos a vencer "),
+              _c("i", { staticClass: "fas fa-calendar-alt" })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
             "div",
             { staticClass: "widget-content widget-content-area br-6" },
             [
@@ -72421,7 +72689,7 @@ var render = function() {
                   {
                     staticClass: "table table-hover",
                     staticStyle: { width: "100%" },
-                    attrs: { id: "zero-config" }
+                    attrs: { id: "listado" }
                   },
                   [
                     _vm._m(0),
@@ -72507,42 +72775,114 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-info mb-1 mr-1 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModalMedicamento(
-                                        medicamento
-                                      )
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-eye" })]
-                              ),
-                              _vm._v(" "),
-                              medicamento.estado
+                              _vm.rol_id == 1
                                 ? [
                                     _c(
                                       "button",
                                       {
                                         staticClass:
-                                          "btn btn-eliminar mb-1 mr-1 rounded-circle",
+                                          "btn btn-info mb-1 mr-1 rounded-circle",
                                         attrs: { type: "button" },
                                         on: {
                                           click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              medicamento.id,
-                                              medicamento.nombre
+                                            return _vm.openModalMedicamento(
+                                              medicamento
                                             )
                                           }
                                         }
                                       },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    medicamento.estado
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-eliminar mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "desactivate",
+                                                    medicamento.id,
+                                                    medicamento.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-lock"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    "update",
+                                                    medicamento
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-sync-alt"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "activate",
+                                                    medicamento.id,
+                                                    medicamento.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-unlock"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                  ]
+                                : _vm.rol_id == 2
+                                ? [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-info mb-1 mr-1 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModalMedicamento(
+                                              medicamento
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-eye" })]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -72567,30 +72907,7 @@ var render = function() {
                                       ]
                                     )
                                   ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              medicamento.id,
-                                              medicamento.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
-                                        })
-                                      ]
-                                    )
-                                  ]
+                                : _vm._e()
                             ],
                             2
                           )
@@ -73049,24 +73366,6 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "mx-auto" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass: "text-secondary",
-                        attrs: { align: "center" }
-                      },
-                      [
-                        _vm._v("Registró: "),
-                        _c("strong", {
-                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(7),
@@ -73430,6 +73729,63 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalVencimiento },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-xl" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeVencimiento()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(18),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeVencimiento()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              )
+            ])
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -73471,7 +73827,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -73638,6 +73994,73 @@ var staticRenderFns = [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Último ajuste")
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-hover",
+            staticStyle: { width: "100%" },
+            attrs: { id: "listado_producto" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-hashtag" })
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-store" }),
+                  _vm._v(" Nombre")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-store" }),
+                  _vm._v(" Presentación")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-thermometer-full" }),
+                  _vm._v(" Unidad")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-sort-numeric-up" }),
+                  _vm._v(" Existencia")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "far fa-calendar-alt" }),
+                  _vm._v(" Vencimiento")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody", { staticClass: "text-center" }, [
+              _c("tr", [
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")])
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -73801,7 +74224,8 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              movimiento.tipo_movimiento_nombre != "Compra"
+                              movimiento.tipo_movimiento_nombre != "Compra" &&
+                              movimiento.tipo_movimiento_nombre != "Donación"
                                 ? [
                                     _c(
                                       "button",
@@ -74012,7 +74436,7 @@ var render = function() {
                         attrs: {
                           type: "text",
                           name: "observacion",
-                          placeholder: "Ingrese observación..."
+                          placeholder: "Ingrese concepto..."
                         },
                         domProps: { value: _vm.observacion },
                         on: {
@@ -74130,7 +74554,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Observación")
+          _vm._v(" Concepto")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -74145,7 +74569,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -74179,7 +74603,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Observación")
+      _vm._v(" Concepto")
     ])
   }
 ]
@@ -75463,6 +75887,23 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "button",
+            {
+              staticClass: "btn btn-cerrar mb-2",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openVencimiento()
+                }
+              }
+            },
+            [
+              _vm._v("Productos a vencer "),
+              _c("i", { staticClass: "fas fa-calendar-alt" })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
             "div",
             { staticClass: "widget-content widget-content-area br-6" },
             [
@@ -75482,7 +75923,7 @@ var render = function() {
                   {
                     staticClass: "table table-hover",
                     staticStyle: { width: "100%" },
-                    attrs: { id: "zero-config" }
+                    attrs: { id: "listado" }
                   },
                   [
                     _vm._m(0),
@@ -75561,40 +76002,113 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-info mb-1 mr-1 rounded-circle",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.openModalProducto(producto)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-eye" })]
-                              ),
-                              _vm._v(" "),
-                              producto.estado
+                              _vm.rol_id == 1
                                 ? [
                                     _c(
                                       "button",
                                       {
                                         staticClass:
-                                          "btn btn-eliminar mb-1 mr-1 rounded-circle",
+                                          "btn btn-info mb-1 mr-1 rounded-circle",
                                         attrs: { type: "button" },
                                         on: {
                                           click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              producto.id,
-                                              producto.nombre
+                                            return _vm.openModalProducto(
+                                              producto
                                             )
                                           }
                                         }
                                       },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    producto.estado
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-eliminar mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "desactivate",
+                                                    producto.id,
+                                                    producto.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-lock"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    "update",
+                                                    producto
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-sync-alt"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "activate",
+                                                    producto.id,
+                                                    producto.nombre
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-unlock"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                  ]
+                                : [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-info mb-1 mr-1 rounded-circle",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.openModalProducto(
+                                              producto
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-eye" })]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -75615,30 +76129,6 @@ var render = function() {
                                       [
                                         _c("i", {
                                           staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              producto.id,
-                                              producto.nombre
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
                                         })
                                       ]
                                     )
@@ -76101,24 +76591,6 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "mx-auto" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass: "text-secondary",
-                        attrs: { align: "center" }
-                      },
-                      [
-                        _vm._v("Registró: "),
-                        _c("strong", {
-                          domProps: { textContent: _vm._s(_vm.nombre_usuario) }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-row mb-0" }, [
                     _c("div", { staticClass: "form-group col-md-4" }, [
                       _vm._m(7),
@@ -76482,6 +76954,63 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalVencimiento },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-xl" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeVencimiento()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(18),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeVencimiento()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              )
+            ])
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -76523,7 +77052,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -76689,6 +77218,73 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "far fa-calendar-alt" }),
       _vm._v("  Último ajuste")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-hover",
+            staticStyle: { width: "100%" },
+            attrs: { id: "listado_producto" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-hashtag" })
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-store" }),
+                  _vm._v(" Nombre")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-store" }),
+                  _vm._v(" Presentación")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-thermometer-full" }),
+                  _vm._v(" Unidad")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "fas fa-sort-numeric-up" }),
+                  _vm._v(" Existencia")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c("i", { staticClass: "far fa-calendar-alt" }),
+                  _vm._v(" Vencimiento")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody", { staticClass: "text-center" }, [
+              _c("tr", [
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Hola")])
+              ])
+            ])
+          ]
+        )
+      ])
     ])
   }
 ]
@@ -77133,19 +77729,26 @@ var render = function() {
         [
           _vm.action == 1
             ? [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-info mb-2",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.openForm("create")
-                      }
-                    }
-                  },
-                  [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
-                ),
+                _vm.rol_id == 1
+                  ? [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-info mb-2",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.openForm("create")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v("Nuevo "),
+                          _c("i", { staticClass: "fas fa-plus" })
+                        ]
+                      )
+                    ]
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -77213,7 +77816,8 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  residente.estado
+                                  residente.activo == 1 &&
+                                  residente.defuncion == 0
                                     ? _c("div", [
                                         _c(
                                           "span",
@@ -77224,7 +77828,9 @@ var render = function() {
                                           [_vm._v("Activo")]
                                         )
                                       ])
-                                    : _c("div", [
+                                    : residente.activo == 0 &&
+                                      residente.defuncion == 0
+                                    ? _c("div", [
                                         _c(
                                           "span",
                                           {
@@ -77234,132 +77840,327 @@ var render = function() {
                                           [_vm._v("Inactivo")]
                                         )
                                       ])
+                                    : residente.defuncion == 1
+                                    ? _c("div", [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "badge outline-badge-secondary"
+                                          },
+                                          [_vm._v("Fallecido")]
+                                        )
+                                      ])
+                                    : _vm._e()
                                 ]),
                                 _vm._v(" "),
                                 _c(
                                   "td",
                                   { staticClass: "text-center" },
                                   [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-danger mb-1 mr-1 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.pdf(residente.id)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-file-pdf"
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-info mb-1 mr-1 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.openModal(residente)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-eye" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-warning mb-1 mr-1 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.openForm(
-                                              "update",
-                                              residente
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    residente.estado
+                                    _vm.rol_id == 1
+                                      ? [
+                                          residente.activo == 1 &&
+                                          residente.defuncion == 0
+                                            ? [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.changeStatus(
+                                                          "desactivate",
+                                                          residente.id,
+                                                          residente.nombre,
+                                                          residente.apellido
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fas fa-lock"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-info mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.openModal(
+                                                          residente
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fas fa-eye"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-danger mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.pdf(
+                                                          residente.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-file-pdf"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-warning mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.openForm(
+                                                          "update",
+                                                          residente
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-sync-alt"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-secondary mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.death(
+                                                          residente.id,
+                                                          residente.nombre,
+                                                          residente.apellido
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-cross"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            : residente.activo == 0 &&
+                                              residente.defuncion == 0
+                                            ? [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.changeStatus(
+                                                          "activate",
+                                                          residente.id,
+                                                          residente.nombre,
+                                                          residente.apellido
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-unlock"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-info mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.openModal(
+                                                          residente
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fas fa-eye"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-danger mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.pdf(
+                                                          residente.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-file-pdf"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            : residente.defuncion == 1
+                                            ? [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-info mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.openModal(
+                                                          residente
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fas fa-eye"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-danger mb-1 mr-1 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.pdf(
+                                                          residente.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-file-pdf"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            : _vm._e()
+                                        ]
+                                      : _vm.rol_id == 2
                                       ? [
                                           _c(
                                             "button",
                                             {
                                               staticClass:
-                                                "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                                "btn btn-info mb-1 mr-1 rounded-circle",
                                               attrs: { type: "button" },
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.changeStatus(
-                                                    "desactivate",
-                                                    residente.id,
-                                                    residente.nombre
+                                                  return _vm.openModal(
+                                                    residente
                                                   )
                                                 }
                                               }
                                             },
                                             [
                                               _c("i", {
-                                                staticClass: "fas fa-lock"
+                                                staticClass: "fas fa-eye"
                                               })
                                             ]
-                                          )
-                                        ]
-                                      : [
+                                          ),
+                                          _vm._v(" "),
                                           _c(
                                             "button",
                                             {
                                               staticClass:
-                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                                "btn btn-danger mb-1 mr-1 rounded-circle",
                                               attrs: { type: "button" },
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.changeStatus(
-                                                    "activate",
-                                                    residente.id,
-                                                    residente.nombre
+                                                  return _vm.pdf(residente.id)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-file-pdf"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : _vm.rol_id == 3
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-info mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    residente
                                                   )
                                                 }
                                               }
                                             },
                                             [
                                               _c("i", {
-                                                staticClass: "fas fa-unlock"
+                                                staticClass: "fas fa-eye"
                                               })
                                             ]
                                           )
-                                        ],
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-secondary mb-1 mr-1 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.openDeceased(residente)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-cross" })]
-                                    )
+                                        ]
+                                      : _vm._e()
                                   ],
                                   2
                                 )
@@ -80204,7 +81005,7 @@ var render = function() {
                                 _c("i", { staticClass: "fas fa-user" }),
                                 _vm._v(" "),
                                 _c("strong", [_vm._v("Registró: ")]),
-                                _vm._v(_vm._s(_vm.salida_nombre_usuario))
+                                _vm._v(_vm._s(_vm.salida_usuario))
                               ])
                             ])
                           ])
@@ -80506,7 +81307,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró: ")
+          _vm._v(" Registró")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -82274,29 +83075,94 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              tipo_producto.estado
+                              _vm.rol_id == 1
                                 ? [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              tipo_producto.id,
-                                              tipo_producto.nombre,
-                                              tipo_producto.medicamento,
-                                              tipo_producto.producto
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
-                                    ),
-                                    _vm._v(" "),
+                                    tipo_producto.id != 1 &&
+                                    tipo_producto.id != 2 &&
+                                    tipo_producto.id != 3 &&
+                                    tipo_producto.id != 4
+                                      ? [
+                                          tipo_producto.estado
+                                            ? [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.changeStatus(
+                                                          "desactivate",
+                                                          tipo_producto.id,
+                                                          tipo_producto.nombre,
+                                                          tipo_producto.medicamento,
+                                                          tipo_producto.producto
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fas fa-lock"
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-warning mb-2 mr-2 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.openModal(
+                                                          "update",
+                                                          tipo_producto
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-sync-alt"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            : [
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.changeStatus(
+                                                          "activate",
+                                                          tipo_producto.id,
+                                                          tipo_producto.nombre,
+                                                          tipo_producto.medicamento,
+                                                          tipo_producto.producto
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-unlock"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                        ]
+                                      : _vm._e()
+                                  ]
+                                : [
                                     _c(
                                       "button",
                                       {
@@ -82315,32 +83181,6 @@ var render = function() {
                                       [
                                         _c("i", {
                                           staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              tipo_producto.id,
-                                              tipo_producto.nombre,
-                                              tipo_producto.medicamento,
-                                              tipo_producto.producto
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
                                         })
                                       ]
                                     )
@@ -82860,29 +83700,85 @@ var render = function() {
                             "td",
                             { staticClass: "text-center" },
                             [
-                              unidad_medida.estado
+                              _vm.rol_id == 1
                                 ? [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-eliminar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "desactivate",
-                                              unidad_medida.id,
-                                              unidad_medida.nombre,
-                                              unidad_medida.medicamento,
-                                              unidad_medida.producto
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-lock" })]
-                                    ),
-                                    _vm._v(" "),
+                                    unidad_medida.estado
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-eliminar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "desactivate",
+                                                    unidad_medida.id,
+                                                    unidad_medida.nombre,
+                                                    unidad_medida.medicamento,
+                                                    unidad_medida.producto
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-lock"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    "update",
+                                                    unidad_medida
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-sync-alt"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      : [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-guardar mb-2 mr-2 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.changeStatus(
+                                                    "activate",
+                                                    unidad_medida.id,
+                                                    unidad_medida.nombre,
+                                                    unidad_medida.medicamento,
+                                                    unidad_medida.producto
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-unlock"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                  ]
+                                : [
                                     _c(
                                       "button",
                                       {
@@ -82901,32 +83797,6 @@ var render = function() {
                                       [
                                         _c("i", {
                                           staticClass: "fas fa-sync-alt"
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                : [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-guardar mb-2 mr-2 rounded-circle",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.changeStatus(
-                                              "activate",
-                                              unidad_medida.id,
-                                              unidad_medida.nombre,
-                                              unidad_medida.medicamento,
-                                              unidad_medida.producto
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-unlock"
                                         })
                                       ]
                                     )
@@ -83530,7 +84400,7 @@ var render = function() {
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
-        _c("div", { staticClass: "modal-dialog    " }, [
+        _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
             _c("div", { staticClass: "modal-header dark-header" }, [
               _c("h5", {
@@ -83736,7 +84606,7 @@ var render = function() {
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
-        _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
             _c("div", { staticClass: "modal-header dark-header" }, [
               _c("h5", {
@@ -83831,7 +84701,7 @@ var render = function() {
                         staticClass: "form-control",
                         class: _vm.hasError("password") ? "is-invalid" : "",
                         attrs: {
-                          type: "text",
+                          type: "password",
                           name: "password",
                           placeholder: "Ingrese password..."
                         },
@@ -83876,7 +84746,7 @@ var render = function() {
                           ? "is-invalid"
                           : "",
                         attrs: {
-                          type: "text",
+                          type: "password",
                           name: "password_confirm",
                           placeholder: "Ingrese password_confirm..."
                         },
@@ -83970,7 +84840,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Nombre")
+          _vm._v(" Empleado")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -99347,25 +100217,28 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  routes: [{
-    path: '/bienvenida',
+  routes: [
+  /********** Ruta principal **********/
+  {
+    path: '/asilo',
     component: __webpack_require__(/*! ../views/Bienvenida */ "./resources/js/views/Bienvenida.vue")["default"]
-  }, // Rutas para dashboard
+  },
+  /********** Ruta para usuarios **********/
   {
-    path: '/dashboard',
-    component: __webpack_require__(/*! ../views/Dashboard */ "./resources/js/views/Dashboard.vue")["default"]
-  }, {
-    path: '/dashboard_articulos',
-    component: __webpack_require__(/*! ../views/DashboardArticulos */ "./resources/js/views/DashboardArticulos.vue")["default"]
-  }, {
-    path: '/dashboard_medicamentos',
-    component: __webpack_require__(/*! ../views/DashboardMedicamentos */ "./resources/js/views/DashboardMedicamentos.vue")["default"]
-  }, {
-    path: '/dashboard_compras',
-    component: __webpack_require__(/*! ../views/DashboardCompras */ "./resources/js/views/DashboardCompras.vue")["default"]
-  }, // Rutas de configuración
+    path: '/usuarios',
+    component: __webpack_require__(/*! ../views/Usuarios */ "./resources/js/views/Usuarios.vue")["default"]
+  },
+  /********** Rutas financiero **********/
   {
-    path: '/categorias',
+    path: '/tipo_movimiento',
+    component: __webpack_require__(/*! ../views/TipoMovimiento */ "./resources/js/views/TipoMovimiento.vue")["default"]
+  }, {
+    path: '/movimientos',
+    component: __webpack_require__(/*! ../views/MovimientoCaja */ "./resources/js/views/MovimientoCaja.vue")["default"]
+  },
+  /********** Rutas configuración **********/
+  {
+    path: '/tipo_producto',
     component: __webpack_require__(/*! ../views/TipoProducto */ "./resources/js/views/TipoProducto.vue")["default"]
   }, {
     path: '/unidad_medida',
@@ -99376,18 +100249,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/municipios',
     component: __webpack_require__(/*! ../views/Municipios */ "./resources/js/views/Municipios.vue")["default"]
-  }, // Rutas de financiero
-  {
-    path: '/tipo_movimiento',
-    component: __webpack_require__(/*! ../views/TipoMovimiento */ "./resources/js/views/TipoMovimiento.vue")["default"]
-  }, {
-    path: '/movimientos',
-    component: __webpack_require__(/*! ../views/MovimientoCaja */ "./resources/js/views/MovimientoCaja.vue")["default"]
-  }, // Rutas de autenticación
-  {
-    path: '/usuarios',
-    component: __webpack_require__(/*! ../views/Usuarios */ "./resources/js/views/Usuarios.vue")["default"]
-  }, // Rutas de personal
+  },
+  /********** Rutas personal **********/
   {
     path: '/areas',
     component: __webpack_require__(/*! ../views/Areas */ "./resources/js/views/Areas.vue")["default"]
@@ -99397,42 +100260,62 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/empleados',
     component: __webpack_require__(/*! ../views/Empleados */ "./resources/js/views/Empleados.vue")["default"]
-  }, // Rutas de hogar
+  },
+  /********** Ruta hogar **********/
   {
     path: '/residentes',
     component: __webpack_require__(/*! ../views/Residentes */ "./resources/js/views/Residentes.vue")["default"]
-  }, // Rutas para enfermería
+  },
+  /********** Rutas enfermería **********/
   {
     path: '/signos',
     component: __webpack_require__(/*! ../views/Signos */ "./resources/js/views/Signos.vue")["default"]
   }, {
     path: '/notas',
     component: __webpack_require__(/*! ../views/Notas */ "./resources/js/views/Notas.vue")["default"]
-  }, // Rutas de inventario
+  },
+  /********** Rutas inventario **********/
   {
-    path: '/ajuste_medicamento',
+    path: '/ajuste_producto/medicamento',
     component: __webpack_require__(/*! ../views/AjusteMedicamento */ "./resources/js/views/AjusteMedicamento.vue")["default"]
   }, {
-    path: '/ajuste_articulo',
+    path: '/ajuste_producto/producto',
     component: __webpack_require__(/*! ../views/AjusteProducto */ "./resources/js/views/AjusteProducto.vue")["default"]
   }, {
-    path: '/articulos',
+    path: '/productos',
     component: __webpack_require__(/*! ../views/Productos */ "./resources/js/views/Productos.vue")["default"]
   }, {
     path: '/medicamentos',
     component: __webpack_require__(/*! ../views/Medicamentos */ "./resources/js/views/Medicamentos.vue")["default"]
-  }, //Ruta de entradas
+  },
+  /********** Ruta entrada **********/
   {
     path: '/compras',
     component: __webpack_require__(/*! ../views/Compras */ "./resources/js/views/Compras.vue")["default"]
-  }, // Ruta de salidas
+  },
+  /********** Ruta salida **********/
   {
     path: '/salidas',
     component: __webpack_require__(/*! ../views/Salidas */ "./resources/js/views/Salidas.vue")["default"]
-  }, // Ruta de donaciones
+  },
+  /********** Ruta donación **********/
   {
     path: '/donaciones',
     component: __webpack_require__(/*! ../views/Donaciones */ "./resources/js/views/Donaciones.vue")["default"]
+  },
+  /********** Rutas dashboard **********/
+  {
+    path: '/dashboard',
+    component: __webpack_require__(/*! ../views/Dashboard */ "./resources/js/views/Dashboard.vue")["default"]
+  }, {
+    path: '/dashboard/dashboard_articulos',
+    component: __webpack_require__(/*! ../views/DashboardArticulos */ "./resources/js/views/DashboardArticulos.vue")["default"]
+  }, {
+    path: '/dashboard/dashboard_medicamentos',
+    component: __webpack_require__(/*! ../views/DashboardMedicamentos */ "./resources/js/views/DashboardMedicamentos.vue")["default"]
+  }, {
+    path: '/dashboard/dashboard_compras',
+    component: __webpack_require__(/*! ../views/DashboardCompras */ "./resources/js/views/DashboardCompras.vue")["default"]
   }],
   mode: 'history'
 }));
@@ -101171,7 +102054,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

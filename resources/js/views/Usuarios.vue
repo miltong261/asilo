@@ -12,7 +12,7 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha registro</th>
                                     <th class="text-center"><i class="fas fa-user"></i> Usuario</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Empleado</th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -50,7 +50,7 @@
 
         <!-- modal registro usuarios -->
         <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog    ">
+            <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header dark-header">
@@ -94,11 +94,11 @@
 
                 </div>
             </div>
-        </div>    
+        </div>
 
         <!-- modal cambio de contraseña  -->
         <div :class="{'mostrar': modalForm}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header dark-header">
@@ -118,12 +118,12 @@
                                             {{ errors.usuario[0] }}
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
 
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
                                         <label class="text-dark"><i class="fas fa-key"></i> Nueva contraseña</label>
-                                        <input type="text" name="password" v-model="password" class="form-control" :class="hasError('password') ? 'is-invalid' : ''" placeholder="Ingrese password...">
+                                        <input type="password" name="password" v-model="password" class="form-control" :class="hasError('password') ? 'is-invalid' : ''" placeholder="Ingrese password...">
                                         <div v-if="hasError('password')" class="invalid-feedback">
                                             {{ errors.password[0] }}
                                         </div>
@@ -133,7 +133,7 @@
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
                                         <label class="text-dark"><i class="fas fa-key"></i> Confirmar contraseña</label>
-                                        <input type="text" name="password_confirm" v-model="password_confirm" class="form-control" :class="hasError('password_confirm') ? 'is-invalid' : ''" placeholder="Ingrese password_confirm...">
+                                        <input type="password" name="password_confirm" v-model="password_confirm" class="form-control" :class="hasError('password_confirm') ? 'is-invalid' : ''" placeholder="Ingrese password_confirm...">
                                         <div v-if="hasError('password_confirm')" class="invalid-feedback">
                                             {{ errors.password_confirm[0] }}
                                         </div>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
 </template>
 
@@ -159,7 +159,7 @@
         data() {
             return {
                 id: 0,
-            
+
                 lista_usuarios: [],
                 empleado_id: '',
                 rol_id: '',
@@ -168,7 +168,7 @@
                 password: '',
                 password_confirm: '',
 
-                lista_empleados: [], 
+                lista_empleados: [],
                 lista_rol:[],
 
                 modal: 0,
@@ -203,12 +203,13 @@
             openForm(id_usuario, usuario_usuario){
                 this.id = id_usuario
                 this.opcionMoldalForm = 1
-                
+
                 this.modalForm = 1
                 this.titulo = 'Cambio de contraseña del usuario ' + usuario_usuario
             },
             closeForm(){
                 this.id = ''
+                this.usuario = ''
                 this.password = ''
                 this.password_confirm = ''
 
@@ -229,15 +230,15 @@
                         alerts.sweetAlert(response.data.status, response.data.message)
                         this.opcionModal = 0
                     }
-                    
+
                     if (this.opcionMoldalForm == 1){
                         this.closeForm()
                         this.showList()
                         alerts.sweetAlert(response.data.status, response.data.message)
                         this.opcionMoldalForm = 0
                     }
-                    
-                    
+
+
                 }else{
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }

@@ -22,7 +22,8 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
-        return response()->json($this->productoRepository->indexProducto('producto'));
+        $rol = \Auth::user()->rol_id;
+        return response()->json(['query' => $this->productoRepository->indexProducto('producto'), 'rol' => $rol]);
     }
 
     /**

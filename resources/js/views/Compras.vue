@@ -16,12 +16,10 @@
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
-                                        <!-- <th class="text-center"> <i class="fas fa-qrcode"></i> Usuario</th> -->
                                         <th class="text-center"> <i class="fas fa-file"></i> Documento</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de compra</th>
-                                        <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de salida</th>
-                                        <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
                                 </thead>
@@ -29,7 +27,6 @@
                                     <tr v-for="(compra, index) in lista_compras" :key="compra.id">
                                         <td class="text-center" v-text="index+1"></td>
                                         <td class="text-center" v-text="compra.codigo"></td>
-                                        <!-- <td class="text-center" v-text="compra.usuario"></td> -->
                                         <td class="text-center" v-text="compra.documento"></td>
                                         <td class="text-center" v-text="compra.fecha_registro"></td>
                                         <td class="text-center" v-text="compra.fecha_compra"></td>
@@ -193,7 +190,7 @@
                                         <td><i class="fas fa-file"></i> <strong>Documento: </strong>{{ compra_documento }}</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ compra_nombre_usuario }}</td>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ compra_usuario }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -238,7 +235,7 @@
 
                         <!-- Acciones -->
                         <div class="text-right">
-                            <button type="button" @click="closeShowSalida()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
+                            <button type="button" @click="closeShowCompra()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
                         </div>
                     </template>
                 </div>
@@ -344,6 +341,7 @@
 
                 /** Ver compra */
                 //Encabezado
+                compra_usuario: '',
                 compra_codigo: 0,
                 compra_fecha_registro: '',
                 compra_fecha_compra: '',
@@ -587,6 +585,7 @@
                 axios.get(url_cabecera).then(function (response) {
                     cabecera = response.data
 
+                    me.compra_usuario = cabecera[0]['nombre_usuario']
                     me.compra_codigo = cabecera[0]['codigo']
                     me.compra_fecha_registro = cabecera[0]['fecha_registro']
                     me.compra_fecha_compra = cabecera[0]['fecha_compra']
@@ -609,12 +608,13 @@
                     console.log(error)
                 })
             },
-            closeShowSalida() {
+            closeShowCompra() {
                 this.action = 1
                 this.showList()
                 this.dataTable('#listado')
                 document.getElementById('openForm').style.display = 'block'
 
+                this.compra_usuario = ''
                 this.compra_codigo = 0
                 this.compra_fecha_registro = ''
                 this.compra_fecha_compra = ''

@@ -5,30 +5,31 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
+        /********** Ruta principal **********/
         {
-            path: '/bienvenida',
+            path: '/asilo',
             component: require('../views/Bienvenida').default
         },
-        // Rutas para dashboard
+
+        /********** Ruta para usuarios **********/
         {
-            path: '/dashboard',
-            component: require('../views/Dashboard').default
+            path: '/usuarios',
+            component: require('../views/Usuarios').default
+        },
+
+        /********** Rutas financiero **********/
+        {
+            path: '/tipo_movimiento',
+            component: require('../views/TipoMovimiento').default
         },
         {
-            path: '/dashboard_articulos',
-            component: require('../views/DashboardArticulos').default
+            path: '/movimientos',
+            component: require('../views/MovimientoCaja').default
         },
+
+        /********** Rutas configuración **********/
         {
-            path: '/dashboard_medicamentos',
-            component: require('../views/DashboardMedicamentos').default
-        },
-        {
-            path: '/dashboard_compras',
-            component: require('../views/DashboardCompras').default
-        },
-        // Rutas de configuración
-        {
-            path: '/categorias',
+            path: '/tipo_producto',
             component: require('../views/TipoProducto').default
         },
         {
@@ -43,21 +44,8 @@ export default new Router({
             path: '/municipios',
             component: require('../views/Municipios').default
         },
-        // Rutas de financiero
-        {
-            path: '/tipo_movimiento',
-            component: require('../views/TipoMovimiento').default
-        },
-        {
-            path: '/movimientos',
-            component: require('../views/MovimientoCaja').default
-        },
-        // Rutas de autenticación
-        {
-            path: '/usuarios',
-            component: require('../views/Usuarios').default
-        },
-        // Rutas de personal
+
+        /********** Rutas personal **********/
         {
             path: '/areas',
             component: require('../views/Areas').default
@@ -70,12 +58,14 @@ export default new Router({
             path: '/empleados',
             component: require('../views/Empleados').default
         },
-        // Rutas de hogar
+
+        /********** Ruta hogar **********/
         {
             path: '/residentes',
             component: require('../views/Residentes').default
         },
-        // Rutas para enfermería
+
+        /********** Rutas enfermería **********/
         {
             path: '/signos',
             component: require('../views/Signos').default
@@ -84,37 +74,59 @@ export default new Router({
             path: '/notas',
             component: require('../views/Notas').default
         },
-        // Rutas de inventario
+
+        /********** Rutas inventario **********/
         {
-            path: '/ajuste_medicamento',
+            path: '/ajuste_producto/medicamento',
             component: require('../views/AjusteMedicamento').default
         },
         {
-            path: '/ajuste_articulo',
+            path: '/ajuste_producto/producto',
             component: require('../views/AjusteProducto').default
         },
         {
-            path: '/articulos',
+            path: '/productos',
             component: require('../views/Productos').default
         },
         {
             path: '/medicamentos',
             component: require('../views/Medicamentos').default
         },
-        //Ruta de entradas
+
+        /********** Ruta entrada **********/
         {
             path: '/compras',
             component: require('../views/Compras').default
         },
-        // Ruta de salidas
+
+        /********** Ruta salida **********/
         {
             path: '/salidas',
             component: require('../views/Salidas').default
         },
-        // Ruta de donaciones
+
+        /********** Ruta donación **********/
         {
             path: '/donaciones',
             component: require('../views/Donaciones').default
+        },
+
+        /********** Rutas dashboard **********/
+        {
+            path: '/dashboard',
+            component: require('../views/Dashboard').default
+        },
+        {
+            path: '/dashboard/dashboard_articulos',
+            component: require('../views/DashboardArticulos').default
+        },
+        {
+            path: '/dashboard/dashboard_medicamentos',
+            component: require('../views/DashboardMedicamentos').default
+        },
+        {
+            path: '/dashboard/dashboard_compras',
+            component: require('../views/DashboardCompras').default
         }
     ],
     mode: 'history'

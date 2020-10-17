@@ -48,12 +48,19 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <template v-if="tipo_producto.estado">
-                                            <button type="button" @click="changeStatus('desactivate', tipo_producto.id, tipo_producto.nombre, tipo_producto.medicamento, tipo_producto.producto)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
-                                            <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <template v-if="rol_id==1">
+                                            <template v-if="tipo_producto.id!=1&&tipo_producto.id!=2&&tipo_producto.id!=3&&tipo_producto.id!=4">
+                                                <template v-if="tipo_producto.estado">
+                                                    <button type="button" @click="changeStatus('desactivate', tipo_producto.id, tipo_producto.nombre, tipo_producto.medicamento, tipo_producto.producto)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                    <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                                </template>
+                                                <template v-else>
+                                                    <button type="button" @click="changeStatus('activate', tipo_producto.id, tipo_producto.nombre, tipo_producto.medicamento, tipo_producto.producto)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                                </template>
+                                            </template>
                                         </template>
                                         <template v-else>
-                                            <button type="button" @click="changeStatus('activate', tipo_producto.id, tipo_producto.nombre, tipo_producto.medicamento, tipo_producto.producto)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            <button type="button" @click="openModal('update', tipo_producto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                     </td>
                                 </tr>
@@ -125,7 +132,9 @@
                 modal: 0,
                 titulo: '',
                 opcion: 0,
-                errors: []
+                errors: [],
+
+                rol_id: 0
             }
         },
         methods: {
@@ -237,7 +246,8 @@
                 let me = this;
                 let url = '/tipo_producto';
                 axios.get(url).then(function (response) {
-                    me.lista_tipo_producto = response.data
+                    me.lista_tipo_producto = response.data.query
+                    me.rol_id = response.data.rol
                     me.dataTable();
                 })
                 .catch(function (error) {

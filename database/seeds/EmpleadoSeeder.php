@@ -25,23 +25,23 @@ class EmpleadoSeeder extends Seeder
             'telefono' => 41802654
         ));
 
+        // Empleado::create(array(
+        //     'area_id' => 1,
+        //     'puesto_id' => 2,
+        //     'codigo' => 'EMPLEADO-0002',
+        //     'fecha_ingreso' => '2020-08-12',
+        //     'nombre' => 'Maria',
+        //     'apellido' => 'Werner',
+        //     'fecha_nacimiento' => '1996-11-10',
+        //     'dpi' => 3281315172101,
+        //     'direccion' => 'San Francisco Zapotitlan',
+        //     'telefono' => 54232407
+        // ));
+
         Empleado::create(array(
             'area_id' => 1,
             'puesto_id' => 2,
             'codigo' => 'EMPLEADO-0002',
-            'fecha_ingreso' => '2020-08-12',
-            'nombre' => 'Maria',
-            'apellido' => 'Werner',
-            'fecha_nacimiento' => '1996-11-10',
-            'dpi' => 3281315172101,
-            'direccion' => 'San Francisco Zapotitlan',
-            'telefono' => 54232407
-        ));
-
-        Empleado::create(array(
-            'area_id' => 1,
-            'puesto_id' => 3,
-            'codigo' => 'EMPLEADO-0003',
             'fecha_ingreso' => '2020-08-12',
             'nombre' => 'Secretaria',
             'apellido' => 'Secretaria',
@@ -54,7 +54,7 @@ class EmpleadoSeeder extends Seeder
         Empleado::create(array(
             'area_id' => 2,
             'puesto_id' => 2,
-            'codigo' => 'EMPLEADO-0004',
+            'codigo' => 'EMPLEADO-0003',
             'fecha_ingreso' => '2020-08-12',
             'nombre' => 'Enfermera',
             'apellido' => 'Enfermera',

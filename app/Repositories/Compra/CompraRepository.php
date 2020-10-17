@@ -87,6 +87,7 @@ class CompraRepository extends BaseRepository
                     }
 
                     $movimiento = new Movimiento();
+                    $movimiento->user_id = $request['user_id'];
                     $movimiento->caja_id = 1;
                     $movimiento->tipo_movimiento_id = 1;
                     $movimiento->no_transaccion = 'TRANSACCIÓN' . $this->movimientoRepository->generateCode();

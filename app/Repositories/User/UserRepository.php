@@ -77,7 +77,7 @@ class UserRepository extends BaseRepository
 
             if ($usuario) {
                 if (($usuario->usuario == $request['usuario']) && ($request['password'] == $request['password_confirm'])) {
-                    $this->getModel()->update(['password' => bcrypt($request['password'])]);
+                    $usuario->update(['password' => bcrypt($request['password'])]);
 
                     DB::commit();
 

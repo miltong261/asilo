@@ -20,7 +20,7 @@
                                         <th class="text-center"> <i class="fas fa-user"></i> Solicitó</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de salida</th>
-                                        <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                     </tr>
                                 </thead>
@@ -199,7 +199,7 @@
                                         <td><i class="fas fa-store-alt"></i> <strong>Área: </strong>{{ salida_nombre_area }}</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ salida_nombre_usuario }}</td>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ salida_usuario }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -351,6 +351,7 @@
 
                 /** Ver salida */
                 //Encabezado
+                salida_usuario: '',
                 salida_codigo: 0,
                 salida_nombre_empleado: '',
                 salida_nombre_area: '',
@@ -624,6 +625,7 @@
                 axios.get(url_cabecera).then(function (response) {
                     cabecera = response.data
 
+                    me.salida_usuario = cabecera[0]['nombre_usuario']
                     me.salida_codigo = cabecera[0]['codigo']
                     me.salida_nombre_empleado = cabecera[0]['nombre_empleado'] + ' ' + cabecera[0]['apellido_empleado']
                     me.salida_nombre_area = cabecera[0]['nombre_area']
@@ -651,6 +653,7 @@
                 this.dataTable('#listado')
                 document.getElementById('openForm').style.display = 'block'
 
+                this.salida_usuario = ''
                 this.salida_codigo = 0
                 this.salida_fecha_registro = ''
                 this.salida_fecha_salida = ''

@@ -88,7 +88,7 @@ export default {
                     data: {
                         labels: me.articulos_meses,
                         datasets: [{
-                            label: 'Cantidad de productos',
+                            label: 'Cantidad de artículos',
                             data: me.articulos_cantidad,
                             backgroundColor: '#e7515a',
                             borderWidth: '10'
@@ -121,7 +121,7 @@ export default {
                     data: {
                         labels: me.medicamento_meses,
                         datasets: [{
-                            label: 'Cantidad de productos',
+                            label: 'Cantidad de medicamentos',
                             data: me.medicamento_cantidad,
                             backgroundColor: '#bae7ff',
                             borderWidth: '10'

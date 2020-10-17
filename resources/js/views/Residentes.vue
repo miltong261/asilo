@@ -4,7 +4,9 @@
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <!-- Tabla -->
                 <template v-if="action==1">
-                    <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+                    <template v-if="rol_id==1">
+                        <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+                    </template>
                     <div class="widget-content widget-content-area br-6">
                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                         <div class="table-responsive mb-0 mt-0">
@@ -29,25 +31,44 @@
                                     <td v-text="residente.apellido" class="text-center"></td>
 
                                     <td class="text-center">
-                                        <div v-if="residente.estado">
+                                        <div v-if="residente.activo==1 && residente.defuncion==0">
                                             <span class="badge outline-badge-check">Activo</span>
                                         </div>
-                                        <div v-else>
+                                        <div v-else-if="residente.activo==0 && residente.defuncion==0">
                                             <span class="badge outline-badge-no-check">Inactivo</span>
+                                        </div>
+                                        <div v-else-if="residente.defuncion==1">
+                                            <span class="badge outline-badge-secondary">Fallecido</span>
                                         </div>
                                     </td>
 
                                     <td class="text-center">
-                                        <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
-                                        <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                        <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        <template v-if="residente.estado">
-                                            <button type="button" @click="changeStatus('desactivate', residente.id, residente.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                        <template v-if="rol_id==1">
+                                            <template v-if="residente.activo==1 && residente.defuncion==0">
+                                                <button type="button" @click="changeStatus('desactivate', residente.id, residente.nombre, residente.apellido)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
+                                                <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                                <button type="button" @click="death(residente.id, residente.nombre, residente.apellido)" class="btn btn-secondary mb-1 mr-1 rounded-circle"> <i class="fas fa-cross"></i></button>
+                                            </template>
+                                            <template v-else-if="residente.activo==0 && residente.defuncion==0">
+                                                <button type="button" @click="changeStatus('activate', residente.id, residente.nombre, residente.apellido)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
+                                            </template>
+                                            <template v-else-if="residente.defuncion==1">
+                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
+                                            </template>
                                         </template>
-                                        <template v-else>
-                                            <button type="button" @click="changeStatus('activate', residente.id, residente.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+
+                                        <template v-else-if="rol_id==2">
+                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                         </template>
-                                        <button type="button" @click="openDeceased(residente)" class="btn btn-secondary mb-1 mr-1 rounded-circle"> <i class="fas fa-cross"></i></button>
+                                        <template v-else-if="rol_id==3">
+                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                        </template>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -395,6 +416,8 @@ import * as alerts from '../functions/alerts.js'
                 titulo: '',
 
                 errors: [],
+
+                rol_id: 0
             }
         },
         methods: {
@@ -524,10 +547,10 @@ import * as alerts from '../functions/alerts.js'
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }
             },
-            changeStatus(action, id, nombre) {
+            changeStatus(action, id, nombre, apellido) {
                 swal({
                     title: 'Cambio de estado',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre el residente "'+nombre+'"?',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
                     type: 'question',
                     confirmButtonColor: '#25d5e4',
                     cancelButtonColor: '#f8538d',
@@ -552,6 +575,45 @@ import * as alerts from '../functions/alerts.js'
                             swal(
                                 'Cambio de estado',
                                 'Se ha cambiado el estado correctamente',
+                                'success'
+                            )
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                        swal(
+                            'Cancelado',
+                            'Se ha cancelado la operación',
+                            'error'
+                        )
+                    }
+                })
+            },
+            death(id, nombre, apellido) {
+                swal({
+                    title: 'Fallecimiento',
+                    text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                    type: 'question',
+                    confirmButtonColor: '#25d5e4',
+                    cancelButtonColor: '#f8538d',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: '¡Cancelar!',
+                    confirmButtonClass: 'btn btn-guardar',
+                    cancelButtonClass: 'btn btn-cerrar',
+                    padding: '2em'
+                }).then((result) => {
+                    let url = '/residentes/defuncion'
+
+                    if (result.value) {
+                        let me = this
+                        axios.put(url, {
+                            'id': id
+                        }).then(function (response) {
+                            me.showList()
+                            swal(
+                                'Fallecimiento',
+                                'Se ha realizado la acción correctamente',
                                 'success'
                             )
                         }).catch(function (error) {
@@ -687,7 +749,8 @@ import * as alerts from '../functions/alerts.js'
                 let url = '/residentes'
 
                 axios.get(url).then(function (response) {
-                    me.lista_residentes = response.data
+                    me.lista_residentes = response.data.query
+                    me.rol_id = response.data.rol
                     console.log(response.data)
                     me.dataTable()
                 }).catch(function (error) {

@@ -3,10 +3,11 @@
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+                <button type="button" @click="openVencimiento()" class="btn btn-cerrar mb-2">Productos a vencer <i class="fas fa-calendar-alt"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
-                        <table id="zero-config" class="table table-hover" style="width:100%">
+                        <table id="listado" class="table table-hover" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
@@ -15,7 +16,7 @@
                                     <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
                                     <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
                                     <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
+                                    <th class="text-center"><i class="fas fa-user"></i> Registró </th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -38,13 +39,19 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" @click="openModalProducto(producto)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                        <template v-if="producto.estado">
-                                            <button type="button" @click="changeStatus('desactivate', producto.id, producto.nombre)" class="btn btn-eliminar mb-1 mr-1 rounded-circle"> <i class="fas fa-lock"></i></button>
-                                            <button type="button" @click="openModal('update', producto)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <template v-if="rol_id==1">
+                                            <button type="button" @click="openModalProducto(producto)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                            <template v-if="producto.estado">
+                                                <button type="button" @click="changeStatus('desactivate', producto.id, producto.nombre)" class="btn btn-eliminar mb-1 mr-1 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                <button type="button" @click="openModal('update', producto)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                            </template>
+                                            <template v-else>
+                                                <button type="button" @click="changeStatus('activate', producto.id, producto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            </template>
                                         </template>
                                         <template v-else>
-                                            <button type="button" @click="changeStatus('activate', producto.id, producto.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                            <button type="button" @click="openModalProducto(producto)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                            <button type="button" @click="openModal('update', producto)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                     </td>
                                 </tr>
@@ -149,12 +156,6 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                            <div class="mx-auto">
-                                <h5 align="center" class="text-secondary">Registró: <strong v-text="nombre_usuario"></strong> </h5>
-                            </div>
-
-                            <br>
-
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-qrcode"></i> Código</label>
@@ -232,6 +233,51 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para ver el producto vencido -->
+        <div :class="{'mostrar': modalVencimiento}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeVencimiento()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="table-responsive mb-0 mt-0">
+                            <table id="listado_producto" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"> <i class="fas fa-hashtag"></i></th>
+                                        <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
+                                        <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
+                                        <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
+                                        <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
+                                        <th class="text-center"> <i class="far fa-calendar-alt"></i> Vencimiento</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <tr>
+                                        <td> Hola</td>
+                                        <td> Hola</td>
+                                        <td> Hola</td>
+                                        <td> Hola</td>
+                                        <td> Hola</td>
+                                        <td> Hola</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeVencimiento()">Salir <i class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -269,7 +315,12 @@
                 opcion: 0,
                 errors: [],
 
-                modalProducto: 0
+                modalProducto: 0,
+
+                lista_vencimiento: [],
+                modalVencimiento: 0,
+
+                rol_id : 0
             }
         },
         methods: {
@@ -350,6 +401,18 @@
                 this.titulo = ''
 
                 alerts.sweetAlert('success', 'Visualización de producto exitosa')
+            },
+            openVencimiento() {
+                this.modalVencimiento = 1
+                this.titulo = 'VENCIMIENTO DE ARTÍCULOS'
+                this.destroyTable('#listado')
+                this.showVencimiento()
+            },
+            closeVencimiento() {
+                this.destroyTable('#listado_producto')
+                this.modalVencimiento = 0
+                this.showList()
+                this.lista_vencimiento = []
             },
             hasError(field) {
                 return field in (this.errors)
@@ -447,11 +510,11 @@
                     console.log(error)
                 })
             },
-            dataTable() {
-                let datatable = $('#zero-config').DataTable()
+            dataTable(table) {
+                let datatable = $(table).DataTable()
                 datatable.destroy()
                 this.$nextTick(function() {
-                    $('#zero-config').DataTable( {
+                    $(table).DataTable( {
                         "oLanguage": {
                             "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
                             "sInfo": "Mostrando página _PAGE_ de _PAGES_",
@@ -466,16 +529,26 @@
                     } );
                 });
             },
+            destroyTable(table) {
+                var datatable = $(table).DataTable()
+                datatable.destroy()
+            },
             showList() {
                 let me = this
                 let url = '/productos'
                 axios.get(url).then(function (response) {
-                    me.lista_productos = response.data
-                    me.dataTable();
+                    me.lista_productos = response.data.query
+                    me.rol_id = response.data.rol
+                    me.dataTable('#listado');
                 })
                 .catch(function (error) {
                     console.log(error)
                 })
+            },
+            showVencimiento() {
+                let me = this
+
+                me.dataTable('#listado_producto')
             },
             store() {
                 let me = this

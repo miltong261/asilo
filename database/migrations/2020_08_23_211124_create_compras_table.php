@@ -24,7 +24,7 @@ class CreateComprasTable extends Migration
             $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_compra');
-            $table->string('documento', 15);
+            $table->string('documento', 35)->nullable();
             $table->decimal('total', 8, 2);
 
             $table->timestamps();

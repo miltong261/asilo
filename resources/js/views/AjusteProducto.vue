@@ -141,12 +141,6 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                            <div class="mx-auto">
-                                <h5 align="center" class="text-secondary">Registró: <strong v-text="nombre_usuario"></strong> </h5>
-                            </div>
-
-                            <br>
-                            
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label><i class="fas fa-qrcode"></i> Código</label>

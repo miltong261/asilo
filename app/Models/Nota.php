@@ -4,21 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SignoVital extends Model
+class Nota extends Model
 {
-    protected $table = 'signos_vitales';
+    protected $table = 'notas';
     protected $fillable = [
         'user_id',
         'residente_id',
         'fecha_registro',
-        'hora_registro',
-        'tiempo',
-        'respiraciones',
-        'presion',
-        'pulso',
-        'peso',
-        'temperatura',
-        'observacion'
+        'hora',
+        'nota'
     ];
 
     public function user()

@@ -33,4 +33,7 @@
 
 {{-- ChartJS --}}
 <script src="{{asset('assets/js/chartjs/Chart.min.js')}}"></script>
+
+{{-- Popover --}}
+<script src="{{asset('assets/js/elements/popovers.js')}}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

@@ -4,7 +4,7 @@
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <!-- botón nuevo -->
                 <div class="text-left ">
-                    <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-plus"></i> </button>
+                    <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-heart"></i> </button>
                 </div>
                 <div class="widget-content widget-content-area br-6">
                     <!-- Listado -->

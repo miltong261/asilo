@@ -5,7 +5,7 @@
                 <!-- Tabla -->
                 <template v-if="action==1">
                     <template v-if="rol_id==1">
-                        <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+                        <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-house-user"></i></button>
                     </template>
                     <div class="widget-content widget-content-area br-6">
                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">

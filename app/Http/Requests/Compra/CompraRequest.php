@@ -25,6 +25,8 @@ class CompraRequest extends FormRequest
     {
         return [
             'fecha_compra' => ['required', 'date'],
+            'documento' => ['required'],
+            'no_documento' => ['required'],
             'arrayData' => ['required']
         ];
     }
@@ -34,6 +36,10 @@ class CompraRequest extends FormRequest
         return [
             'fecha_compra.required' => 'La fecha es obligatoria',
             'fecha_compra.date' => 'Fecha inválida',
+
+            'documento.required' => 'Debe especificar el documento de compra',
+
+            'no_documento.required' => 'El número de documento es obligatorio',
 
             'arrayData.required' => 'No ha seleccionado ningún produto'
         ];

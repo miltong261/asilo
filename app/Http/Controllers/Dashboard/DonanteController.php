@@ -17,11 +17,6 @@ class DonanteController extends Controller
         $this->donanteRepository = $donanteRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return response()->json($this->donanteRepository->index(
@@ -38,12 +33,6 @@ class DonanteController extends Controller
         ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(DonanteRequest $request)
     {
         try {
@@ -68,13 +57,6 @@ class DonanteController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(DonanteRequest $request)
     {
         try {

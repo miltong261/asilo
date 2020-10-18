@@ -11,7 +11,15 @@ class DashboardMedicamentosController extends Controller
 {
     public function __invoke(Request $request)
     {
+        $months = ['January' => 'Enero', 'February' => 'Febrero', 'March' => 'Marzo', 'April' => 'Abril',
+        'May' => 'Mayo', 'June' => 'Junio', 'July' => 'Julio', 'August' => 'Agosto', 'September' => 'Septiembre',
+        'October' => 'Octubre', 'November' => 'Noviembre', 'December' => 'Diciembre'];
+
+        $arraySalidas = [];
+        $arrayDonaciones = [];
+
         if (!$request->ajax()) return redirect('/asilo');
+
         $anio = date('Y');
 
         $salidas = DB::table('detalle_salida as d_salida')
@@ -26,6 +34,10 @@ class DashboardMedicamentosController extends Controller
         ->orderby('mes', 'desc')
         ->get();
 
+        foreach ($salidas as $salida) {
+            $arraySalidas[] = ['mes' => $months[$salida->mes], 'cantidad' => $salida->cantidad, 'anio' => $salida->anio];
+        }
+
         $donaciones = DB::table('detalle_donacion as d_donacion')
         ->join('donaciones', 'donaciones.id', '=', 'd_donacion.donacion_id')
         ->join('productos', 'productos.id', '=', 'd_donacion.producto_id')
@@ -38,6 +50,10 @@ class DashboardMedicamentosController extends Controller
         ->orderby('mes', 'desc')
         ->get();
 
-        return ['salidas' => $salidas, 'anio' => $anio, 'donaciones' => $donaciones];
+        foreach ($donaciones as $donacion) {
+            $arrayDonaciones[] = ['mes' => $months[$donacion->mes], 'cantidad' => $donacion->cantidad, 'anio' => $donacion->anio];
+        }
+
+        return ['salidas' => $arraySalidas, 'anio' => $anio, 'donaciones' => $arrayDonaciones];
     }
 }

@@ -13,5 +13,6 @@ class DetalleCompra extends Model
         'cantidad',
         'costo'
     ];
+
     public $timestamps = false;
 }

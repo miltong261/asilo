@@ -19,7 +19,7 @@ class EmpleadoRepository extends BaseRepository
         ->join('areas', 'areas.id', '=', 'empleados.area_id')
         ->join('puestos', 'puestos.id', '=', 'empleados.puesto_id')
         ->select('empleados.*', 'puestos.nombre as puesto_nombre', 'areas.nombre as area_nombre')
-        ->orderBy('empleados.codigo', 'asc')
+        ->orderBy('empleados.id', 'asc')
         ->get();
     }
 
@@ -46,12 +46,19 @@ class EmpleadoRepository extends BaseRepository
         $object = $this->getModel()->findOrFail($id);
         $user = User::where('empleado_id', $id);
 
-        if ($action == 'activar') {
-            $object->estado = 1;
-            $user->update(['estado' => 1, 'password' => bcrypt('asilo')]);
-        } elseif ($action == 'desactivar') {
-            $object->estado = 0;
-            $user->update(['estado' => 0, 'primer_login' => 0]);
+        if ($user) {
+            if ($action == 'activar') {
+                $object->estado = 1;
+            } elseif ($action == 'desactivar') {
+                $object->estado = 0;
+                $user->update(['estado' => 0, 'primer_login' => 0, 'password' => bcrypt('asilo')]);
+            }
+        } else {
+            if ($action == 'activar') {
+                $object->estado = 1;
+            } elseif ($action == 'desactivar') {
+                $object->estado = 0;
+            }
         }
 
         return $object->save();

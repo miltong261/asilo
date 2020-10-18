@@ -3,7 +3,8 @@
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
-                <button type="button" @click="openVencimiento()" class="btn btn-cerrar mb-2">Productos a vencer <i class="fas fa-calendar-alt"></i></button>
+                <button type="button" @click="openVencimiento(false)" class="btn btn-warning mb-2">Medicamentos a vencer <i class="fas fa-calendar-alt"></i></button>
+                <button type="button" @click="openVencimiento(true)" class="btn btn-cerrar mb-2">Medicamentos vencidos <i class="fas fa-calendar-alt"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
@@ -251,6 +252,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
+                                        <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                         <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
@@ -259,13 +261,21 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    <tr>
-                                        <td> Hola</td>
-                                        <td> Hola</td>
-                                        <td> Hola</td>
-                                        <td> Hola</td>
-                                        <td> Hola</td>
-                                        <td> Hola</td>
+                                    <tr v-for="(vencimiento, index) in lista_vencimiento" :key="vencimiento.id">
+                                        <td v-text="index+1"></td>
+                                        <td v-text="vencimiento.codigo"></td>
+                                        <td v-text="vencimiento.nombre"></td>
+                                        <td v-text="vencimiento.presentacion"></td>
+                                        <td v-text="vencimiento.nombre_unidad"></td>
+                                        <td v-text="vencimiento.existencia"></td>
+                                        <td class="text-center">
+                                            <div v-if="opcionModalVencimiento">
+                                                <span class="badge outline-badge-danger">{{ vencimiento.fecha_vencimiento }}</span>
+                                            </div>
+                                            <div v-else>
+                                                <span class="badge outline-badge-warning">{{ vencimiento.fecha_vencimiento }}</span>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -281,277 +291,313 @@
 </template>
 
 <script>
+    var moment = require('moment')
     import * as alerts from '../functions/alerts.js'
 
-    export default {
-        data() {
-            return {
-                id: 0,
+export default {
+    data() {
+        return {
+            id: 0,
 
-                lista_medicamentos: [],
-                codigo: '',
-                nombre: '',
-                presentacion: '',
-                observacion: '',
-                fecha_registro: '',
-                fecha_vencimiento: '',
-                fecha_ultima_compra: '',
-                fecha_ultima_salida: '',
-                fecha_ultimo_ajuste: '',
-                estado: 0,
-                existencia: 0,
+            lista_medicamentos: [],
+            codigo: '',
+            nombre: '',
+            presentacion: '',
+            observacion: '',
+            fecha_registro: '',
+            fecha_vencimiento: '',
+            fecha_ultima_compra: '',
+            fecha_ultima_salida: '',
+            fecha_ultimo_ajuste: '',
+            estado: 0,
+            existencia: 0,
 
-                lista_unidad_medida: [],
-                unidad_medida_id: 0,
-                unidad_medida_nombre: '',
+            lista_unidad_medida: [],
+            unidad_medida_id: 0,
+            unidad_medida_nombre: '',
 
-                lista_tipo_producto: [],
-                tipo_producto_id: 0,
-                tipo_producto_nombre: '',
+            lista_tipo_producto: [],
+            tipo_producto_id: 0,
+            tipo_producto_nombre: '',
 
-                modal: 0,
-                titulo: '',
-                opcion: 0,
-                errors: [],
+            modal: 0,
+            titulo: '',
+            opcion: 0,
+            errors: [],
 
-                modalMedicamento: 0,
+            modalMedicamento: 0,
 
-                lista_vencimiento: [],
-                modalVencimiento: 0,
+            lista_vencimiento: [],
+            modalVencimiento: 0,
+            opcionModalVencimiento: '',
 
-                rol_id: 0
+            rol_id: 0
+        }
+    },
+    methods: {
+        openModal(metodo, data = []) {
+            switch(metodo){
+                case 'create': {
+                    this.modal = 1
+                    this.titulo = "Registro de medicamento"
+                    this.opcion = 1
+                    this.fecha_vencimiento = moment().format('YYYY-MM-DD')
+                    break
+                }
+                case 'update': {
+                    this.modal = 2
+                    this.titulo = "Actualización de medicamento"
+                    this.opcion = 2
+
+                    this.unidad_medida_id = data['unidad_medida_id']
+                    this.tipo_producto_id = data['tipo_producto_id']
+                    this.nombre = data['nombre']
+                    this.presentacion = data['presentacion']
+                    this.observacion = data['observacion']
+                    this.fecha_vencimiento = data['fecha_vencimiento']
+                    this.id = data['id']
+                }
+            }
+            this.combo_medicamento_unidad_medida()
+            this.combo_medicamento_tipo_producto()
+        },
+        openModalMedicamento(data = []) {
+            this.modalMedicamento = 1
+            this.titulo = 'MEDICAMENTO ' + data['nombre'].toUpperCase()
+
+            this.codigo = data['codigo']
+            this.unidad_medida_nombre = data['unidad_nombre']
+            this.tipo_producto_nombre = data['categoria_nombre']
+            this.nombre = data['nombre']
+            this.presentacion = data['presentacion']
+            this.observacion = data['observacion'],
+            this.fecha_registro = data['fecha_registro']
+            this.fecha_vencimiento = data['fecha_vencimiento']
+            this.fecha_ultima_compra = data['fecha_ultima_compra']
+            this.fecha_ultima_salida = data['fecha_ultima_salida']
+            this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste']
+            this.estado = data['estado']
+            this.existencia = data['existencia']
+        },
+        closeModal() {
+            this.unidad_medida_id = 0
+            this.tipo_producto_id = 0
+            this.nombre = ''
+            this.presentacion = ''
+            this.observacion = ''
+            this.fecha_vencimiento = ''
+
+            this.modal = 0
+            this.titulo = ''
+            this.opcion = 0
+            this.errors = []
+
+            alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        closeModalMedicamento() {
+            this.codigo = ''
+            this.unidad_medida_nombre = ''
+            this.tipo_producto_nombre = ''
+            this.nombre = ''
+            this.presentacion = ''
+            this.observacion = ''
+            this.fecha_registro = ''
+            this.fecha_vencimiento = ''
+            this.fecha_ultima_compra = ''
+            this.fecha_ultima_salida = ''
+            this.fecha_ultimo_ajuste = ''
+            this.estado = ''
+            this.existencia = ''
+
+            this.modalMedicamento = 0
+            this.titulo = ''
+
+            alerts.sweetAlert('success', 'Visualización de medicamento exitosa')
+        },
+        openVencimiento(type) {
+            if (type == false) {
+                this.titulo = 'VENCIMIENTO DE MEDICAMENTOS EN LOS PRÓXIMOS 30 DÍAS'
+                this.opcionModalVencimiento = false
+            } else if (type == true) {
+                this.titulo = 'MEDICAMENTOS VENCIDOS'
+                this.opcionModalVencimiento = true
+            }
+
+            this.modalVencimiento = 1
+            this.destroyTable('#listado')
+            this.showVencimiento(type)
+        },
+        closeVencimiento() {
+            this.destroyTable('#listado_producto')
+            this.modalVencimiento = 0
+            this.showList()
+            this.lista_vencimiento = []
+            this.opcionModalVencimiento = ''
+        },
+        hasError(field) {
+            return field in (this.errors)
+        },
+        otherError() {
+            let errores = 0
+            let actual = moment().format('YYYY-MM-DD')
+
+            if (moment(this.fecha_vencimiento).format('YYYY-MM-DD') < actual){
+                alerts.sweetAlert('error', 'Esta tratando de asignar una fecha anterior al día de hoy')
+                errores = 1
+                console.log(actual)
+            }
+
+            return errores
+        },
+        backendResponse(response) {
+            if(response.data.status == 'success'){
+                this.closeModal()
+                this.showList()
+                alerts.sweetAlert(response.data.status, response.data.message)
+            }else{
+                alerts.sweetAlert(response.data.status, response.data.message)
             }
         },
-        methods: {
-            openModal(metodo, data = []) {
-                switch(metodo){
-                    case 'create': {
-                        this.modal = 1
-                        this.titulo = "Registro de medicamento"
-                        this.opcion = 1
-                        break
-                    }
-                    case 'update': {
-                        this.modal = 2
-                        this.titulo = "Actualización de medicamento"
-                        this.opcion = 2
+        changeStatus(action, id, nombre) {
+            swal({
+                title: 'Cambio de estado',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el producto "'+nombre+'"?',
+                type: 'question',
+                confirmButtonColor: '#25d5e4',
+                cancelButtonColor: '#f8538d',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: '¡Cancelar!',
+                confirmButtonClass: 'btn btn-guardar',
+                cancelButtonClass: 'btn btn-cerrar',
+                padding: '2em'
+            }).then((result) => {
+                if (action == 'activate')
+                    var url = '/medicamentos/activate'
+                else if (action == 'desactivate')
+                    var url = '/medicamentos/desactivate'
 
-                        this.unidad_medida_id = data['unidad_medida_id']
-                        this.tipo_producto_id = data['tipo_producto_id']
-                        this.nombre = data['nombre']
-                        this.presentacion = data['presentacion']
-                        this.observacion = data['observacion']
-                        this.fecha_vencimiento = data['fecha_vencimiento']
-                        this.id = data['id']
-                    }
-                }
-                this.combo_medicamento_unidad_medida()
-                this.combo_medicamento_tipo_producto()
-            },
-            openModalMedicamento(data = []) {
-                this.modalMedicamento = 1
-                this.titulo = 'MEDICAMENTO ' + data['nombre'].toUpperCase()
-
-                this.codigo = data['codigo']
-                this.unidad_medida_nombre = data['unidad_nombre']
-                this.tipo_producto_nombre = data['categoria_nombre']
-                this.nombre = data['nombre']
-                this.presentacion = data['presentacion']
-                this.observacion = data['observacion'],
-                this.fecha_registro = data['fecha_registro']
-                this.fecha_vencimiento = data['fecha_vencimiento']
-                this.fecha_ultima_compra = data['fecha_ultima_compra']
-                this.fecha_ultima_salida = data['fecha_ultima_salida']
-                this.fecha_ultimo_ajuste = data['fecha_ultimo_ajuste']
-                this.estado = data['estado']
-                this.existencia = data['existencia']
-            },
-            closeModal() {
-                this.unidad_medida_id = 0
-                this.tipo_producto_id = 0
-                this.nombre = ''
-                this.presentacion = ''
-                this.observacion = ''
-                this.fecha_vencimiento = ''
-
-                this.modal = 0
-                this.titulo = ''
-                this.opcion = 0
-                this.errors = []
-
-                alerts.sweetAlert('error', 'Operación cancelada')
-            },
-            closeModalMedicamento() {
-                this.codigo = ''
-                this.unidad_medida_nombre = ''
-                this.tipo_producto_nombre = ''
-                this.nombre = ''
-                this.presentacion = ''
-                this.observacion = ''
-                this.fecha_registro = ''
-                this.fecha_vencimiento = ''
-                this.fecha_ultima_compra = ''
-                this.fecha_ultima_salida = ''
-                this.fecha_ultimo_ajuste = ''
-                this.estado = ''
-                this.existencia = ''
-
-                this.modalMedicamento = 0
-                this.titulo = ''
-
-                alerts.sweetAlert('success', 'Visualización de medicamento exitosa')
-            },
-            openVencimiento() {
-                this.modalVencimiento = 1
-                this.titulo = 'VENCIMIENTO DE MEDICAMENTOS'
-                this.destroyTable('#listado')
-                this.showVencimiento()
-            },
-            closeVencimiento() {
-                this.destroyTable('#listado_producto')
-                this.modalVencimiento = 0
-                this.showList()
-                this.lista_vencimiento = []
-            },
-            hasError(field) {
-                return field in (this.errors)
-            },
-            backendResponse(response) {
-                if(response.data.status == 'success'){
-                    this.closeModal()
-                    this.showList()
-                    alerts.sweetAlert(response.data.status, response.data.message)
-                }else{
-                    alerts.sweetAlert(response.data.status, response.data.message)
-                }
-            },
-            changeStatus(action, id, nombre) {
-                swal({
-                    title: 'Cambio de estado',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre el producto "'+nombre+'"?',
-                    type: 'question',
-                    confirmButtonColor: '#25d5e4',
-                    cancelButtonColor: '#f8538d',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: '¡Cancelar!',
-                    confirmButtonClass: 'btn btn-guardar',
-                    cancelButtonClass: 'btn btn-cerrar',
-                    padding: '2em'
-                }).then((result) => {
-                    if (action == 'activate')
-                        var url = '/medicamentos/activate'
-                    else if (action == 'desactivate')
-                        var url = '/medicamentos/desactivate'
-
-                    if (result.value) {
-                        let me = this
-                        axios.put(url, {
-                            'id': id
-                        }).then(function (response) {
-                            me.showList()
-                            swal(
-                                'Cambio de estado',
-                                'Se ha cambiado el estado correctamente',
-                                'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
-                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                if (result.value) {
+                    let me = this
+                    axios.put(url, {
+                        'id': id
+                    }).then(function (response) {
+                        me.showList()
                         swal(
-                            'Cancelado',
-                            'Se ha cancelado la operación',
-                            'error'
+                            'Cambio de estado',
+                            'Se ha cambiado el estado correctamente',
+                            'success'
                         )
-                    }
-                })
-            },
-            change_select_unidad() {
-                let me = this
-
-                $('#select_unidad').on('change', function () {
-                    me.$emit('change', this.value)
-                    me.unidad_medida_id = this.value
-                })
-            },
-            change_select_tipo() {
-                let me = this
-
-                $('#select_tipo').on('change', function () {
-                    me.$emit('change', this.value)
-                    me.tipo_producto_id = this.value
-                })
-            },
-            combo_medicamento_unidad_medida() {
-                let me = this
-                let url = '/unidad_medida/combo_medicamento';
-                axios.get(url).then(function (response) {
-                    me.lista_unidad_medida = response.data
-                    $('#select_unidad').select2({
-                        placeholder: 'Seleccione la unidad de medida'
+                    }).catch(function (error) {
+                        console.log(error)
                     })
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            combo_medicamento_tipo_producto() {
-                let me = this
-                let url = '/tipo_producto/combo_medicamento'
-                axios.get(url).then(function (response) {
-                    me.lista_tipo_producto = response.data
-                    $('#select_tipo').select2({
-                        placeholder: 'Seleccione el tipo de producto'
-                    })
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            dataTable(table) {
-                let datatable = $(table).DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $(table).DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
-            destroyTable(table) {
-                var datatable = $(table).DataTable()
-                datatable.destroy()
-            },
-            showList() {
-                let me = this
-                let url = '/medicamentos'
-                axios.get(url).then(function (response) {
-                    me.lista_medicamentos = response.data.query
-                    me.rol_id = response.data.rol
-                    me.dataTable('#listado')
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            showVencimiento() {
-                let me = this
+                } else if(result.dismiss === swal.DismissReason.cancel) {
+                    swal(
+                        'Cancelado',
+                        'Se ha cancelado la operación',
+                        'error'
+                    )
+                }
+            })
+        },
+        change_select_unidad() {
+            let me = this
 
+            $('#select_unidad').on('change', function () {
+                me.$emit('change', this.value)
+                me.unidad_medida_id = this.value
+            })
+        },
+        change_select_tipo() {
+            let me = this
+
+            $('#select_tipo').on('change', function () {
+                me.$emit('change', this.value)
+                me.tipo_producto_id = this.value
+            })
+        },
+        combo_medicamento_unidad_medida() {
+            let me = this
+            let url = '/unidad_medida/combo_medicamento';
+            axios.get(url).then(function (response) {
+                me.lista_unidad_medida = response.data
+                $('#select_unidad').select2({
+                    placeholder: 'Seleccione la unidad de medida'
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        combo_medicamento_tipo_producto() {
+            let me = this
+            let url = '/tipo_producto/combo_medicamento'
+            axios.get(url).then(function (response) {
+                me.lista_tipo_producto = response.data
+                $('#select_tipo').select2({
+                    placeholder: 'Seleccione el tipo de producto'
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        dataTable(table) {
+            let datatable = $(table).DataTable()
+            datatable.destroy()
+            this.$nextTick(function() {
+                $(table).DataTable( {
+                    "oLanguage": {
+                        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                        "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                        "sSearchPlaceholder": "Buscar...",
+                        "sLengthMenu": "Resultado :  _MENU_",
+                    },
+                    "stripeClasses": [],
+                    "lengthMenu": [5, 10, 20, 50],
+                    "pageLength": 5,
+                    drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                } );
+            });
+        },
+        destroyTable(table) {
+            var datatable = $(table).DataTable()
+            datatable.destroy()
+        },
+        showList() {
+            let me = this
+            let url = '/medicamentos'
+            axios.get(url).then(function (response) {
+                me.lista_medicamentos = response.data.query
+                me.rol_id = response.data.rol
+                me.dataTable('#listado')
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        showVencimiento(type) {
+            let me = this
+
+            if (type == false)
+                var url = '/medicamentos/vencimiento'
+            else if (type == true)
+                var url = '/medicamentos/vencidos'
+
+            axios.get(url).then(function (response) {
+                me.lista_vencimiento = response.data
                 me.dataTable('#listado_producto')
-            },
-            store() {
-                let me = this
-                let url = '/medicamentos/store'
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        store() {
+            let me = this
+            let url = '/medicamentos/store'
+
+            if (me.otherError()) return
+            else {
                 axios.post(url,{
                     'unidad_medida_id': this.unidad_medida_id,
                     'tipo_producto_id': this.tipo_producto_id,
@@ -565,10 +611,14 @@
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
-            },
-            update() {
-                let me = this
-                let url = '/medicamentos/update'
+            }
+        },
+        update() {
+            let me = this
+            let url = '/medicamentos/update'
+
+            if (me.otherError()) return
+            else {
                 axios.put(url,{
                     'unidad_medida_id': this.unidad_medida_id,
                     'tipo_producto_id': this.tipo_producto_id,
@@ -584,11 +634,12 @@
                         this.errors = error.response.data.errors
                 })
             }
-        },
-        mounted() {
-            this.showList()
-            this.change_select_unidad()
-            this.change_select_tipo()
-        },
-    }
+        }
+    },
+    mounted() {
+        this.showList()
+        this.change_select_unidad()
+        this.change_select_tipo()
+    },
+}
 </script>

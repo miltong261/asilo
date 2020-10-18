@@ -11,7 +11,15 @@ class DashboardComprasController extends Controller
 {
     public function __invoke(Request $request)
     {
+        $months = ['January' => 'Enero', 'February' => 'Febrero', 'March' => 'Marzo', 'April' => 'Abril',
+        'May' => 'Mayo', 'June' => 'Junio', 'July' => 'Julio', 'August' => 'Agosto', 'September' => 'Septiembre',
+        'October' => 'Octubre', 'November' => 'Noviembre', 'December' => 'Diciembre'];
+
+        $arrayArticulos = [];
+        $arrayMedicamentos = [];
+
         if (!$request->ajax()) return redirect('/asilo');
+
         $anio = date('Y');
 
         $compras_articulo = DB::table('detalle_compra as d_compra')
@@ -26,6 +34,10 @@ class DashboardComprasController extends Controller
         ->orderby('mes', 'desc')
         ->get();
 
+        foreach ($compras_articulo as $articulo) {
+            $arrayArticulos[] = ['mes' => $months[$articulo->mes], 'cantidad' => $articulo->cantidad, 'anio' => $articulo->anio];
+        }
+
         $compras_medicamento = DB::table('detalle_compra as d_compra')
         ->join('compras', 'compras.id', '=', 'd_compra.compra_id')
         ->join('productos', 'productos.id', '=', 'd_compra.producto_id')
@@ -38,6 +50,10 @@ class DashboardComprasController extends Controller
         ->orderby('mes', 'desc')
         ->get();
 
-        return ['compras_articulo' => $compras_articulo, 'anio' => $anio, 'compras_medicamento' => $compras_medicamento];
+        foreach ($compras_medicamento as $medicamento) {
+            $arrayMedicamentos[] = ['mes' => $months[$medicamento->mes], 'cantidad' => $medicamento->cantidad, 'anio' => $medicamento->anio];
+        }
+
+        return ['compras_articulo' => $arrayArticulos, 'anio' => $anio, 'compras_medicamento' => $arrayMedicamentos];
     }
 }

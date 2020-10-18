@@ -21,9 +21,11 @@ class UserRepository extends BaseRepository
         return $this->getModel()
         ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
         ->select('users.id',
+            'users.primer_login',
             'users.fecha_registro',
             'users.estado',
             'users.usuario',
+            'empleados.estado as estado_empleado',
             'empleados.nombre',
             'empleados.apellido'
         )
@@ -98,5 +100,21 @@ class UserRepository extends BaseRepository
             DB::rollback();
             return $th;
         }
+    }
+
+    public function estadoUsuario($action, $id)
+    {
+        $object = $this->getModel()->findOrFail($id);
+
+        if ($action == 'activar') {
+            $object->update(['estado' => 1]);
+        } elseif ($action == 'desactivar') {
+            $object->estado = 0;
+            $object->primer_login = 0;
+            $object->password = bcrypt('asilo');
+            $object->save();
+        }
+
+        return $object;
     }
 }

@@ -3246,6 +3246,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -3257,7 +3273,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       lista_compras: [],
       // Encabezado
       fecha_compra: '',
-      documento: [],
+      documento: '',
+      no_documento: '',
       total: 0.0,
 
       /**Búsqueda */
@@ -3290,6 +3307,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       compra_fecha_registro: '',
       compra_fecha_compra: '',
       compra_documento: '',
+      compra_no_documento: '',
       compra_precio: 0,
       cantidad_suma: 0,
       compra_total: 0
@@ -3307,7 +3325,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.destroyTable('#listado_producto');
       this.showList();
       document.getElementById('openForm').style.display = 'block';
-      this.fecha_compra = '', this.documento = '', this.total = 0.0;
+      this.fecha_compra = '';
+      this.documento = '';
+      this.no_documento = '';
+      this.total = 0.0;
       this.select_option = '';
       this.option_enabled = 1;
       this.lista_inventario = [];
@@ -3501,6 +3522,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         axios.post(url, {
           'fecha_compra': this.fecha_compra,
           'documento': this.documento,
+          'no_documento': this.no_documento,
           'total': this.total,
           'arrayData': this.arrayDetalle
         }).then(function (response) {
@@ -3526,6 +3548,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.compra_fecha_registro = cabecera[0]['fecha_registro'];
         me.compra_fecha_compra = cabecera[0]['fecha_compra'];
         me.compra_documento = cabecera[0]['documento'];
+        me.compra_no_documento = cabecera[0]['no_documento'];
         me.compra_total = cabecera[0]['total'];
       })["catch"](function (error) {
         console.log(error);
@@ -3551,6 +3574,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.compra_fecha_registro = '';
       this.compra_fecha_compra = '';
       this.documento = '';
+      this.no_documento = '';
       this.cantidad_suma = 0;
       this.compra_total = 0.0;
       this.arrayDetalle = [];
@@ -65702,7 +65726,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-cogs" })]
           ),
           _vm._v(" "),
           _c(
@@ -66669,7 +66693,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-cogs" })]
           ),
           _vm._v(" "),
           _c(
@@ -67632,7 +67656,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-store-alt" })]
           ),
           _vm._v(" "),
           _c(
@@ -68127,7 +68151,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-plus" })]
+              [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-cart-plus" })]
             )
           ]),
           _vm._v(" "),
@@ -68178,6 +68202,13 @@ var render = function() {
                                   staticClass: "text-center",
                                   domProps: {
                                     textContent: _vm._s(compra.documento)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.no_documento)
                                   }
                                 }),
                                 _vm._v(" "),
@@ -68269,7 +68300,7 @@ var render = function() {
                             _c("div", { staticClass: "form-row mb-0" }, [
                               _c(
                                 "div",
-                                { staticClass: "form-group col-md-6" },
+                                { staticClass: "form-group col-md-4" },
                                 [
                                   _vm._m(3),
                                   _vm._v(" "),
@@ -68321,7 +68352,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "form-group col-md-6" },
+                                { staticClass: "form-group col-md-4" },
                                 [
                                   _vm._m(4),
                                   _vm._v(" "),
@@ -68335,11 +68366,10 @@ var render = function() {
                                       }
                                     ],
                                     staticClass: "form-control",
-                                    attrs: {
-                                      id: "area",
-                                      type: "text",
-                                      name: "documento"
-                                    },
+                                    class: _vm.hasError("documento")
+                                      ? "is-invalid"
+                                      : "",
+                                    attrs: { type: "text", name: "documento" },
                                     domProps: { value: _vm.documento },
                                     on: {
                                       input: function($event) {
@@ -68349,7 +68379,73 @@ var render = function() {
                                         _vm.documento = $event.target.value
                                       }
                                     }
-                                  })
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.hasError("documento")
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "invalid-feedback" },
+                                        [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(_vm.errors.documento[0]) +
+                                              "\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group col-md-4" },
+                                [
+                                  _vm._m(5),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.no_documento,
+                                        expression: "no_documento"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    class: _vm.hasError("no_documento")
+                                      ? "is-invalid"
+                                      : "",
+                                    attrs: {
+                                      type: "text",
+                                      name: "no_documento"
+                                    },
+                                    domProps: { value: _vm.no_documento },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.no_documento = $event.target.value
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.hasError("no_documento")
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "invalid-feedback" },
+                                        [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(
+                                                _vm.errors.no_documento[0]
+                                              ) +
+                                              "\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
                                 ]
                               )
                             ])
@@ -68375,7 +68471,7 @@ var render = function() {
                                     "div",
                                     { staticClass: "col-md-12 form-group" },
                                     [
-                                      _vm._m(5),
+                                      _vm._m(6),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -68443,7 +68539,7 @@ var render = function() {
                                     "div",
                                     { staticClass: "col-md-9 form-group" },
                                     [
-                                      _vm._m(6),
+                                      _vm._m(7),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -68557,7 +68653,7 @@ var render = function() {
                                   staticStyle: { width: "100%" }
                                 },
                                 [
-                                  _vm._m(7),
+                                  _vm._m(8),
                                   _vm._v(" "),
                                   _vm.arrayDetalle.length
                                     ? _c(
@@ -68795,9 +68891,9 @@ var render = function() {
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
-                        _vm._m(8),
-                        _vm._v(" "),
                         _vm._m(9),
+                        _vm._v(" "),
+                        _vm._m(10),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group float-right" }, [
                           _c("h5", { staticClass: "text-secondary p-5" }, [
@@ -68846,6 +68942,15 @@ var render = function() {
                             _vm._v(" "),
                             _c("tr", [
                               _c("td", [
+                                _c("i", { staticClass: "fas fa-hashtag" }),
+                                _vm._v(" "),
+                                _c("strong", [_vm._v("Documento: ")]),
+                                _vm._v(_vm._s(_vm.compra_no_documento))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", [
                                 _c("i", { staticClass: "fas fa-user" }),
                                 _vm._v(" "),
                                 _c("strong", [_vm._v("Registró: ")]),
@@ -68879,7 +68984,7 @@ var render = function() {
                               staticStyle: { width: "100%" }
                             },
                             [
-                              _vm._m(10),
+                              _vm._m(11),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -69040,7 +69145,7 @@ var render = function() {
                     attrs: { id: "listado_producto" }
                   },
                   [
-                    _vm._m(11),
+                    _vm._m(12),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -69154,6 +69259,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" }),
+          _vm._v(" Documento")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-calendar-alt" }),
           _vm._v(" Fecha de registro")
         ]),
@@ -69224,6 +69334,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-store-alt" }),
+      _vm._v(" Documento")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-hashtag" }),
       _vm._v(" Documento")
     ])
   },
@@ -69918,7 +70037,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-street-view" })]
           ),
           _vm._v(" "),
           _c(
@@ -70232,7 +70351,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-plus" })]
+              [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-heart" })]
             )
           ]),
           _vm._v(" "),
@@ -71514,7 +71633,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-user-check" })]
           ),
           _vm._v(" "),
           _c(
@@ -72906,7 +73025,10 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [
+              _vm._v("Nuevo "),
+              _c("i", { staticClass: "fas fa-briefcase-medical" })
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -74440,7 +74562,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-cash-register" })]
           ),
           _vm._v(" "),
           _c(
@@ -74984,7 +75106,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-street-view" })]
           ),
           _vm._v(" "),
           _c(
@@ -76222,7 +76344,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-store" })]
           ),
           _vm._v(" "),
           _c(
@@ -77747,7 +77869,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-id-card" })]
           ),
           _vm._v(" "),
           _c(
@@ -78165,7 +78287,7 @@ var render = function() {
                         },
                         [
                           _vm._v("Nuevo "),
-                          _c("i", { staticClass: "fas fa-plus" })
+                          _c("i", { staticClass: "fas fa-house-user" })
                         ]
                       )
                     ]
@@ -80634,7 +80756,10 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-plus" })]
+              [
+                _vm._v("Nueva "),
+                _c("i", { staticClass: "fas fa-shopping-cart" })
+              ]
             )
           ]),
           _vm._v(" "),
@@ -82766,7 +82891,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-file-alt" })]
           ),
           _vm._v(" "),
           _c(
@@ -83366,7 +83491,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-tag" })]
           ),
           _vm._v(" "),
           _c(
@@ -83991,7 +84116,10 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [
+              _vm._v("Nueva "),
+              _c("i", { staticClass: "fas fa-balance-scale-right" })
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -84590,7 +84718,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "layout-px-spacing" }, [
     _c("div", { staticClass: "row layout-top-spacing" }, [
       _c(
         "div",
@@ -84607,7 +84735,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-plus" })]
+            [_vm._v("Nuevo "), _c("i", { staticClass: "fas fa-user-lock" })]
           ),
           _vm._v(" "),
           _c(

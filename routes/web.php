@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /****************************** Rutas acceder al login ******************************/
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
@@ -321,6 +320,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     /******************** Rutas para la enfermera ********************/
     Route::group(['middleware' => 'Enfermera'], function () {
-
     });
 });

@@ -27,7 +27,7 @@ class CompraController extends Controller
     public function store(CompraRequest $request)
     {
         return $this->compraRepository->storeCompra($request->only([
-            'fecha_compra', 'documento', 'total'])
+            'fecha_compra', 'documento', 'no_documento', 'total'])
             + ['fecha_registro' => Carbon::now()]
             + ['codigo' => 'ADQUISICIÓN-' . $this->compraRepository->generateCode()]
             + ['user_id' => \Auth::user()->id],

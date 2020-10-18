@@ -37,6 +37,7 @@ class CompraRepository extends BaseRepository
             'compras.fecha_registro',
             'compras.fecha_compra',
             'compras.documento',
+            'compras.no_documento',
             'compras.total',
             'users.usuario as nombre_usuario'
         )
@@ -127,6 +128,7 @@ class CompraRepository extends BaseRepository
             'compras.fecha_registro',
             'compras.fecha_compra',
             'compras.documento',
+            'compras.no_documento',
             'compras.total'
         )
         ->take(1)

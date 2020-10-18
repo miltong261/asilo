@@ -2,7 +2,7 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-            <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+            <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nueva <i class="fas fa-store-alt"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">

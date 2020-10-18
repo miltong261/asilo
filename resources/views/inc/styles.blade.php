@@ -27,16 +27,19 @@
 {{-- Components Cards --}}
 <link href="{{asset('assets/css/components/cards/card.min.css')}}" rel="stylesheet" type="text/css" />
 
- {{-- Component Sweetalert --}}
- <script src="{{asset('plugins/sweetalerts/promise-polyfill.js')}}"></script>
- <link href="{{asset('plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
- <link href="{{asset('plugins/sweetalerts/sweetalert.min.css')}}" rel="stylesheet" type="text/css" />
- <link href="{{asset('assets/css/components/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
+{{-- Component Sweetalert --}}
+<script src="{{asset('plugins/sweetalerts/promise-polyfill.js')}}"></script>
+<link href="{{asset('plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('plugins/sweetalerts/sweetalert.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/css/components/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
 
- {{-- Table Datatable Basic --}}
- <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.min.css')}}">
- <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.min.css')}}">
+{{-- Table Datatable Basic --}}
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.min.css')}}">
 
-  {{-- FontAwesome --}}
-  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/fontawesome/all.min.css')}}">
+{{-- FontAwesome --}}
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/fontawesome/all.min.css')}}">
+
+{{-- Popover --}}
+<link href="{{asset('assets/css/elements/popover.css')}}" rel="stylesheet" type="text/css" />
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->

@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>ASILO </title>
+        <title>SHADAI NUEVA FAMILIA </title>
         <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.jpeg') }}"/>
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
@@ -37,6 +37,7 @@
 
 
             <div id="content" class="main-content">
+
                 <router-view></router-view>
 
                 @include('inc.footer')

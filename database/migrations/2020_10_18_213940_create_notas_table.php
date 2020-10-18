@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComprasTable extends Migration
+class CreateNotasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateComprasTable extends Migration
      */
     public function up()
     {
-        Schema::create('compras', function (Blueprint $table) {
+        Schema::create('notas', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('user_id');
@@ -21,12 +21,14 @@ class CreateComprasTable extends Migration
                 ->references('id')
                 ->on('users');
 
-            $table->string('codigo', 20);
+            $table->unsignedBigInteger('residente_id');
+            $table->foreign('residente_id')
+                ->references('id')
+                ->on('residentes');
+
             $table->date('fecha_registro');
-            $table->date('fecha_compra');
-            $table->string('documento', 35);
-            $table->bigInteger('no_documento');
-            $table->decimal('total', 8, 2);
+            $table->time('hora');
+            $table->text('nota');
 
             $table->timestamps();
         });
@@ -39,6 +41,6 @@ class CreateComprasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compras');
+        Schema::dropIfExists('notas');
     }
 }

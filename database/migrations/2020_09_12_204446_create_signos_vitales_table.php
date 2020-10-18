@@ -16,10 +16,10 @@ class CreateSignosVitalesTable extends Migration
         Schema::create('signos_vitales', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->unsignedBigInteger('residente_id');
             $table->foreign('residente_id')
@@ -29,10 +29,12 @@ class CreateSignosVitalesTable extends Migration
             $table->date('fecha_registro');
             $table->time('hora_registro');
             $table->string('tiempo'); // Día, tarde y noche
-            $table->string('pulso', 15);
-            $table->string('temperatura', 15);
-            $table->string('presion', 35);
+            $table->decimal('respiraciones');
+            $table->decimal('presion', 5,2);
+            $table->decimal('pulso', 5,2);
             $table->decimal('peso', 5, 2);
+            $table->decimal('temperatura', 5,2);
+            $table->text('observacion', 70);
 
             $table->timestamps();
         });

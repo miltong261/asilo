@@ -2,7 +2,7 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+                <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-store"></i></button>
                 <button type="button" @click="openVencimiento(false)" class="btn btn-warning mb-2">Artículos a vencer <i class="fas fa-calendar-alt"></i></button>
                 <button type="button" @click="openVencimiento(true)" class="btn btn-cerrar mb-2">Artículos vencidos <i class="fas fa-calendar-alt"></i></button>
                 <div class="widget-content widget-content-area br-6">

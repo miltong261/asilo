@@ -4,7 +4,7 @@
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <!-- botón nuevo -->
                 <div class="text-left ">
-                    <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-plus"></i> </button>
+                    <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-cart-plus"></i> </button>
                 </div>
                 <div class="widget-content widget-content-area br-6">
                     <!-- Listado -->
@@ -17,6 +17,7 @@
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
                                         <th class="text-center"> <i class="fas fa-file"></i> Documento</th>
+                                        <th class="text-center"> <i class="fas fa-hashtag"></i> Documento</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de compra</th>
                                         <th class="text-center"><i class="fas fa-user"></i> Registró</th>
@@ -28,6 +29,7 @@
                                         <td class="text-center" v-text="index+1"></td>
                                         <td class="text-center" v-text="compra.codigo"></td>
                                         <td class="text-center" v-text="compra.documento"></td>
+                                        <td class="text-center" v-text="compra.no_documento"></td>
                                         <td class="text-center" v-text="compra.fecha_registro"></td>
                                         <td class="text-center" v-text="compra.fecha_compra"></td>
                                         <td class="text-center" v-text="compra.nombre_usuario"></td>
@@ -61,7 +63,7 @@
                             <fieldset class="border border-fieldset rounded p-3 col-md-8 float-left">
                                 <label class="text-danger">Encabezado</label>
                                 <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label class="text-dark"><i class="fas fa-calendar-alt"></i> Fecha de compra</label>
                                         <input type="date" class="form-control" name="fecha_compra" v-model="fecha_compra" :class="hasError('fecha_salida') ? 'is-invalid' : ''">
                                         <div v-if="hasError('fecha_compra')" class="invalid-feedback">
@@ -69,9 +71,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label class="text-dark"><i class="fas fa-store-alt"></i> Documento</label>
-                                        <input id="area" type="text" class="form-control" name="documento" v-model="documento">
+                                        <input type="text" class="form-control" name="documento" v-model="documento" :class="hasError('documento') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('documento')" class="invalid-feedback">
+                                            {{ errors.documento[0] }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label class="text-dark"><i class="fas fa-hashtag"></i> Documento</label>
+                                        <input type="text" class="form-control" name="no_documento" v-model="no_documento" :class="hasError('no_documento') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('no_documento')" class="invalid-feedback">
+                                            {{ errors.no_documento[0] }}
+                                        </div>
                                     </div>
                                 </div>
                             </fieldset>
@@ -188,6 +201,9 @@
                                     </tr>
                                     <tr>
                                         <td><i class="fas fa-file"></i> <strong>Documento: </strong>{{ compra_documento }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-hashtag"></i> <strong>Documento: </strong>{{ compra_no_documento }}</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ compra_nombre_usuario + ' - ' + compra_usuario }}</td>
@@ -308,7 +324,8 @@ export default {
 
             // Encabezado
             fecha_compra: '',
-            documento: [],
+            documento: '',
+            no_documento: '',
             total: 0.0,
 
             /**Búsqueda */
@@ -347,6 +364,7 @@ export default {
             compra_fecha_registro: '',
             compra_fecha_compra: '',
             compra_documento: '',
+            compra_no_documento: '',
             compra_precio: 0,
             cantidad_suma: 0,
             compra_total: 0
@@ -365,8 +383,9 @@ export default {
             this.showList()
             document.getElementById('openForm').style.display = 'block'
 
-            this.fecha_compra = '',
-            this.documento = '',
+            this.fecha_compra = ''
+            this.documento = ''
+            this.no_documento = ''
             this.total = 0.0
 
             this.select_option = ''
@@ -564,6 +583,7 @@ export default {
                 axios.post(url, {
                     'fecha_compra': this.fecha_compra,
                     'documento': this.documento,
+                    'no_documento': this.no_documento,
                     'total': this.total,
                     'arrayData': this.arrayDetalle
                 }).then(function (response) {
@@ -593,6 +613,7 @@ export default {
                 me.compra_fecha_registro = cabecera[0]['fecha_registro']
                 me.compra_fecha_compra = cabecera[0]['fecha_compra']
                 me.compra_documento = cabecera[0]['documento']
+                me.compra_no_documento = cabecera[0]['no_documento']
                 me.compra_total = cabecera[0]['total']
 
             }).catch(function (error) {
@@ -622,6 +643,7 @@ export default {
             this.compra_fecha_registro = ''
             this.compra_fecha_compra = ''
             this.documento = ''
+            this.no_documento = ''
             this.cantidad_suma = 0
             this.compra_total = 0.0
 

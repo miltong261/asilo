@@ -17,11 +17,6 @@ class MunicipioController extends Controller
         $this->municipioRepository = $municipioRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -33,12 +28,6 @@ class MunicipioController extends Controller
         return response()->json($this->municipioRepository->comboMunicipio($request->departamento_origen_id));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(MunicipioRequest $request)
     {
         try {
@@ -60,13 +49,6 @@ class MunicipioController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(MunicipioRequest $request, $id)
     {
         try {

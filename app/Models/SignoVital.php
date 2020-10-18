@@ -8,15 +8,23 @@ class SignoVital extends Model
 {
     protected $table = 'signos_vitales';
     protected $fillable = [
+        'user_id',
         'residente_id',
         'fecha_registro',
         'hora_registro',
         'tiempo',
-        'pulso',
-        'temperatura',
+        'respiraciones',
         'presion',
-        'peso'
+        'pulso',
+        'peso',
+        'temperatura',
+        'observacion'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     public function residente()
     {

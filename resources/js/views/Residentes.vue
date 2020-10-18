@@ -5,7 +5,7 @@
                 <!-- Tabla -->
                 <template v-if="action==1">
                     <template v-if="rol_id==1">
-                        <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+                        <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-house-user"></i></button>
                     </template>
                     <div class="widget-content widget-content-area br-6">
                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
@@ -44,24 +44,19 @@
 
                                     <td class="text-center">
                                         <template v-if="rol_id==1">
-                                            <template v-if="residente.activo==1 && residente.defuncion==0">
+                                            <template v-if="residente.activo===1 && residente.defuncion===0">
                                                 <button type="button" @click="changeStatus('desactivate', residente.id, residente.nombre, residente.apellido)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                                 <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                                 <button type="button" @click="death(residente.id, residente.nombre, residente.apellido)" class="btn btn-secondary mb-1 mr-1 rounded-circle"> <i class="fas fa-cross"></i></button>
                                             </template>
-                                            <template v-else-if="residente.activo==0 && residente.defuncion==0">
+                                            <template v-else-if="residente.activo===0 && residente.defuncion===0">
                                                 <button type="button" @click="changeStatus('activate', residente.id, residente.nombre, residente.apellido)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                             </template>
-                                            <template v-else-if="residente.defuncion==1">
-                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
-                                            </template>
                                         </template>
-
                                         <template v-else-if="rol_id==2">
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
@@ -363,404 +358,419 @@
 </template>
 
 <script>
-var moment = require('moment')
-import * as alerts from '../functions/alerts.js'
+    var moment = require('moment')
+    import * as alerts from '../functions/alerts.js'
 
-    export default {
-        data() {
-            return {
-                id: 0,
-                codigo: 0,
-                lista_residentes: [],
-                codigo: '',
-                nombre: '',
-                apellido: '',
-                fecha_nacimiento: '',
-                edad : '',
-                dpi: '',
-                familia: '',
-                direccion: '',
-                telefono_familia: '',
-                persona_referida: '',
-                direccion_persona_referida: '',
-                telefono_persona_referida: '',
-                motivo: '',
-                estado: '',
-                historial: '',
-                pulso: '',
-                temperatura: '',
-                presion: '',
-                peso: '',
-                observacion: '',
+export default {
+    data() {
+        return {
+            id: 0,
+            codigo: 0,
+            lista_residentes: [],
+            codigo: '',
+            nombre: '',
+            apellido: '',
+            fecha_nacimiento: '',
+            edad : '',
+            dpi: '',
+            familia: '',
+            direccion: '',
+            telefono_familia: '',
+            persona_referida: '',
+            direccion_persona_referida: '',
+            telefono_persona_referida: '',
+            motivo: '',
+            estado: '',
+            historial: '',
+            pulso: '',
+            temperatura: '',
+            presion: '',
+            peso: '',
+            observacion: '',
 
-                lista_departamentos_origen: [],
-                lista_departamentos_dpi: [],
-                departamento_origen_id: 0,
-                departamento_dpi_id: 0,
-                departamento_origen_nombre: '',
-                departamento_dpi_nombre: '',
+            lista_departamentos_origen: [],
+            lista_departamentos_dpi: [],
+            departamento_origen_id: 0,
+            departamento_dpi_id: 0,
+            departamento_origen_nombre: '',
+            departamento_dpi_nombre: '',
 
-                lista_municipios_origen: [],
-                lista_municipios_dpi: [],
-                municipio_origen_id: 0,
-                municipio_dpi_id: 0,
-                municipio_origen_nombre: '',
-                municipio_dpi_nombre: '',
+            lista_municipios_origen: [],
+            lista_municipios_dpi: [],
+            municipio_origen_id: 0,
+            municipio_dpi_id: 0,
+            municipio_origen_nombre: '',
+            municipio_dpi_nombre: '',
 
-                lugar_nacimiento: '',
-                lugar_dpi_extendido: '',
+            lugar_nacimiento: '',
+            lugar_dpi_extendido: '',
 
-                action: 1,
-                modal:0,
-                opcion: 1,
-                titulo: '',
+            action: 1,
+            modal:0,
+            opcion: 1,
+            titulo: '',
 
-                errors: [],
+            errors: [],
 
-                rol_id: 0
+            rol_id: 0,
+        }
+    },
+    methods: {
+        openForm(metodo, data = []) {
+            switch(metodo){
+                case 'create': {
+                    this.action = 2
+                    this.opcion = 1
+                    this.dataTable()
+                    this.showList()
+                    this.titulo = "FICHA DE REGISTRO"
+                    this.combo_departamento_origen()
+                    this.combo_departamento_dpi()
+                    this.fecha_nacimiento = moment().format('YYYY-MM-DD')
+                    break
+                }
+                case 'update': {
+                    this.action = 2
+                    this.opcion = 2
+                    this.dataTable()
+                    this.showList()
+                    this.titulo = "ACTUALIZACIÓN DE FICHA"
+
+                    this.nombre = data['nombre']
+                    this.apellido = data['apellido']
+                    this.fecha_nacimiento = data['fecha_nacimiento']
+                    this.familia = data['familia']
+                    this.direccion = data['direccion']
+                    this.telefono_familia = data['telefono_familia']
+                    this.persona_referida = data['persona_referida']
+                    this.direccion_persona_referida = data['direccion_persona_referida']
+                    this.telefono_persona_referida = data['telefono_persona_referida']
+                    this.motivo = data['motivo']
+                    this.estado = data['estado']
+                    this.historial = data['historial']
+                    this.observacion = data['observacion']
+                    this.id = data['id']
+                    break
+                }
             }
         },
-        methods: {
-            openForm(metodo, data = []) {
-                switch(metodo){
-                    case 'create': {
-                        this.action = 2
-                        this.opcion = 1
-                        this.dataTable()
-                        this.showList()
-                        this.titulo = "FICHA DE REGISTRO"
-                        this.combo_departamento_origen()
-                        this.combo_departamento_dpi()
-                        break
-                    }
-                    case 'update': {
-                        this.action = 2
-                        this.opcion = 2
-                        this.dataTable()
-                        this.showList()
-                        this.titulo = "ACTUALIZACIÓN DE FICHA"
+        openModal(data = []) {
+            this.modal = 1
+            this.titulo = 'FICHA DEL RESIDENTE: ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase()
 
-                        this.nombre = data['nombre']
-                        this.apellido = data['apellido']
-                        this.fecha_nacimiento = data['fecha_nacimiento']
-                        this.familia = data['familia']
-                        this.direccion = data['direccion']
-                        this.telefono_familia = data['telefono_familia']
-                        this.persona_referida = data['persona_referida']
-                        this.direccion_persona_referida = data['direccion_persona_referida']
-                        this.telefono_persona_referida = data['telefono_persona_referida']
-                        this.motivo = data['motivo']
-                        this.estado = data['estado']
-                        this.historial = data['historial']
-                        this.observacion = data['observacion']
-                        this.id = data['id']
-                        break
-                    }
-                }
-            },
-            openModal(data = []) {
-                this.modal = 1
-                this.titulo = 'FICHA DEL RESIDENTE: ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase()
+            this.codigo = data['codigo']
+            this.nombre = data['nombre'] + ' ' + data['apellido']
+            this.fecha_nacimiento = data['fecha_nacimiento']
+            this.edad = data['edad']
+            this.lugar_nacimiento = data['departamento_origen_nombre'] + ', ' + data['municipio_origen_nombre']
+            this.dpi = data['dpi']
+            this.lugar_dpi_extendido = data['departamento_dpi_nombre'] + ', ' + data['municipio_dpi_nombre']
+            this.familia = data['familia']
+            this.direccion = data['direccion']
+            this.telefono_familia = data['telefono_familia']
+            this.persona_referida = data['persona_referida']
+            this.direccion_persona_referida = data['direccion_persona_referida']
+            this.telefono_persona_referida = data['telefono_persona_referida']
+            this.motivo = data['motivo']
+            this.estado = data['estado']
+            this.historial = data['historial']
+            this.observacion = data['observacion']
 
-                this.codigo = data['codigo']
-                this.nombre = data['nombre'] + ' ' + data['apellido']
-                this.fecha_nacimiento = data['fecha_nacimiento']
-                this.edad = data['edad']
-                this.lugar_nacimiento = data['departamento_origen_nombre'] + ', ' + data['municipio_origen_nombre']
-                this.dpi = data['dpi']
-                this.lugar_dpi_extendido = data['departamento_dpi_nombre'] + ', ' + data['municipio_dpi_nombre']
-                this.familia = data['familia']
-                this.direccion = data['direccion']
-                this.telefono_familia = data['telefono_familia']
-                this.persona_referida = data['persona_referida']
-                this.direccion_persona_referida = data['direccion_persona_referida']
-                this.telefono_persona_referida = data['telefono_persona_referida']
-                this.motivo = data['motivo']
-                this.estado = data['estado']
-                this.historial = data['historial']
-                this.observacion = data['observacion']
+            let actual = moment()
+            this.edad = actual.diff(this.fecha_nacimiento, 'years')
+        },
+        closeForm(){
+            this.departamento_origen_id = 0
+            this.departamento_dpi_id = 0
+            this.municipio_origen_id = 0
+            this.municipio_dpi_id = 0
+            this.nombre = ''
+            this.apellido = ''
+            this.fecha_nacimiento = ''
+            this.dpi = ''
+            this.familia = ''
+            this.direccion = ''
+            this.telefono_familia = ''
+            this.persona_referida = ''
+            this.direccion_persona_referida = ''
+            this.telefono_persona_referida = ''
+            this.motivo = ''
+            this.estado = ''
+            this.historial = ''
+            this.observacion = ''
 
-                let actual = moment()
-                this.edad = actual.diff(this.fecha_nacimiento, 'years')
-            },
-            closeForm(){
-                this.departamento_origen_id = 0
-                this.departamento_dpi_id = 0
-                this.municipio_origen_id = 0
-                this.municipio_dpi_id = 0
-                this.nombre = ''
-                this.apellido = ''
-                this.fecha_nacimiento = ''
-                this.dpi = ''
-                this.familia = ''
-                this.direccion = ''
-                this.telefono_familia = ''
-                this.persona_referida = ''
-                this.direccion_persona_referida = ''
-                this.telefono_persona_referida = ''
-                this.motivo = ''
-                this.estado = ''
-                this.historial = ''
-                this.observacion = ''
+            this.showList()
+            this.action = 1
+            this.opcion = 0
+            this.titulo = ''
+            this.errors = []
 
+            alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        closeModal(){
+            this.codigo = ''
+            this.nombre = ''
+            this.fecha_nacimiento = ''
+            this.edad = ''
+            this.lugar_nacimiento = ''
+            this.dpi = ''
+            this.lugar_dpi_extendido = ''
+            this.familia = ''
+            this.direccion = ''
+            this.telefono_familia = ''
+            this.persona_referida = ''
+            this.direccion_persona_referida = ''
+            this.telefono_persona_referida = ''
+            this.motivo = ''
+            this.estado = ''
+            this.historial = ''
+            this.observacion = ''
+
+            this.titulo = ''
+            this.modal = 0
+
+            alerts.sweetAlert('success', 'VISUALIZACIÓN DE FICHA EXITOSA')
+        },
+        hasError(field) {
+            return field in (this.errors)
+        },
+        otherError() {
+            let errores = 0
+            let actual = moment().format('YYYY-MM-DD')
+
+            if (moment(this.fecha_nacimiento).format('YYYY-MM-DD') > actual){
+                alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                errores = 1
+            }
+
+            return errores
+        },
+        backendResponse(response) {
+            if(response.data.status == 'success'){
+                this.closeForm()
                 this.showList()
-                this.action = 1
-                this.opcion = 0
-                this.titulo = ''
-                this.errors = []
+                alerts.sweetAlert(response.data.status, response.data.message)
+            }else{
+                alerts.sweetAlert(response.data.status, response.data.message)
+            }
+        },
+        changeStatus(action, id, nombre, apellido) {
+            swal({
+                title: 'Cambio de estado',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                type: 'question',
+                confirmButtonColor: '#25d5e4',
+                cancelButtonColor: '#f8538d',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: '¡Cancelar!',
+                confirmButtonClass: 'btn btn-guardar',
+                cancelButtonClass: 'btn btn-cerrar',
+                padding: '2em'
+            }).then((result) => {
+                if (action == 'activate')
+                    var url = '/residentes/activate'
+                else if (action == 'desactivate')
+                    var url = '/residentes/desactivate'
 
-                alerts.sweetAlert('error', 'Operación cancelada')
-            },
-            closeModal(){
-                this.codigo = ''
-                this.nombre = ''
-                this.fecha_nacimiento = ''
-                this.edad = ''
-                this.lugar_nacimiento = ''
-                this.dpi = ''
-                this.lugar_dpi_extendido = ''
-                this.familia = ''
-                this.direccion = ''
-                this.telefono_familia = ''
-                this.persona_referida = ''
-                this.direccion_persona_referida = ''
-                this.telefono_persona_referida = ''
-                this.motivo = ''
-                this.estado = ''
-                this.historial = ''
-                this.observacion = ''
+                if (result.value) {
+                    let me = this
+                    axios.put(url, {
+                        'id': id
+                    }).then(function (response) {
+                        me.showList()
+                        swal(
+                            'Cambio de estado',
+                            'Se ha cambiado el estado correctamente',
+                            'success'
+                        )
 
-                this.titulo = ''
-                this.modal = 0
-
-                alerts.sweetAlert('success', 'VISUALIZACIÓN DE FICHA EXITOSA')
-            },
-            hasError(field) {
-                return field in (this.errors)
-            },
-            backendResponse(response) {
-                if(response.data.status == 'success'){
-                    this.closeForm()
-                    this.showList()
-                    alerts.sweetAlert(response.data.status, response.data.message)
-                }else{
-                    alerts.sweetAlert(response.data.status, response.data.message)
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                } else if(result.dismiss === swal.DismissReason.cancel) {
+                    swal(
+                        'Cancelado',
+                        'Se ha cancelado la operación',
+                        'error'
+                    )
                 }
-            },
-            changeStatus(action, id, nombre, apellido) {
-                swal({
-                    title: 'Cambio de estado',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
-                    type: 'question',
-                    confirmButtonColor: '#25d5e4',
-                    cancelButtonColor: '#f8538d',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: '¡Cancelar!',
-                    confirmButtonClass: 'btn btn-guardar',
-                    cancelButtonClass: 'btn btn-cerrar',
-                    padding: '2em'
-                }).then((result) => {
-                    if (action == 'activate')
-                        var url = '/residentes/activate'
-                    else if (action == 'desactivate')
-                        var url = '/residentes/desactivate'
+            })
+        },
+        death(id, nombre, apellido) {
+            swal({
+                title: 'Fallecimiento',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                type: 'question',
+                confirmButtonColor: '#25d5e4',
+                cancelButtonColor: '#f8538d',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: '¡Cancelar!',
+                confirmButtonClass: 'btn btn-guardar',
+                cancelButtonClass: 'btn btn-cerrar',
+                padding: '2em'
+            }).then((result) => {
+                let url = '/residentes/defuncion'
 
-                    if (result.value) {
-                        let me = this
-                        axios.put(url, {
-                            'id': id
-                        }).then(function (response) {
-                            me.showList()
-                            swal(
-                                'Cambio de estado',
-                                'Se ha cambiado el estado correctamente',
-                                'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
-                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                if (result.value) {
+                    let me = this
+                    axios.put(url, {
+                        'id': id
+                    }).then(function (response) {
+                        me.showList()
                         swal(
-                            'Cancelado',
-                            'Se ha cancelado la operación',
-                            'error'
+                            'Fallecimiento',
+                            'Se ha realizado la acción correctamente',
+                            'success'
                         )
-                    }
-                })
-            },
-            death(id, nombre, apellido) {
-                swal({
-                    title: 'Fallecimiento',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
-                    type: 'question',
-                    confirmButtonColor: '#25d5e4',
-                    cancelButtonColor: '#f8538d',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: '¡Cancelar!',
-                    confirmButtonClass: 'btn btn-guardar',
-                    cancelButtonClass: 'btn btn-cerrar',
-                    padding: '2em'
-                }).then((result) => {
-                    let url = '/residentes/defuncion'
-
-                    if (result.value) {
-                        let me = this
-                        axios.put(url, {
-                            'id': id
-                        }).then(function (response) {
-                            me.showList()
-                            swal(
-                                'Fallecimiento',
-                                'Se ha realizado la acción correctamente',
-                                'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
-                    } else if(result.dismiss === swal.DismissReason.cancel) {
-                        swal(
-                            'Cancelado',
-                            'Se ha cancelado la operación',
-                            'error'
-                        )
-                    }
-                })
-            },
-            dataTable() {
-                let datatable = $('#zero-config').DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $('#zero-config').DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
-            change_select_departamento_origen() {
-                let me = this
-
-                $('#departamento_origen').on('change', function () {
-                    me.municipio_origen_id = 0
-                    me.$emit('change', this.value)
-                    me.departamento_origen_id = this.value
-                    me.combo_municipio_origen()
-                })
-            },
-            change_select_municipio_origen() {
-                let me = this
-
-                $('#municipio_origen').on('change', function () {
-                    me.$emit('change', this.value)
-                    me.municipio_origen_id = this.value
-                })
-            },
-            change_select_departamento_dpi() {
-                let me = this
-
-                $('#departamento_dpi').on('change', function () {
-                    me.municipio_dpi_id = 0
-                    me.$emit('change', this.value)
-                    me.departamento_dpi_id = this.value
-                    me.combo_municipio_dpi()
-                })
-            },
-            change_select_municipio_dpi() {
-                let me = this
-
-                $('#municipio_dpi').on('change', function () {
-                    me.$emit('change', this.value)
-                    me.municipio_dpi_id = this.value
-                })
-            },
-            combo_departamento_origen() {
-                let me = this
-                let url = '/departamentos/combo'
-
-                axios.get(url).then(function (response) {
-                    me.lista_departamentos_origen = response.data
-                    $('#departamento_origen').select2({
-                        placeholder: 'Seleccione departamento',
-                        display: 'block'
+                    }).catch(function (error) {
+                        console.log(error)
                     })
-                    me.change_select_departamento_origen()
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            combo_departamento_dpi() {
-                let me = this
-                let url = '/departamentos/combo'
+                } else if(result.dismiss === swal.DismissReason.cancel) {
+                    swal(
+                        'Cancelado',
+                        'Se ha cancelado la operación',
+                        'error'
+                    )
+                }
+            })
+        },
+        dataTable() {
+            let datatable = $('#zero-config').DataTable()
+            datatable.destroy()
+            this.$nextTick(function() {
+                $('#zero-config').DataTable( {
+                    "oLanguage": {
+                        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                        "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                        "sSearchPlaceholder": "Buscar...",
+                        "sLengthMenu": "Resultado :  _MENU_",
+                    },
+                    "stripeClasses": [],
+                    "lengthMenu": [5, 10, 20, 50],
+                    "pageLength": 5,
+                    drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                } );
+            });
+        },
+        change_select_departamento_origen() {
+            let me = this
 
-                axios.get(url).then(function (response) {
-                    me.lista_departamentos_dpi = response.data
-                    $('#departamento_dpi').select2({
-                        placeholder: 'Seleccione departamento',
-                    })
-                    me.change_select_departamento_dpi()
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            combo_municipio_origen() {
-                let me = this
-                let url = '/municipios/combo'
+            $('#departamento_origen').on('change', function () {
+                me.municipio_origen_id = 0
+                me.$emit('change', this.value)
+                me.departamento_origen_id = this.value
+                me.combo_municipio_origen()
+            })
+        },
+        change_select_municipio_origen() {
+            let me = this
 
-                axios.get(url, {params:
-                    {departamento_origen_id: this.departamento_origen_id}
-                }).then(function (response) {
-                    me.lista_municipios_origen = response.data
-                    me.change_select_municipio_origen()
-                    $('#municipio_origen').select2({
-                        placeholder: 'Seleccione municipio'
-                    })
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            combo_municipio_dpi() {
-                let me = this
-                let url = '/municipios/combo'
+            $('#municipio_origen').on('change', function () {
+                me.$emit('change', this.value)
+                me.municipio_origen_id = this.value
+            })
+        },
+        change_select_departamento_dpi() {
+            let me = this
 
-                axios.get(url, {params:
-                    {departamento_origen_id: this.departamento_dpi_id}
-                }).then(function (response) {
-                    me.lista_municipios_dpi = response.data
-                    me.change_select_municipio_dpi()
-                    $('#municipio_dpi').select2({
-                        placeholder: 'Seleccione municipio'
-                    })
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            showList() {
-                let me = this
-                let url = '/residentes'
+            $('#departamento_dpi').on('change', function () {
+                me.municipio_dpi_id = 0
+                me.$emit('change', this.value)
+                me.departamento_dpi_id = this.value
+                me.combo_municipio_dpi()
+            })
+        },
+        change_select_municipio_dpi() {
+            let me = this
 
-                axios.get(url).then(function (response) {
-                    me.lista_residentes = response.data.query
-                    me.rol_id = response.data.rol
-                    console.log(response.data)
-                    me.dataTable()
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            store() {
-                let me = this
-                let url = '/residentes/store'
+            $('#municipio_dpi').on('change', function () {
+                me.$emit('change', this.value)
+                me.municipio_dpi_id = this.value
+            })
+        },
+        combo_departamento_origen() {
+            let me = this
+            let url = '/departamentos/combo'
 
+            axios.get(url).then(function (response) {
+                me.lista_departamentos_origen = response.data
+                $('#departamento_origen').select2({
+                    placeholder: 'Seleccione departamento',
+                    display: 'block'
+                })
+                me.change_select_departamento_origen()
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        combo_departamento_dpi() {
+            let me = this
+            let url = '/departamentos/combo'
+
+            axios.get(url).then(function (response) {
+                me.lista_departamentos_dpi = response.data
+                $('#departamento_dpi').select2({
+                    placeholder: 'Seleccione departamento',
+                })
+                me.change_select_departamento_dpi()
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        combo_municipio_origen() {
+            let me = this
+            let url = '/municipios/combo'
+
+            axios.get(url, {params:
+                {departamento_origen_id: this.departamento_origen_id}
+            }).then(function (response) {
+                me.lista_municipios_origen = response.data
+                me.change_select_municipio_origen()
+                $('#municipio_origen').select2({
+                    placeholder: 'Seleccione municipio'
+                })
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        combo_municipio_dpi() {
+            let me = this
+            let url = '/municipios/combo'
+
+            axios.get(url, {params:
+                {departamento_origen_id: this.departamento_dpi_id}
+            }).then(function (response) {
+                me.lista_municipios_dpi = response.data
+                me.change_select_municipio_dpi()
+                $('#municipio_dpi').select2({
+                    placeholder: 'Seleccione municipio'
+                })
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        showList() {
+            let me = this
+            let url = '/residentes'
+
+            axios.get(url).then(function (response) {
+                me.lista_residentes = response.data.query
+                me.rol_id = response.data.rol
+                console.log(response.data)
+                me.dataTable()
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        store() {
+            let me = this
+            let url = '/residentes/store'
+
+            if (me.otherError()) return
+            else {
                 axios.post(url, {
                     'municipio_origen': this.municipio_origen_id,
                     'municipio_dpi': this.municipio_dpi_id,
@@ -784,11 +794,14 @@ import * as alerts from '../functions/alerts.js'
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
-            },
-            update() {
-                let me = this
-                let url = '/residentes/update'
+            }
+        },
+        update() {
+            let me = this
+            let url = '/residentes/update'
 
+            if (me.otherError()) return
+            else {
                 axios.put(url, {
                     'nombre': this.nombre,
                     'apellido': this.apellido,
@@ -810,13 +823,14 @@ import * as alerts from '../functions/alerts.js'
                     if(error.response.status == 422)
                         this.errors = error.response.data.errors
                 })
-            },
-            pdf(id) {
-                window.open('/residentes/pdf/'+ id + ',' + '_blank');
             }
         },
-        mounted() {
-            this.showList()
-        },
-    }
+        pdf(id) {
+            window.open('/residentes/pdf/'+ id + ',' + '_blank');
+        }
+    },
+    mounted() {
+        this.showList()
+    },
+}
 </script>

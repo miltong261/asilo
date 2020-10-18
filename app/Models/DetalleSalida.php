@@ -12,5 +12,6 @@ class DetalleSalida extends Model
         'producto_id',
         'cantidad'
     ];
+
     public $timestamps = false;
 }

@@ -88,6 +88,7 @@ export default {
 
             axios.get(url).then(function (response) {
                 me.salidas = response.data.salidas
+                console.log(response.data)
 
                 for(var i = 0; i < me.salidas.length; i++) {
                     me.salidas_dias.push(me.salidas[i].dias)

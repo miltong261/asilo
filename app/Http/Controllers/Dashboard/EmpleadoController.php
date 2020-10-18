@@ -19,11 +19,6 @@ class EmpleadoController extends Controller
         $this->empleadoRepository = $empleadoRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -40,12 +35,6 @@ class EmpleadoController extends Controller
         return response()->json($this->empleadoRepository->comboboxUsuario());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(EmpleadoRequest $request)
     {
         try {
@@ -77,13 +66,6 @@ class EmpleadoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(EmpleadoRequest $request)
     {
         try {

@@ -37,6 +37,7 @@ class CompraRepository extends BaseRepository
             'compras.fecha_registro',
             'compras.fecha_compra',
             'compras.documento',
+            'compras.no_documento',
             'compras.total',
             'users.usuario as nombre_usuario'
         )
@@ -118,16 +119,20 @@ class CompraRepository extends BaseRepository
     {
         return $this->getModel()
         ->join('users', 'users.id', '=', 'compras.user_id')
+        ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
         ->select(
             'users.usuario as nombre_usuario',
+            'empleados.nombre as nombre_empleado',
+            'empleados.apellido as apellido_empleado',
             'compras.codigo',
             'compras.fecha_registro',
             'compras.fecha_compra',
             'compras.documento',
+            'compras.no_documento',
             'compras.total'
         )
         ->take(1)
-        ->where('id', $request)
+        ->where('compras.id', $request)
         ->get();
     }
 

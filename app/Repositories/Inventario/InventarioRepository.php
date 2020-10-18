@@ -5,6 +5,8 @@ namespace App\Repositories\Inventario;
 use App\Models\Inventario;
 use App\Repositories\BaseRepository;
 
+use Carbon\Carbon;
+
 class InventarioRepository extends BaseRepository
 {
     public function getModel()
@@ -53,6 +55,7 @@ class InventarioRepository extends BaseRepository
         ->where('inventario.existencia', '>', 0)
         ->where('productos.estado', 1)
         ->where('productos.asignacion', $asignacion)
+        ->where('productos.fecha_vencimiento', '>', Carbon::now()->toDateString())
         ->get();
     }
 

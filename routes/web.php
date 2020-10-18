@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /****************************** Rutas acceder al login ******************************/
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
@@ -155,6 +154,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\MedicamentoController@update');
             Route::put('/activate', 'Dashboard\MedicamentoController@activate');
             Route::put('/desactivate', 'Dashboard\MedicamentoController@desactivate');
+            Route::get('/vencimiento', 'Dashboard\MedicamentoController@vencimiento');
+            Route::get('/vencidos', 'Dashboard\MedicamentoController@vencido');
         });
 
         // Producto
@@ -164,6 +165,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\ProductoController@update');
             Route::put('/activate', 'Dashboard\ProductoController@activate');
             Route::put('/desactivate', 'Dashboard\ProductoController@desactivate');
+            Route::get('/vencimiento', 'Dashboard\ProductoController@vencimiento');
+            Route::get('/vencidos', 'Dashboard\ProductoController@vencido');
         });
 
         // Inventario
@@ -261,6 +264,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\MedicamentoController@update');
             Route::put('/activate', 'Dashboard\MedicamentoController@activate');
             Route::put('/desactivate', 'Dashboard\MedicamentoController@desactivate');
+            Route::get('/vencimiento', 'Dashboard\MedicamentoController@vencimiento');
+            Route::get('/vencidos', 'Dashboard\MedicamentoController@vencido');
         });
 
         // Producto
@@ -270,6 +275,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\ProductoController@update');
             Route::put('/activate', 'Dashboard\ProductoController@activate');
             Route::put('/desactivate', 'Dashboard\ProductoController@desactivate');
+            Route::get('/vencimiento', 'Dashboard\ProductoController@vencimiento');
+            Route::get('/vencidos', 'Dashboard\ProductoController@vencido');
         });
 
         // Inventario
@@ -313,6 +320,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     /******************** Rutas para la enfermera ********************/
     Route::group(['middleware' => 'Enfermera'], function () {
-
     });
 });

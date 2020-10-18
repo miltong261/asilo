@@ -17,11 +17,7 @@ class PuestoController extends Controller
     {
         $this->puestoRepository = $puestoRepository;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -35,12 +31,6 @@ class PuestoController extends Controller
         return response()->json($this->puestoRepository->comboboxPuesto());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(PuestoRequest $request)
     {
         try {
@@ -63,13 +53,6 @@ class PuestoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(PuestoRequest $request)
     {
         try {

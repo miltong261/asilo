@@ -26,12 +26,6 @@ class ProductoController extends Controller
         return response()->json(['query' => $this->productoRepository->indexProducto('producto'), 'rol' => $rol]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ProductoRequest $request)
     {
         try {
@@ -65,13 +59,6 @@ class ProductoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ProductoRequest $request)
     {
         try {
@@ -141,5 +128,15 @@ class ProductoController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
+    }
+
+    public function vencimiento()
+    {
+        return response()->json($this->productoRepository->productoPorVencer('producto'));
+    }
+
+    public function vencido()
+    {
+        return response()->json($this->productoRepository->productoVencido('producto'));
     }
 }

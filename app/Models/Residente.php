@@ -38,4 +38,9 @@ class Residente extends Model
     {
         return $this->hasMany('App\Models\SignoVital');
     }
+
+    public function notas()
+    {
+        return $this->hasMany('App\Models\Nota');
+    }
 }

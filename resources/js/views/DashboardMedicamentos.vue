@@ -3,7 +3,7 @@
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
+                    <img class="rounded-circle mx-auto d-block" src="/assets/img/logo-tablas2.jpeg" alt="logo" width="90" height="90">
 
                     <div class="card">
                         <div class="card-header text-center">

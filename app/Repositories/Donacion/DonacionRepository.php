@@ -71,8 +71,11 @@ class DonacionRepository extends BaseRepository
     {
         return $this->getModel()
         ->join('users', 'users.id', '=', 'donaciones.user_id')
+        ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
         ->select(
             'users.usuario as nombre_usuario',
+            'empleados.nombre as nombre_empleado',
+            'empleados.apellido as apellido_empleado',
             'donaciones.codigo',
             'donaciones.fecha_registro',
             'donaciones.fecha_donacion',

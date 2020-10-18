@@ -17,11 +17,7 @@ class TipoMovimientoController extends Controller
     {
         $this->tipoMovimientoRepository = $tipoMovimientoRepository;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -32,20 +28,9 @@ class TipoMovimientoController extends Controller
 
     public function combobox()
     {
-        // return response()->json($this->tipoMovimientoRepository->listarCombo(
-        //     ['id', 'nombre', 'entrada', 'salida'],
-        //     null,
-        //     'nombre'
-        // ));
         return response()->json($this->tipoMovimientoRepository->comboboxTipoMovimiento());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(TipoMovimientoRequest $request)
     {
         try {
@@ -72,13 +57,6 @@ class TipoMovimientoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(TipoMovimientoRequest $request)
     {
         try {

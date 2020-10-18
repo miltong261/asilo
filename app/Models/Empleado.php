@@ -20,13 +20,19 @@ class Empleado extends Model
         'telefono',
         'estado'
     ];
-    public function puesto()
-    {
-        return $this->belongsTo('App\Models\Puesto');
-    }
 
     public function user()
     {
         return $this->hasOne('App\User');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Models\Area');
+    }
+
+    public function puesto()
+    {
+        return $this->belongsTo('App\Models\Puesto');
     }
 }

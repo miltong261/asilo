@@ -4,7 +4,7 @@
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <!-- botón nuevo -->
                 <div class="text-left ">
-                    <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-plus"></i> </button>
+                    <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-heart"></i> </button>
                 </div>
                 <div class="widget-content widget-content-area br-6">
                     <!-- Listado -->
@@ -80,7 +80,7 @@
                                 </div>
                             </fieldset>
 
-                        <br class="p-1">
+                            <br class="p-1">
 
                             <!-- Búsqueda -->
                             <fieldset class="border border-fieldset rounded p-3 col-md-4 float-right">
@@ -191,7 +191,7 @@
                                         <td><i class="fas fa-street-view"></i> <strong>Dirección: </strong>{{ donacion_donador_direccion }}</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ donacion_usuario }}</td>
+                                        <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ donacion_nombre_usuario + ' - ' + donacion_usuario }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -299,329 +299,331 @@
     var moment = require('moment')
     import * as alerts from '../functions/alerts.js'
 
-    export default {
-        data() {
-            return {
-                // Lista de donaciones
-                id: 0,
-                lista_donaciones: [],
+export default {
+    data() {
+        return {
+            // Lista de donaciones
+            id: 0,
+            lista_donaciones: [],
 
-                // Encabezado
-                fecha_donacion: '',
-                donador: '',
-                direccion: '',
+            // Encabezado
+            fecha_donacion: '',
+            donador: '',
+            direccion: '',
 
-                /**Búsqueda */
-                // Opciones (medicamento y artículo)
-                options: [
-                    {
-                        type: 'Medicamento',
-                        value: 0
-                    },
-                    {
-                        type: 'Artículo',
-                        value: 1
-                    }
-                ],
-                select_option: '',
-                option_enabled: 1,
+            /**Búsqueda */
+            // Opciones (medicamento y artículo)
+            options: [
+                {
+                    type: 'Medicamento',
+                    value: 0
+                },
+                {
+                    type: 'Artículo',
+                    value: 1
+                }
+            ],
+            select_option: '',
+            option_enabled: 1,
 
-                // Listar los productos de inventario
-                modalProducto: 0,
-                lista_inventario: [],
-                producto_id: 0,
-                // Agregar los productos al detalle de la donación
-                arrayDetalle: [],
+            // Listar los productos de inventario
+            modalProducto: 0,
+            lista_inventario: [],
+            producto_id: 0,
+            // Agregar los productos al detalle de la donación
+            arrayDetalle: [],
 
-                // Acción del template (1 para listado de donaciones y 2 para registro)
-                action: 1,
+            // Acción del template (1 para listado de donaciones y 2 para registro)
+            action: 1,
 
-                titulo: '',
-                errors: [],
+            titulo: '',
+            errors: [],
 
-                /** Ver donación */
-                //Encabezado
-                donacion_usuario: '',
-                donacion_codigo: 0,
-                donacion_donador: '',
-                donacion_donador_direccion: '',
-                donacion_fecha_registro: '',
-                donacion_fecha_donacion: '',
-                cantidad_suma: 0
-            }
+            /** Ver donación */
+            //Encabezado
+            donacion_usuario: '',
+            donacion_nombre_usuario: '',
+            donacion_codigo: 0,
+            donacion_donador: '',
+            donacion_donador_direccion: '',
+            donacion_fecha_registro: '',
+            donacion_fecha_donacion: '',
+            cantidad_suma: 0
+        }
+    },
+    methods: {
+        openForm() {
+            this.action = 2
+            this.destroyTable('#listado')
+            document.getElementById('openForm').style.display = 'none'
+            this.fecha_donacion = moment().format('YYYY-MM-DD')
         },
-        methods: {
-            openForm() {
-                this.action = 2
-                this.destroyTable('#listado')
-                document.getElementById('openForm').style.display = 'none'
-                this.fecha_donacion = moment().format('YYYY-MM-DD')
-            },
-            closeForm() {
-                this.action = 1
-                this.destroyTable('#listado_producto')
-                this.showList()
-                document.getElementById('openForm').style.display = 'block'
-
-                this.fecha_donacion = ''
-                this.donador = '',
-                this.direccion = ''
-
-                this.select_option = ''
-                this.option_enabled = 1
-                this.lista_inventario = []
-                this.arrayDetalle = []
-
-                this.errors = []
-
-                alerts.sweetAlert('error', 'Operación cancelada')
-            },
-            openModalProducto() {
-                this.modalProducto = 1
-                this.titulo = 'Lista de productos'
-
-                this.lista_inventario
-            },
-            closeModalProducto() {
-                this.modalProducto = 0
-                this.titulo = ''
-            },
-            hasError(field) {
-                return field in (this.errors)
-            },
-            otherError() {
-                let errores = 0
-                let actual = moment()
-
-                if (!this.arrayDetalle.length) {
-                    alerts.sweetAlert('error', 'No hay productos seleccionados')
-                    errores = 1
-                }
-
-                if (this.arrayDetalle.length) {
-                    for (var i = 0; i < this.arrayDetalle.length; i++){
-                        if (this.arrayDetalle[i].cantidad == 0 || this.arrayDetalle[i].cantidad == '') {
-                            alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
-                            errores = 1
-                        } else if (this.arrayDetalle[i].cantidad < 0) {
-                            alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto' + this.arrayDetalle[i].nombre_producto)
-                            errores = 1
-                        }
-                    }
-                }
-
-                // if (moment(this.fecha_salida).isAfter(actual)){
-                //     alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
-                //     errores = 1
-                //     console.log(actual)
-                // }
-
-                return errores
-            },
-            backendResponse(response) {
-                if(response.data.status == 'success'){
-                    this.closeForm()
-                    alerts.sweetAlert(response.data.status, response.data.message)
-                }else{
-                        alerts.sweetAlert(response.data.status, response.data.message)
-                }
-            },
-            dataTable(table) {
-                var datatable = $(table).DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $(table).DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
-            destroyTable(table) {
-                var datatable = $(table).DataTable()
-                datatable.destroy()
-            },
-            showInventario(type) {
-                let me = this
-                var url
-
-                if (type == 0){
-                    url = '/inventario/listar_medicamento_entrada'
-                    me.option_enabled = 0
-                }
-                else if (type == 1){
-                    url = '/inventario/listar_producto_entrada'
-                    me.option_enabled = 0
-                }
-
-                axios.get(url).then(function (response) {
-                    me.lista_inventario = response.data
-                    me.dataTable('#listado_producto')
-                    $('#select_producto').select2({
-                        placeholder: 'Seleccione el producto'
-                    })
-                    me.change_select_producto()
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            change_select_producto() {
-                let me = this
-
-                $('#select_producto').on('change', function () {
-                    me.$emit('change', this.value)
-                    me.producto_id = this.value
-
-                    me.selected_producto(me.producto_id)
-                    me.producto_id = 0
-                })
-            },
-            selected_producto(id) {
-                for (var i = 0; i < this.lista_inventario.length; i++) {
-                    if (id == this.lista_inventario[i].producto_id) {
-                        if (this.productoEncontrado(id)) {
-                            alerts.sweetAlert('error', 'El producto ya esta en la lista')
-                        } else {
-                            this.arrayDetalle.push({
-                                producto_id: this.lista_inventario[i].producto_id,
-                                codigo_producto: this.lista_inventario[i].codigo_producto,
-                                nombre_producto: this.lista_inventario[i].nombre_producto,
-                                presentacion_producto: this.lista_inventario[i].presentacion_producto,
-                                observacion_producto: this.lista_inventario[i].observacion_producto,
-                                nombre_unidad: this.lista_inventario[i].nombre_unidad,
-                                cantidad: 1
-                            })
-                        }
-                    }
-                }
-            },
-            agregarDetalle(data = []) {
-                let me = this;
-
-                if (me.productoEncontrado(data['producto_id'])) {
-                    alerts.sweetAlert('error', 'El producto ya esta en la lista')
-                } else {
-                    me.arrayDetalle.push({
-                        producto_id: data['producto_id'],
-                        // codigo_producto: data['codigo_producto'],
-                        nombre_producto: data['nombre_producto'],
-                        nombre_unidad : data['nombre_unidad'],
-                        presentacion_producto: data['presentacion_producto'],
-                        observacion_producto: data['observacion_producto'],
-                        cantidad: 1
-                    })
-                }
-            },
-            productoEncontrado(id) {
-                var encontrado = false, i
-
-                for (i = 0; i < this.arrayDetalle.length; i++) {
-                    if(this.arrayDetalle[i].producto_id == id)
-                        encontrado = true
-                }
-
-                return encontrado
-            },
-            eliminarProductoDetalle(index) {
-                let me = this
-                me.arrayDetalle.splice(index, 1)
-            },
-            showList() {
-                let me = this;
-                let url = '/donaciones';
-                axios.get(url).then(function (response) {
-                    me.lista_donaciones = response.data
-                    me.dataTable('#listado');
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            store(){
-                let me = this
-                let url = '/donaciones/store'
-
-                if (me.otherError()) return
-                else {
-                    axios.post(url, {
-                        'fecha_donacion': this.fecha_donacion,
-                        'donador': this.donador,
-                        'direccion': this.direccion,
-                        'arrayData': this.arrayDetalle
-                    }).then(function (response) {
-                        me.backendResponse(response)
-                    }).catch(error => {
-                        if(error.response.status == 422)
-                            this.errors = error.response.data.errors
-                    })
-                }
-            },
-            showDonacion(id) {
-                let me = this
-                me.action = 3
-                me.showList()
-                me.dataTable('#listado')
-                document.getElementById('openForm').style.display = 'none'
-
-                let url_cabecera = '/donaciones/cabecera?id=' + id
-                let cabecera = []
-
-                axios.get(url_cabecera).then(function (response) {
-                    cabecera = response.data
-
-                    me.donacion_usuario = cabecera[0]['nombre_usuario']
-                    me.donacion_codigo = cabecera[0]['codigo']
-                    me.donacion_donador = cabecera[0]['donador']
-                    me.donacion_donador_direccion = cabecera[0]['direccion']
-                    me.donacion_fecha_registro = cabecera[0]['fecha_registro']
-                    me.donacion_fecha_donacion = cabecera[0]['fecha_donacion']
-                }).catch(function (error) {
-                    console.log(error)
-                })
-
-                let url_detalle = '/donaciones/detalle?id=' +id
-
-                axios.get(url_detalle).then(function (response) {
-                    me.arrayDetalle = response.data
-
-                    for(var i = 0; i < me.arrayDetalle.length; i++)
-                        me.cantidad_suma += me.arrayDetalle[i].cantidad
-
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            closeShowDonacion() {
-                this.action = 1
-                this.showList()
-                document.getElementById('openForm').style.display = 'block'
-
-                this.donacion_usuario = ''
-                this.donacion_codigo = 0
-                this.donacion_fecha_registro = ''
-                this.donacion_fecha_donacion = ''
-                this.donacion_donador = ''
-                this.donacion_donador_direccion = ''
-                this.cantidad_suma = 0
-
-                this.arrayDetalle = []
-
-                alerts.sweetAlert('success', 'INSPECCIÓN FINALIZADA')
-            },
-            pdf(id) {
-                window.open('/donaciones/pdf/'+ id + ',' + '_blank');
-            }
-        },
-        mounted() {
+        closeForm() {
+            this.action = 1
+            this.destroyTable('#listado_producto')
             this.showList()
+            document.getElementById('openForm').style.display = 'block'
+
+            this.fecha_donacion = ''
+            this.donador = '',
+            this.direccion = ''
+
+            this.select_option = ''
+            this.option_enabled = 1
+            this.lista_inventario = []
+            this.arrayDetalle = []
+
+            this.errors = []
+
+            alerts.sweetAlert('error', 'Operación cancelada')
         },
-    }
+        openModalProducto() {
+            this.modalProducto = 1
+            this.titulo = 'Lista de productos'
+
+            this.lista_inventario
+        },
+        closeModalProducto() {
+            this.modalProducto = 0
+            this.titulo = ''
+        },
+        hasError(field) {
+            return field in (this.errors)
+        },
+        otherError() {
+            let errores = 0
+            let actual = moment().format('YYYY-MM-DD')
+
+            if (!this.arrayDetalle.length) {
+                alerts.sweetAlert('error', 'No hay productos seleccionados')
+                errores = 1
+            }
+
+            if (this.arrayDetalle.length) {
+                for (var i = 0; i < this.arrayDetalle.length; i++){
+                    if (this.arrayDetalle[i].cantidad == 0 || this.arrayDetalle[i].cantidad == '') {
+                        alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
+                        errores = 1
+                    } else if (this.arrayDetalle[i].cantidad < 0) {
+                        alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto' + this.arrayDetalle[i].nombre_producto)
+                        errores = 1
+                    }
+                }
+            }
+
+            if (moment(this.fecha_donacion).format('YYYY-MM-DD') > actual){
+                alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                errores = 1
+                console.log(actual)
+            }
+
+            return errores
+        },
+        backendResponse(response) {
+            if(response.data.status == 'success'){
+                this.closeForm()
+                alerts.sweetAlert(response.data.status, response.data.message)
+            }else{
+                    alerts.sweetAlert(response.data.status, response.data.message)
+            }
+        },
+        dataTable(table) {
+            var datatable = $(table).DataTable()
+            datatable.destroy()
+            this.$nextTick(function() {
+                $(table).DataTable( {
+                    "oLanguage": {
+                        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                        "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                        "sSearchPlaceholder": "Buscar...",
+                        "sLengthMenu": "Resultado :  _MENU_",
+                    },
+                    "stripeClasses": [],
+                    "lengthMenu": [5, 10, 20, 50],
+                    "pageLength": 5,
+                    drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                } );
+            });
+        },
+        destroyTable(table) {
+            var datatable = $(table).DataTable()
+            datatable.destroy()
+        },
+        showInventario(type) {
+            let me = this
+            var url
+
+            if (type == 0){
+                url = '/inventario/listar_medicamento_entrada'
+                me.option_enabled = 0
+            }
+            else if (type == 1){
+                url = '/inventario/listar_producto_entrada'
+                me.option_enabled = 0
+            }
+
+            axios.get(url).then(function (response) {
+                me.lista_inventario = response.data
+                me.dataTable('#listado_producto')
+                $('#select_producto').select2({
+                    placeholder: 'Seleccione el producto'
+                })
+                me.change_select_producto()
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        change_select_producto() {
+            let me = this
+
+            $('#select_producto').on('change', function () {
+                me.$emit('change', this.value)
+                me.producto_id = this.value
+
+                me.selected_producto(me.producto_id)
+                me.producto_id = 0
+            })
+        },
+        selected_producto(id) {
+            for (var i = 0; i < this.lista_inventario.length; i++) {
+                if (id == this.lista_inventario[i].producto_id) {
+                    if (this.productoEncontrado(id)) {
+                        alerts.sweetAlert('error', 'El producto ya esta en la lista')
+                    } else {
+                        this.arrayDetalle.push({
+                            producto_id: this.lista_inventario[i].producto_id,
+                            codigo_producto: this.lista_inventario[i].codigo_producto,
+                            nombre_producto: this.lista_inventario[i].nombre_producto,
+                            presentacion_producto: this.lista_inventario[i].presentacion_producto,
+                            observacion_producto: this.lista_inventario[i].observacion_producto,
+                            nombre_unidad: this.lista_inventario[i].nombre_unidad,
+                            cantidad: 1
+                        })
+                    }
+                }
+            }
+        },
+        agregarDetalle(data = []) {
+            let me = this;
+
+            if (me.productoEncontrado(data['producto_id'])) {
+                alerts.sweetAlert('error', 'El producto ya esta en la lista')
+            } else {
+                me.arrayDetalle.push({
+                    producto_id: data['producto_id'],
+                    // codigo_producto: data['codigo_producto'],
+                    nombre_producto: data['nombre_producto'],
+                    nombre_unidad : data['nombre_unidad'],
+                    presentacion_producto: data['presentacion_producto'],
+                    observacion_producto: data['observacion_producto'],
+                    cantidad: 1
+                })
+            }
+        },
+        productoEncontrado(id) {
+            var encontrado = false, i
+
+            for (i = 0; i < this.arrayDetalle.length; i++) {
+                if(this.arrayDetalle[i].producto_id == id)
+                    encontrado = true
+            }
+
+            return encontrado
+        },
+        eliminarProductoDetalle(index) {
+            let me = this
+            me.arrayDetalle.splice(index, 1)
+        },
+        showList() {
+            let me = this;
+            let url = '/donaciones';
+            axios.get(url).then(function (response) {
+                me.lista_donaciones = response.data
+                me.dataTable('#listado');
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        store(){
+            let me = this
+            let url = '/donaciones/store'
+
+            if (me.otherError()) return
+            else {
+                axios.post(url, {
+                    'fecha_donacion': this.fecha_donacion,
+                    'donador': this.donador,
+                    'direccion': this.direccion,
+                    'arrayData': this.arrayDetalle
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error => {
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
+        },
+        showDonacion(id) {
+            let me = this
+            me.action = 3
+            me.showList()
+            me.dataTable('#listado')
+            document.getElementById('openForm').style.display = 'none'
+
+            let url_cabecera = '/donaciones/cabecera?id=' + id
+            let cabecera = []
+
+            axios.get(url_cabecera).then(function (response) {
+                cabecera = response.data
+
+                me.donacion_usuario = cabecera[0]['nombre_usuario']
+                me.donacion_nombre_usuario = cabecera[0]['nombre_empleado'] + ' ' + cabecera[0]['apellido_empleado']
+                me.donacion_codigo = cabecera[0]['codigo']
+                me.donacion_donador = cabecera[0]['donador']
+                me.donacion_donador_direccion = cabecera[0]['direccion']
+                me.donacion_fecha_registro = cabecera[0]['fecha_registro']
+                me.donacion_fecha_donacion = cabecera[0]['fecha_donacion']
+            }).catch(function (error) {
+                console.log(error)
+            })
+
+            let url_detalle = '/donaciones/detalle?id=' +id
+
+            axios.get(url_detalle).then(function (response) {
+                me.arrayDetalle = response.data
+
+                for(var i = 0; i < me.arrayDetalle.length; i++)
+                    me.cantidad_suma += me.arrayDetalle[i].cantidad
+
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        closeShowDonacion() {
+            this.action = 1
+            this.showList()
+            document.getElementById('openForm').style.display = 'block'
+
+            this.donacion_usuario = ''
+            this.donacion_codigo = 0
+            this.donacion_fecha_registro = ''
+            this.donacion_fecha_donacion = ''
+            this.donacion_donador = ''
+            this.donacion_donador_direccion = ''
+            this.cantidad_suma = 0
+
+            this.arrayDetalle = []
+
+            alerts.sweetAlert('success', 'INSPECCIÓN FINALIZADA')
+        },
+        pdf(id) {
+            window.open('/donaciones/pdf/'+ id + ',' + '_blank');
+        }
+    },
+    mounted() {
+        this.showList()
+    },
+}
 </script>

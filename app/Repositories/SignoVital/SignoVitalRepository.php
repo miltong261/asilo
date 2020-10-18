@@ -2,6 +2,7 @@
 
 namespace App\Repositories\SignoVital;
 
+use App\Models\Residente;
 use App\Models\SignoVital;
 use App\Repositories\BaseRepository;
 

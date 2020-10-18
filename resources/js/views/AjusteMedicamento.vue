@@ -2,9 +2,9 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-            <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+            <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-cogs"></i></button>
                 <div class="widget-content widget-content-area br-6">
-                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
+                    <img class="rounded-circle mx-auto d-block" src="/assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
                         <table id="zero-config" class="table table-hover" style="width:100%">
                             <thead>
@@ -198,179 +198,179 @@
 <script>
     import * as alerts from '../functions/alerts.js'
 
-    export default {
-        data() {
-            return {
-                id: 0,
-                lista_ajuste_medicamento: [],
-                cantidad: '',
-                entrada: false,
-                salida: false,
-                observacion: '',
+export default {
+    data() {
+        return {
+            id: 0,
+            lista_ajuste_medicamento: [],
+            cantidad: '',
+            entrada: false,
+            salida: false,
+            observacion: '',
 
-                nombre_categoria: '',
-                nombre_unidad: '',
+            nombre_categoria: '',
+            nombre_unidad: '',
 
-                lista_medicamento: [],
-                medicamento_id: 0,
-                codigo_medicamento: '',
-                nombre_medicamento: '',
-                presentacion_medicamento: '',
+            lista_medicamento: [],
+            medicamento_id: 0,
+            codigo_medicamento: '',
+            nombre_medicamento: '',
+            presentacion_medicamento: '',
 
-                modal: 0,
-                titulo: '',
-                opcion: 0,
-                errors: [],
+            modal: 0,
+            titulo: '',
+            opcion: 0,
+            errors: [],
 
-                modalAjuste: 0,
-                ajuste: ''
+            modalAjuste: 0,
+            ajuste: ''
+        }
+    },
+    methods: {
+        openModal(metodo) {
+            switch(metodo){
+                case 'create': {
+                    this.modal = 1
+                    this.titulo = "Ajuste de medicamento"
+                    this.opcion = 1
+                    break
+                }
+            }
+            this.medicamento_inventario()
+        },
+        closeModal() {
+            this.lista_medicamento = []
+            this.cantidad = ''
+            this.entrada = false
+            this.salida = false
+            this.observacion = ''
+
+            this.modal = 0
+            this.titulo = ''
+            this.opcion = 0
+            this.errors = []
+
+            alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        openModalAjuste(data = []) {
+            this.modalAjuste = 1
+            this.titulo = 'AJUSTE DEL MEDICAMENTO ' + data['nombre_producto'].toUpperCase()
+
+            this.nombre_categoria = data['nombre_categoria']
+            this.nombre_unidad = data['nombre_unidad']
+            this.codigo_medicamento = data['codigo_producto']
+            this.nombre_medicamento = data['nombre_producto']
+            this.presentacion_medicamento = data['presentacion_producto']
+            this.observacion = data['observacion']
+            this.cantidad = data['cantidad']
+
+            if (data['entrada'] == true)
+                this.ajuste = 1
+            else if(data['salida'] == true)
+                this.ajuste = 0
+        },
+        closeModalAjuste() {
+            this.nombre_categoria = ''
+            this.nombre_unidad = ''
+            this.codigo_medicamento = ''
+            this.nombre_medicamento = ''
+            this.presentacion_medicamento = ''
+            this.observacion =
+            this.cantidad = ''
+            this.ajuste = ''
+
+            this.modalAjuste = 0
+            this.titulo = ''
+
+            alerts.sweetAlert('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO')
+        },
+        hasError(field) {
+            return field in (this.errors)
+        },
+        backendResponse(response) {
+            if(response.data.status == 'success'){
+                this.closeModal()
+                this.showList()
+                alerts.sweetAlert(response.data.status, response.data.message)
+            }else{
+                alerts.sweetAlert(response.data.status, response.data.message)
             }
         },
-        methods: {
-            openModal(metodo) {
-                switch(metodo){
-                    case 'create': {
-                        this.modal = 1
-                        this.titulo = "Ajuste de medicamento"
-                        this.opcion = 1
-                        break
-                    }
-                }
-                this.medicamento_inventario()
-            },
-            closeModal() {
-                this.lista_medicamento = []
-                this.cantidad = ''
-                this.entrada = false
-                this.salida = false
-                this.observacion = ''
-
-                this.modal = 0
-                this.titulo = ''
-                this.opcion = 0
-                this.errors = []
-
-                alerts.sweetAlert('error', 'Operación cancelada')
-            },
-            openModalAjuste(data = []) {
-                this.modalAjuste = 1
-                this.titulo = 'AJUSTE DEL MEDICAMENTO ' + data['nombre_producto'].toUpperCase()
-
-                this.nombre_categoria = data['nombre_categoria']
-                this.nombre_unidad = data['nombre_unidad']
-                this.codigo_medicamento = data['codigo_producto']
-                this.nombre_medicamento = data['nombre_producto']
-                this.presentacion_medicamento = data['presentacion_producto']
-                this.observacion = data['observacion']
-                this.cantidad = data['cantidad']
-
-                if (data['entrada'] == true)
-                    this.ajuste = 1
-                else if(data['salida'] == true)
-                    this.ajuste = 0
-            },
-            closeModalAjuste() {
-                this.nombre_categoria = ''
-                this.nombre_unidad = ''
-                this.codigo_medicamento = ''
-                this.nombre_medicamento = ''
-                this.presentacion_medicamento = ''
-                this.observacion =
-                this.cantidad = ''
-                this.ajuste = ''
-
-                this.modalAjuste = 0
-                this.titulo = ''
-
-                alerts.sweetAlert('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO')
-            },
-            hasError(field) {
-                return field in (this.errors)
-            },
-            backendResponse(response) {
-                if(response.data.status == 'success'){
-                    this.closeModal()
-                    this.showList()
-                    alerts.sweetAlert(response.data.status, response.data.message)
-                }else{
-                    alerts.sweetAlert(response.data.status, response.data.message)
-                }
-            },
-            medicamento_inventario() {
-                let me = this;
-                let url = '/inventario/combo_medicamento';
-                axios.get(url).then(function (response) {
-                    me.lista_medicamento = response.data
-                    $('select').select2({
-                        placeholder: 'Seleccione el medicamento'
-                    })
+        medicamento_inventario() {
+            let me = this;
+            let url = '/inventario/combo_medicamento';
+            axios.get(url).then(function (response) {
+                me.lista_medicamento = response.data
+                $('select').select2({
+                    placeholder: 'Seleccione el medicamento'
                 })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            dataTable() {
-                let datatable = $('#zero-config').DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $('#zero-config').DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
-            showList() {
-                let me = this;
-                let url = '/ajuste_producto/medicamento';
-                axios.get(url).then(function (response) {
-                    me.lista_ajuste_medicamento = response.data
-                    me.dataTable();
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            store() {
-                let me = this
-                let url = '/ajuste_producto/store'
-                axios.post(url,{
-                    'producto_id': this.medicamento_id,
-                    'cantidad': this.cantidad,
-                    'observacion': this.observacion,
-                    'entrada': this.entrada,
-                    'salida': this.salida
-                }).then(function (response) {
-                    me.backendResponse(response)
-                }).catch(error =>{
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
-            },
-            change_select() {
-                let me = this;
-
-                $('select').on('change', function () {
-                    me.$emit('change', this.value)
-                })
-
-                me.$on('change', function(data) {
-                    this.medicamento_id = data
-                        console.log(this.medicamento_id)
-                })
-            },
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
         },
-        mounted() {
-            this.showList()
-            this.change_select()
+        dataTable() {
+            let datatable = $('#zero-config').DataTable()
+            datatable.destroy()
+            this.$nextTick(function() {
+                $('#zero-config').DataTable( {
+                    "oLanguage": {
+                        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                        "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                        "sSearchPlaceholder": "Buscar...",
+                        "sLengthMenu": "Resultado :  _MENU_",
+                    },
+                    "stripeClasses": [],
+                    "lengthMenu": [5, 10, 20, 50],
+                    "pageLength": 5,
+                    drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                } );
+            });
         },
-    }
+        showList() {
+            let me = this;
+            let url = '/ajuste_producto/medicamento';
+            axios.get(url).then(function (response) {
+                me.lista_ajuste_medicamento = response.data
+                me.dataTable();
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        store() {
+            let me = this
+            let url = '/ajuste_producto/store'
+            axios.post(url,{
+                'producto_id': this.medicamento_id,
+                'cantidad': this.cantidad,
+                'observacion': this.observacion,
+                'entrada': this.entrada,
+                'salida': this.salida
+            }).then(function (response) {
+                me.backendResponse(response)
+            }).catch(error =>{
+                if(error.response.status == 422)
+                    this.errors = error.response.data.errors
+            })
+        },
+        change_select() {
+            let me = this;
+
+            $('select').on('change', function () {
+                me.$emit('change', this.value)
+            })
+
+            me.$on('change', function(data) {
+                this.medicamento_id = data
+                    console.log(this.medicamento_id)
+            })
+        },
+    },
+    mounted() {
+        this.showList()
+        this.change_select()
+    },
+}
 </script>

@@ -18,11 +18,6 @@ class UnidadMedidaController extends Controller
         $this->unidadMedidaRepository = $unidadMedidaRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -50,12 +45,6 @@ class UnidadMedidaController extends Controller
         ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(UnidadMedidaRequest $request)
     {
         try {
@@ -83,13 +72,6 @@ class UnidadMedidaController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UnidadMedidaRequest $request)
     {
         try {

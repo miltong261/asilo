@@ -2,7 +2,7 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-            <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
+            <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-file-alt"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
@@ -51,11 +51,11 @@
                                     </td>
                                     <td class="text-center">
 
-                                        <template v-if="tipo_movimiento.estado && tipo_movimiento.id!=1">
+                                        <template v-if="tipo_movimiento.estado && (tipo_movimiento.id!=1 && tipo_movimiento.id!=2)">
                                             <button type="button" @click="changeStatus('desactivate', tipo_movimiento.id, tipo_movimiento.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                             <button type="button" @click="openModal('update', tipo_movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
-                                        <template v-else-if="tipo_movimiento.estado==0 && tipo_movimiento.id!=1">
+                                        <template v-else-if="tipo_movimiento.estado==0 && (tipo_movimiento.id!=1 && tipo_movimiento.id!=2)">
                                             <button type="button" @click="changeStatus('activate', tipo_movimiento.id, tipo_movimiento.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                         </template>
                                     </td>
@@ -115,169 +115,169 @@
 <script>
     import * as alerts from '../functions/alerts.js'
 
-    export default {
-        data(){
-            return {
-                id: 0,
-                lista_tipo_movimiento: [],
-                nombre: '',
-                entrada: false,
-                salida: false,
+export default {
+    data(){
+        return {
+            id: 0,
+            lista_tipo_movimiento: [],
+            nombre: '',
+            entrada: false,
+            salida: false,
 
-                modal: 0,
-                titulo: '',
-                opcion: 0,
-                errors: []
+            modal: 0,
+            titulo: '',
+            opcion: 0,
+            errors: []
+        }
+    },
+    methods: {
+        openModal(metodo, data = []) {
+            switch(metodo){
+                case 'create': {
+                    this.modal = 1
+                    this.titulo = "Registro tipo movimiento"
+                    this.opcion = 1
+                    break
+                }
+                case 'update': {
+                    this.modal = 2
+                    this.titulo = "Actualización tipo movimiento"
+                    this.opcion = 2
+                    this.nombre = data['nombre']
+                    this.entrada = data['entrada']
+                    this.salida = data['salida']
+                    this.id = data['id']
+                }
             }
         },
-        methods: {
-            openModal(metodo, data = []) {
-                switch(metodo){
-                    case 'create': {
-                        this.modal = 1
-                        this.titulo = "Registro tipo movimiento"
-                        this.opcion = 1
-                        break
-                    }
-                    case 'update': {
-                        this.modal = 2
-                        this.titulo = "Actualización tipo movimiento"
-                        this.opcion = 2
-                        this.nombre = data['nombre']
-                        this.entrada = data['entrada']
-                        this.salida = data['salida']
-                        this.id = data['id']
-                    }
-                }
-            },
-            closeModal() {
-                this.nombre = ''
-                this.entrada = false
-                this.salida = false
+        closeModal() {
+            this.nombre = ''
+            this.entrada = false
+            this.salida = false
 
-                this.modal = 0
-                this.titulo = ''
-                this.opcion = 0
-                this.errors = []
+            this.modal = 0
+            this.titulo = ''
+            this.opcion = 0
+            this.errors = []
 
-                alerts.sweetAlert('error', 'Operación cancelada')
-            },
-            hasError(field) {
-                return field in (this.errors)
-            },
-            backendResponse(response) {
-                if(response.data.status == 'success'){
-                    this.closeModal()
-                    this.showList()
+            alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        hasError(field) {
+            return field in (this.errors)
+        },
+        backendResponse(response) {
+            if(response.data.status == 'success'){
+                this.closeModal()
+                this.showList()
+                alerts.sweetAlert(response.data.status, response.data.message)
+            }else{
                     alerts.sweetAlert(response.data.status, response.data.message)
-                }else{
-                        alerts.sweetAlert(response.data.status, response.data.message)
-                }
-            },
-            changeStatus(action, id, nombre) {
-                swal({
-                    title: 'Cambio de estado',
-                    text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "'+nombre+'"?',
-                    type: 'question',
-                    confirmButtonColor: '#25d5e4',
-                    cancelButtonColor: '#f8538d',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: '¡Cancelar!',
-                    confirmButtonClass: 'btn btn-guardar',
-                    cancelButtonClass: 'btn btn-cerrar',
-                    padding: '2em'
-                }).then((result) => {
-                    if (action == 'activate')
-                        var url = '/tipo_movimiento/activate'
-                    else if (action == 'desactivate')
-                        var url = '/tipo_movimiento/desactivate'
+            }
+        },
+        changeStatus(action, id, nombre) {
+            swal({
+                title: 'Cambio de estado',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "'+nombre+'"?',
+                type: 'question',
+                confirmButtonColor: '#25d5e4',
+                cancelButtonColor: '#f8538d',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: '¡Cancelar!',
+                confirmButtonClass: 'btn btn-guardar',
+                cancelButtonClass: 'btn btn-cerrar',
+                padding: '2em'
+            }).then((result) => {
+                if (action == 'activate')
+                    var url = '/tipo_movimiento/activate'
+                else if (action == 'desactivate')
+                    var url = '/tipo_movimiento/desactivate'
 
-                    if (result.value) {
-                        let me = this
-                        axios.put(url, {
-                            'id': id
-                        }).then(function (response) {
-                            me.showList()
-                            swal(
-                                'Cambio de estado',
-                                'Se ha cambiado el estado correctamente',
-                                'success'
-                            )
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
-                    } else if(result.dismiss === swal.DismissReason.cancel) {
+                if (result.value) {
+                    let me = this
+                    axios.put(url, {
+                        'id': id
+                    }).then(function (response) {
+                        me.showList()
                         swal(
-                            'Cancelado',
-                            'Se ha cancelado la operación',
-                            'error'
+                            'Cambio de estado',
+                            'Se ha cambiado el estado correctamente',
+                            'success'
                         )
-                    }
-                })
-            },
-            dataTable() {
-                let datatable = $('#zero-config').DataTable()
-                datatable.destroy()
-                this.$nextTick(function() {
-                    $('#zero-config').DataTable( {
-                        "oLanguage": {
-                            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                            "sInfo": "Mostrando página _PAGE_ de _PAGES_",
-                            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                            "sSearchPlaceholder": "Buscar...",
-                            "sLengthMenu": "Resultado :  _MENU_",
-                        },
-                        "stripeClasses": [],
-                        "lengthMenu": [5, 10, 20, 50],
-                        "pageLength": 5,
-                        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
-                    } );
-                });
-            },
-            showList() {
-                let me = this;
-                let url = '/tipo_movimiento';
-                axios.get(url).then(function (response) {
-                    me.lista_tipo_movimiento = response.data
-                    me.dataTable();
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-            },
-            store(){
-                let me = this
-                let url = '/tipo_movimiento/store'
-                axios.post(url,{
-                    'nombre': this.nombre,
-                    'entrada': this.entrada,
-                    'salida': this.salida
-                }).then(function (response) {
-                    me.backendResponse(response)
-                }).catch(error =>{
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
-            },
-            update(){
-                let me = this
-                let url = 'tipo_movimiento/update'
-                axios.put(url,{
-                    'nombre': this.nombre,
-                    'entrada': this.entrada,
-                    'salida': this.salida,
-                    'id': this.id
-                }).then(function (response){
-                    me.backendResponse(response)
-                }).catch(error =>{
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
-            },
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                } else if(result.dismiss === swal.DismissReason.cancel) {
+                    swal(
+                        'Cancelado',
+                        'Se ha cancelado la operación',
+                        'error'
+                    )
+                }
+            })
         },
-        mounted() {
-            this.showList()
+        dataTable() {
+            let datatable = $('#zero-config').DataTable()
+            datatable.destroy()
+            this.$nextTick(function() {
+                $('#zero-config').DataTable( {
+                    "oLanguage": {
+                        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                        "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                        "sSearchPlaceholder": "Buscar...",
+                        "sLengthMenu": "Resultado :  _MENU_",
+                    },
+                    "stripeClasses": [],
+                    "lengthMenu": [5, 10, 20, 50],
+                    "pageLength": 5,
+                    drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
+                } );
+            });
         },
-    }
+        showList() {
+            let me = this;
+            let url = '/tipo_movimiento';
+            axios.get(url).then(function (response) {
+                me.lista_tipo_movimiento = response.data
+                me.dataTable();
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        },
+        store(){
+            let me = this
+            let url = '/tipo_movimiento/store'
+            axios.post(url,{
+                'nombre': this.nombre,
+                'entrada': this.entrada,
+                'salida': this.salida
+            }).then(function (response) {
+                me.backendResponse(response)
+            }).catch(error =>{
+                if(error.response.status == 422)
+                    this.errors = error.response.data.errors
+            })
+        },
+        update(){
+            let me = this
+            let url = 'tipo_movimiento/update'
+            axios.put(url,{
+                'nombre': this.nombre,
+                'entrada': this.entrada,
+                'salida': this.salida,
+                'id': this.id
+            }).then(function (response){
+                me.backendResponse(response)
+            }).catch(error =>{
+                if(error.response.status == 422)
+                    this.errors = error.response.data.errors
+            })
+        },
+    },
+    mounted() {
+        this.showList()
+    },
+}
 </script>

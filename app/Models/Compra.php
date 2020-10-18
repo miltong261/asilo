@@ -13,6 +13,7 @@ class Compra extends Model
         'fecha_registro',
         'fecha_compra',
         'documento',
+        'no_documento',
         'total'
     ];
 

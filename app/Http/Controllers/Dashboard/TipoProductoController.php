@@ -18,11 +18,6 @@ class TipoProductoController extends Controller
         $this->tipoProductoRepository = $tipoProductoRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -50,12 +45,6 @@ class TipoProductoController extends Controller
         ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(TipoProductoRequest $request)
     {
         try {
@@ -81,12 +70,6 @@ class TipoProductoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function update(TipoProductoRequest $request)
     {
         try {

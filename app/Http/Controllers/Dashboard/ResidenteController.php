@@ -21,11 +21,6 @@ class ResidenteController extends Controller
         $this->residenteRepository = $residenteRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -33,12 +28,6 @@ class ResidenteController extends Controller
         return response()->json(['query' => $this->residenteRepository->indexResidente(), 'rol' => $rol]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ResidenteRequest $request)
     {
             // $residente = $request->only([
@@ -87,13 +76,6 @@ class ResidenteController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ResidenteUpdateRequest $request)
     {
         try {

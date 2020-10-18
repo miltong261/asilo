@@ -14,7 +14,8 @@ class AjusteProducto extends Model
         'cantidad',
         'entrada',
         'salida',
-        'observacion'];
+        'observacion'
+    ];
 
     public function user()
     {

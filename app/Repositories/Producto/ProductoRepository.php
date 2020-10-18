@@ -8,6 +8,8 @@ use App\Models\TipoProducto;
 use App\Models\Producto;
 use App\Repositories\BaseRepository;
 
+use Carbon\Carbon;
+
 class ProductoRepository extends BaseRepository
 {
     public function getModel()
@@ -73,5 +75,64 @@ class ProductoRepository extends BaseRepository
             return '00' .$count+=1;
         else
             return '000' .$count+=1;
+    }
+
+    public function productoPorVencer($type)
+    {
+        $asignacion;
+
+        if ($type == 'producto')
+            $asignacion = 1;
+        elseif ($type == 'medicamento')
+            $asignacion = 0;
+
+        $fecha_actual = Carbon::now()->toDateString();
+        $fecha_final = Carbon::now()->addDays(30)->toDateString();
+
+        return $this->getModel()
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
+        ->join('inventario', 'inventario.producto_id', '=', 'productos.id')
+        ->select(
+            'productos.id',
+            'productos.codigo',
+            'productos.nombre',
+            'productos.presentacion',
+            'unidad_medida.nombre as nombre_unidad',
+            'inventario.existencia',
+            'productos.fecha_vencimiento'
+        )
+        ->where('asignacion', $asignacion)
+        ->where('inventario.existencia', '>', 0)
+        ->whereBetween('productos.fecha_vencimiento', [$fecha_actual, $fecha_final])
+        ->get();
+    }
+
+    public function productoVencido($type)
+    {
+        $asignacion;
+
+        if ($type == 'producto')
+            $asignacion = 1;
+        elseif ($type == 'medicamento')
+            $asignacion = 0;
+
+        $fecha_actual = Carbon::now()->toDateString();
+
+        return $this->getModel()
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
+        ->join('inventario', 'inventario.producto_id', '=', 'productos.id')
+        ->select(
+            'productos.id',
+            'productos.codigo',
+            'productos.nombre',
+            'productos.presentacion',
+            'unidad_medida.nombre as nombre_unidad',
+            'inventario.existencia',
+            'productos.fecha_vencimiento'
+        )
+        ->where('asignacion', $asignacion)
+        ->where('inventario.existencia', '>', 0)
+        ->where('productos.fecha_vencimiento', '<', $fecha_actual)
+        ->get();
     }
 }

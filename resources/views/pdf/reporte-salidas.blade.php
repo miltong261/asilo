@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Salidas</title>
-    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-salidas.css">
+    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-salidas.css">
     <link rel="stylesheet" href="../../assets/css/style-salidas.css">
      <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
     <body>
@@ -12,7 +12,7 @@
             <table class="text-center" id="tabla-encabezado">
                 <tr>
                     <td id="td-img">
-                        <img src="C:/xampp/htdocs/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                        <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                     </td>
                     <td>
                         <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
@@ -77,29 +77,30 @@
         <!-- FIN TABLA DATOS -->
 
         <footer>
+            @foreach ($encabezado_salida as $encabezado)
             <table id="pie">
                 <tr>
-                    <td >Recibió (F)</td>
-                    <td class="info"></td>
-                    <td>Nombre </td>
-                    <td class="info"></td>
-                </tr>
-
-                <tr>
-                    <td>Autorizó (F)</td>
-                    <td class="info"></td>
-                    <td>Nombre</td>
+                    <td><strong>Recibió: </strong></td>
+                    <td> {{ $encabezado->nombre_empleado .' '. $encabezado->apellido_empleado }}</td>
+                    <td ><strong>(F):</strong></td>
                     <td class="info"></td>
                 </tr>
 
                 <tr>
-                    <td>Entregó (F)</td>
+                    <td><strong>Autorizó: </strong></td>
+                    <td>Isrel Gómez</td>
+                    <td ><strong>(F):</strong></td>
                     <td class="info"></td>
+                </tr>
 
-                    <td>Nombre</td>
+                <tr>
+                    <td><strong>Entregó: </strong></td>
+                    <td>{{ $encabezado->nombre_registro .' '. $encabezado->apellido_registro }}</td>
+                    <td ><strong>(F):</strong></td>
                     <td class="info"></td>
                 </tr>
             </table>
+            @endforeach
         </footer>
     </body>
 </html>

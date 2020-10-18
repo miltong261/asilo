@@ -17,23 +17,13 @@ class SalidaController extends Controller
     {
         $this->salidaRepository = $salidaRepository;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->salidaRepository->indexSalida());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(SalidaRequest $request)
     {
         $guardar = $this->salidaRepository->storeSalida($request->only([

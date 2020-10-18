@@ -18,11 +18,6 @@ class AjusteProductoController extends Controller
         $this->ajusteRepository = $ajusteRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function indexProducto(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
@@ -35,12 +30,6 @@ class AjusteProductoController extends Controller
         return response()->json($this->ajusteRepository->indexAjuste('medicamento'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(AjusteProductoRequest $request)
     {
         try {

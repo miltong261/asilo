@@ -83,10 +83,13 @@ class SalidaRepository extends BaseRepository
     {
         return $this->getModel()
         ->join('users', 'users.id', '=', 'salidas.user_id')
+        ->join('empleados as empleado', 'empleado.id', '=', 'users.empleado_id')
         ->join('empleados', 'empleados.id', '=', 'salidas.empleado_id')
         ->join('areas', 'areas.id', '=', 'empleados.area_id')
         ->select(
             'users.usuario as nombre_usuario',
+            'empleado.nombre as nombre_registro',
+            'empleado.apellido as apellido_registro',
             'salidas.codigo',
             'salidas.fecha_registro',
             'salidas.fecha_salida',

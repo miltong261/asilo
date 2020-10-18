@@ -85,7 +85,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-row mb-0">
+                            <div class="form-row mb-0" v-if="opcion==1">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
                                     <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
@@ -103,6 +103,24 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                    <input type="text" name="telefono" v-model="telefono" class="form-control" :class="hasError('telefono') ? 'is-invalid' : ''" placeholder="Ingrese teléfono...">
+                                    <div v-if="hasError('telefono')" class="invalid-feedback">
+                                        {{ errors.telefono[0] }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0" v-if="opcion==2">
+                                <div class="form-group col-md-6">
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
+                                    <div v-if="hasError('fecha_nacimiento')" class="invalid-feedback">
+                                        {{ errors.fecha_nacimiento[0] }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
                                     <input type="text" name="telefono" v-model="telefono" class="form-control" :class="hasError('telefono') ? 'is-invalid' : ''" placeholder="Ingrese teléfono...">
                                     <div v-if="hasError('telefono')" class="invalid-feedback">
@@ -235,8 +253,8 @@
 </template>
 
 <script>
-var moment = require('moment')
-import * as alerts from '../functions/alerts.js'
+    var moment = require('moment')
+    import * as alerts from '../functions/alerts.js'
 
 export default {
     data() {
@@ -278,6 +296,7 @@ export default {
                     this.modal = 1
                     this.titulo = "Registro de empleados"
                     this.opcion = 1
+                    this.fecha_nacimiento = moment().format('YYYY-MM-DD')
                     break
                 }
                 case 'update': {
@@ -353,8 +372,19 @@ export default {
             alerts.sweetAlert('success', 'Visualización de empleado exitosa')
         },
         hasError(field) {
-                return field in (this.errors)
-            },
+            return field in (this.errors)
+        },
+        otherError() {
+            let errores = 0
+            let actual = moment().format('YYYY-MM-DD')
+
+            if (moment(this.fecha_nacimiento).format('YYYY-MM-DD') > actual){
+                alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                errores = 1
+            }
+
+            return errores
+        },
         backendResponse(response) {
             if(response.data.status == 'success'){
                 this.closeModal()
@@ -481,41 +511,49 @@ export default {
         store(){
             let me = this
             let url = '/empleados/store'
-            axios.post(url,{
-                'area_id': this.area_id,
-                'puesto_id': this.puesto_id,
-                'nombre': this.nombre,
-                'apellido': this.apellido,
-                'fecha_nacimiento': this.fecha_nacimiento,
-                'dpi': this.dpi,
-                'direccion': this.direccion,
-                'telefono': this.telefono,
-            }).then(function (response) {
-                me.backendResponse(response)
-            }).catch(error =>{
-                if(error.response.status == 422)
-                    this.errors = error.response.data.errors
-            })
+
+            if (me.otherError()) return
+            else {
+                axios.post(url,{
+                    'area_id': this.area_id,
+                    'puesto_id': this.puesto_id,
+                    'nombre': this.nombre,
+                    'apellido': this.apellido,
+                    'fecha_nacimiento': this.fecha_nacimiento,
+                    'dpi': this.dpi,
+                    'direccion': this.direccion,
+                    'telefono': this.telefono,
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error =>{
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
         },
         update(){
             let me = this
             let url = 'empleados/update'
-            axios.put(url,{
-                'area_id': this.area_id,
-                'puesto_id': this.puesto_id,
-                'nombre': this.nombre,
-                'apellido': this.apellido,
-                'fecha_nacimiento': this.fecha_nacimiento,
-                'dpi': this.dpi,
-                'direccion': this.direccion,
-                'telefono': this.telefono,
-                'id': this.id
-            }).then(function (response){
-                me.backendResponse(response)
-            }).catch(error =>{
-                if(error.response.status == 422)
-                    this.errors = error.response.data.errors
-            })
+
+            if (me.otherError()) return
+            else {
+                axios.put(url,{
+                    'area_id': this.area_id,
+                    'puesto_id': this.puesto_id,
+                    'nombre': this.nombre,
+                    'apellido': this.apellido,
+                    'fecha_nacimiento': this.fecha_nacimiento,
+                    'dpi': this.dpi,
+                    'direccion': this.direccion,
+                    'telefono': this.telefono,
+                    'id': this.id
+                }).then(function (response){
+                    me.backendResponse(response)
+                }).catch(error =>{
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
         }
     },
     mounted() {

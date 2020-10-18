@@ -18,23 +18,12 @@ class DonacionController extends Controller
         $this->donacionRepository = $donacionRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/asilo');
         return response()->json($this->donacionRepository->indexDonacion());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(DonacionRequest $request)
     {
         if ($request->donador == '')

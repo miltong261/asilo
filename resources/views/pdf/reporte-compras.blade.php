@@ -82,29 +82,13 @@
         <!-- FIN TABLA DATOS -->
 
         <footer>
-            {{-- <table id="pie">
+            <table id="pie">
                 <tr>
-                    <td >Recibió (F)</td>
-                    <td class="info"></td>
-                    <td>Nombre </td>
+                    <td>Isrel Gómez</td>
+                    <td ><strong>(F):</strong></td>
                     <td class="info"></td>
                 </tr>
-
-                <tr>
-                    <td>Autorizó (F)</td>
-                    <td class="info"></td>
-                    <td>Nombre</td>
-                    <td class="info"></td>
-                </tr>
-
-                <tr>
-                    <td>Entregó (F)</td>
-                    <td class="info"></td>
-
-                    <td>Nombre</td>
-                    <td class="info"></td>
-                </tr>
-            </table> --}}
+            </table>
         </footer>
     </body>
 </html>

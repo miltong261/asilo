@@ -1,144 +1,181 @@
 <template>
-    <div>
+    <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <!-- Tabla -->
-                <template v-if="action==1">
-                    <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-plus"></i></button>
-                    <div class="widget-content widget-content-area br-6">
-                        <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
-                        <div class="table-responsive mb-0 mt-0">
-                            <table id="zero-config" class="table table-hover" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                        <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
-                                        <th class="text-center"><i class="fas fa-user-check"></i> Nombre completo</th>
-                                        <th class="text-center"><i class="fas fa-notes-medical"></i> Nota</th>
-                                        <th class="text-center"><i class="fas fa-briefcase-medical"></i> Medicamento</th>
-                                        <th class="text-center"><i class="fas fa-pencil-alt"></i> Cantidad</th>
-                                        <th class="text-center"><i class="fas fa-user"></i> Responsable</th>
-                                        <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(notas, index) in lista_notas " :key="notas.id">
+                <div class="widget-content widget-content-area br-6">
+                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
+                    <h5 class="text-secondary text-center"><strong>INFORMACIÓN RESIDENTES</strong></h5>
+                    <div class="table-responsive mb-0 mt-0">
+                        <table id="zero-config" class="table table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                    <th class="text-center"><i class="fas fa-qrcode"></i> Código</th>
+                                    <th class="text-center"><i class="fas fa-user-check"></i> Nombre</th>
+                                    <th class="text-center"><i class="fas fa-user-check"></i> Apellido</th>
+                                    <th class="text-center"><i class="fas fa-pager"></i> Edad</th>
+                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>123456</td>
+                                    <td>Maria</td>
+                                    <td>Werner</td>
+                                    <td>23</td>
+
+                                    <!-- <tr v-for="(notas, index) in lista_notas " :key="notas.id">
                                     <td v-text="index+1" class="text-center"></td>
                                     <td v-text="notas.codigo" class="text-center"></td>
                                     <td v-text="notas.nombre_id" class="text-center"></td>
                                     <td v-text="notas.nota" class="text-center"></td>
                                     <td v-text="notas.medicamento_id" class="text-center"></td>
                                     <td v-text="notas.cantidad" class="text-center"></td>
-                                    <td v-text="notas.responsable" class="text-center"></td>
+                                    <td v-text="notas.responsable" class="text-center"></td> -->
 
                                     <td class="text-center">
-                                        <button type="button" @click="openModal(notas)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                        <button type="button" @click="openForm('update', notas)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                        <button type="button" @click="openModal('create')" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
+                                        <button type="button" @click="openModalTable('create')" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
                                     </td>
                                 </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                </template>
+                </div>        
+            </div>
+        </div>
 
-                <!-- Formulario -->
-                <template v-else-if="action==2">
-                    <div class="row">
-                        <div id="flFormsGrid" class="col-lg-12 layout-spacing mx-auto">
-                            <div class="widget-content widget-content-area ">
-                                <div class="widget-header p-2">
-                                    <div class="row">
-                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
-                                            <h4 class="text-center text-secondary" v-text="titulo"></h4>
+
+        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModal()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
+                            <label class="text-info">Datos usuario</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-4">
+                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Usuario</label>
+                                        <input type="text" name="usuario" v-model="usuario" class="form-control" :class="hasError('usuario') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('usuario')" class="invalid-feedback">
+                                            {{ errors.usuario[0] }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-8">
+                                        <label class="text-dark"><i class="fas fa-user"></i> Nombre</label>
+                                        <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('nombre')" class="invalid-feedback">
+                                            {{ errors.nombre[0] }}
                                         </div>
                                     </div>
                                 </div>
-                                <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                                    <label class="text-info">Datos paciente</label>
-                                    <fieldset class="border border-fieldset rounded p-3">
-                                        <div class="form-row mb-0">
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre completo</label>
-                                                <select id="select_residentes" class="form-control" :class="hasError('residentes_id') ? 'is-invalid' : ''" v-model="residentes_id">
-                                                    <option v-for="residentes in lista_residentes" :key="residentes.id" :value="residentes.id" v-text="residentes.residentes"></option>
-                                                </select>
-                                                <div v-if="hasError('residentes_id')" class="invalid-feedback">
-                                                    {{ errors.residentes_id[0] }}
-                                                </div>
-                                            </div>
+                            </fieldset>
 
-                                            <div class="form-group col-md-7">
-                                                <label class="text-dark"><i class="fas fa-notes-medical"></i> historial</label>
-                                                <input type="text" class="form-control" name="historial" v-model="historial" :class="hasError('historial') ? 'is-invalid' : ''">
-                                                <div v-if="hasError('historial')" class="invalid-feedback">
-                                                    {{ errors.historial[0] }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <label class="text-success">Evaluación</label>
-                                    <fieldset class="border border-fieldset rounded p-3">
-                                        <div class="form-row mb-0">
-                                            <div class="form-group col-md-12">
-                                                <label class="text-dark"><i class="fas fa-notes-medical"></i> Nota evaluación</label>
-                                                <input type="text" class="form-control" name="nota" v-model="nota" :class="hasError('nota') ? 'is-invalid' : ''">
-                                                <div v-if="hasError('nota')" class="invalid-feedback">
-                                                    {{ errors.nota[0] }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row mb-0">
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Medicamento</label>
-                                                <select id="select_medicamento" class="form-control" :class="hasError('medicamento_id') ? 'is-invalid' : ''" v-model="medicamento_id">
-                                                    <option v-for="medicamento in lista_medicamentos" :key="medicamento.id" :value="medicamento.id" v-text="medicamento.nombre"></option>
-                                                </select>
-                                                <div v-if="hasError('medicamento_id')" class="invalid-feedback">
-                                                    {{ errors.medicamento_id[0] }}
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-pencil-alt"></i> Cantidad</label>
-                                                <input type="text" class="form-control" name="cantidad" v-model="cantidad" :class="hasError('cantidad') ? 'is-invalid' : ''">
-                                                <div v-if="hasError('cantidad')" class="invalid-feedback">
-                                                    {{ errors.cantidad[0] }}
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-user"></i> Responsable</label>
-                                                <input type="text" class="form-control" name="responsable" v-model="responsable" :class="hasError('responsable') ? 'is-invalid' : ''">
-                                                <div v-if="hasError('responsable')" class="invalid-feedback">
-                                                    {{ errors.responsable[0] }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <div class="form-row mb-0">
-                                        <div class="form-group col-md-12">
-                                            <label class="text-danger"><i class="fas fa-search"></i> Observaciones</label>
-                                            <textarea class="form-control" rows="3" name="observacion" v-model="observacion"></textarea>
+                            <label class="text-danger">Datos del residente</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-4">
+                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Codigo</label>
+                                        <input type="text" name="codigo" v-model="codigo" class="form-control" :class="hasError('codigo') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('codigo')" class="invalid-feedback">
+                                            {{ errors.codigo[0] }}
                                         </div>
                                     </div>
 
-                                    <div class="text-center">
-                                        <button type="button" @click="closeForm()" class="btn btn-cerrar">Cancelar <i class="far fa-times-circle"></i></button>
-                                        <button type="button" class="btn btn-guardar" v-if="opcion==1" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
-                                        <button type="button" class="btn btn-warning" v-if="opcion==2" @click="update()">Actualizar <i class="fas fa-sync-alt"></i></button>
+                                    <div class="form-group col-md-8">
+                                        <label class="text-dark"><i class="fas fa-user-check"></i> Nombre</label>
+                                        <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''">
+                                        <div v-if="hasError('nombre')" class="invalid-feedback">
+                                            {{ errors.nombre[0] }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            
+                            <label class="text-success">Notas residentes</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-12">
+                                        <label class="text-dark"><i class="fas fa-search"></i> Observacion</label>
+                                        <textarea type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese observacion..."></textarea>
+                                        <div v-if="hasError('observacion')" class="invalid-feedback">
+                                            {{ errors.observacion[0] }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModal()">Cancelar <i class="far fa-times-circle"></i></button>
+                        <button type="button" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Modal tabla-->
+        <div :class="{'mostrar': modalTable}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="widget-content widget-content-area ">
+                        <div class="widget-header p-2">
+                            <div class="form-group float-center">
+                                <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
+                                <h5 class="text-secondary text-center"><strong>DETALLE NOTAS</strong></h5>
+                            </div>
+                                    
+                            <div class="d-flex flex-row-reverse bd-highlight">
+                                <form class="form-inline p-3">
+                                    <div class="search-bar ">
+                                        <input type="date" class="form-control search-form-control">
+                                        <button class="btn btn-info mb-2 mr-2 rounded-circle "> <i class="fas fa-search"></i></button>
                                     </div>
                                 </form>
                             </div>
+
+                            <table id="zero-config" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                        <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha</th>
+                                        <th class="text-center"><i class="fas fa-clock"></i> Hora</th>
+                                        <th class="text-center"><i class="fas fa-search"></i> Observacion</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(detalle, index) in lista_detalle" :key="detalle.id">
+                                        <td v-text="index+1"></td>
+                                        <td v-text="detalle.fecha_actual"></td>
+                                        <td v-text="detalle.hora"></td>
+                                        <td v-text="detalle.observacion"></td>
+                                        <td v-text="detalle.nombre_usuario"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" @click="closeModalTable()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
                         </div>
                     </div>
-                </template>
+                </div>
             </div>
         </div>
+
+
     </div>
 </template>
 
@@ -149,66 +186,50 @@
         data() {
             return {
                 id: 0,
-                codigo: 0,
+                codigo: '',
                 lista_notas: [],
-                nombre_id: '',
-                historial: '',
-                nota: '',
-                medicamento_id: '',
-                cantidad: '',
-                responsable: '',
+                nombre: '',
+                usuario: '',
                 observacion: '',
 
-                lista_medicamentos: [],
-                lista_residentes: [],
+                lista_detalle: [],
 
-                action: 1,
                 modal:0,
-                opcion: 1,
+                opcionModal: 1,
+                modalTable: 0,
+                opcionModalTable: 1,
                 titulo: '',
 
                 errors: [],
             }
         },
         methods: {
-            openForm(metodo, data = []) {
-                switch(metodo){
-                    case 'create': {
-                        this.action = 2
-                        this.opcion = 1
-                        this.dataTable()
-                        // this.showList()
-                        this.titulo = "REGISTRO NOTAS ENFERMERIA"
-                        break
-                    }
-                    case 'update': {
-                        this.action = 2
-                        this.opcion = 2
-                        this.titulo = "ACTUALIZACIÓN DE FICHAs"
-
-                        thi.nombre = data['nombre']
-                        this.historial = data['historial']
-                        this.nota = data['nota']
-                        this.medicamento = data['medicamento']
-                        this.cantidad = data['cantidad']
-                        this.responsable = data['responsable']
-                        this.observacion = data['observacion']
-                        this.id = data['id']
-                        break
-                    }
-                }
+            openModal(metodo, data = []) {
+                this.modal = 1
+                this.titulo = "Registro de notas"
+                this.opcionModal = 1
+                    
             },
-            closeForm(){
-                this.historial = ''
-                this.nota = ''
-                this.medicamento = ''
-                this.cantidad = ''
-                this.responsable = ''
+            closeModal(){
+                this.nombre = ''
                 this.observacion = ''
 
-                // this.showList()
-                this.action = 1
-                this.opcion = 0
+                this.modal = 0
+                this.titulo = ''
+                this.opcionModal = 0
+                this.errors = []
+
+                alerts.sweetAlert('error', 'Operación cancelada')
+            },
+            openModalTable(data = []){
+                this.titulo = 'Lista de notas'
+
+                this.modalTable = 1
+                this.openModalTable = 1
+            },
+            closeModalTable(){
+                this.modalTable = 0
+                this.openModalTable = 0
                 this.titulo = ''
                 this.errors = []
 
@@ -219,9 +240,19 @@
             },
             backendResponse(response) {
                 if(response.data.status == 'success'){
-                    this.closeForm()
-                    // this.showList()
+                    if (this.opcionModal == 1){
+                    this.closeModal()
+                    this.showList()
                     alerts.sweetAlert(response.data.status, response.data.message)
+                    this.opcionModal = 0
+                }
+
+                if (this.openModalTable == 1){
+                    this.closeModalTable()
+                    this.showList()
+                    alerts.sweetAlert(response.data.status, response.data.message)
+                    this.opcionModalTable = 0
+                }
                 }else{
                     alerts.sweetAlert(response.data.status, response.data.message)
                 }

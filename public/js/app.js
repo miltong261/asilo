@@ -2137,7 +2137,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Ajuste de medicamento";
+            this.titulo = "AJUSTE DE MEDICAMENTO";
             this.opcion = 1;
             break;
           }
@@ -2180,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
       this.ajuste = '';
       this.modalAjuste = 0;
       this.titulo = '';
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización del ajuste exitoso');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -2514,7 +2514,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Ajuste de artículo";
+            this.titulo = "AJUSTE DE ARTÍCULO";
             this.opcion = 1;
             break;
           }
@@ -2557,7 +2557,7 @@ __webpack_require__.r(__webpack_exports__);
       this.ajuste = '';
       this.modalAjuste = 0;
       this.titulo = '';
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización del ajuste exitoso');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -2767,7 +2767,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de área";
+            this.titulo = "REGISTRO DE ÁREA";
             this.opcion = 1;
             break;
           }
@@ -2775,7 +2775,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de área";
+            this.titulo = "ACTUALIZACIÓN DE ÁREA";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -3344,6 +3344,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     closeModalProducto: function closeModalProducto() {
       this.modalProducto = 0;
       this.titulo = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Producto cancelado');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -3578,7 +3579,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.cantidad_suma = 0;
       this.compra_total = 0.0;
       this.arrayDetalle = [];
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'INSPECCIÓN FINALIZADA');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Inspección finalizada');
     },
     pdf: function pdf(id) {
       window.open('/compras/pdf/' + id + ',' + '_blank');
@@ -4385,7 +4386,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de departamento";
+            this.titulo = "REGISTRO DE DEPARTAMENTO";
             this.opcion = 1;
             break;
           }
@@ -4393,7 +4394,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de departamento";
+            this.titulo = "ACTUALIZACIÓN DE DEPARTAMENTO";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -5411,7 +5412,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de empleados";
+            this.titulo = "REGISTRO DE EMPLEADOS";
             this.opcion = 1;
             this.fecha_nacimiento = moment().format('YYYY-MM-DD');
             break;
@@ -6402,7 +6403,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de medicamento";
+            this.titulo = "REGISTRO DE MEDICAMENTO";
             this.opcion = 1;
             this.fecha_vencimiento = moment().format('YYYY-MM-DD');
             break;
@@ -6411,7 +6412,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de medicamento";
+            this.titulo = "ACTUALIZACIÓN DE MEDICAMENTO";
             this.opcion = 2;
             this.unidad_medida_id = data['unidad_medida_id'];
             this.tipo_producto_id = data['tipo_producto_id'];
@@ -6493,6 +6494,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.showList();
       this.lista_vencimiento = [];
       this.opcionModalVencimiento = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -6839,7 +6841,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de movimiento";
+            this.titulo = "REGISTRO DE MOVIMIENTO";
             this.opcion = 1;
             break;
           }
@@ -6847,7 +6849,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de movimiento";
+            this.titulo = "ACTUALIZACIÓN DE MOVIMIENTO";
             this.opcion = 2;
             this.monto = data['monto'];
             this.observacion = data['observacion'];
@@ -7088,7 +7090,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de municipio";
+            this.titulo = "REGISTRO DE MUNICIPIO";
             this.opcion = 1;
             break;
           }
@@ -7096,7 +7098,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de municipio";
+            this.titulo = "ACTUALIZACIÓN DE MUNICIPIO";
             this.opcion = 2;
             this.departamento_id = data['departamento_id'];
             this.nombre = data['nombre'];
@@ -7463,7 +7465,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   methods: {
     openModal: function openModal(id, codigo, nombre, apellido) {
       this.modal = 1;
-      this.titulo = 'Registro de notas';
+      this.titulo = 'REGISTRO DE NOTAS';
       this.residente_id = id;
       this.codigo = codigo;
       this.nombre_completo_paciente = nombre + ' ' + apellido;
@@ -7954,7 +7956,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de artículo";
+            this.titulo = "REGISTRO DE ARTÍCULO";
             this.opcion = 1;
             this.fecha_vencimiento = moment().format('YYYY-MM-DD');
             break;
@@ -7963,7 +7965,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de artículo";
+            this.titulo = "ACTUALIZACIÓN DE ARTÍCULO";
             this.opcion = 2;
             this.unidad_medida_id = data['unidad_medida_id'];
             this.tipo_producto_id = data['tipo_producto_id'];
@@ -8045,6 +8047,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.showList();
       this.lista_vencimiento = [];
       this.opcionModalVencimiento = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -8355,7 +8358,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de puesto";
+            this.titulo = "REGISTRO DE PUESTO";
             this.opcion = 1;
             break;
           }
@@ -8363,7 +8366,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de puesto";
+            this.titulo = "ACTUALIZACIÓN DE PUESTO";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.id = data['id'];
@@ -8989,7 +8992,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.observacion = '';
       this.titulo = '';
       this.modal = 0;
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'VISUALIZACIÓN DE FICHA EXITOSA');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Visualización de ficha exitosa');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -9675,6 +9678,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     closeModalProducto: function closeModalProducto() {
       this.modalProducto = 0;
       this.titulo = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Producto cancelado');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -9928,7 +9932,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.salida_nombre_area = '';
       this.cantidad_suma = 0;
       this.arrayDetalle = [];
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'INSPECCIÓN FINALIZADA');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Inspección finalizada');
     },
     pdf: function pdf(id) {
       window.open('/salidas/pdf/' + id + ',' + '_blank');
@@ -10234,7 +10238,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   methods: {
     openModal: function openModal(id, codigo, nombre, apellido) {
       this.modal = 1;
-      this.titulo = 'Registro de signos vitales';
+      this.titulo = 'REGISTRO DE SIGNOS VITALES';
       this.residente_id = id;
       this.codigo = codigo;
       this.nombre_completo_paciente = nombre + ' ' + apellido;
@@ -10367,6 +10371,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.signos_dias = [];
       this.signos_temperatura = [];
       this.titulo = '';
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -10597,7 +10602,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro tipo movimiento";
+            this.titulo = "REGISTRO TIPO MOVIMIENTO";
             this.opcion = 1;
             break;
           }
@@ -10605,7 +10610,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización tipo movimiento";
+            this.titulo = "ACTUALIZACIÓN TIPO MOVIMIENTO";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.entrada = data['entrada'];
@@ -10895,7 +10900,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de categoría";
+            this.titulo = "REGISTRO DE CATEGORÍA";
             this.opcion = 1;
             break;
           }
@@ -10903,7 +10908,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de categoría";
+            this.titulo = "ACTUALIZACIÓN DE CATEGORÍA";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.medicamento = data['medicamento'];
@@ -11191,7 +11196,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "Registro de unidad de medida";
+            this.titulo = "REGISTRO DE UNIDAD DE MEDIDA";
             this.opcion = 1;
             break;
           }
@@ -11199,7 +11204,7 @@ __webpack_require__.r(__webpack_exports__);
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de unidad de medida";
+            this.titulo = "ACTUALIZACIÓN DE UNIDAD DE MEDIDA";
             this.opcion = 2;
             this.nombre = data['nombre'];
             this.medicamento = data['medicamento'];
@@ -11527,7 +11532,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     openModal: function openModal() {
       this.modal = 1;
-      this.titulo = "Registro de usuario";
+      this.titulo = "REGISTRO DE USUARIO";
       this.opcionModal = 1;
       this.combo_rol();
       this.combo_empleado();
@@ -74467,13 +74472,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-clock" }),
+          _c("i", { staticClass: "fas fa-briefcase-medical" }),
           _vm._v(" Medicamento")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Estado en el que quedó el paciente")
+          _vm._v(" Estado del residente")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -74507,7 +74512,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-qrcode" }),
-      _vm._v(" Codigo")
+      _vm._v(" Coódigo")
     ])
   },
   function() {
@@ -74534,7 +74539,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-file" }),
-      _vm._v(" Observacion")
+      _vm._v(" Observación")
     ])
   }
 ]
@@ -77740,7 +77745,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-qrcode" }),
-      _vm._v(" Codigo")
+      _vm._v(" Código")
     ])
   },
   function() {
@@ -77757,7 +77762,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
-      _c("i", { staticClass: "fas fa-search" }),
+      _c("i", { staticClass: "fas fa-file" }),
       _vm._v(" Nota")
     ])
   }
@@ -84573,7 +84578,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Observacion")
+          _vm._v(" Observación")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -84607,7 +84612,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-qrcode" }),
-      _vm._v(" Codigo")
+      _vm._v(" Código")
     ])
   },
   function() {
@@ -84670,7 +84675,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Observacion")
+      _vm._v(" Observación")
     ])
   },
   function() {
@@ -104479,7 +104484,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

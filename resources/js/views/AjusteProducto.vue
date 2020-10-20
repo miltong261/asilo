@@ -231,7 +231,7 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Ajuste de artículo"
+                    this.titulo = "AJUSTE DE ARTÍCULO"
                     this.opcion = 1
                     break
                 }
@@ -282,7 +282,7 @@ export default {
             this.modalAjuste = 0
             this.titulo = ''
 
-            alerts.sweetAlert('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO')
+            alerts.sweetAlert('success', 'Visualización del ajuste exitoso')
         },
         hasError(field) {
             return field in (this.errors)

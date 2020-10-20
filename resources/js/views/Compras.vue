@@ -406,6 +406,8 @@ export default {
         closeModalProducto() {
             this.modalProducto = 0
             this.titulo = ''
+
+            alerts.sweetAlert('error', 'Producto cancelado')
         },
         hasError(field) {
             return field in (this.errors)
@@ -649,7 +651,7 @@ export default {
 
             this.arrayDetalle = []
 
-            alerts.sweetAlert('success', 'INSPECCIÓN FINALIZADA')
+            alerts.sweetAlert('success', 'Inspección finalizada')
         },
         pdf(id) {
             window.open('/compras/pdf/'+ id + ',' + '_blank');

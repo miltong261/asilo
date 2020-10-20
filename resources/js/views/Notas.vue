@@ -121,7 +121,7 @@
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-4">
-                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Codigo</label>
+                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Código</label>
                                         <input id="codigo_paciente" type="text" name="codigo" v-model="codigo" class="form-control">
                                     </div>
 
@@ -136,7 +136,7 @@
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
-                                        <label class="text-dark"><i class="fas fa-search"></i> Nota</label>
+                                        <label class="text-dark"><i class="fas fa-file"></i> Nota</label>
                                         <textarea type="text" name="nota" v-model="nota" class="form-control" :class="hasError('nota') ? 'is-invalid' : ''" placeholder="Ingrese nota..."></textarea>
                                         <div v-if="hasError('nota')" class="invalid-feedback">
                                             {{ errors.nota[0] }}
@@ -237,7 +237,7 @@ export default {
     methods: {
         openModal(id, codigo, nombre, apellido) {
             this.modal = 1
-            this.titulo = 'Registro de notas'
+            this.titulo = 'REGISTRO DE NOTAS'
 
             this.residente_id = id
             this.codigo = codigo

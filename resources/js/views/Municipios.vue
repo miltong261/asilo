@@ -98,13 +98,13 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Registro de municipio"
+                    this.titulo = "REGISTRO DE MUNICIPIO"
                     this.opcion = 1
                     break
                 }
                 case 'update': {
                     this.modal = 2
-                    this.titulo = "Actualización de municipio"
+                    this.titulo = "ACTUALIZACIÓN DE MUNICIPIO"
                     this.opcion = 2
                     this.departamento_id = data['departamento_id']
                     this.nombre = data['nombre']

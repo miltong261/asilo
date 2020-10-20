@@ -74,6 +74,10 @@ export default new Router({
             path: '/notas',
             component: require('../views/Notas').default
         },
+        {
+            path: '/kardex',
+            component: require('../views/Kardex').default
+        },
 
         /********** Rutas inventario **********/
         {

@@ -62,7 +62,7 @@
 
                                 </div>
 
-                                <table id="zero-config" class="table table-hover" style="width:100%">
+                                <table id="signos" class="table table-hover" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th class="text-center"><i class="fas fa-hashtag"></i></th>
@@ -313,8 +313,8 @@ export default {
         },
         openTable(id, nombre, apellido) {
             let me = this
-
             me.destroyTable('#listado')
+
             me.action = 2
 
             me.residente_id = id
@@ -328,6 +328,7 @@ export default {
                     alerts.sweetAlert(response.data.status, response.data.message)
                 } else {
                     me.lista_signos = response.data.signos
+                    me.dataTable('#signos')
                 }
             }).catch(function (error) {
                 console.log(error)
@@ -335,6 +336,7 @@ export default {
         },
         change_date() {
             let me = this
+            me.destroyTable('#signos')
 
             let url = '/signos/signos_fecha?id=' + me.residente_id + '&fecha_buscar=' + me.fecha
 
@@ -344,12 +346,14 @@ export default {
                     alerts.sweetAlert(response.data.status, response.data.message)
                 } else {
                     me.lista_signos = response.data.signos
+                    me.dataTable('#signos')
                 }
             }).catch(function (error) {
                 console.log(error)
             })
         },
         closeTable() {
+            this.destroyTable('#signos')
             this.showList()
             this.action = 1
             this.residente_id = 0

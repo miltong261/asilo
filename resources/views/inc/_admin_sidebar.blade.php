@@ -133,6 +133,9 @@
                     <router-link tag="li" to="/notas" exact-active-class="active">
                         <a>Notas</a>
                     </router-link>
+                    <router-link tag="li" to="/kardex" exact-active-class="active">
+                        <a>Kardex</a>
+                    </router-link>
                 </ul>
             </li>
 

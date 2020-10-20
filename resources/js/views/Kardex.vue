@@ -50,7 +50,7 @@
                                         <h6><strong>ASILO DE ANCIANOS RETALHULEU</strong></h6>
                                         <h6>Residenciales Ciudad Palmeras</h6>
                                         <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
-                                        <h5 class="text-secondary"><strong>NOTAS DE ENFERMERÍA</strong></h5>
+                                        <h5 class="text-secondary"><strong>KARDEX</strong></h5>
                                         <h5><strong class="text-secondary">Residente: </strong>{{ residente_nombre }}</h5>
                                     </div>
 
@@ -65,16 +65,18 @@
                                         <tr>
                                             <th class="text-center" ><i class="fas fa-hashtag"></i></th>
                                             <th class="text-center" ><i class="fas fa-clock"></i> Hora</th>
-                                            <th class="text-center" ><i class="fas fa-search"></i> nota</th>
+                                            <th class="text-center" ><i class="fas fa-clock"></i> Medicamento</th>
+                                            <th class="text-center" ><i class="fas fa-search"></i> Estado en el que quedó el paciente</th>
                                             <th class="text-center" ><i class="fas fa-user"></i> Registró</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(notas, index) in lista_notas" :key="notas.id">
+                                        <tr v-for="(kardex, index) in lista_kardex" :key="kardex.id">
                                             <td class="text-center" v-text="index+1"></td>
-                                            <td class="text-center" v-text="notas.hora"></td>
-                                            <td  v-text="notas.nota"></td>
-                                            <td class="text-center" v-text="notas.empleado_nombre + ' ' + notas.empleado_epellido"></td>
+                                            <td class="text-center" v-text="kardex.hora"></td>
+                                            <td class="text-center" v-text="kardex.nombre_medicamento +' '+kardex.presentacion_medicamento +' '+ kardex.nombre_unidad"></td>
+                                            <td v-text="kardex.observacion"></td>
+                                            <td class="text-center" v-text="kardex.empleado_nombre + ' ' + kardex.empleado_epellido"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -88,8 +90,7 @@
             </div>
         </div>
 
-
-        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-lg">
             <!-- Modal content-->
                 <div class="modal-content">
@@ -132,14 +133,28 @@
                                 </div>
                             </fieldset>
 
+                            <label class="text-danger">Medicamento</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-12">
+                                        <label class="text-dark"><i class="fas fa-search"></i> Buscar</label>
+                                        <select id="select_medicamento" class="form-control" v-model="medicamento_id">
+                                            <option v-for="medicamento in lista_medicamentos" :key="medicamento.medicamento_id" :value="medicamento.medicamento_id" v-text="medicamento.nombre_medicamento+'/ '+medicamento.presentacion_medicamento+' '+medicamento.nombre_unidad"></option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                            </fieldset>
+
                             <label class="text-success">Observaciones</label>
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
-                                        <label class="text-dark"><i class="fas fa-search"></i> Nota</label>
-                                        <textarea type="text" name="nota" v-model="nota" class="form-control" :class="hasError('nota') ? 'is-invalid' : ''" placeholder="Ingrese nota..."></textarea>
-                                        <div v-if="hasError('nota')" class="invalid-feedback">
-                                            {{ errors.nota[0] }}
+                                        <label class="text-dark"><i class="fas fa-file"></i> Observacion</label>
+                                        <textarea type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese observacion..."></textarea>
+                                        <div v-if="hasError('observacion')" class="invalid-feedback">
+                                            {{ errors.observacion[0] }}
                                         </div>
                                     </div>
                                 </div>
@@ -153,51 +168,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Modal tabla-->
-        <!-- <div :class="{'mostrar': modalTable}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header dark-header">
-                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
-                        <button type="button" @click="closeModalTable()" class="close" aria-label="Close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-
-                    <div class="widget-content widget-content-area ">
-                        <div class="widget-header p-2">
-                            <div class="d-flex justify-content-between">
-                                <div class="form-group float-lef">
-                                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
-                                </div>
-
-
-
-                            </div>
-                            <div class="table-responsive mb-0 mt-0">
-                                <table id="notas" class="table table-hover" style="width:100%">
-                                    <thead>
-                                        <tr>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <button type="button" @click="closeModalTable()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
     </div>
 </template>
 
@@ -218,10 +188,14 @@ export default {
             /** Datos del usuario */
             nombre_usuario: '',
             usuario_usuario: '',
-            nota: '',
 
-            /** Notas */
-            lista_notas: [],
+            /** Guardar */
+            lista_medicamentos: [],
+            medicamento_id: 0,
+            observacion: '',
+
+            /** observacions */
+            lista_kardex: [],
             fecha: '',
 
             /** Modales */
@@ -237,7 +211,8 @@ export default {
     methods: {
         openModal(id, codigo, nombre, apellido) {
             this.modal = 1
-            this.titulo = 'Registro de notas'
+            this.showMedicamento()
+            this.titulo = 'KARDEX'
 
             this.residente_id = id
             this.codigo = codigo
@@ -253,7 +228,8 @@ export default {
             this.residente_id = ''
             this.codigo = ''
             this.nombre_completo_paciente = ''
-            this.nota = ''
+            this.observacion = ''
+            this.medicamento_id = 0,
 
             this.errors = []
 
@@ -267,16 +243,14 @@ export default {
             me.residente_id = id
             me.residente_nombre = nombre + ' ' + apellido
 
-            let url = '/notas/notas?id=' + me.residente_id
-
-            me.titulo = 'Lista de notas del paciente: ' + me.residente_nombre + ' / ' + me.fecha
+            let url = '/kardex/kardex?id=' + me.residente_id
 
             axios.get(url).then(function (response) {
                 if (response.data.status == 'error') {
-                    me.lista_notas = []
+                    me.lista_kardex = []
                     alerts.sweetAlert(response.data.status, response.data.message)
                 } else {
-                    me.lista_notas = response.data.notas
+                    me.lista_kardex = response.data.kardex
                     me.dataTable('#notas')
                 }
             }).catch(function (error) {
@@ -287,16 +261,14 @@ export default {
             let me = this
             me.destroyTable('#notas')
 
-            let url = '/notas/notas_fecha?id=' + me.residente_id + '&fecha_buscar=' + me.fecha
-
-            me.titulo = 'Lista de notas del paciente: ' + me.residente_nombre + ' / ' + me.fecha
+            let url = '/kardex/kardex_fecha?id=' + me.residente_id + '&fecha_buscar=' + me.fecha
 
             axios.get(url).then(function (response) {
                 if (response.data.status == 'error') {
-                    me.lista_notas = []
+                    me.lista_kardex = []
                     alerts.sweetAlert(response.data.status, response.data.message)
                 } else {
-                    me.lista_notas = response.data.notas
+                    me.lista_kardex = response.data.kardex
                     me.dataTable('#notas')
                 }
             }).catch(function (error) {
@@ -312,10 +284,36 @@ export default {
             this.residente_id = 0
             this.residente_nombre = ''
             this.fecha = moment().format('YYYY-MM-DD')
-            this.lista_notas = []
+            this.lista_kardex = []
             this.errors = []
 
             alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        showMedicamento() {
+            let me = this
+            let url = '/kardex/medicamentos'
+
+            axios.get(url).then(function (response) {
+                if (response.data.status == 'error') {
+                    me.lista_medicamentos = []
+                    alerts.sweetAlert(response.data.status, response.data.message)
+                } else {
+                    me.lista_medicamentos = response.data.medicamentos
+                    $('#select_medicamento').select2({
+                        placeholder: 'Seleccione medicamento'
+                    })
+                }
+            }).catch(function (response) {
+                console.log(error)
+            })
+        },
+        change_medicamento() {
+            let me = this
+
+            $('#select_medicamento').on('change', function () {
+                me.$emit('change', this.value)
+                me.medicamento_id = this.value
+            })
         },
         hasError(field) {
             return field in (this.errors)
@@ -355,7 +353,7 @@ export default {
         },
         showList() {
             let me = this
-            let url = '/notas/'
+            let url = '/kardex/'
 
             axios.get(url).then(function (response) {
                 me.lista_residentes = response.data.pacientes
@@ -372,11 +370,12 @@ export default {
         },
         store() {
             let me = this
-            let url = '/notas/store'
+            let url = '/kardex/store'
 
             axios.post(url, {
                 'residente_id': this.residente_id,
-                'nota': this.nota
+                'producto_id': this.medicamento_id,
+                'observacion': this.observacion
             }).then(function (response) {
                 me.backendResponse(response)
             }).catch(error => {
@@ -388,6 +387,8 @@ export default {
     mounted() {
         this.fecha = moment().format('YYYY-MM-DD')
         this.showList()
+        this.change_medicamento()
     },
 }
 </script>
+

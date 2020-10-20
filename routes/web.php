@@ -145,6 +145,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', 'Dashboard\SignoVitalController@index');
             Route::get('/signos', 'Dashboard\SignoVitalController@signos');
             Route::get('/signos_fecha', 'Dashboard\SignoVitalController@signosFecha');
+            Route::get('/graficos', 'Dashboard\SignoVitalController@graficos');
             Route::post('/store', 'Dashboard\SignoVitalController@store');
         });
 

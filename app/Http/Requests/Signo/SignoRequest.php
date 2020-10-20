@@ -24,11 +24,11 @@ class SignoRequest extends FormRequest
     public function rules()
     {
         return [
-            'respiraciones' => ['required', 'integer'],
+            'respiraciones' => ['required', 'string'],
             'presion' => ['required', 'string'],
-            'pulso' => ['required', 'numeric'],
+            'pulso' => ['required', 'string'],
             'peso' => ['required', 'numeric'],
-            'temperatura' => ['required', 'numeric', 'between:35.5,41.0'],
+            'temperatura' => ['required', 'numeric', 'between:35.5,40.5'],
             'observacion' => ['nullable']
         ];
     }
@@ -37,15 +37,17 @@ class SignoRequest extends FormRequest
     {
         return [
             'respiraciones.required' => 'Campo obligatorio',
-            'respiraciones.numeric' => 'Solo se permiten números enteros',
 
             'presion.required' => 'Campo obligatorio',
 
             'pulso.required' => 'Campo obligatorio',
 
+            'peso.required' => 'Campo obligatorio',
+            'peso.numeric' => 'Solo se permiten números',
+
             'temperatura.required' => 'Campo obligatorio',
             'temperatura.numeric' => 'Solo se permiten números',
-            'temperatura.between' => 'Tiene que estar entre :min - :max.'
+            'temperatura.between' => 'Valores permitidos entre :min - :max.'
         ];
     }
 }

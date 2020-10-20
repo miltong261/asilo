@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Signo\SignoRequest;
 use Illuminate\Http\Request;
 use App\Repositories\SignoVital\SignoVitalRepository;
 
@@ -18,12 +19,13 @@ class SignoVitalController extends Controller
         $this->signosRepository = $signosRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->signosRepository->indexSignos());
+        if (!$request->ajax()) return redirect('/asilo');
+        return $this->signosRepository->indexSignos();
     }
 
-    public function store(Request $request)
+    public function store(SignoRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -59,5 +61,10 @@ class SignoVitalController extends Controller
     public function signosFecha(Request $request)
     {
         return $this->signosRepository->signosTablaFecha($request->id, $request->fecha_buscar);
+    }
+
+    public function graficos(Request $request)
+    {
+        return $this->signosRepository->estadistica($request->id);
     }
 }

@@ -19,9 +19,10 @@ class NotaController extends Controller
         $this->notaRepository = $notaRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->notaRepository->indexNotas());
+        if (!$request->ajax()) return redirect('/asilo');
+        return $this->notaRepository->indexNotas();
     }
 
     public function store(NotaRequest $request)

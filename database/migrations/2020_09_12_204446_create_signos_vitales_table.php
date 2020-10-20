@@ -28,12 +28,12 @@ class CreateSignosVitalesTable extends Migration
 
             $table->date('fecha_registro');
             $table->time('hora_registro');
-            $table->decimal('respiraciones');
+            $table->string('respiraciones');
             $table->string('presion', 5,2);
             $table->decimal('pulso', 5,2);
             $table->decimal('peso', 5, 2);
             $table->decimal('temperatura', 5,2);
-            $table->text('observacion', 70);
+            $table->string('observacion', 70);
 
             $table->timestamps();
         });

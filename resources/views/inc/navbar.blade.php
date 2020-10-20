@@ -26,9 +26,9 @@
                     @if (Auth::user()->rol_id == 1)
                         <img src="{{asset('assets/img/administrador.png')}}" alt="avatar">
                     @elseif (Auth::user()->rol_id == 2)
-                        <img src="{{asset('assets/img/enfermera.png')}}" alt="avatar">
-                    @elseif (Auth::user()->rol_id == 3)
                         <img src="{{asset('assets/img/secretario.png')}}" alt="avatar">
+                    @elseif (Auth::user()->rol_id == 3)
+                        <img src="{{asset('assets/img/enfermera.png')}}" alt="avatar">
                     @endif
                 </a>
                 <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">

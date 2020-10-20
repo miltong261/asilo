@@ -378,7 +378,7 @@ export default {
             this.fecha_salida = '',
             this.lista_empleados = []
             this.empleado_id = 0,
-            this.area_empleado = ''
+            this.area_nombre = ''
 
             this.select_option = ''
             this.option_enabled = 1

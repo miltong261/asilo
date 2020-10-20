@@ -9,6 +9,8 @@ use App\Models\Empleado;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\DB;
+
 class SignoVitalRepository extends BaseRepository
 {
     public function getModel()
@@ -90,10 +92,10 @@ class SignoVitalRepository extends BaseRepository
         if ($data == []) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'No hay registro de signos para la fecha ' . $actual
+                'message' => 'No hay registro de signos vitales para la fecha ' . $actual
             ]);
         } else
-            return ['notas' => $data];
+            return ['signos' => $data];
     }
 
     public function signosTablaFecha($id, $fecha)
@@ -143,7 +145,33 @@ class SignoVitalRepository extends BaseRepository
                 'message' => 'No hay registro de signos para la fecha ' . $fecha
             ]);
         } else
-            return ['notas' => $data];
+            return ['signos' => $data];
     }
 
+    public function estadistica($id)
+    {
+        $days = ['Sunday' => 'Domingo', 'Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miércoles', 'Thursday' => 'Jueves', 'Friday' => 'Viernes', 'Saturday' => 'Sábado'];
+
+        $arraySignos = [];
+
+        $anio = date('Y');
+
+        $signos = DB::table('signos_vitales')
+        ->join('residentes', 'residentes.id', '=', 'signos_vitales.residente_id')
+        ->select(
+            DB::raw('DAYNAME(signos_vitales.fecha_registro) as dias'),
+            DB::raw('YEAR(signos_vitales.fecha_registro) as anio'),
+            DB::raw('AVG(signos_vitales.temperatura) as temperatura')
+        )
+        ->groupBy(DB::raw('DAYNAME(signos_vitales.fecha_registro)'), DB::raw('YEAR(signos_vitales.fecha_registro)'))
+        ->whereYear('signos_vitales.fecha_registro', $anio)
+        ->where('residentes.id', $id)
+        ->get();
+
+        foreach ($signos as $signo) {
+            $arraySignos[] = ['dias' => $days[$signo->dias], 'temperatura' => $signo->temperatura, 'anio' => $signo->anio];
+        }
+
+        return ['signos' => $arraySignos];
+    }
 }

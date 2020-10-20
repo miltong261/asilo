@@ -294,7 +294,7 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Registro de empleados"
+                    this.titulo = "REGISTRO DE EMPLEADOS"
                     this.opcion = 1
                     this.fecha_nacimiento = moment().format('YYYY-MM-DD')
                     break

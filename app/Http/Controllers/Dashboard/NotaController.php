@@ -42,7 +42,7 @@ class NotaController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó la nota correctamente'
+                    'message' => 'Se guardó correctamente la nota del residente'
                 ]);
             }
         } catch (\Throwable $th) {

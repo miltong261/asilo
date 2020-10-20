@@ -529,7 +529,7 @@ export default {
             this.titulo = ''
             this.modal = 0
 
-            alerts.sweetAlert('success', 'VISUALIZACIÓN DE FICHA EXITOSA')
+            alerts.sweetAlert('success', 'Visualización de ficha exitosa')
         },
         hasError(field) {
             return field in (this.errors)

@@ -42,7 +42,7 @@ class SignoVitalController extends Controller
                 DB::commit();
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó correctamente la toma de signos vitales del residente'
+                    'message' => 'Se guardó correctamente los signos vitales del residente'
                 ]);
             } else {
                 return $guardar;

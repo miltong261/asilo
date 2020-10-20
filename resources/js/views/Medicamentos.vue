@@ -339,14 +339,14 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Registro de medicamento"
+                    this.titulo = "REGISTRO DE MEDICAMENTO"
                     this.opcion = 1
                     this.fecha_vencimiento = moment().format('YYYY-MM-DD')
                     break
                 }
                 case 'update': {
                     this.modal = 2
-                    this.titulo = "Actualización de medicamento"
+                    this.titulo = "ACTUALIZACIÓN DE MEDICAMENTO"
                     this.opcion = 2
 
                     this.unidad_medida_id = data['unidad_medida_id']
@@ -433,6 +433,8 @@ export default {
             this.showList()
             this.lista_vencimiento = []
             this.opcionModalVencimiento = ''
+
+            alerts.sweetAlert('error', 'Operación cancelada')
         },
         hasError(field) {
             return field in (this.errors)

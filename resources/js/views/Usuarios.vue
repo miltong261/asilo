@@ -185,7 +185,7 @@ export default {
     methods: {
         openModal() {
             this.modal = 1
-            this.titulo = "Registro de usuario"
+            this.titulo = "REGISTRO DE USUARIO"
             this.opcionModal = 1
 
             this.combo_rol()

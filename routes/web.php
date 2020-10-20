@@ -139,6 +139,24 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/pdf/{id}', 'Dashboard\ResidenteController@pdf');
         });
 
+        /********** Rutas de enfermería **********/
+        // Signos vitales
+        Route::group(['prefix' => 'signos'], function () {
+            Route::get('/', 'Dashboard\SignoVitalController@index');
+            Route::get('/signos', 'Dashboard\SignoVitalController@signos');
+            Route::get('/signos_fecha', 'Dashboard\SignoVitalController@signosFecha');
+            Route::get('/graficos', 'Dashboard\SignoVitalController@graficos');
+            Route::post('/store', 'Dashboard\SignoVitalController@store');
+        });
+
+        // Notas
+        Route::group(['prefix' => 'notas'], function () {
+            Route::get('/', 'Dashboard\NotaController@index');
+            Route::get('/notas', 'Dashboard\NotaController@notas');
+            Route::get('/notas_fecha', 'Dashboard\NotaController@notasFecha');
+            Route::post('/store', 'Dashboard\NotaController@store');
+        });
+
         /********** Rutas de inventario **********/
         // Ajuste de medicamento
         Route::group(['prefix' => 'ajuste_producto'], function () {
@@ -319,6 +337,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     /******************** Rutas para la enfermera ********************/
-    Route::group(['middleware' => 'Enfermera'], function () {
-    });
+    // Route::group(['middleware' => 'Enfermera'], function () {
+    //     Route::group(['prefix' => 'signos'], function () {
+    //         Route::get('/', 'Dashboard\SignoVitalController@index');
+    //     });
+    // });
 });

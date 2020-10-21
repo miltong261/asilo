@@ -42,7 +42,7 @@
                                     </td>
                                     <td v-text="movimiento.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
-                                        <template v-if="movimiento.tipo_movimiento_nombre!='Compra'&&movimiento.tipo_movimiento_nombre!='Donación'">
+                                        <template v-if="movimiento.tipo_movimiento_nombre!='Compra'">
                                             <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                         </template>
                                     </td>

@@ -168,7 +168,10 @@
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                                <input type="text" class="form-control" name="telefono_familia" v-model="telefono_familia">
+                                                <input type="text" class="form-control" name="telefono_familia" v-model="telefono_familia" :class="hasError('telefono_familia') ? 'is-invalid' : ''">
+                                                <div v-if="hasError('telefono_familia')" class="invalid-feedback">
+                                                    {{ errors.telefono_familia[0] }}
+                                                </div>
                                             </div>
                                         </div>
 
@@ -183,7 +186,10 @@
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                                <input type="text" class="form-control" name="telefono_persona_referida" v-model="telefono_persona_referida">
+                                                <input type="text" class="form-control" name="telefono_persona_referida" v-model="telefono_persona_referida" :class="hasError('telefono_persona_referida') ? 'is-invalid' : ''">
+                                                <div v-if="hasError('telefono_persona_referida')" class="invalid-feedback">
+                                                    {{ errors.telefono_persona_referida[0] }}
+                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -759,7 +765,6 @@ export default {
             axios.get(url).then(function (response) {
                 me.lista_residentes = response.data.query
                 me.rol_id = response.data.rol
-                console.log(response.data)
                 me.dataTable()
             }).catch(function (error) {
                 console.log(error)

@@ -68,7 +68,7 @@
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="fas fa-user"></i> Empleado</label>
                                     <select id="select_empleado" class="form-control" :class="hasError('empleado_id') ? 'is-invalid' : ''" v-model="empleado_id">
-                                        <option v-for="empleado in lista_empleados" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre"></option>
+                                        <option v-for="empleado in lista_empleados" :key="empleado.id" :value="empleado.id" v-text="empleado.nombre+' / '+empleado.nombre_puesto"></option>
                                     </select>
                                     <div v-if="hasError('empleado_id')" class="invalid-feedback">
                                         {{ errors.empleado_id[0] }}

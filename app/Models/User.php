@@ -23,7 +23,7 @@ class User extends Model
 
     public function empleado()
     {
-        return $this->hasOne('App\Models\Empleado', 'empleado_id', 'id');
+        return $this->hasOne('App\Models\Empleado');
     }
 
     public function residentes()

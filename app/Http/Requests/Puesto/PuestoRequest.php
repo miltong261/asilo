@@ -24,7 +24,7 @@ class PuestoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:35'
+            'nombre' => ['required', 'max:35', 'unique:puestos,nombre,' . $this->id]
         ];
     }
 
@@ -33,6 +33,7 @@ class PuestoRequest extends FormRequest
         return [
             'nombre.required' => 'El nombre es obligatorio',
             'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
+            'nombre.unique' => 'El puesto ya existe'
         ];
     }
 }

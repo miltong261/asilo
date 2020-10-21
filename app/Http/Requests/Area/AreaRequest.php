@@ -24,7 +24,7 @@ class AreaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'max:35']
+            'nombre' => ['required', 'max:35', 'unique:areas,nombre,' . $this->id]
         ];
     }
 
@@ -32,7 +32,7 @@ class AreaRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El nombre es obligatorio',
-            // 'nombre.exists' => 'El área ya existe',
+            'nombre.unique' => 'El área ya existe',
             'nombre.max' => 'Solo se permiten :max caracteres'
         ];
     }

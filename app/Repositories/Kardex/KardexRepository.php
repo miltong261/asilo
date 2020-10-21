@@ -160,7 +160,7 @@ class KardexRepository extends BaseRepository
         )
         ->where('productos.asignacion', 0)
         ->where('tipo_producto.id', 1)
-        ->groupBy('medicamento.id')
+        ->groupBy('medicamento_id')
         ->get();
 
         if ($medicamento == []) {

@@ -143,10 +143,10 @@
                                             <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
-                                                <input onkeypress="" v-model="detalle.cantidad" type="number" value="2" class="form-control">
+                                                <input onkeypress="return event.charCode >= 48" v-model="detalle.cantidad" type="number" value="2" class="form-control">
                                             </td>
                                             <td>
-                                                <input onkeypress="" v-model="detalle.precio" type="number" value="2" class="form-control">
+                                                <input onkeypress="return event.charCode >= 48" v-model="detalle.precio" type="number" value="2" class="form-control">
                                             </td>
                                             <td>
                                                 <button class="btn btn-eliminar mb-2 mr-2 rounded-circle" @click="eliminarProductoDetalle(index)"> <i class="fa fa-trash-alt"></i></button>

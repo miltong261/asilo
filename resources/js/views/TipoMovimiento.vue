@@ -14,7 +14,6 @@
                                     <th class="text-center"><i class="fas fa-paste"></i> Nombre</th>
                                     <th class="text-center"><i class="fas fa-cart-plus"></i> Entrada</th>
                                     <th class="text-center"><i class="fas fa-shopping-cart"></i> Salida</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Registró: </th>
                                     <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
@@ -40,7 +39,6 @@
                                             <span class="badge outline-badge-no-check"><i class="fa fa-times-circle"></i></span>
                                         </div>
                                     </td>
-                                    <td v-text="tipo_movimiento.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
                                         <div v-if="tipo_movimiento.estado">
                                             <span class="badge outline-badge-check">Activo</span>

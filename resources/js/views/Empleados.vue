@@ -46,6 +46,9 @@
                                                 <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                             </template>
                                         </template>
+                                        <template v-else>
+                                            <button type="button" @click="openModalEmpleado(empleado)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>
@@ -85,7 +88,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-row mb-0" v-if="opcion==1">
+                            <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
                                     <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
@@ -103,24 +106,6 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                    <input type="text" name="telefono" v-model="telefono" class="form-control" :class="hasError('telefono') ? 'is-invalid' : ''" placeholder="Ingrese teléfono...">
-                                    <div v-if="hasError('telefono')" class="invalid-feedback">
-                                        {{ errors.telefono[0] }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-0" v-if="opcion==2">
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
-                                    <input type="date" name="fecha_nacimiento" v-model="fecha_nacimiento" class="form-control" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
-                                    <div v-if="hasError('fecha_nacimiento')" class="invalid-feedback">
-                                        {{ errors.fecha_nacimiento[0] }}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
                                     <input type="text" name="telefono" v-model="telefono" class="form-control" :class="hasError('telefono') ? 'is-invalid' : ''" placeholder="Ingrese teléfono...">
                                     <div v-if="hasError('telefono')" class="invalid-feedback">

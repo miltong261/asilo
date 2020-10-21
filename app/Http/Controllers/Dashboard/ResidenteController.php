@@ -30,30 +30,6 @@ class ResidenteController extends Controller
 
     public function store(ResidenteRequest $request)
     {
-            // $residente = $request->only([
-            //     'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'
-            // ])
-            // + ['codigo' => 'RESIDENTE-' . $this->residenteRepository->generateCode()]
-            // + ['fecha_ingreso' => Carbon::now()];
-
-            // $signos = $request->only([
-            //     'pulso', 'temperatura', 'presion', 'peso'
-            // ])
-            // + ['fecha_registro' => Carbon::now()]
-            // + ['hora_registro' => Carbon::now()->toTimeString()];
-
-            // $guardar = $this->residenteRepository->residente('guardar', $residente, $signos, null);
-
-            // if ($guardar == 'exitoso') {
-            //     DB::commit();
-
-            //     return response()->json([
-            //         'status' => 'success',
-            //         'message' => 'Se guardó correctamente al residente ' . $request->nombre . ' ' . $request->apellido
-            //     ]);
-            // }else
-            //     return $guardar;
-
         try {
             DB::beginTransaction();
 
@@ -79,26 +55,6 @@ class ResidenteController extends Controller
     public function update(ResidenteUpdateRequest $request)
     {
         try {
-            // $residente = $request->only([
-            //     'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'
-            // ]);
-
-            // $signos = $request->only([
-            //     'pulso', 'temperatura', 'presion', 'peso'
-            // ]);
-
-            // $actualizar = $this->residenteRepository->residente('actualizar', $residente, $signos, $request->id);
-
-            // if ($actualizar == 'exitoso') {
-            //     DB::commit();
-
-            //     return response()->json([
-            //         'status' => 'success',
-            //         'message' => 'Se actualizó correctamente al residente ' . $request->nombre . ' ' . $request->apellido
-            //     ]);
-            // }else
-            //     return $actualizar;
-
             DB::beginTransaction();
 
             $this->residenteRepository->update($request->only([

@@ -5,6 +5,7 @@
                 <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-store"></i></button>
                 <button type="button" @click="openVencimiento(false)" class="btn btn-warning mb-2">Artículos a vencer <i class="fas fa-calendar-alt"></i></button>
                 <button type="button" @click="openVencimiento(true)" class="btn btn-cerrar mb-2">Artículos vencidos <i class="fas fa-calendar-alt"></i></button>
+                <button type="button" @click="openModalPDF('create')" class="btn btn-danger mb-1 mr-1"> PDF <i class="fas fa-file-pdf"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
@@ -288,6 +289,41 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para el pdf -->
+        <div :class="{'mostrar': modalPDF}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModalPDF()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Selecciones el mes</label>
+                                    <select id="select_mes" class="form-control" :class="hasError('fecha_inventario_id') ? 'is-invalid' : ''" v-model="fecha_inventario_id">
+                                        <option v-for="fecha_inventario in lista_fecha_inventarios" :key="fecha_inventario.id" :value="fecha_inventario.id" v-text="fecha_inventario.nombre"></option>
+                                    </select>
+                                    <div v-if="hasError('fecha_inventario_id')" class="invalid-feedback">
+                                        {{ errors.fecha_inventario_id[0] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModalPDF()">Salir <i class="fas fa-sign-out-alt"></i></button>
+                        <button type="button" class="btn btn-cerrar">Descargar <i class="fas fa-download"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -317,6 +353,8 @@ export default {
             unidad_medida_id: 0,
             unidad_medida_nombre: '',
 
+            fecha_inventario: '',
+
             lista_tipo_producto: [],
             tipo_producto_id: 0,
             tipo_producto_nombre: '',
@@ -327,6 +365,7 @@ export default {
             errors: [],
 
             modalProducto: 0,
+            modalPDF: 0,
 
             lista_vencimiento: [],
             modalVencimiento: 0,
@@ -361,6 +400,7 @@ export default {
             }
             this.combo_producto_unidad_medida()
             this.combo_producto_tipo_producto()
+            this.combo_mes()
         },
         openModalProducto(data = []) {
             this.modalProducto = 1
@@ -437,6 +477,15 @@ export default {
             this.opcionModalVencimiento = ''
 
             alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        openModalPDF(data = []){
+            this.modalPDF = 1
+        },
+        closeModalPDF(){
+            this.fecha_inventario = ''
+            this.modalPDF = 0
+
+            alerts.sweetAlert('error', 'Descarga cancelada')
         },
         hasError(field) {
             return field in (this.errors)
@@ -520,6 +569,9 @@ export default {
                 me.tipo_producto_id = this.value
             })
         },
+        change_select_mes() {
+   
+        },
         combo_producto_unidad_medida() {
             let me = this
             let url = '/unidad_medida/combo_producto'
@@ -544,6 +596,11 @@ export default {
             })
             .catch(function (error) {
                 console.log(error)
+            })
+        },
+        combo_mes(){
+            $('#select_mes').select2({
+                placeholder: 'Seleccione el mes'
             })
         },
         dataTable(table) {
@@ -644,6 +701,7 @@ export default {
         this.showList()
         this.change_select_unidad()
         this.change_select_tipo()
+        this.change_select_mes()
     },
 }
 </script>

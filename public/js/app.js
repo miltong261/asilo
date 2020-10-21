@@ -6350,6 +6350,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -6375,11 +6411,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       lista_tipo_producto: [],
       tipo_producto_id: 0,
       tipo_producto_nombre: '',
+      fecha_inventario: '',
       modal: 0,
       titulo: '',
       opcion: 0,
       errors: [],
       modalMedicamento: 0,
+      modalPDF: 0,
       lista_vencimiento: [],
       modalVencimiento: 0,
       opcionModalVencimiento: '',
@@ -6417,6 +6455,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       this.combo_medicamento_unidad_medida();
       this.combo_medicamento_tipo_producto();
+      this.combo_mes();
     },
     openModalMedicamento: function openModalMedicamento() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -6486,6 +6525,15 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.lista_vencimiento = [];
       this.opcionModalVencimiento = '';
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    openModalPDF: function openModalPDF() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      this.modalPDF = 1;
+    },
+    closeModalPDF: function closeModalPDF() {
+      this.fecha_inventario = '';
+      this.modalPDF = 0;
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Descarga cancelada');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -6558,6 +6606,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.tipo_producto_id = this.value;
       });
     },
+    change_select_mes: function change_select_mes() {},
     combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_medicamento';
@@ -6580,6 +6629,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         });
       })["catch"](function (error) {
         console.log(error);
+      });
+    },
+    combo_mes: function combo_mes() {
+      $('#select_mes').select2({
+        placeholder: 'Seleccione el mes'
       });
     },
     dataTable: function dataTable(table) {
@@ -6677,6 +6731,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     this.showList();
     this.change_select_unidad();
     this.change_select_tipo();
+    this.change_select_mes();
   }
 });
 
@@ -7904,6 +7959,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -7926,6 +8017,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       lista_unidad_medida: [],
       unidad_medida_id: 0,
       unidad_medida_nombre: '',
+      fecha_inventario: '',
       lista_tipo_producto: [],
       tipo_producto_id: 0,
       tipo_producto_nombre: '',
@@ -7934,6 +8026,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       opcion: 0,
       errors: [],
       modalProducto: 0,
+      modalPDF: 0,
       lista_vencimiento: [],
       modalVencimiento: 0,
       opcionModalVencimiento: '',
@@ -7971,6 +8064,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       this.combo_producto_unidad_medida();
       this.combo_producto_tipo_producto();
+      this.combo_mes();
     },
     openModalProducto: function openModalProducto() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -8040,6 +8134,15 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.lista_vencimiento = [];
       this.opcionModalVencimiento = '';
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    openModalPDF: function openModalPDF() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      this.modalPDF = 1;
+    },
+    closeModalPDF: function closeModalPDF() {
+      this.fecha_inventario = '';
+      this.modalPDF = 0;
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Descarga cancelada');
     },
     hasError: function hasError(field) {
       return field in this.errors;
@@ -8112,6 +8215,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.tipo_producto_id = this.value;
       });
     },
+    change_select_mes: function change_select_mes() {},
     combo_producto_unidad_medida: function combo_producto_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_producto';
@@ -8134,6 +8238,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         });
       })["catch"](function (error) {
         console.log(error);
+      });
+    },
+    combo_mes: function combo_mes() {
+      $('#select_mes').select2({
+        placeholder: 'Seleccione el mes'
       });
     },
     dataTable: function dataTable(table) {
@@ -8231,6 +8340,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     this.showList();
     this.change_select_unidad();
     this.change_select_tipo();
+    this.change_select_mes();
   }
 });
 
@@ -74553,6 +74663,20 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "button",
+            {
+              staticClass: "btn btn-danger mb-1 mr-1",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openModalPDF("create")
+                }
+              }
+            },
+            [_vm._v(" PDF "), _c("i", { staticClass: "fas fa-file-pdf" })]
+          ),
+          _vm._v(" "),
+          _c(
             "div",
             { staticClass: "widget-content widget-content-area br-6" },
             [
@@ -75759,6 +75883,141 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalPDF },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalPDF()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(19),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fecha_inventario_id,
+                              expression: "fecha_inventario_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: _vm.hasError("fecha_inventario_id")
+                            ? "is-invalid"
+                            : "",
+                          attrs: { id: "select_mes" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.fecha_inventario_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.lista_fecha_inventarios, function(
+                          fecha_inventario
+                        ) {
+                          return _c("option", {
+                            key: fecha_inventario.id,
+                            domProps: {
+                              value: fecha_inventario.id,
+                              textContent: _vm._s(fecha_inventario.nombre)
+                            }
+                          })
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("fecha_inventario_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.fecha_inventario_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(20)
+            ])
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -76009,6 +76268,25 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Selecciones el mes")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-cerrar", attrs: { type: "button" } },
+      [_vm._v("Descargar "), _c("i", { staticClass: "fas fa-download" })]
+    )
   }
 ]
 render._withStripped = true
@@ -77777,6 +78055,20 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "button",
+            {
+              staticClass: "btn btn-danger mb-1 mr-1",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.openModalPDF("create")
+                }
+              }
+            },
+            [_vm._v(" PDF "), _c("i", { staticClass: "fas fa-file-pdf" })]
+          ),
+          _vm._v(" "),
+          _c(
             "div",
             { staticClass: "widget-content widget-content-area br-6" },
             [
@@ -78974,6 +79266,141 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalPDF },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalPDF()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  attrs: {
+                    method: "post",
+                    enctype: "multipart/form-data",
+                    novalidate: "",
+                    action: "javascript:void(0)"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-row mb-0" }, [
+                    _c("div", { staticClass: "form-group col-md-12" }, [
+                      _vm._m(19),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fecha_inventario_id,
+                              expression: "fecha_inventario_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: _vm.hasError("fecha_inventario_id")
+                            ? "is-invalid"
+                            : "",
+                          attrs: { id: "select_mes" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.fecha_inventario_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.lista_fecha_inventarios, function(
+                          fecha_inventario
+                        ) {
+                          return _c("option", {
+                            key: fecha_inventario.id,
+                            domProps: {
+                              value: fecha_inventario.id,
+                              textContent: _vm._s(fecha_inventario.nombre)
+                            }
+                          })
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _vm.hasError("fecha_inventario_id")
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.errors.fecha_inventario_id[0]) +
+                                "\n                                "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalPDF()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(20)
+            ])
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -79224,6 +79651,25 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Selecciones el mes")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-cerrar", attrs: { type: "button" } },
+      [_vm._v("Descargar "), _c("i", { staticClass: "fas fa-download" })]
+    )
   }
 ]
 render._withStripped = true
@@ -104456,7 +104902,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -113,7 +113,7 @@
                                 </div>
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="fas fa-search"></i> Observacion</label>
+                                    <label class="text-dark"><i class="fas fa-search"></i> Justificación</label>
                                     <textarea class="form-control" rows="3" name="observacion" v-model="observacion" :class="hasError('observacion') ? 'is-invalid' : ''"></textarea>
                                     <div v-if="hasError('observacion')" class="invalid-feedback">
                                         {{ errors.observacion[0] }}

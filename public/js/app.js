@@ -5971,6 +5971,16 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     hasError: function hasError(field) {
       return field in this.errors;
     },
+    otherError: function otherError() {
+      var errores = 0;
+
+      if (this.medicamento_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No ha seleccionado ningún medicamento');
+        errores = 1;
+      }
+
+      return errores;
+    },
     backendResponse: function backendResponse(response) {
       if (response.data.status == 'success') {
         this.closeModal();
@@ -6028,15 +6038,17 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       var me = this;
       var url = '/kardex/store';
-      axios.post(url, {
-        'residente_id': this.residente_id,
-        'producto_id': this.medicamento_id,
-        'observacion': this.observacion
-      }).then(function (response) {
-        me.backendResponse(response);
-      })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
-      });
+      if (!me.otherError()) return;else {
+        axios.post(url, {
+          'residente_id': this.residente_id,
+          'producto_id': this.medicamento_id,
+          'observacion': this.observacion
+        }).then(function (response) {
+          me.backendResponse(response);
+        })["catch"](function (error) {
+          if (error.response.status == 422) _this.errors = error.response.data.errors;
+        });
+      }
     }
   },
   mounted: function mounted() {
@@ -6412,6 +6424,31 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       tipo_producto_id: 0,
       tipo_producto_nombre: '',
       fecha_inventario: '',
+      lista_fechas: [{
+        'nombre': 'Enero'
+      }, {
+        'nombre': 'Febrero'
+      }, {
+        'nombre': 'Marzo'
+      }, {
+        'nombre': 'Abril'
+      }, {
+        'nombre': 'Mayo'
+      }, {
+        'nombre': 'Junio'
+      }, {
+        'nombre': 'Julio'
+      }, {
+        'nombre': 'Agosto'
+      }, {
+        'nombre': 'Septiembre'
+      }, {
+        'nombre': 'Octubre'
+      }, {
+        'nombre': 'Noviembre'
+      }, {
+        'nombre': 'Diciembre'
+      }],
       modal: 0,
       titulo: '',
       opcion: 0,
@@ -6527,10 +6564,12 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
     },
     openModalPDF: function openModalPDF() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      this.titulo = 'REPORTE MEDICAMENTOS';
       this.modalPDF = 1;
+      this.combo_mes();
     },
     closeModalPDF: function closeModalPDF() {
+      this.titulo = '';
       this.fecha_inventario = '';
       this.modalPDF = 0;
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Descarga cancelada');
@@ -6606,7 +6645,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.tipo_producto_id = this.value;
       });
     },
-    change_select_mes: function change_select_mes() {},
+    change_select_mes: function change_select_mes() {
+      var me = this;
+      $('#select_mes').on('change', function () {
+        me.$emit('change', this.value);
+        me.fecha_inventario = this.value;
+      });
+    },
     combo_medicamento_unidad_medida: function combo_medicamento_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_medicamento';
@@ -8018,6 +8063,31 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       unidad_medida_id: 0,
       unidad_medida_nombre: '',
       fecha_inventario: '',
+      lista_fechas: [{
+        'nombre': 'Enero'
+      }, {
+        'nombre': 'Febrero'
+      }, {
+        'nombre': 'Marzo'
+      }, {
+        'nombre': 'Abril'
+      }, {
+        'nombre': 'Mayo'
+      }, {
+        'nombre': 'Junio'
+      }, {
+        'nombre': 'Julio'
+      }, {
+        'nombre': 'Agosto'
+      }, {
+        'nombre': 'Septiembre'
+      }, {
+        'nombre': 'Octubre'
+      }, {
+        'nombre': 'Noviembre'
+      }, {
+        'nombre': 'Diciembre'
+      }],
       lista_tipo_producto: [],
       tipo_producto_id: 0,
       tipo_producto_nombre: '',
@@ -8136,10 +8206,12 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
     },
     openModalPDF: function openModalPDF() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalPDF = 1;
+      this.titulo = 'REPORTE ARTÍCULOS';
+      this.combo_mes();
     },
     closeModalPDF: function closeModalPDF() {
+      this.titulo = '';
       this.fecha_inventario = '';
       this.modalPDF = 0;
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Descarga cancelada');
@@ -8215,7 +8287,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.tipo_producto_id = this.value;
       });
     },
-    change_select_mes: function change_select_mes() {},
+    change_select_mes: function change_select_mes() {
+      var me = this;
+      $('#select_mes').on('change', function () {
+        me.$emit('change', this.value);
+        me.fecha_inventario = this.value;
+      });
+    },
     combo_producto_unidad_medida: function combo_producto_unidad_medida() {
       var me = this;
       var url = '/unidad_medida/combo_producto';
@@ -10571,7 +10649,6 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
-//
 //
 //
 //
@@ -67413,7 +67490,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Observacion")
+      _vm._v(" Justificación")
     ])
   },
   function() {
@@ -68387,7 +68464,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
-      _vm._v(" Observacion")
+      _vm._v(" Justificación")
     ])
   },
   function() {
@@ -69587,8 +69664,6 @@ var render = function() {
                                                     ],
                                                     staticClass: "form-control",
                                                     attrs: {
-                                                      onkeypress:
-                                                        "return event.charCode >= 48",
                                                       type: "number",
                                                       value: "2"
                                                     },
@@ -74518,8 +74593,8 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-search" }),
-          _vm._v(" Estado del residente")
+          _c("i", { staticClass: "fas fa-hospital-user" }),
+          _vm._v(" Estado del paciente")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -74580,7 +74655,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-file" }),
-      _vm._v(" Observación")
+      _vm._v(" Estado en el que quedó el paciente")
     ])
   }
 ]
@@ -74669,7 +74744,7 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  return _vm.openModalPDF("create")
+                  return _vm.openModalPDF()
                 }
               }
             },
@@ -75941,14 +76016,11 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.fecha_inventario_id,
-                              expression: "fecha_inventario_id"
+                              value: _vm.fecha_inventario,
+                              expression: "fecha_inventario"
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("fecha_inventario_id")
-                            ? "is-invalid"
-                            : "",
                           attrs: { id: "select_mes" },
                           on: {
                             change: function($event) {
@@ -75960,35 +76032,23 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.fecha_inventario_id = $event.target.multiple
+                              _vm.fecha_inventario = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
                           }
                         },
-                        _vm._l(_vm.lista_fecha_inventarios, function(
-                          fecha_inventario
-                        ) {
+                        _vm._l(_vm.lista_fechas, function(fecha_inventario) {
                           return _c("option", {
-                            key: fecha_inventario.id,
+                            key: fecha_inventario.nombre,
                             domProps: {
-                              value: fecha_inventario.id,
+                              value: fecha_inventario.nombre,
                               textContent: _vm._s(fecha_inventario.nombre)
                             }
                           })
                         }),
                         0
-                      ),
-                      _vm._v(" "),
-                      _vm.hasError("fecha_inventario_id")
-                        ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.errors.fecha_inventario_id[0]) +
-                                "\n                                "
-                            )
-                          ])
-                        : _vm._e()
+                      )
                     ])
                   ])
                 ]
@@ -76284,7 +76344,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "button",
-      { staticClass: "btn btn-cerrar", attrs: { type: "button" } },
+      { staticClass: "btn btn-danger", attrs: { type: "button" } },
       [_vm._v("Descargar "), _c("i", { staticClass: "fas fa-download" })]
     )
   }
@@ -79324,14 +79384,11 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.fecha_inventario_id,
-                              expression: "fecha_inventario_id"
+                              value: _vm.fecha_inventario,
+                              expression: "fecha_inventario"
                             }
                           ],
                           staticClass: "form-control",
-                          class: _vm.hasError("fecha_inventario_id")
-                            ? "is-invalid"
-                            : "",
                           attrs: { id: "select_mes" },
                           on: {
                             change: function($event) {
@@ -79343,35 +79400,23 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.fecha_inventario_id = $event.target.multiple
+                              _vm.fecha_inventario = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
                           }
                         },
-                        _vm._l(_vm.lista_fecha_inventarios, function(
-                          fecha_inventario
-                        ) {
+                        _vm._l(_vm.lista_fechas, function(fecha_inventario) {
                           return _c("option", {
-                            key: fecha_inventario.id,
+                            key: fecha_inventario.nombre,
                             domProps: {
-                              value: fecha_inventario.id,
+                              value: fecha_inventario.nombre,
                               textContent: _vm._s(fecha_inventario.nombre)
                             }
                           })
                         }),
                         0
-                      ),
-                      _vm._v(" "),
-                      _vm.hasError("fecha_inventario_id")
-                        ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.errors.fecha_inventario_id[0]) +
-                                "\n                                "
-                            )
-                          ])
-                        : _vm._e()
+                      )
                     ])
                   ])
                 ]
@@ -79667,7 +79712,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "button",
-      { staticClass: "btn btn-cerrar", attrs: { type: "button" } },
+      { staticClass: "btn btn-danger", attrs: { type: "button" } },
       [_vm._v("Descargar "), _c("i", { staticClass: "fas fa-download" })]
     )
   }
@@ -104902,7 +104947,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

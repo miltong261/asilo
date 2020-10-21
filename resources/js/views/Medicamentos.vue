@@ -5,7 +5,7 @@
                 <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-briefcase-medical"></i></button>
                 <button type="button" @click="openVencimiento(false)" class="btn btn-warning mb-2">Medicamentos a vencer <i class="fas fa-calendar-alt"></i></button>
                 <button type="button" @click="openVencimiento(true)" class="btn btn-cerrar mb-2">Medicamentos vencidos <i class="fas fa-calendar-alt"></i></button>
-                <button type="button" @click="openModalPDF('create')" class="btn btn-danger mb-1 mr-1"> PDF <i class="fas fa-file-pdf"></i></button>
+                <button type="button" @click="openModalPDF()" class="btn btn-danger mb-1 mr-1"> PDF <i class="fas fa-file-pdf"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
@@ -306,19 +306,19 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Selecciones el mes</label>
-                                    <select id="select_mes" class="form-control" :class="hasError('fecha_inventario_id') ? 'is-invalid' : ''" v-model="fecha_inventario_id">
-                                        <option v-for="fecha_inventario in lista_fecha_inventarios" :key="fecha_inventario.id" :value="fecha_inventario.id" v-text="fecha_inventario.nombre"></option>
+                                    <select id="select_mes" class="form-control" v-model="fecha_inventario">
+                                        <option v-for="fecha_inventario in lista_fechas" :key="fecha_inventario.nombre" :value="fecha_inventario.nombre" v-text="fecha_inventario.nombre"></option>
                                     </select>
-                                    <div v-if="hasError('fecha_inventario_id')" class="invalid-feedback">
+                                    <!-- <div v-if="hasError('fecha_inventario_id')" class="invalid-feedback">
                                         {{ errors.fecha_inventario_id[0] }}
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cerrar" @click="closeModalPDF()">Salir <i class="fas fa-sign-out-alt"></i></button>
-                        <button type="button" class="btn btn-cerrar">Descargar <i class="fas fa-download"></i></button>
+                        <button type="button" class="btn btn-danger">Descargar <i class="fas fa-download"></i></button>
                     </div>
                 </div>
             </div>
@@ -357,6 +357,44 @@ export default {
             tipo_producto_nombre: '',
 
             fecha_inventario: '',
+            lista_fechas: [
+                {
+                    'nombre': 'Enero'
+                },
+                {
+                    'nombre': 'Febrero'
+                },
+                {
+                    'nombre': 'Marzo'
+                },
+                {
+                    'nombre': 'Abril'
+                },
+                {
+                    'nombre': 'Mayo'
+                },
+                {
+                    'nombre': 'Junio'
+                },
+                {
+                    'nombre': 'Julio'
+                },
+                {
+                    'nombre': 'Agosto'
+                },
+                {
+                    'nombre': 'Septiembre'
+                },
+                {
+                    'nombre': 'Octubre'
+                },
+                {
+                    'nombre': 'Noviembre'
+                },
+                {
+                    'nombre': 'Diciembre'
+                }
+            ],
 
             modal: 0,
             titulo: '',
@@ -476,10 +514,13 @@ export default {
 
             alerts.sweetAlert('error', 'Operación cancelada')
         },
-        openModalPDF(data = []){
+        openModalPDF(){
+            this.titulo = 'REPORTE MEDICAMENTOS'
             this.modalPDF = 1
+            this.combo_mes()
         },
         closeModalPDF(){
+            this.titulo = ''
             this.fecha_inventario = ''
             this.modalPDF = 0
 
@@ -568,7 +609,11 @@ export default {
             })
         },
         change_select_mes() {
-   
+            let me = this
+            $('#select_mes').on('change', function () {
+                me.$emit('change', this.value)
+                me.fecha_inventario = this.value
+            })
         },
         combo_medicamento_unidad_medida() {
             let me = this

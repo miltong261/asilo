@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css">
-    <!-- <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css"> -->
+    {{-- <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> --}}
+    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css">
     <link rel="stylesheet" href="../../assets/css/style-formulario.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         <table class="text-center" id="tabla-encabezado">
             <tr>
                 <td id="td-img">
-                    <img src="C:/xampp/htdocs/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                    <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                 </td>
                 <td>
                     <h4 > ASILO DE ANCIANOS RETALHULEU</h4>

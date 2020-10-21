@@ -13,7 +13,7 @@ class KardexRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class KardexRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'observacion' => ['required']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'observacion.required' => 'Campo obligatorio'
         ];
     }
 }

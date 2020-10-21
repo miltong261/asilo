@@ -44,7 +44,7 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                            <div class="form-group">
+                            <div class="form-group" v-if="opcion==1">
                                 <label class="text-dark"><i class="fas fa-flag"></i> Departamento</label>
                                 <select  class="form-control" :class="hasError('departamento_id') ? 'is-invalid' : ''" v-model="departamento_id">
                                     <option v-for="departamento in lista_departamentos" :key="departamento.id" :value="departamento.id" v-text="departamento.nombre"></option>
@@ -114,6 +114,7 @@ export default {
             this.combo_departamento()
         },
         closeModal() {
+            this.departamento_id = ''
             this.nombre = ''
 
             this.modal = 0

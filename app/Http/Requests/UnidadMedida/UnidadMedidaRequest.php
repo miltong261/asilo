@@ -24,7 +24,7 @@ class UnidadMedidaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:35',
+            'nombre' => ['required', 'max:35', 'unique:unidad_medida,nombre,' . $this->id],
             'medicamento' => 'nullable|boolean',
             'producto' => 'nullable|boolean'
         ];
@@ -35,6 +35,7 @@ class UnidadMedidaRequest extends FormRequest
         return [
             'nombre.required' => 'El nombre es obligatorio',
             'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
+            'nombre.unique' => 'El nombre de la unidad ya existe'
         ];
     }
 }

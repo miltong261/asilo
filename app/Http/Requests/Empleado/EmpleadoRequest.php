@@ -29,7 +29,7 @@ class EmpleadoRequest extends FormRequest
             'nombre' => ['required', 'string', 'min:5', 'max:35'],
             'apellido' => ['required', 'string', 'min:5', 'max:35'],
             'fecha_nacimiento' => ['required', 'date'],
-            'dpi' => ['required', 'unique:empleados', 'digits:13'],
+            'dpi' => ['required', 'unique:empleados,dpi,' . $this->id, 'digits:13'],
             'telefono' => ['required', 'digits:8'],
             'direccion' => ['required', 'min:5', 'max:35']
         ];
@@ -38,7 +38,7 @@ class EmpleadoRequest extends FormRequest
     public function messages()
     {
         return [
-            'puesto_id.required' => 'El área es obligatorio',
+            'area_id.required' => 'El área es obligatorio',
 
             'puesto_id.required' => 'El puesto es obligatorio',
 
@@ -54,7 +54,7 @@ class EmpleadoRequest extends FormRequest
             'dpi.digits' => 'El DPI contiene 13 dígitos',
             'dpi.unique' => 'Este número de DPI ya existe',
 
-            'telefono.required' => 'El número de teléfono es obligatorio',
+            'telefono.required' => 'El teléfono es obligatorio',
             'telefono.digits' => 'El número contiene 8 dígitos',
 
             'direccion.required' => 'La dirección es obligatoria',

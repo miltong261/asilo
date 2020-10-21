@@ -30,6 +30,8 @@ class ResidenteUpdateRequest extends FormRequest
             'motivo' => ['required'],
             'estado' => ['required'],
             'historial' => ['required'],
+            'telefono_familia' => ['nullable', 'digits:8'],
+            'telefono_persona_referida' => ['nullable', 'digits:8'],
         ];
     }
 
@@ -50,6 +52,9 @@ class ResidenteUpdateRequest extends FormRequest
             'estado.required' => 'Debe especificar el estado actual de la persona',
 
             'historial.required' => 'Debe especificar el cuadro clínico en el que llega la persona',
+
+            'telefono_familia.digits' => 'El número contiene 8 dígitos',
+            'telefono_persona_referida.digits' => 'El número contiene 8 dígitos'
         ];
     }
 }

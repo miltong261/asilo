@@ -139,4 +139,9 @@ class MedicamentoController extends Controller
     {
         return response()->json($this->medicamentoRepository->productoVencido('medicamento'));
     }
+
+    public function pdf()
+    {
+        return $this->medicamentoRepository->pdfInventario('medicamento', $request->mes);
+    }
 }

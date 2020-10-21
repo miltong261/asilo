@@ -183,6 +183,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/desactivate', 'Dashboard\MedicamentoController@desactivate');
             Route::get('/vencimiento', 'Dashboard\MedicamentoController@vencimiento');
             Route::get('/vencidos', 'Dashboard\MedicamentoController@vencido');
+            Route::get('/pdf', 'Dashboard\MedicamentoController@pdf');
         });
 
         // Producto
@@ -194,6 +195,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/desactivate', 'Dashboard\ProductoController@desactivate');
             Route::get('/vencimiento', 'Dashboard\ProductoController@vencimiento');
             Route::get('/vencidos', 'Dashboard\ProductoController@vencido');
+            Route::get('/pdf', 'Dashboard\ProductoController@pdf');
         });
 
         // Inventario

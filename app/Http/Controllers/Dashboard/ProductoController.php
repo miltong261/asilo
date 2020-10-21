@@ -139,4 +139,9 @@ class ProductoController extends Controller
     {
         return response()->json($this->productoRepository->productoVencido('producto'));
     }
+
+    public function pdf(Request $request)
+    {
+        return $this->productoRepository->pdfInventario('producto', $request->mes);
+    }
 }

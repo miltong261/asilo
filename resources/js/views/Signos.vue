@@ -373,7 +373,6 @@ export default {
 
             axios.get(url).then(function (response) {
                 me.signos = response.data.signos
-                console.log(response.data)
 
                 for(var i = 0; i < me.signos.length; i++) {
                     me.signos_dias.push(me.signos[i].dias)

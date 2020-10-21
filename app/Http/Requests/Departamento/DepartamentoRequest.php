@@ -24,7 +24,7 @@ class DepartamentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required']
+            'nombre' => ['required', 'unique:departamentos,nombre,' . $this->id]
         ];
     }
 
@@ -32,6 +32,7 @@ class DepartamentoRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El nombre es obligatorio',
+            'nombre.unique' => 'El departamento ya existe'
         ];
     }
 }

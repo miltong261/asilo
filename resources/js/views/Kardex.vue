@@ -65,8 +65,8 @@
                                         <tr>
                                             <th class="text-center" ><i class="fas fa-hashtag"></i></th>
                                             <th class="text-center" ><i class="fas fa-clock"></i> Hora</th>
-                                            <th class="text-center" ><i class="fas fa-clock"></i> Medicamento</th>
-                                            <th class="text-center" ><i class="fas fa-search"></i> Estado en el que quedó el paciente</th>
+                                            <th class="text-center" ><i class="fas fa-briefcase-medical"></i> Medicamento</th>
+                                            <th class="text-center" ><i class="fas fa-search"></i> Estado del residente</th>
                                             <th class="text-center" ><i class="fas fa-user"></i> Registró</th>
                                         </tr>
                                     </thead>
@@ -122,7 +122,7 @@
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-4">
-                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Codigo</label>
+                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Coódigo</label>
                                         <input id="codigo_paciente" type="text" name="codigo" v-model="codigo" class="form-control">
                                     </div>
 
@@ -151,7 +151,7 @@
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
-                                        <label class="text-dark"><i class="fas fa-file"></i> Observacion</label>
+                                        <label class="text-dark"><i class="fas fa-file"></i> Observación</label>
                                         <textarea type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese observacion..."></textarea>
                                         <div v-if="hasError('observacion')" class="invalid-feedback">
                                             {{ errors.observacion[0] }}

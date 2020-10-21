@@ -34,9 +34,15 @@ class EmpleadoRepository extends BaseRepository
 
     public function comboboxUsuario() {
         return $this->getModel()
-        ->select('id', 'nombre', 'apellido')
-        ->where('estado', 1)
-        ->orderBy('nombre', 'asc')
+        ->join('puestos', 'puestos.id', '=', 'empleados.puesto_id')
+        ->select(
+            'empleados.id',
+            'empleados.nombre',
+            'empleados.apellido',
+            'puestos.nombre as nombre_puesto'
+        )
+        ->where('empleados.estado', 1)
+        ->orderBy('empleados.nombre', 'asc')
         ->get();
     }
 

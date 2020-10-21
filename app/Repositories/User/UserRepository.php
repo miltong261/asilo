@@ -54,7 +54,7 @@ class UserRepository extends BaseRepository
                 $usuario->empleado_id = $request['empleado_id'];
                 $usuario->fecha_registro = Carbon::now();
                 $usuario->usuario = $generarUsuario;
-                $usuario->password = bcrypt($generarUsuario);
+                $usuario->password = bcrypt('asilo');
                 $usuario->save();
 
                 DB::commit();

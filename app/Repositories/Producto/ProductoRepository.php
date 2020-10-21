@@ -6,8 +6,18 @@ use App\Models\Inventario;
 use App\Models\UnidadMedida;
 use App\Models\TipoProducto;
 use App\Models\Producto;
+
+use App\Models\AjusteProducto;
+use App\Models\Compra;
+use App\Models\DetalleCompra;
+use App\Models\Salida;
+use App\Models\DetalleSalida;
+use App\Models\Donacion;
+use App\Models\DetalleDonacion;
+
 use App\Repositories\BaseRepository;
 
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class ProductoRepository extends BaseRepository
@@ -134,5 +144,119 @@ class ProductoRepository extends BaseRepository
         ->where('inventario.existencia', '>', 0)
         ->where('productos.fecha_vencimiento', '<', $fecha_actual)
         ->get();
+    }
+
+    public function pdfInventario($type, $month)
+    {
+        $anio = date('Y');
+
+        if (date('L', strtotime("$anio-02-01"))) {
+            $months = [
+                'Enero' => [
+                    $anio . '-01-01',
+                    $anio . '-01-31'
+                ],
+                'Febrero' => [
+                    $anio . '-02-01',
+                    $anio . '-02-29'
+                ],
+                'Marzo' => [
+                    $anio . '-03-01',
+                    $anio . '-03-31'
+                ],
+                'Abril' => [
+                    $anio . '-04-01',
+                    $anio . '-04-30'
+                ],
+                'Mayo' => [
+                    $anio . '-05-01',
+                    $anio . '-05-31'
+                ],
+                'Junio' => [
+                    $anio . '-06-01',
+                    $anio . '-06-30'
+                ],
+                'Julio' => [
+                    $anio . '-07-01',
+                    $anio . '-07-31'
+                ],
+                'Agosto' => [
+                    $anio . '-08-01',
+                    $anio . '-08-31'
+                ],
+                'Septiembre' => [
+                    $anio . '-09-01',
+                    $anio . '-09-30'
+                ],
+                'Octubre' => [
+                    $anio . '-10-01',
+                    $anio . '-10-31'
+                ],
+                'Noviembre' => [
+                    $anio . '-11-01',
+                    $anio . '-11-30'
+                ],
+                'Diciembre' => [
+                    $anio . '-12-01',
+                    $anio . '-12-31'
+                ]
+            ];
+        } else {
+            $months = [
+                'Enero' => [
+                    $anio . '-01-01',
+                    $anio . '-01-31'
+                ],
+                'Febrero' => [
+                    $anio . '-02-01',
+                    $anio . '-02-28'
+                ],
+                'Marzo' => [
+                    $anio . '-03-01',
+                    $anio . '-03-31'
+                ],
+                'Abril' => [
+                    $anio . '-04-01',
+                    $anio . '-04-30'
+                ],
+                'Mayo' => [
+                    $anio . '-05-01',
+                    $anio . '-05-31'
+                ],
+                'Junio' => [
+                    $anio . '-06-01',
+                    $anio . '-06-30'
+                ],
+                'Julio' => [
+                    $anio . '-07-01',
+                    $anio . '-07-31'
+                ],
+                'Agosto' => [
+                    $anio . '-08-01',
+                    $anio . '-08-31'
+                ],
+                'Septiembre' => [
+                    $anio . '-09-01',
+                    $anio . '-09-30'
+                ],
+                'Octubre' => [
+                    $anio . '-10-01',
+                    $anio . '-10-31'
+                ],
+                'Noviembre' => [
+                    $anio . '-11-01',
+                    $anio . '-11-30'
+                ],
+                'Diciembre' => [
+                    $anio . '-12-01',
+                    $anio . '-12-31'
+                ]
+            ];
+        }
+
+        $data = ['inicio' => $months[$month][0], 'fin' => $months[$month][1]];
+
+        return
+        [$data['inicio'] . ' ' . $data['fin']];
     }
 }

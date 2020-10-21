@@ -114,7 +114,10 @@
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="fas fa-search"></i> Observacion</label>
-                                    <textarea class="form-control" rows="3" name="observacion" v-model="observacion"></textarea>
+                                    <textarea class="form-control" rows="3" name="observacion" v-model="observacion" :class="hasError('observacion') ? 'is-invalid' : ''"></textarea>
+                                    <div v-if="hasError('observacion')" class="invalid-feedback">
+                                        {{ errors.observacion[0] }}
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -231,7 +234,7 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Ajuste de artículo"
+                    this.titulo = "AJUSTE DE ARTÍCULO"
                     this.opcion = 1
                     break
                 }
@@ -282,7 +285,7 @@ export default {
             this.modalAjuste = 0
             this.titulo = ''
 
-            alerts.sweetAlert('success', 'VISUALIZACIÓN DEL AJUSTE EXITOSO')
+            alerts.sweetAlert('success', 'Visualización del ajuste exitoso')
         },
         hasError(field) {
             return field in (this.errors)

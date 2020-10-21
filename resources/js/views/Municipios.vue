@@ -44,7 +44,7 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                            <div class="form-group">
+                            <div class="form-group" v-if="opcion==1">
                                 <label class="text-dark"><i class="fas fa-flag"></i> Departamento</label>
                                 <select  class="form-control" :class="hasError('departamento_id') ? 'is-invalid' : ''" v-model="departamento_id">
                                     <option v-for="departamento in lista_departamentos" :key="departamento.id" :value="departamento.id" v-text="departamento.nombre"></option>
@@ -98,13 +98,13 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Registro de municipio"
+                    this.titulo = "REGISTRO DE MUNICIPIO"
                     this.opcion = 1
                     break
                 }
                 case 'update': {
                     this.modal = 2
-                    this.titulo = "Actualización de municipio"
+                    this.titulo = "ACTUALIZACIÓN DE MUNICIPIO"
                     this.opcion = 2
                     this.departamento_id = data['departamento_id']
                     this.nombre = data['nombre']
@@ -114,6 +114,7 @@ export default {
             this.combo_departamento()
         },
         closeModal() {
+            this.departamento_id = ''
             this.nombre = ''
 
             this.modal = 0

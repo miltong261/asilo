@@ -160,13 +160,13 @@ class KardexRepository extends BaseRepository
         )
         ->where('productos.asignacion', 0)
         ->where('tipo_producto.id', 1)
-        ->groupBy('productos.id')
+        ->groupBy('medicamento_id')
         ->get();
 
         if ($medicamento == []) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'No hay registros para la fecha ' . $actual
+                'message' => 'No hay registros para la fecha ' . $fecha
             ]);
         } else
             return ['medicamentos' => $medicamento];

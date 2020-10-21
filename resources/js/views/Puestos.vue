@@ -30,7 +30,7 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <template v-if="puesto.nombre != 'Administrador'">
+                                        <template v-if="puesto.id != 1 && puesto.id!=2 && puesto.id != 3">
                                             <template v-if="puesto.estado">
                                                 <button type="button" @click="changeStatus('desactivate', puesto.id, puesto.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                                 <button type="button" @click="openModal('update', puesto)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
@@ -102,13 +102,13 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Registro de puesto"
+                    this.titulo = "REGISTRO DE PUESTO"
                     this.opcion = 1
                     break
                 }
                 case 'update': {
                     this.modal = 2
-                    this.titulo = "Actualización de puesto"
+                    this.titulo = "ACTUALIZACIÓN DE PUESTO"
                     this.opcion = 2
                     this.nombre = data['nombre']
                     this.id = data['id']

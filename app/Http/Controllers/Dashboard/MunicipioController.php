@@ -49,7 +49,7 @@ class MunicipioController extends Controller
         }
     }
 
-    public function update(MunicipioRequest $request, $id)
+    public function update(MunicipioRequest $request)
     {
         try {
             DB::beginTransaction();

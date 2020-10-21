@@ -25,7 +25,7 @@ class MunicipioRequest extends FormRequest
     {
         return [
             'departamento_id' => ['required'],
-            'nombre' => ['required']
+            'nombre' => ['required', 'unique:municipios,nombre,' . $this->id]
         ];
     }
 
@@ -34,7 +34,8 @@ class MunicipioRequest extends FormRequest
         return [
             'departamento_id.required' => 'Debe de seleccionar departamento',
 
-            'nombre.required' => 'El nombre es obligatorio'
+            'nombre.required' => 'El nombre es obligatorio',
+            'nombre.unique' => 'El municipio ya existe'
         ];
     }
 }

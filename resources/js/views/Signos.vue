@@ -72,7 +72,7 @@
                                             <th class="text-center"><i class="fas fa-thermometer-full"></i> Temperatura</th>
                                             <th class="text-center"><i class="fas fa-heartbeat"></i> Pulso</th>
                                             <th class="text-cente"><i class="fas fa-weight"></i> Peso</th>
-                                            <th class="text-center"><i class="fas fa-search"></i> Observacion</th>
+                                            <th class="text-center"><i class="fas fa-search"></i> Observación</th>
                                             <th class="text-center"><i class="fas fa-user"></i> Registró</th>
                                         </tr>
                                     </thead>
@@ -133,7 +133,7 @@
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-4">
-                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Codigo</label>
+                                        <label class="text-dark"><i class="fas fa-qrcode"></i> Código</label>
                                         <input id="codigo_paciente" type="text" name="codigo" v-model="codigo" class="form-control">
                                     </div>
 
@@ -192,7 +192,7 @@
 
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
-                                        <label class="text-dark"><i class="fas fa-search"></i> Observacion</label>
+                                        <label class="text-dark"><i class="fas fa-search"></i> Observación</label>
                                         <input type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese observacion...">
                                         <div v-if="hasError('observacion')" class="invalid-feedback">
                                             {{ errors.observacion[0] }}
@@ -284,7 +284,7 @@ export default {
     methods: {
         openModal(id, codigo, nombre, apellido) {
             this.modal = 1
-            this.titulo = 'Registro de signos vitales'
+            this.titulo = 'REGISTRO DE SIGNOS VITALES'
 
             this.residente_id = id
             this.codigo = codigo
@@ -373,7 +373,6 @@ export default {
 
             axios.get(url).then(function (response) {
                 me.signos = response.data.signos
-                console.log(response.data)
 
                 for(var i = 0; i < me.signos.length; i++) {
                     me.signos_dias.push(me.signos[i].dias)
@@ -433,6 +432,8 @@ export default {
             this.signos_dias = []
             this.signos_temperatura = []
             this.titulo = ''
+
+            alerts.sweetAlert('error', 'Operación cancelada')
         },
         hasError(field) {
             return field in (this.errors)

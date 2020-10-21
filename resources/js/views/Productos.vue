@@ -340,14 +340,14 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "Registro de artículo"
+                    this.titulo = "REGISTRO DE ARTÍCULO"
                     this.opcion = 1
                     this.fecha_vencimiento = moment().format('YYYY-MM-DD')
                     break
                 }
                 case 'update': {
                     this.modal = 2
-                    this.titulo = "Actualización de artículo"
+                    this.titulo = "ACTUALIZACIÓN DE ARTÍCULO"
                     this.opcion = 2
 
                     this.unidad_medida_id = data['unidad_medida_id']
@@ -435,6 +435,8 @@ export default {
             this.showList()
             this.lista_vencimiento = []
             this.opcionModalVencimiento = ''
+
+            alerts.sweetAlert('error', 'Operación cancelada')
         },
         hasError(field) {
             return field in (this.errors)

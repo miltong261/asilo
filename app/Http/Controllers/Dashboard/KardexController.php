@@ -40,7 +40,7 @@ class KardexController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Se guardó correctamente'
+                    'message' => 'Se guardó correctamente el kardex'
                 ]);
             }
         } catch (\Throwable $th) {

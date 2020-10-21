@@ -24,7 +24,7 @@ class TipoMovimientoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:35',
+            'nombre' => ['required', 'max:35', 'unique:tipo_movimiento,nombre,' .$this->id],
             'entrada' => 'nullable|boolean',
             'salida' => 'nullable|boolean'
         ];
@@ -35,6 +35,7 @@ class TipoMovimientoRequest extends FormRequest
         return [
             'nombre.required' => 'El nombre es obligatorio',
             'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
+            'nombre.unique' => 'El tipo de movimiento ya esta registrado'
         ];
     }
 }

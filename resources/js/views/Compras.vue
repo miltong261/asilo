@@ -143,10 +143,10 @@
                                             <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
                                             <td>
-                                                <input onkeypress="" v-model="detalle.cantidad" type="number" value="2" class="form-control">
+                                                <input onkeypress="return event.charCode >= 48" v-model="detalle.cantidad" type="number" value="2" class="form-control">
                                             </td>
                                             <td>
-                                                <input onkeypress="" v-model="detalle.precio" type="number" value="2" class="form-control">
+                                                <input onkeypress="return event.charCode >= 48" v-model="detalle.precio" type="number" value="2" class="form-control">
                                             </td>
                                             <td>
                                                 <button class="btn btn-eliminar mb-2 mr-2 rounded-circle" @click="eliminarProductoDetalle(index)"> <i class="fa fa-trash-alt"></i></button>
@@ -406,6 +406,8 @@ export default {
         closeModalProducto() {
             this.modalProducto = 0
             this.titulo = ''
+
+            alerts.sweetAlert('error', 'Producto cancelado')
         },
         hasError(field) {
             return field in (this.errors)
@@ -649,7 +651,7 @@ export default {
 
             this.arrayDetalle = []
 
-            alerts.sweetAlert('success', 'INSPECCIÓN FINALIZADA')
+            alerts.sweetAlert('success', 'Inspección finalizada')
         },
         pdf(id) {
             window.open('/compras/pdf/'+ id + ',' + '_blank');

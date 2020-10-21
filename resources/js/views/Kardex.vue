@@ -66,7 +66,7 @@
                                             <th class="text-center" ><i class="fas fa-hashtag"></i></th>
                                             <th class="text-center" ><i class="fas fa-clock"></i> Hora</th>
                                             <th class="text-center" ><i class="fas fa-briefcase-medical"></i> Medicamento</th>
-                                            <th class="text-center" ><i class="fas fa-search"></i> Estado del residente</th>
+                                            <th class="text-center" ><i class="fas fa-hospital-user"></i> Estado del paciente</th>
                                             <th class="text-center" ><i class="fas fa-user"></i> Registró</th>
                                         </tr>
                                     </thead>
@@ -151,7 +151,7 @@
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-12">
-                                        <label class="text-dark"><i class="fas fa-file"></i> Observación</label>
+                                        <label class="text-dark"><i class="fas fa-file"></i> Estado en el que quedó el paciente</label>
                                         <textarea type="text" name="observacion" v-model="observacion" class="form-control" :class="hasError('observacion') ? 'is-invalid' : ''" placeholder="Ingrese observacion..."></textarea>
                                         <div v-if="hasError('observacion')" class="invalid-feedback">
                                             {{ errors.observacion[0] }}
@@ -318,6 +318,15 @@ export default {
         hasError(field) {
             return field in (this.errors)
         },
+        otherError() {
+            let errores = 0
+            if (this.medicamento_id == 0) {
+                alerts.sweetAlert('error', 'No ha seleccionado ningún medicamento')
+                errores = 1
+            }
+
+            return errores
+        },
         backendResponse(response) {
             if(response.data.status == 'success'){
                 this.closeModal()
@@ -372,16 +381,19 @@ export default {
             let me = this
             let url = '/kardex/store'
 
-            axios.post(url, {
-                'residente_id': this.residente_id,
-                'producto_id': this.medicamento_id,
-                'observacion': this.observacion
-            }).then(function (response) {
-                me.backendResponse(response)
-            }).catch(error => {
-                if(error.response.status == 422)
-                    this.errors = error.response.data.errors
-            })
+            if (!me.otherError()) return
+            else {
+                axios.post(url, {
+                    'residente_id': this.residente_id,
+                    'producto_id': this.medicamento_id,
+                    'observacion': this.observacion
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error => {
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
         },
     },
     mounted() {

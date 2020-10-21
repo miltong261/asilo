@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Kardex\KardexRequest;
 use Illuminate\Http\Request;
 use App\Repositories\Kardex\KardexRepository;
 
@@ -18,12 +19,13 @@ class KardexController extends Controller
         $this->kardexRepository = $kardexRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) return redirect('/asilo');
         return $this->kardexRepository->indexKardex();
     }
 
-    public function store(Request $request)
+    public function store(KardexRequest $request)
     {
         try {
             DB::beginTransaction();

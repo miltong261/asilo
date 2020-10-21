@@ -29,8 +29,8 @@ class CreateSignosVitalesTable extends Migration
             $table->date('fecha_registro');
             $table->time('hora_registro');
             $table->string('respiraciones');
-            $table->string('presion', 5,2);
-            $table->decimal('pulso', 5,2);
+            $table->string('presion');
+            $table->string('pulso');
             $table->decimal('peso', 5, 2);
             $table->decimal('temperatura', 5,2);
             $table->string('observacion', 70)->nullable();

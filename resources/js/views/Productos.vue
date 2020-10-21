@@ -307,19 +307,19 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Selecciones el mes</label>
-                                    <select id="select_mes" class="form-control" :class="hasError('fecha_inventario_id') ? 'is-invalid' : ''" v-model="fecha_inventario_id">
-                                        <option v-for="fecha_inventario in lista_fecha_inventarios" :key="fecha_inventario.id" :value="fecha_inventario.id" v-text="fecha_inventario.nombre"></option>
+                                    <select id="select_mes" class="form-control" v-model="fecha_inventario">
+                                        <option v-for="fecha_inventario in lista_fechas" :key="fecha_inventario.nombre" :value="fecha_inventario.nombre" v-text="fecha_inventario.nombre"></option>
                                     </select>
-                                    <div v-if="hasError('fecha_inventario_id')" class="invalid-feedback">
+                                    <!-- <div v-if="hasError('fecha_inventario_id')" class="invalid-feedback">
                                         {{ errors.fecha_inventario_id[0] }}
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cerrar" @click="closeModalPDF()">Salir <i class="fas fa-sign-out-alt"></i></button>
-                        <button type="button" class="btn btn-cerrar">Descargar <i class="fas fa-download"></i></button>
+                        <button type="button" class="btn btn-danger">Descargar <i class="fas fa-download"></i></button>
                     </div>
                 </div>
             </div>
@@ -354,6 +354,44 @@ export default {
             unidad_medida_nombre: '',
 
             fecha_inventario: '',
+            lista_fechas: [
+                {
+                    'nombre': 'Enero'
+                },
+                {
+                    'nombre': 'Febrero'
+                },
+                {
+                    'nombre': 'Marzo'
+                },
+                {
+                    'nombre': 'Abril'
+                },
+                {
+                    'nombre': 'Mayo'
+                },
+                {
+                    'nombre': 'Junio'
+                },
+                {
+                    'nombre': 'Julio'
+                },
+                {
+                    'nombre': 'Agosto'
+                },
+                {
+                    'nombre': 'Septiembre'
+                },
+                {
+                    'nombre': 'Octubre'
+                },
+                {
+                    'nombre': 'Noviembre'
+                },
+                {
+                    'nombre': 'Diciembre'
+                }
+            ],
 
             lista_tipo_producto: [],
             tipo_producto_id: 0,
@@ -478,10 +516,13 @@ export default {
 
             alerts.sweetAlert('error', 'Operación cancelada')
         },
-        openModalPDF(data = []){
+        openModalPDF(){
             this.modalPDF = 1
+            this.titulo = 'REPORTE ARTÍCULOS'
+            this.combo_mes()
         },
         closeModalPDF(){
+            this.titulo = ''
             this.fecha_inventario = ''
             this.modalPDF = 0
 
@@ -570,7 +611,11 @@ export default {
             })
         },
         change_select_mes() {
-   
+            let me = this
+            $('#select_mes').on('change', function () {
+                me.$emit('change', this.value)
+                me.fecha_inventario = this.value
+            })
         },
         combo_producto_unidad_medida() {
             let me = this
@@ -599,7 +644,7 @@ export default {
             })
         },
         combo_mes(){
-            $('#select_mes').select2({
+             $('#select_mes').select2({
                 placeholder: 'Seleccione el mes'
             })
         },

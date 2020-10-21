@@ -48,7 +48,6 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-
                                         <template v-if="tipo_movimiento.estado && (tipo_movimiento.id!=1 && tipo_movimiento.id!=2)">
                                             <button type="button" @click="changeStatus('desactivate', tipo_movimiento.id, tipo_movimiento.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                             <button type="button" @click="openModal('update', tipo_movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>

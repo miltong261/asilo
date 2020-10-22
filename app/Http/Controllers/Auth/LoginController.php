@@ -4,11 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Login\LoginRequest;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
+
+    public $maxAttempts = 3;
+    public $decayMinutes = 1;
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -16,6 +22,13 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
         $verify = $request->only('usuario', 'password') + ['estado' => 1] + ['primer_login' => 0];
         $credentials = $request->only('usuario', 'password') + ['estado' => 1];
 
@@ -27,6 +40,10 @@ class LoginController extends Controller
         } elseif (Auth::attempt($credentials)) {
             return redirect()->route('asilo');
         }
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
 
         return back()
         ->withErrors(['usuario' => trans('auth.failed')])

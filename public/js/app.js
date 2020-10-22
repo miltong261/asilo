@@ -3600,7 +3600,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (this.arrayDetalle.length) {
         for (var i = 0; i < this.arrayDetalle.length; i++) {
-          resultado += this.arrayDetalle[i].cantidad * this.arrayDetalle[i].precio;
+          if ((this.arrayDetalle[i].cantidad || this.arrayDetalle[i].precio) < 0) resultado = 0.0;else resultado += this.arrayDetalle[i].cantidad * this.arrayDetalle[i].precio;
         }
       }
 
@@ -5842,6 +5842,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5910,6 +5912,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
         } else {
           me.lista_kardex = response.data.kardex;
+          console.log(response.data);
           me.dataTable('#notas');
         }
       })["catch"](function (error) {
@@ -5973,8 +5976,9 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     otherError: function otherError() {
       var errores = 0;
+      var me = this;
 
-      if (this.medicamento_id == 0) {
+      if (me.medicamento_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No ha seleccionado ningún medicamento');
         errores = 1;
       }
@@ -6038,7 +6042,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       var me = this;
       var url = '/kardex/store';
-      if (!me.otherError()) return;else {
+      if (me.otherError()) return;else {
         axios.post(url, {
           'residente_id': this.residente_id,
           'producto_id': this.medicamento_id,
@@ -7321,49 +7325,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10140,6 +10101,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
+//
+//
 //
 //
 //
@@ -73900,46 +73863,63 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-info mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModal(
-                                            residente.id,
-                                            residente.codigo,
-                                            residente.nombre,
-                                            residente.apellido
+                                _c(
+                                  "td",
+                                  { staticClass: "text-center" },
+                                  [
+                                    residente.estado == 1
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-info mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    residente.id,
+                                                    residente.codigo,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-plus"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModalTable(
+                                                    residente.id,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-table"
+                                              })
+                                            ]
                                           )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-plus" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-warning mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModalTable(
-                                            residente.id,
-                                            residente.nombre,
-                                            residente.apellido
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-table" })]
-                                  )
-                                ])
+                                        ]
+                                      : _vm._e()
+                                  ],
+                                  2
+                                )
                               ])
                             }),
                             0
@@ -77378,46 +77358,63 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-info mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModal(
-                                            residente.id,
-                                            residente.codigo,
-                                            residente.nombre,
-                                            residente.apellido
+                                _c(
+                                  "td",
+                                  { staticClass: "text-center" },
+                                  [
+                                    residente.estado == 1
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-info mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    residente.id,
+                                                    residente.codigo,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-plus"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModalTable(
+                                                    residente.id,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-table"
+                                              })
+                                            ]
                                           )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-plus" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-warning mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModalTable(
-                                            residente.id,
-                                            residente.nombre,
-                                            residente.apellido
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-table" })]
-                                  )
-                                ])
+                                        ]
+                                      : _vm._e()
+                                  ],
+                                  2
+                                )
                               ])
                             }),
                             0
@@ -84094,69 +84091,86 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-info mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openModal(
-                                            residente.id,
-                                            residente.codigo,
-                                            residente.nombre,
-                                            residente.apellido
+                                _c(
+                                  "td",
+                                  { staticClass: "text-center" },
+                                  [
+                                    residente.estado == 1
+                                      ? [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-info mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openModal(
+                                                    residente.id,
+                                                    residente.codigo,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-plus"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-warning mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openTable(
+                                                    residente.id,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-table"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-success mb-1 mr-1 rounded-circle",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openDashboard(
+                                                    residente.id,
+                                                    residente.nombre,
+                                                    residente.apellido
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-chart-bar"
+                                              })
+                                            ]
                                           )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-plus" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-warning mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openTable(
-                                            residente.id,
-                                            residente.nombre,
-                                            residente.apellido
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-table" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-success mb-1 mr-1 rounded-circle",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openDashboard(
-                                            residente.id,
-                                            residente.nombre,
-                                            residente.apellido
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fas fa-chart-bar"
-                                      })
-                                    ]
-                                  )
-                                ])
+                                        ]
+                                      : _vm._e()
+                                  ],
+                                  2
+                                )
                               ])
                             }),
                             0

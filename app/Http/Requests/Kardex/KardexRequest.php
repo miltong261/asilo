@@ -24,6 +24,7 @@ class KardexRequest extends FormRequest
     public function rules()
     {
         return [
+            'producto_id' => ['required'],
             'observacion' => ['required']
         ];
     }

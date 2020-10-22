@@ -24,7 +24,7 @@ class SignoVitalRepository extends BaseRepository
         $fecha_actual = Carbon::now()->toDateString();
 
         $residentes = Residente::select(
-            'id', 'codigo', 'nombre', 'apellido', 'fecha_nacimiento'
+            'id', 'codigo', 'nombre', 'apellido', 'fecha_nacimiento', 'estado'
         )
         ->get();
 

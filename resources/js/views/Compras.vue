@@ -665,7 +665,10 @@ export default {
             let resultado = 0.0
             if (this.arrayDetalle.length) {
                 for (var i = 0; i < this.arrayDetalle.length; i++) {
-                    resultado += (this.arrayDetalle[i].cantidad * this.arrayDetalle[i].precio)
+                    if ((this.arrayDetalle[i].cantidad || this.arrayDetalle[i].precio) < 0)
+                        resultado = 0.0
+                    else
+                        resultado += (this.arrayDetalle[i].cantidad * this.arrayDetalle[i].precio)
                 }
             }
             return resultado

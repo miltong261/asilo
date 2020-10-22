@@ -26,9 +26,11 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
-                                            <button type="button" @click="openTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
-                                            <button type="button" @click="openDashboard(residente.id, residente.nombre, residente.apellido)" class="btn btn-success mb-1 mr-1 rounded-circle"> <i class="fas fa-chart-bar"></i></button>
+                                            <template v-if="residente.estado==1">
+                                                <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
+                                                <button type="button" @click="openTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                                <button type="button" @click="openDashboard(residente.id, residente.nombre, residente.apellido)" class="btn btn-success mb-1 mr-1 rounded-circle"> <i class="fas fa-chart-bar"></i></button>
+                                            </template>
                                         </td>
                                     </tr>
                                 </tbody>

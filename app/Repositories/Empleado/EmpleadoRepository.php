@@ -42,6 +42,9 @@ class EmpleadoRepository extends BaseRepository
             'puestos.nombre as nombre_puesto'
         )
         ->where('empleados.estado', 1)
+        ->where('empleados.puesto_id', '=', 1)
+        ->orWhere('empleados.puesto_id', '=', 2)
+        ->orWhere('empleados.puesto_id', '=', 3)
         ->orderBy('empleados.nombre', 'asc')
         ->get();
     }

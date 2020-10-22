@@ -25,7 +25,7 @@ class KardexRepository extends BaseRepository
         $fecha_actual = Carbon::now()->toDateString();
 
         $residentes = Residente::select(
-            'id', 'codigo', 'nombre', 'apellido', 'fecha_nacimiento'
+            'id', 'codigo', 'nombre', 'apellido', 'fecha_nacimiento', 'estado'
         )
         ->get();
 
@@ -58,7 +58,7 @@ class KardexRepository extends BaseRepository
         ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
         ->join('residentes', 'residentes.id', '=', 'kardex.residente_id')
         ->join('productos', 'productos.id', '=', 'kardex.producto_id')
-        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.id')
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
         ->select(
             'users.usuario',
             'empleados.nombre as empleado_nombre',
@@ -70,7 +70,7 @@ class KardexRepository extends BaseRepository
             'kardex.hora',
             'kardex.observacion',
         )
-        ->where('residentes.id', $id)
+        ->where('kardex.residente_id', $id)
         ->where('kardex.fecha_registro', $actual)
         ->get();
 
@@ -108,7 +108,7 @@ class KardexRepository extends BaseRepository
         ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
         ->join('residentes', 'residentes.id', '=', 'kardex.residente_id')
         ->join('productos', 'productos.id', '=', 'kardex.producto_id')
-        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.id')
+        ->join('unidad_medida', 'unidad_medida.id', '=', 'productos.unidad_medida_id')
         ->select(
             'users.usuario',
             'empleados.nombre as empleado_nombre',
@@ -141,7 +141,7 @@ class KardexRepository extends BaseRepository
         if ($data == []) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'No hay registros para la fecha ' . $actual
+                'message' => 'No hay registros para la fecha ' . $fecha
             ]);
         } else
             return ['kardex' => $data];

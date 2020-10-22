@@ -65,4 +65,9 @@ class Producto extends Model
     {
         return $this->belongsToMany('App\Models\Donacion');
     }
+
+    public function kardex()
+    {
+        return $this->hasMany('App\Models\Kardex');
+    }
 }

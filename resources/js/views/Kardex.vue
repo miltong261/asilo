@@ -27,8 +27,10 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
-                                            <button type="button" @click="openModalTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                            <template v-if="residente.estado==1">
+                                                <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
+                                                <button type="button" @click="openModalTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                            </template>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -251,6 +253,7 @@ export default {
                     alerts.sweetAlert(response.data.status, response.data.message)
                 } else {
                     me.lista_kardex = response.data.kardex
+                    console.log(response.data)
                     me.dataTable('#notas')
                 }
             }).catch(function (error) {
@@ -320,7 +323,8 @@ export default {
         },
         otherError() {
             let errores = 0
-            if (this.medicamento_id == 0) {
+            let me = this
+            if (me.medicamento_id == 0) {
                 alerts.sweetAlert('error', 'No ha seleccionado ningún medicamento')
                 errores = 1
             }
@@ -381,7 +385,7 @@ export default {
             let me = this
             let url = '/kardex/store'
 
-            if (!me.otherError()) return
+            if (me.otherError()) return
             else {
                 axios.post(url, {
                     'residente_id': this.residente_id,

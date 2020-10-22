@@ -215,9 +215,6 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="donaciones" data-parent="#accordionExample">
-                    <router-link tag="li" to="/donantes" exact-active-class="active">
-                        <a>Donantes</a>
-                    </router-link>
                     <router-link tag="li" to="/donaciones" exact-active-class="active">
                         <a>Donaciones</a>
                     </router-link>

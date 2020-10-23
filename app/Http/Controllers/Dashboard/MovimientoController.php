@@ -89,4 +89,9 @@ class MovimientoController extends Controller
             return $th;
         }
     }
+
+    public function mes(Request $request)
+    {
+        return $this->movimientoRepository->saldoMes($request->mes);
+    }
 }

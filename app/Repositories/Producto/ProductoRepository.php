@@ -148,6 +148,11 @@ class ProductoRepository extends BaseRepository
 
     public function pdfInventario($type, $month)
     {
+        if ($type == 'producto')
+            $asignacion = 0;
+        elseif ($type == 'medicamento')
+            $asignacion = 1;
+
         $anio = date('Y');
 
         if (date('L', strtotime("$anio-02-01"))) {
@@ -255,8 +260,5 @@ class ProductoRepository extends BaseRepository
         }
 
         $data = ['inicio' => $months[$month][0], 'fin' => $months[$month][1]];
-
-        return
-        [$data['inicio'] . ' ' . $data['fin']];
     }
 }

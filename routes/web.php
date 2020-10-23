@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'movimientos'], function () {
             Route::get('/', 'Dashboard\MovimientoController@index');
             Route::get('/saldo', 'Dashboard\MovimientoController@showSaldo');
+            Route::get('/mes', 'Dashboard\MovimientoController@mes');
             Route::post('/store', 'Dashboard\MovimientoController@store');
             Route::put('/update', 'Dashboard\MovimientoController@update');
         });

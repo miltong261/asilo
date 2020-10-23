@@ -270,7 +270,7 @@ export default {
         },
         update(){
             let me = this
-            let url = 'tipo_producto/update'
+            let url = '/tipo_producto/update'
             axios.put(url,{
                 'nombre': this.nombre,
                 'medicamento': this.medicamento,

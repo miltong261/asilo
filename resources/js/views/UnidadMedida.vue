@@ -267,7 +267,7 @@ export default {
         },
         update(){
             let me = this
-            let url = 'unidad_medida/update'
+            let url = '/unidad_medida/update'
             axios.put(url,{
                 'nombre': this.nombre,
                 'medicamento': this.medicamento,

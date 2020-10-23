@@ -27,8 +27,10 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
-                                            <button type="button" @click="openModalTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                            <template v-if="residente.estado==1">
+                                                <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
+                                                <button type="button" @click="openModalTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                            </template>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -153,51 +155,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Modal tabla-->
-        <!-- <div :class="{'mostrar': modalTable}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header dark-header">
-                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
-                        <button type="button" @click="closeModalTable()" class="close" aria-label="Close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-
-                    <div class="widget-content widget-content-area ">
-                        <div class="widget-header p-2">
-                            <div class="d-flex justify-content-between">
-                                <div class="form-group float-lef">
-                                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
-                                </div>
-
-
-
-                            </div>
-                            <div class="table-responsive mb-0 mt-0">
-                                <table id="notas" class="table table-hover" style="width:100%">
-                                    <thead>
-                                        <tr>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <button type="button" @click="closeModalTable()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
     </div>
 </template>
 

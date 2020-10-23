@@ -259,7 +259,7 @@ export default {
         },
         update(){
             let me = this
-            let url = 'tipo_movimiento/update'
+            let url = '/tipo_movimiento/update'
             axios.put(url,{
                 'nombre': this.nombre,
                 'entrada': this.entrada,

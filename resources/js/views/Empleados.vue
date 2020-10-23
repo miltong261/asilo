@@ -518,7 +518,7 @@ export default {
         },
         update(){
             let me = this
-            let url = 'empleados/update'
+            let url = '/empleados/update'
 
             if (me.otherError()) return
             else {

@@ -223,7 +223,7 @@ export default {
         },
         update(){
             let me = this
-            let url = 'areas/update'
+            let url = '/areas/update'
             axios.put(url,{
                 'nombre': this.nombre,
                 'id': this.id

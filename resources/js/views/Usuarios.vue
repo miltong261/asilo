@@ -375,7 +375,7 @@ export default {
         },
         change_password(){
             let me = this
-            let url = 'usuarios/update'
+            let url = '/usuarios/update'
             axios.put(url,{
                 'usuario': this.usuario,
                 'password': this.password,

@@ -2892,7 +2892,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var me = this;
-      var url = 'areas/update';
+      var url = '/areas/update';
       axios.put(url, {
         'nombre': this.nombre,
         'id': this.id
@@ -5630,7 +5630,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var _this3 = this;
 
       var me = this;
-      var url = 'empleados/update';
+      var url = '/empleados/update';
       if (me.otherError()) return;else {
         axios.put(url, {
           'area_id': this.area_id,
@@ -8618,7 +8618,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var me = this;
-      var url = 'puestos/update';
+      var url = '/puestos/update';
       axios.put(url, {
         'nombre': this.nombre,
         'id': this.id
@@ -10871,7 +10871,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var me = this;
-      var url = 'tipo_movimiento/update';
+      var url = '/tipo_movimiento/update';
       axios.put(url, {
         'nombre': this.nombre,
         'entrada': this.entrada,
@@ -11170,7 +11170,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var me = this;
-      var url = 'tipo_producto/update';
+      var url = '/tipo_producto/update';
       axios.put(url, {
         'nombre': this.nombre,
         'medicamento': this.medicamento,
@@ -11466,7 +11466,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var me = this;
-      var url = 'unidad_medida/update';
+      var url = '/unidad_medida/update';
       axios.put(url, {
         'nombre': this.nombre,
         'medicamento': this.medicamento,
@@ -11852,7 +11852,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var me = this;
-      var url = 'usuarios/update';
+      var url = '/usuarios/update';
       axios.put(url, {
         'usuario': this.usuario,
         'password': this.password,
@@ -68932,13 +68932,13 @@ var staticRenderFns = [
           { staticClass: "col-xl-12 col-lg-12 col-sm-12 layout-spacing" },
           [
             _c("div", { staticClass: "form-group p-0" }, [
-              _c("h4", { staticClass: "text-danger text-center " }, [
+              _c("h3", { staticClass: "text-danger text-center " }, [
                 _c("strong", [
                   _vm._v("Universidad Mariano Gálvez de Guatemala")
                 ])
               ]),
               _vm._v(" "),
-              _c("h5", { staticClass: "text-info text-center " }, [
+              _c("h4", { staticClass: "text-info text-center " }, [
                 _c("strong", [
                   _vm._v(
                     "Facultad de Ingeniería en Sistemas de Información y Ciencias de la Computación"
@@ -68946,11 +68946,11 @@ var staticRenderFns = [
                 ])
               ]),
               _vm._v(" "),
-              _c("h4", { staticClass: "text-center " }, [
+              _c("h4", { staticClass: "text-center text-secondary" }, [
                 _vm._v("Retalhuleu, Retalhuleu")
               ]),
               _vm._v(" "),
-              _c("h5", { staticClass: "text-center " }, [
+              _c("h5", { staticClass: "text-center text-muted" }, [
                 _vm._v("Seminario 2020")
               ])
             ]),
@@ -68961,7 +68961,7 @@ var staticRenderFns = [
                 attrs: {
                   src: "assets/img/logo-formulario.jpeg",
                   alt: "logo",
-                  height: "450px"
+                  height: "480px"
                 }
               }),
               _vm._v(" "),
@@ -104961,7 +104961,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -35,7 +35,7 @@ class ResidenteRepository extends BaseRepository
             'departamento_origen.id as departamento_origen_id',
             'departamento_dpi.id as departamento_dpi_id',
         )
-        ->orderBy('fecha_ingreso', 'desc')
+        ->orderBy('residentes.codigo', 'desc')
         ->get();
     }
 

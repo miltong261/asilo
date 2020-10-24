@@ -2,54 +2,143 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-cash-register"></i></button>
+                <button id="openForm" type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-cash-register"></i></button>
+                <button id="openMes" type="button" @click="openModalReporte()" class="btn btn-danger mb-1 mr-1"> Reporte mensual <i class="fas fa-file-pdf"></i></button>
                 <div class="widget-content widget-content-area br-6">
-                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
-                    <div v-for="saldo in caja" :key="saldo.id" class="text-center">
-                        <span>Saldo en caja: <strong class="text-secondary">Q {{ saldo.saldo }}</strong></span>
-                    </div>
-                    <div class="table-responsive mb-0 mt-0">
-                        <table id="zero-config" class="table table-hover" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-qrcode"></i> Transacción</th>
-                                    <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha</th>
-                                    <th class="text-center"><i class="fas fa-paste"></i> Tipo movimiento</th>
-                                    <th class="text-center"><i class="fas fa-search"></i> Concepto</th>
-                                    <th class="text-center"><i class="fas fa-money-bill"></i> Entrada</th>
-                                    <th class="text-center"><i class="fas fa-money-bill"></i> Salida</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Registró</th>
-                                    <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(movimiento, index) in lista_movimiento" :key="movimiento.id">
-                                    <td v-text="index+1" class="text-center"></td>
-                                    <td v-text="movimiento.no_transaccion" class="text-center"></td>
-                                    <td v-text="movimiento.fecha_registro" class="text-center"></td>
-                                    <td v-text="movimiento.tipo_movimiento_nombre" class="text-center"></td>
-                                    <td v-text="movimiento.observacion" class="text-center"></td>
-                                    <td class="text-center">
-                                        <div v-if="movimiento.entrada">
-                                            <span class="badge outline-badge-check" v-text="'Q '+movimiento.monto"></span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div v-if="movimiento.salida">
-                                            <span class="badge outline-badge-no-check" v-text="'Q '+movimiento.monto"></span>
-                                        </div>
-                                    </td>
-                                    <td v-text="movimiento.nombre_usuario" class="text-center"></td>
-                                    <td class="text-center">
-                                        <template v-if="movimiento.tipo_movimiento_nombre!='Compra'">
-                                            <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                        </template>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <template v-if="action==1">
+                        <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
+                        <div v-for="saldo in caja" :key="saldo.id" class="text-center">
+                            <span>Saldo en caja: <strong class="text-secondary">Q {{ saldo.saldo }}</strong></span>
+                        </div>
+                        <div class="table-responsive mb-0 mt-0">
+                            <table id="listado" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                        <th class="text-center"><i class="fas fa-qrcode"></i> Transacción</th>
+                                        <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha</th>
+                                        <th class="text-center"><i class="fas fa-paste"></i> Tipo movimiento</th>
+                                        <th class="text-center"><i class="fas fa-search"></i> Concepto</th>
+                                        <th class="text-center"><i class="fas fa-money-bill"></i> Entrada</th>
+                                        <th class="text-center"><i class="fas fa-money-bill"></i> Salida</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
+                                        <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(movimiento, index) in lista_movimiento" :key="movimiento.id">
+                                        <td v-text="index+1" class="text-center"></td>
+                                        <td v-text="movimiento.no_transaccion" class="text-center"></td>
+                                        <td v-text="movimiento.fecha_registro" class="text-center"></td>
+                                        <td v-text="movimiento.tipo_movimiento_nombre" class="text-center"></td>
+                                        <td v-text="movimiento.observacion" class="text-center"></td>
+                                        <td class="text-center">
+                                            <div v-if="movimiento.entrada">
+                                                <span class="badge outline-badge-check" v-text="'Q '+movimiento.monto"></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div v-if="movimiento.salida">
+                                                <span class="badge outline-badge-no-check" v-text="'Q '+movimiento.monto"></span>
+                                            </div>
+                                        </td>
+                                        <td v-text="movimiento.nombre_usuario" class="text-center"></td>
+                                        <td class="text-center">
+                                            <template v-if="movimiento.tipo_movimiento_nombre!='Compra'">
+                                                <button type="button" @click="openModal('update', movimiento)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
+                                            </template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <template v-else-if="action==2">
+                         <div class="d-flex justify-content-between">
+                            <div class="form-group float-lef">
+                                <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <h6><strong>ASILO DE ANCIANOS RETALHULEU</strong></h6>
+                                <h6>Residenciales Ciudad Palmeras</h6>
+                                <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
+                                <h5 class="text-secondary"><strong>Movimientos</strong></h5>
+                                <label class="text-dark"><i class="fas fa-money-bill"></i> Entradas</label>
+                                <label for="" class="text-secondary">Q. {{ mes_entrada }} | </label>
+                                <label class="text-dark"><i class="fas fa-money-bill"></i> Salidas</label>
+                                <label for="" class="text-secondary">Q. {{ mes_salida }}</label>
+                            </div>
+
+                            <div class="form-group float-right">
+                                <h5 class="p-5">Mes: <strong class="text-secondary">{{ fecha_reporte }}</strong></h5>
+                            </div>
+                        </div>
+
+                        <!-- <div class="d-flex justify-content-between">
+                            <div class="form-group col-md-3">
+                                <label class="text-dark"><i class="fas fa-cash-register"></i> Saldo inicial</label>
+                                <label for="" class="text-secondary">Q. {{ mes_inicial }}</label>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="text-dark"><i class="fas fa-money-bill"></i> Entradas</label>
+                                <label for="" class="text-secondary">Q. {{ mes_entrada }}</label>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="text-dark"><i class="fas fa-money-bill"></i> Salidas</label>
+                                <label for="" class="text-secondary">Q. {{ mes_salida }}</label>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="text-dark"><i class="fas fa-cash-register"></i> Saldo actual</label>
+                                <label for="" class="text-secondary">Q. {{ mes_actual }}</label>
+                            </div>
+                        </div> -->
+
+                        <div class="table-responsive mb-0 mt-0">
+                            <table id="listado_mes" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"><i class="fas fa-hashtag"></i></th>
+                                        <th class="text-center"><i class="fas fa-qrcode"></i> Transacción</th>
+                                        <th class="text-center"><i class="far fa-calendar-alt"></i> Fecha</th>
+                                        <th class="text-center"><i class="fas fa-paste"></i> Tipo movimiento</th>
+                                        <th class="text-center"><i class="fas fa-search"></i> Concepto</th>
+                                        <th class="text-center"><i class="fas fa-money-bill"></i> Entrada</th>
+                                        <th class="text-center"><i class="fas fa-money-bill"></i> Salida</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(movimiento, index) in lista_mes" :key="movimiento.id">
+                                        <td v-text="index+1" class="text-center"></td>
+                                        <td v-text="movimiento.no_transaccion" class="text-center"></td>
+                                        <td v-text="movimiento.fecha_registro" class="text-center"></td>
+                                        <td v-text="movimiento.tipo_movimiento_nombre" class="text-center"></td>
+                                        <td v-text="movimiento.observacion" class="text-center"></td>
+                                        <td class="text-center">
+                                            <div v-if="movimiento.entrada">
+                                                <span class="badge outline-badge-check" v-text="'Q '+movimiento.monto"></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div v-if="movimiento.salida">
+                                                <span class="badge outline-badge-no-check" v-text="'Q '+movimiento.monto"></span>
+                                            </div>
+                                        </td>
+                                        <td v-text="movimiento.nombre_usuario" class="text-center"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Acciones -->
+                        <div class="float-right">
+                            <button type="button" @click="closeReporte()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
+                        </div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
@@ -107,6 +196,39 @@
             </div>
         </div>
 
+        <!-- Modal para el reporte -->
+        <div :class="{'mostrar': modalReporte}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModalReporte()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Opciones</label>
+                                    <select id="select_mes" class="form-control" v-model="fecha_reporte">
+                                        <option v-for="fecha_reporte in lista_fechas" :key="fecha_reporte.nombre" :value="fecha_reporte.nombre" v-text="fecha_reporte.nombre"></option>
+                                    </select>
+                                    <!-- <div v-if="hasError('fecha_inventario_id')" class="invalid-feedback">
+                                        {{ errors.fecha_inventario_id[0] }}
+                                    </div> -->
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModalReporte()">Salir <i class="fas fa-sign-out-alt"></i></button>
+                        <button type="button" class="btn btn-info" @click="openReporte()">Ver <i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -131,9 +253,54 @@ export default {
             caja: 0,
 
             modal: 0,
+            modalReporte: 0,
             titulo: '',
             opcion: 0,
-            errors: []
+            errors: [],
+            action: 1,
+
+            fecha_reporte: '',
+            lista_mes: [],
+            mes_salida: 0,
+            mes_entrada: 0,
+            lista_fechas: [
+                {
+                    'nombre': 'Enero'
+                },
+                {
+                    'nombre': 'Febrero'
+                },
+                {
+                    'nombre': 'Marzo'
+                },
+                {
+                    'nombre': 'Abril'
+                },
+                {
+                    'nombre': 'Mayo'
+                },
+                {
+                    'nombre': 'Junio'
+                },
+                {
+                    'nombre': 'Julio'
+                },
+                {
+                    'nombre': 'Agosto'
+                },
+                {
+                    'nombre': 'Septiembre'
+                },
+                {
+                    'nombre': 'Octubre'
+                },
+                {
+                    'nombre': 'Noviembre'
+                },
+                {
+                    'nombre': 'Diciembre'
+                }
+            ]
         }
     },
     methods:{
@@ -172,6 +339,73 @@ export default {
 
             alerts.sweetAlert('error', 'Operación cancelada')
         },
+        openModalReporte(){
+            this.modalReporte = 1
+            this.titulo = 'REPORTE DE CAJA'
+            this.combo_mes()
+        },
+        closeModalReporte(){
+            this.titulo = ''
+            this.fecha_reporte = ''
+            this.modalReporte = 0
+
+            alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        openReporte() {
+            let me = this
+            if (me.fecha_reporte == '') {
+                alerts.sweetAlert('error', 'Seleccione el mes')
+            } else {
+                me.action = 2
+                me.destroyTable('#listado')
+                this.titulo = ''
+                this.modalReporte = 0
+                document.getElementById('openForm').style.display = 'none'
+                document.getElementById('openMes').style.display = 'none'
+
+                let url = '/movimientos/mes?mes=' + me.fecha_reporte
+
+                axios.get(url).then(function (response) {
+                    me.lista_mes = response.data.movimientos
+                    if (response.data.movimientos == '') {
+                        alerts.sweetAlert('error', 'No hay registros para el mes de ' + me.fecha_reporte)
+
+                    } else {
+                        me.dataTable('#listado_mes')
+                        me.mes_salida = response.data.salida
+                        me.mes_entrada = response.data.entrada
+                    }
+                }).catch(function (error) {
+
+                })
+            }
+        },
+        closeReporte() {
+            this.action = 1
+            this.destroyTable('#listado_mes')
+            this.showList()
+            document.getElementById('openForm').style.display = 'inline'
+            document.getElementById('openMes').style.display = 'inline'
+
+            this.fecha_reporte = ''
+            this.lista_mes = []
+            this.mes_salida = ''
+            this.mes_entrada = ''
+        },
+        change_select_mes() {
+            let me = this
+            $('#select_mes').on('change', function () {
+                me.$emit('change', this.value)
+                me.fecha_reporte = this.value
+            })
+        },
+        combo_mes(){
+            let me = this
+            $('#select_mes').select2({
+                placeholder: 'Seleccione el mes',
+                width: '100%'
+            })
+        },
         hasError(field) {
             return field in (this.errors)
         },
@@ -195,11 +429,11 @@ export default {
                 console.log(error)
             })
         },
-        dataTable() {
-            let datatable = $('#zero-config').DataTable()
+        dataTable(table) {
+            let datatable = $(table).DataTable()
             datatable.destroy()
             this.$nextTick(function() {
-                $('#zero-config').DataTable( {
+                $(table).DataTable( {
                     "oLanguage": {
                         "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
                         "sInfo": "Mostrando página _PAGE_ de _PAGES_",
@@ -214,12 +448,16 @@ export default {
                 } );
             });
         },
+        destroyTable(table) {
+            let datatable = $(table).DataTable()
+            datatable.destroy()
+        },
         showList() {
             let me = this
             let url = '/movimientos'
             axios.get(url).then(function (response) {
                 me.lista_movimiento = response.data
-                me.dataTable();
+                me.dataTable('#listado');
             })
             .catch(function (error) {
                 console.log(error)
@@ -271,6 +509,7 @@ export default {
     mounted() {
         this.showList()
         this.showSaldo()
+        this.change_select_mes()
     }
 }
 </script>

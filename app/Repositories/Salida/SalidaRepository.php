@@ -30,7 +30,7 @@ class SalidaRepository extends BaseRepository
             'empleados.apellido as apellido_empleado',
             'areas.nombre as nombre_area'
         )
-        ->orderBy('codigo', 'desc')
+        ->orderBy('salidas.codigo', 'desc')
         ->get();
     }
 

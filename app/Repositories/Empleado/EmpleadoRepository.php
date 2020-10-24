@@ -19,7 +19,7 @@ class EmpleadoRepository extends BaseRepository
         ->join('areas', 'areas.id', '=', 'empleados.area_id')
         ->join('puestos', 'puestos.id', '=', 'empleados.puesto_id')
         ->select('empleados.*', 'puestos.nombre as puesto_nombre', 'areas.nombre as area_nombre')
-        ->orderBy('empleados.id', 'asc')
+        ->orderBy('empleados.codigo', 'desc')
         ->get();
     }
 

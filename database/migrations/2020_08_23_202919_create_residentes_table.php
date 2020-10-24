@@ -40,7 +40,7 @@ class CreateResidentesTable extends Migration
             $table->string('familia', 70)->nullable();
             $table->string('direccion', 70)->nullable();
             $table->bigInteger('telefono_familia')->nullable();
-            $table->string('persona_referida', 70)->nullable();
+            $table->string('persona_referida', 70);
             $table->string('direccion_persona_referida', 70)->nullable();
             $table->bigInteger('telefono_persona_referida')->nullable();
             $table->string('motivo');

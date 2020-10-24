@@ -25,7 +25,7 @@ class KardexRepository extends BaseRepository
         $fecha_actual = Carbon::now()->toDateString();
 
         $residentes = Residente::select(
-            'id', 'codigo', 'nombre', 'apellido', 'fecha_nacimiento', 'estado'
+            'id', 'codigo', 'nombre', 'apellido', 'fecha_nacimiento', 'activo', 'defuncion'
         )
         ->get();
 
@@ -35,7 +35,9 @@ class KardexRepository extends BaseRepository
                 'codigo' => $residente->codigo,
                 'nombre' => $residente->nombre,
                 'apellido' => $residente->apellido,
-                'edad' => Carbon::parse($residente->fecha_nacimiento)->age
+                'edad' => Carbon::parse($residente->fecha_nacimiento)->age,
+                'activo' => $residente->activo,
+                'defuncion' => $residente->defuncion
             ];
         }
 

@@ -27,7 +27,6 @@ class ProductoRequest extends FormRequest
             'unidad_medida_id' => ['required'],
             'tipo_producto_id' => ['required'],
             'nombre' => ['required', 'max:35'],
-            // 'observacion' => ['nullable', 'max:70'],
             'fecha_vencimiento' => ['nullable', 'date']
         ];
     }
@@ -41,10 +40,6 @@ class ProductoRequest extends FormRequest
 
             'nombre.required' => 'El nombre del producto es obligatorio',
             'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
-
-            // 'observacion.max' => 'La observación debe contener como máximo :max caracteres',
-
-            // 'fecha_vencimiento.required' => 'La fecha es obligatoria',
             'fecha_vencimiento.date' => 'Fecha invalida'
         ];
     }

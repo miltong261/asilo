@@ -43,4 +43,11 @@ class Residente extends Model
     {
         return $this->hasMany('App\Models\Nota');
     }
+
+    public function kardex()
+    {
+        return $this->hasMany('App\Models\Kardex');
+    }
 }
+
+

@@ -31,6 +31,7 @@ class AjusteProductoRepository extends BaseRepository
             'productos.presentacion as presentacion_producto'
             )
             ->where('productos.asignacion', '1')
+            ->orderBy('ajuste_producto.id', 'desc')
             ->get();
         } elseif ($type == 'medicamento') {
             return $this->getModel()
@@ -47,6 +48,7 @@ class AjusteProductoRepository extends BaseRepository
             'productos.presentacion as presentacion_producto'
             )
             ->where('productos.asignacion', '0')
+            ->orderBy('ajuste_producto.id', 'desc')
             ->get();
         }
     }

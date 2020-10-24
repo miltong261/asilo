@@ -27,7 +27,7 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <template v-if="residente.estado==1">
+                                            <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
                                                 <button type="button" @click="openModalTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
                                             </template>
@@ -62,24 +62,26 @@
                                     </div>
                                 </div>
 
-                                <table id="notas" class="table table-hover" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" ><i class="fas fa-hashtag"></i></th>
-                                            <th class="text-center" ><i class="fas fa-clock"></i> Hora</th>
-                                            <th class="text-center" ><i class="fas fa-search"></i> nota</th>
-                                            <th class="text-center" ><i class="fas fa-user"></i> Registró</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(notas, index) in lista_notas" :key="notas.id">
-                                            <td class="text-center" v-text="index+1"></td>
-                                            <td class="text-center" v-text="notas.hora"></td>
-                                            <td  v-text="notas.nota"></td>
-                                            <td class="text-center" v-text="notas.empleado_nombre + ' ' + notas.empleado_epellido"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive mb-0 mt-0">
+                                    <table id="notas" class="table table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="5%"><i class="fas fa-hashtag"></i></th>
+                                                <th class="text-center" width="10%"><i class="fas fa-clock"></i> Hora</th>
+                                                <th class="text-center" width="65%"><i class="fas fa-search"></i> nota</th>
+                                                <th class="text-center" width="20%"><i class="fas fa-user"></i> Registró</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(notas, index) in lista_notas" :key="notas.id">
+                                                <td class="text-center" v-text="index+1"></td>
+                                                <td class="text-center" v-text="notas.hora"></td>
+                                                <td  v-text="notas.nota"></td>
+                                                <td class="text-center" v-text="notas.empleado_nombre + ' ' + notas.empleado_epellido"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="text-right">
                                 <button type="button" @click="closeModalTable()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
@@ -90,10 +92,9 @@
             </div>
         </div>
 
-
+        <!-- Modal para registrar notas -->
         <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-            <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header dark-header">
                         <h5 class="modal-title text-white m-1" v-text="titulo"></h5>

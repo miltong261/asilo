@@ -16,6 +16,10 @@ export default new Router({
             path: '/usuarios',
             component: require('../views/Usuarios').default
         },
+        {
+            path: '/perfil',
+            component: require('../views/Perfil').default
+        },
 
         /********** Rutas financiero **********/
         {

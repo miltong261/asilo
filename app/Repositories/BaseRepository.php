@@ -98,5 +98,3 @@ abstract class BaseRepository
             return '000' .$count+=1;
     }
 }
-
-

@@ -2,7 +2,7 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                <!-- Tabla -->
+                <!-- Listado de residentes -->
                 <template v-if="action==1">
                     <template v-if="rol_id==1">
                         <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-house-user"></i></button>
@@ -72,7 +72,7 @@
                     </div>
                 </template>
 
-                <!-- Formulario -->
+                <!-- Reigstro y actualización de residentes -->
                 <template v-else-if="action==2">
                     <div class="row">
                         <div id="flFormsGrid" class="col-lg-12 layout-spacing mx-auto">

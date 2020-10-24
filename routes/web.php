@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\UserController@update');
             Route::put('/activate', 'Dashboard\UserController@activate');
             Route::put('/desactivate', 'Dashboard\UserController@desactivate');
+            Route::get('/perfil', 'Dashboard\UsuarioController@perfil');
+            Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
         });
 
         /********** Rutas de financiero **********/

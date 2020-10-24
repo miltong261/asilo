@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../assets/css/style-inventario.css">
     <link rel="stylesheet" href="../../../public/assets/css/main.min.css">
     <body>
-        @foreach ($reserva as $r)
+
         <header>
             <table class="text-center" id="tabla-encabezado">
                 <tr>
@@ -27,8 +27,7 @@
             </table>
 
         </header>
-        
-        @endforeach
+
 
 
         <!-- INICIO TABLA -->
@@ -75,7 +74,7 @@
                             <td>320</td>
                             <td>320</td>
                             <td class="text-success">320</td>
-                        </tr>     
+                        </tr>
                         <tr>
                             <td >Shaun Park</td>
                             <td>Libra</td>
@@ -83,7 +82,7 @@
                             <td>320</td>
                             <td>320</td>
                             <td class="text-success">320</td>
-                        </tr>            
+                        </tr>
                     </tbody>
                 </table>
         </div>

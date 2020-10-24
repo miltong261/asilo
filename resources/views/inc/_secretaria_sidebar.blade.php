@@ -4,27 +4,6 @@
     <nav id="sidebar">
         <div class="shadow-bottom"></div>
         <ul class="list-unstyled menu-categories" id="accordionExample">
-            {{-- Configuración --}}
-            <li class="menu">
-                <a href="#configuracion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <i class="fas fa-cogs"></i>
-                        <span>Configuración</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="configuracion" data-parent="#accordionExample">
-                    <router-link tag="li" to="/tipo_producto" exact-active-class="active">
-                        <a>Categorías</a>
-                    </router-link>
-                    <router-link tag="li" to="/unidad_medida" exact-active-class="active">
-                        <a>Unidad de medida</a>
-                    </router-link>
-                </ul>
-            </li>
-
             {{-- Residentes --}}
             <li class="menu">
                 <a href="#residentes" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -75,7 +54,7 @@
                 <a href="#salidas" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <i class="fas fa-shopping-cart"></i>
-                        <span>Salidas</span>
+                        <span>Requisiciones</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -123,9 +102,6 @@
                     </router-link>
                     <router-link tag="li" to="/dashboard/dashboard_medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>
-                    </router-link>
-                    <router-link tag="li" to="/dashboard/dashboard_compras" exact-active-class="active">
-                        <a>Compras</a>
                     </router-link>
                 </ul>
             </li>

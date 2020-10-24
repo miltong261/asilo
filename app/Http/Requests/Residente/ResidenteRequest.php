@@ -31,6 +31,7 @@ class ResidenteRequest extends FormRequest
             'fecha_nacimiento' => ['required', 'date'],
             'dpi' => ['required', 'digits:13', 'unique:residentes,dpi'],
             'telefono_familia' => ['nullable', 'digits:8'],
+            'persona_referida' => ['required'],
             'telefono_persona_referida' => ['nullable', 'digits:8'],
             'motivo' => ['required'],
             'estado' => ['required'],
@@ -59,6 +60,8 @@ class ResidenteRequest extends FormRequest
             'dpi.unique' => 'El DPI ya existe',
 
             'telefono_familia.digits' => 'El número contiene 8 dígitos',
+
+            'persona_referida.required' => 'El nombre de la persona referida es obligatorio',
             'telefono_persona_referida' => 'El número contiene 8 dígitos',
 
             'motivo.required' => 'Debe especificar el motivo de la llegada',

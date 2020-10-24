@@ -29,7 +29,7 @@ class UserRepository extends BaseRepository
             'empleados.nombre',
             'empleados.apellido'
         )
-        ->orderBy('users.id', 'asc')
+        ->orderBy('users.id', 'desc')
         ->get();
     }
 

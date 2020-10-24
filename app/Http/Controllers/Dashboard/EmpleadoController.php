@@ -41,8 +41,8 @@ class EmpleadoController extends Controller
             DB::beginTransaction();
 
             $guardar = $this->empleadoRepository->store($request->only([
-                'area_id', 'puesto_id', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'])
-                + ['fecha_ingreso' => Carbon::now()]
+                'area_id', 'puesto_id', 'nombre', 'apellido', 'fecha_ingreso', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'])
+                + ['fecha_registro' => Carbon::now()]
                 + ['codigo' => 'EMPLEADO- ' . $this->empleadoRepository->generateCode()]
             );
 
@@ -72,7 +72,7 @@ class EmpleadoController extends Controller
             DB::beginTransaction();
 
             $actualizar = $this->empleadoRepository->update($request->only([
-                'puesto_id', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'
+                'puesto_id', 'nombre', 'apellido', 'fecha_ingreso', 'fecha_nacimiento', 'dpi', 'direccion', 'telefono'
                 ]),
                 $request->id
             );

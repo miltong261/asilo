@@ -116,7 +116,6 @@ class MovimientoRepository extends BaseRepository
         $anio = date('Y');
         $montoSalida = 0;
         $montoEntrada = 0;
-        $caja = $this->saldoCaja();
         $saldoInicial = 0;
 
         if (date('L', strtotime("$anio-02-01"))) {
@@ -251,15 +250,13 @@ class MovimientoRepository extends BaseRepository
                 $montoEntrada += $movimiento->monto;
         }
 
-        $saldoInicial = $caja[0]['saldo'] + $montoSalida - $montoEntrada ;
-
         if ($movimientos == '') {
             return response()->json([
                 'status' => 'error',
                 'message' => 'No hay registro de notas para la fecha '
             ]);
         } else {
-            return ['movimientos' => $movimientos, 'salida' => $montoSalida, 'entrada' => $montoEntrada, 'saldo_inicial' => $saldoInicial, 'saldo_actual' => $caja[0]['saldo']];
+            return ['movimientos' => $movimientos, 'salida' => $montoSalida, 'entrada' => $montoEntrada];
         }
     }
 }

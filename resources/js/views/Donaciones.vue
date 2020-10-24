@@ -228,7 +228,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <h6 class="text-center">Cantidad de productos donados: <strong class="text-secondary">{{ cantidad_suma }}</strong></h6>
+                            <h6 class="text-center">Cantidad de productos en el detalle: <strong class="text-secondary">{{ cantidad_suma }}</strong></h6>
                         </fieldset>
 
                         <br>
@@ -595,7 +595,7 @@ export default {
                 me.arrayDetalle = response.data
 
                 for(var i = 0; i < me.arrayDetalle.length; i++)
-                    me.cantidad_suma += me.arrayDetalle[i].cantidad
+                    me.cantidad_suma++
 
             }).catch(function (error) {
                 console.log(error)

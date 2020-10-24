@@ -27,6 +27,7 @@ class CreateEmpleadosTable extends Migration
                 ->on('puestos');
 
             $table->string('codigo', 20);
+            $table->date('fecha_registro');
             $table->date('fecha_ingreso');
             $table->string('nombre', 35);
             $table->string('apellido', 35);

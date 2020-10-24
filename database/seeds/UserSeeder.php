@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'rol_id' => 1,
             'empleado_id' => 1,
             'fecha_registro' => Carbon::now(),
-            'usuario' => 'milton-0001',
+            'usuario' => 'angel-0001',
             'password' => bcrypt('asilo')
         ));
     }

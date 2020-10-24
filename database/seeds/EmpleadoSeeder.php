@@ -17,12 +17,12 @@ class EmpleadoSeeder extends Seeder
             'puesto_id' => 1,
             'codigo' => 'EMPLEADO-0001',
             'fecha_ingreso' => '2020-08-12',
-            'nombre' => 'Milton Alberto',
-            'apellido' => 'Girón López',
-            'fecha_nacimiento' => '1997-01-26',
-            'dpi' => 3280115171101,
-            'direccion' => 'Colonia el Maestro, Retalhuleu',
-            'telefono' => 41802654
+            'nombre' => 'Angel Rubén',
+            'apellido' => 'Ajanel Juárez',
+            'fecha_nacimiento' => '1999-04-23',
+            'dpi' => 3282227631101,
+            'direccion' => 'Barrio San Luis Retalhuleu',
+            'telefono' => 42243720
         ));
     }
 }

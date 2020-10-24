@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> --}}
-    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css">
+     <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> 
+     {{--<link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css"> --}}
     <link rel="stylesheet" href="../../assets/css/style-formulario.css">
 </head>
 <body>
@@ -106,6 +106,34 @@
                     <tr>
                         <th class="titulo">Observaciones</th>
                         <th colspan="3"> {{ $residente->observacion }} </th>
+                    </tr>
+                    
+                    <tr style="color:white">
+                        <td >.</td>
+                    </tr>
+
+                    <tr style="color:white">
+                        <td>.</td>
+                    </tr>
+
+                   
+                    <tr style="height: 120px;">
+                        <th class="titulo">Persona Referida</th>
+                        <th style ="border-bottom: 1px solid gray;" colspan="2">  </th>
+                    </tr>
+
+                    <tr style="color:white">
+                        <td >.</td>
+                    </tr>
+
+                    <tr style="color:white">
+                        <td>.</td>
+                    </tr>
+
+
+                    <tr style="height: 80px">
+                        <th class="titulo"> Firma del residente</th>
+                        <th style ="border-bottom: 1px solid gray;" colspan="2">  </th>
                     </tr>
 
                 </thead>

@@ -15,7 +15,7 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="principal" data-parent="#accordionExample">
-                    <router-link tag="li" to="/perfil" exact-active-class="active">
+                    <router-link tag="li" to="usuarios/perfil" exact-active-class="active">
                         <a>Perfil</a>
                     </router-link>
                 </ul>

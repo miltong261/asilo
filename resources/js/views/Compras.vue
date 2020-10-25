@@ -424,7 +424,7 @@ export default {
                         alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     } else if (this.arrayDetalle[i].cantidad < 0) {
-                        alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto' + this.arrayDetalle[i].nombre_producto)
+                        alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     }
 
@@ -432,7 +432,7 @@ export default {
                         alerts.sweetAlert('error', 'Debe asignarle precio al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     } else if (this.arrayDetalle[i].precio < 0) {
-                        alerts.sweetAlert('error', 'Se le esta asignando un precio negativo al producto' + this.arrayDetalle[i].nombre_producto)
+                        alerts.sweetAlert('error', 'Se le esta asignando un precio negativo al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     }
                 }

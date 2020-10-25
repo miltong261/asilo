@@ -76,28 +76,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="d-flex justify-content-between">
-                            <div class="form-group col-md-3">
-                                <label class="text-dark"><i class="fas fa-cash-register"></i> Saldo inicial</label>
-                                <label for="" class="text-secondary">Q. {{ mes_inicial }}</label>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label class="text-dark"><i class="fas fa-money-bill"></i> Entradas</label>
-                                <label for="" class="text-secondary">Q. {{ mes_entrada }}</label>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label class="text-dark"><i class="fas fa-money-bill"></i> Salidas</label>
-                                <label for="" class="text-secondary">Q. {{ mes_salida }}</label>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label class="text-dark"><i class="fas fa-cash-register"></i> Saldo actual</label>
-                                <label for="" class="text-secondary">Q. {{ mes_actual }}</label>
-                            </div>
-                        </div> -->
-
                         <div class="table-responsive mb-0 mt-0">
                             <table id="listado_mes" class="table table-hover" style="width:100%">
                                 <thead>
@@ -160,12 +138,9 @@
 
                                 <div class="form-group col-md-12" v-if="opcion==1">
                                     <label class="text-dark"><i class="fas fa-paste"></i> Tipo Movimiento</label>
-                                    <select class="form-control" v-model="tipo_movimiento" :class="hasError('tipo_movimiento_id') ? 'is-invalid' : ''" placeholder="Ingrese tipo movimiento...">
-                                        <option v-for="tipo_movimiento in lista_tipo_movimiento" :key="tipo_movimiento.id" :value="tipo_movimiento" v-text="tipo_movimiento.nombre"></option>
+                                    <select id="tipo_movimiento" class="form-control" name="tipo_movimiento_id" v-model="tipo_movimiento_id">
+                                        <option v-for="tipo_movimiento in lista_tipo_movimiento" :key="tipo_movimiento.id" :value="tipo_movimiento.id" v-text="tipo_movimiento.nombre"></option>
                                     </select>
-                                    <div v-if="hasError('tipo_movimiento_id')" class="invalid-feedback">
-                                        {{ errors.tipo_movimiento_id[0] }}
-                                    </div>
                                 </div>
 
 
@@ -328,7 +303,9 @@ export default {
             this.combo_tipo_movimiento()
         },
         closeModal() {
-            this.tipo_movimiento = 0
+            this.tipo_movimiento_id = 0
+            this.tipo_movimiento_entrada = 0
+            this.tipo_movimiento_salida = 0
             this.monto = ''
             this.observacion = ''
 
@@ -424,10 +401,33 @@ export default {
             let url = '/tipo_movimiento/combo';
             axios.get(url).then(function (response) {
                 me.lista_tipo_movimiento = response.data
+                $('#tipo_movimiento').select2({
+                    placeholder: 'Seleccione tipo de movimiento'
+                })
+                me.change_select_tipo()
             })
             .catch(function (error) {
                 console.log(error)
             })
+        },
+        change_select_tipo() {
+            let me = this
+
+            $('#tipo_movimiento').on('change', function () {
+                me.$emit('change', this.value)
+                me.tipo_movimiento_id = this.value
+                console.log(me.tipo_movimiento_id)
+
+                me.selected_tipo(me.tipo_movimiento_id)
+            })
+        },
+        selected_tipo(id) {
+            for (var i = 0; i < this.lista_tipo_movimiento.length; i++) {
+                if (id == this.lista_tipo_movimiento[i].id) {
+                    this.tipo_movimiento_entrada = this.lista_tipo_movimiento[i].entrada
+                    this.tipo_movimiento_salida = this.lista_tipo_movimiento[i].salida
+                }
+            }
         },
         dataTable(table) {
             let datatable = $(table).DataTable()
@@ -476,11 +476,11 @@ export default {
             let me = this
             let url = '/movimientos/store'
             axios.post(url,{
-                'tipo_movimiento_id': this.tipo_movimiento['id'],
+                'tipo_movimiento_id': this.tipo_movimiento_id,
                 'monto': this.monto,
                 'observacion': this.observacion,
-                'entrada': this.tipo_movimiento['entrada'],
-                'salida': this.tipo_movimiento['salida']
+                'entrada': this.tipo_movimiento_entrada,
+                'salida': this.tipo_movimiento_salida
             }).then(function (response) {
                 me.backendResponse(response)
             }).catch(error =>{

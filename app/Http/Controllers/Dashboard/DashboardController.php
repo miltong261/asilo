@@ -23,29 +23,41 @@ class DashboardController extends Controller
         $salidas = DB::table('movimientos')
         ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
         ->select(DB::raw('DAYNAME(movimientos.fecha_registro) as dias'),
-        DB::raw('YEAR(movimientos.fecha_registro) as anio'),
-        DB::raw('SUM(monto) as monto'))
+            DB::raw('YEAR(movimientos.fecha_registro) as anio'),
+            DB::raw('SUM(monto) as monto'),
+            DB::raw('DATE(movimientos.fecha_registro) as fecha_registro')
+        )
         ->whereYear('movimientos.fecha_registro', $anio)
         ->where('tipo_movimiento.salida', 1)
-        ->groupBy(DB::raw('DAYNAME(movimientos.fecha_registro)'), DB::raw('YEAR(movimientos.fecha_registro)'))
+        ->groupBy(
+            DB::raw('DAYNAME(movimientos.fecha_registro)'),
+            DB::raw('YEAR(movimientos.fecha_registro)'),
+            DB::raw('DATE(movimientos.fecha_registro)')
+        )
         ->get();
 
         foreach ($salidas as $salida) {
-            $arraySalidas[] = ['dias' => $days[$salida->dias], 'monto' =>  $salida->monto, 'anio' => $salida->anio];
+            $arraySalidas[] = ['dias' => $days[$salida->dias]. ' ' .$salida->fecha_registro, 'monto' =>  $salida->monto, 'anio' => $salida->anio];
         }
 
         $entradas = DB::table('movimientos')
         ->join('tipo_movimiento', 'tipo_movimiento.id', '=', 'movimientos.tipo_movimiento_id')
         ->select(DB::raw('DAYNAME(movimientos.fecha_registro) as dias'),
-        DB::raw('YEAR(movimientos.fecha_registro) as anio'),
-        DB::raw('SUM(monto) as monto'))
+            DB::raw('YEAR(movimientos.fecha_registro) as anio'),
+            DB::raw('SUM(monto) as monto'),
+            DB::raw('DATE(movimientos.fecha_registro) as fecha_registro')
+        )
         ->whereYear('movimientos.fecha_registro', $anio)
         ->where('tipo_movimiento.entrada', 1)
-        ->groupBy(DB::raw('DAYNAME(movimientos.fecha_registro)'), DB::raw('YEAR(movimientos.fecha_registro)'))
+        ->groupBy(
+            DB::raw('DAYNAME(movimientos.fecha_registro)'),
+            DB::raw('YEAR(movimientos.fecha_registro)'),
+            DB::raw('DATE(movimientos.fecha_registro)')
+        )
         ->get();
 
         foreach ($entradas as $entrada) {
-            $arrayEntradas[] = ['dias' => $days[$entrada->dias], 'monto' =>  $entrada->monto, 'anio' => $entrada->anio];
+            $arrayEntradas[] = ['dias' => $days[$entrada->dias]. ' ' .$entrada->fecha_registro, 'monto' =>  $entrada->monto, 'anio' => $entrada->anio];
         }
 
         $caja = DB::table('caja')

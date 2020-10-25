@@ -243,7 +243,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <h6 class="text-center">Cantidad de productos comprados: <strong class="text-secondary">{{ cantidad_suma }}</strong></h6>
+                            <h6 class="text-center">Cantidad de productos en el detalle: <strong class="text-secondary">{{ cantidad_suma }}</strong></h6>
                             <h6 class="text-center">TOTAL : <strong class="text-secondary">Q{{ compra_total }}</strong></h6>
                         </fieldset>
 
@@ -406,8 +406,6 @@ export default {
         closeModalProducto() {
             this.modalProducto = 0
             this.titulo = ''
-
-            alerts.sweetAlert('error', 'Producto cancelado')
         },
         hasError(field) {
             return field in (this.errors)
@@ -426,7 +424,7 @@ export default {
                         alerts.sweetAlert('error', 'Debe asignarle una cantidad al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     } else if (this.arrayDetalle[i].cantidad < 0) {
-                        alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto' + this.arrayDetalle[i].nombre_producto)
+                        alerts.sweetAlert('error', 'Se le esta asignando una cantidad negativa al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     }
 
@@ -434,7 +432,7 @@ export default {
                         alerts.sweetAlert('error', 'Debe asignarle precio al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     } else if (this.arrayDetalle[i].precio < 0) {
-                        alerts.sweetAlert('error', 'Se le esta asignando un precio negativo al producto' + this.arrayDetalle[i].nombre_producto)
+                        alerts.sweetAlert('error', 'Se le esta asignando un precio negativo al producto ' + this.arrayDetalle[i].nombre_producto)
                         errores = 1
                     }
                 }
@@ -628,7 +626,7 @@ export default {
                 me.arrayDetalle = response.data
 
                 for(var i = 0; i < me.arrayDetalle.length; i++)
-                    me.cantidad_suma += me.arrayDetalle[i].cantidad
+                    me.cantidad_suma++
 
             }).catch(function (error) {
                 console.log(error)

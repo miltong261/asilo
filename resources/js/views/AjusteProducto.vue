@@ -175,7 +175,7 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
-                                    <label><i class="fas fa-search"></i> Observación</label>
+                                    <label><i class="fas fa-search"></i> Justificación</label>
                                     <input v-model="observacion" class="form-control text-dark"  disabled>
                                 </div>
                             </div>

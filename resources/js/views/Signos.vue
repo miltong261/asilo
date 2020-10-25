@@ -26,7 +26,7 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <template v-if="residente.estado==1">
+                                            <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
                                                 <button type="button" @click="openTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
                                                 <button type="button" @click="openDashboard(residente.id, residente.nombre, residente.apellido)" class="btn btn-success mb-1 mr-1 rounded-circle"> <i class="fas fa-chart-bar"></i></button>
@@ -67,15 +67,15 @@
                                 <table id="signos" class="table table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                            <th class="text-center"><i class="fas fa-clock"></i> Hora</th>
-                                            <th class="text-center"><i class="fas fa-lungs"></i> Respiración</th>
-                                            <th class="text-cente"><i class="fas fa-file-medical-alt"></i> Presión</th>
-                                            <th class="text-center"><i class="fas fa-thermometer-full"></i> Temperatura</th>
-                                            <th class="text-center"><i class="fas fa-heartbeat"></i> Pulso</th>
-                                            <th class="text-cente"><i class="fas fa-weight"></i> Peso</th>
-                                            <th class="text-center"><i class="fas fa-search"></i> Observación</th>
-                                            <th class="text-center"><i class="fas fa-user"></i> Registró</th>
+                                            <th class="text-center" width="5%"><i class="fas fa-hashtag"></i></th>
+                                            <th class="text-center" width="8%"><i class="fas fa-clock"></i> Hora</th>
+                                            <th class="text-center" width="12%"><i class="fas fa-lungs"></i> Respiración</th>
+                                            <th class="text-cente" width="8%"><i class="fas fa-file-medical-alt"></i> Presión</th>
+                                            <th class="text-center" width="12%"><i class="fas fa-thermometer-full"></i> Temperatura</th>
+                                            <th class="text-center" width="8%"><i class="fas fa-heartbeat"></i> Pulso</th>
+                                            <th class="text-center" width="8%"><i class="fas fa-weight"></i> Peso</th>
+                                            <th class="text-center" width="21%"><i class="fas fa-search"></i> Observación</th>
+                                            <th class="text-center" width="18%"><i class="fas fa-user"></i> Registró</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -83,7 +83,7 @@
                                             <td class="text-center" v-text="index+1"></td>
                                             <td class="text-center" v-text="signos.hora_registro"></td>
                                             <td class="text-center"> {{ signos.respiraciones }} rpm</td>
-                                            <td class="text-center" v-text="signos.presion"></td>
+                                            <td class="text-center">{{ signos.presion }} rpm</td>
                                             <td class="text-center">{{ signos.temperatura }} C&#176;</td>
                                             <td class="text-center"> {{ signos.pulso }} lpm</td>
                                             <td class="text-center">{{ signos.peso }} lbs</td>
@@ -389,7 +389,7 @@ export default {
                         datasets: [{
                             label: 'Grados Celsius',
                             data: me.signos_temperatura,
-                            lineTension: 0,
+                            lineTension: 0.5,
                             fill: false,
                             borderColor: 'red',
                             backgroundColor: 'transparent',
@@ -408,21 +408,25 @@ export default {
                             display: true,
                             text: 'Media de la temperatura en los últimos días',
                             fontSize: 30,
-                            padding: 30,
                             fontColor: '#5c1ac3'
-                        },
-                        elements: {
-                            line: {
-                                // fill: true,
-                            }
                         },
                         legend: {
                             display: true,
-                            position: 'bottom',
+                            position: 'top',
                             labels: {
                                 boxWidth: 80,
-                                fontColor: 'black'
+                                fontColor: 'black',
                             }
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false,
+                                    maxRotation: 40,
+                                    minRotation: 40,
+                                    fontColor: '#5c1ac3'
+                                }
+                            }]
                         }
                     }
                 })

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-/****************************** Rutas acceder al login ******************************/
+/****************************** Rutas para acceder al login ******************************/
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/change_password', 'Auth\PasswordChangeController@change')->name('change_password');
@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\UserController@update');
             Route::put('/activate', 'Dashboard\UserController@activate');
             Route::put('/desactivate', 'Dashboard\UserController@desactivate');
+            Route::get('/perfil', 'Dashboard\UserController@perfil');
+            Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
         });
 
         /********** Rutas de financiero **********/
@@ -251,23 +253,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     /******************** Rutas para la secretaria ********************/
     Route::group(['middleware' => 'Secretaria'], function () {
-        /********** Rutas de configuración **********/
-        // Tipo de producto
-        Route::group(['prefix' => 'tipo_producto'], function () {
-            Route::get('/', 'Dashboard\TipoProductoController@index');
-            Route::get('/combo_medicamento', 'Dashboard\TipoProductoController@comboboxMedicamento');
-            Route::get('/combo_producto', 'Dashboard\TipoProductoController@comboboxProducto');
-            Route::post('/store', 'Dashboard\TipoProductoController@store');
-            Route::put('/update', 'Dashboard\TipoProductoController@update');
-        });
-
-        // Unidad de medida
-        Route::group(['prefix' => 'unidad_medida'], function () {
-            Route::get('/', 'Dashboard\UnidadMedidaController@index');
-            Route::get('/combo_medicamento', 'Dashboard\UnidadMedidaController@comboboxMedicamento');
-            Route::get('/combo_producto', 'Dashboard\UnidadMedidaController@comboboxProducto');
-            Route::post('/store', 'Dashboard\UnidadMedidaController@store');
-            Route::put('/update', 'Dashboard\UnidadMedidaController@update');
+        // Usuarios
+        Route::group(['prefix' => 'usuarios'], function () {
+            Route::get('/perfil', 'Dashboard\UserController@perfil');
+            Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
         });
 
         /********** Rutas de hogar **********/
@@ -320,7 +309,6 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         /********** Rutas de salidas **********/
-
         Route::group(['prefix' => 'salidas'], function () {
             Route::get('/' ,'Dashboard\SalidaController@index');
             Route::get('/cabecera', 'Dashboard\SalidaController@cabecera');
@@ -344,12 +332,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/dashboard_articulos', 'Dashboard\DashboardArticulosController');
             Route::get('/dashboard_medicamentos', 'Dashboard\DashboardMedicamentosController');
-            Route::get('/dashboard_compras', 'Dashboard\DashboardComprasController');
         });
     });
 
     /******************** Rutas para la enfermera ********************/
     Route::group(['middleware' => 'Enfermera'], function () {
+        // Usuarios
+        Route::group(['prefix' => 'usuarios'], function () {
+            Route::get('/perfil', 'Dashboard\UserController@perfil');
+            Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
+        });
+
         // Signos vitales
         Route::group(['prefix' => 'signos'], function () {
             Route::get('/', 'Dashboard\SignoVitalController@index');
@@ -377,3 +370,9 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 });
+
+
+
+
+
+

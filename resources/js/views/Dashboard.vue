@@ -103,7 +103,7 @@ export default {
                         datasets: [{
                             label: 'Quetzales Q.',
                             data: me.salidas_monto,
-                            lineTension: 0,
+                            lineTension: 0.5,
                             fill: false,
                             borderColor: 'red',
                             backgroundColor: 'transparent',
@@ -125,7 +125,17 @@ export default {
                             boxWidth: 80,
                             fontColor: 'black'
                             }
-                        }
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false,
+                                    maxRotation: 40,
+                                    minRotation: 40,
+                                    fontColor: '#5c1ac3'
+                                }
+                            }]
+                        },
                     }
                 })
             })
@@ -149,7 +159,7 @@ export default {
                         datasets: [{
                             label: 'Quetzales Q.',
                             data: me.entradas_monto,
-                            lineTension: 0,
+                            lineTension: 0.5,
                             fill: false,
                             borderColor: 'green',
                             backgroundColor: 'transparent',
@@ -171,7 +181,17 @@ export default {
                             boxWidth: 80,
                             fontColor: 'black'
                             }
-                        }
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false,
+                                    maxRotation: 40,
+                                    minRotation: 40,
+                                    fontColor: '#5c1ac3'
+                                }
+                            }]
+                        },
                     }
                 })
             })

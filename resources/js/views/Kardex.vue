@@ -27,7 +27,7 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <template v-if="residente.estado==1">
+                                            <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
                                                 <button type="button" @click="openModalTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
                                             </template>
@@ -62,26 +62,28 @@
                                     </div>
                                 </div>
 
-                                <table id="notas" class="table table-hover" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" ><i class="fas fa-hashtag"></i></th>
-                                            <th class="text-center" ><i class="fas fa-clock"></i> Hora</th>
-                                            <th class="text-center" ><i class="fas fa-briefcase-medical"></i> Medicamento</th>
-                                            <th class="text-center" ><i class="fas fa-hospital-user"></i> Estado del paciente</th>
-                                            <th class="text-center" ><i class="fas fa-user"></i> Registró</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(kardex, index) in lista_kardex" :key="kardex.id">
-                                            <td class="text-center" v-text="index+1"></td>
-                                            <td class="text-center" v-text="kardex.hora"></td>
-                                            <td class="text-center" v-text="kardex.nombre_medicamento +' '+kardex.presentacion_medicamento +' '+ kardex.nombre_unidad"></td>
-                                            <td v-text="kardex.observacion"></td>
-                                            <td class="text-center" v-text="kardex.empleado_nombre + ' ' + kardex.empleado_epellido"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive mb-0 mt-0">
+                                    <table id="notas" class="table table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="5%"><i class="fas fa-hashtag"></i></th>
+                                                <th class="text-center" width="8%"><i class="fas fa-clock"></i> Hora</th>
+                                                <th class="text-center" width="20%"><i class="fas fa-briefcase-medical"></i> Medicamento</th>
+                                                <th class="text-center" width="49%"><i class="fas fa-hospital-user"></i> Estado del paciente</th>
+                                                <th class="text-center" width="18%"><i class="fas fa-user"></i> Registró</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(kardex, index) in lista_kardex" :key="kardex.id">
+                                                <td class="text-center" v-text="index+1"></td>
+                                                <td class="text-center" v-text="kardex.hora"></td>
+                                                <td class="text-center" v-text="kardex.nombre_medicamento +' '+kardex.presentacion_medicamento +' '+ kardex.nombre_unidad"></td>
+                                                <td v-text="kardex.observacion"></td>
+                                                <td class="text-center" v-text="kardex.empleado_nombre + ' ' + kardex.empleado_epellido"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="text-right">
                                 <button type="button" @click="closeModalTable()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>

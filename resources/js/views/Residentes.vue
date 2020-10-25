@@ -2,7 +2,7 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                <!-- Tabla -->
+                <!-- Listado de residentes -->
                 <template v-if="action==1">
                     <template v-if="rol_id==1">
                         <button type="button" @click="openForm('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-house-user"></i></button>
@@ -44,25 +44,25 @@
 
                                     <td class="text-center">
                                         <template v-if="rol_id==1">
-                                            <template v-if="residente.activo===1 && residente.defuncion===0">
+                                            <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="changeStatus('desactivate', residente.id, residente.nombre, residente.apellido)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                                 <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                                 <button type="button" @click="death(residente.id, residente.nombre, residente.apellido)" class="btn btn-secondary mb-1 mr-1 rounded-circle"> <i class="fas fa-cross"></i></button>
                                             </template>
-                                            <template v-else-if="residente.activo===0 && residente.defuncion===0">
+                                            <template v-else-if="residente.activo==0 && residente.defuncion==0">
                                                 <button type="button" @click="changeStatus('activate', residente.id, residente.nombre, residente.apellido)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                             </template>
                                         </template>
                                         <template v-else-if="rol_id==2">
+                                            <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                                <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
-                                        </template>
-                                        <template v-else-if="rol_id==3">
-                                                <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
+                                            </template>
                                         </template>
                                     </td>
                                 </tr>
@@ -72,18 +72,35 @@
                     </div>
                 </template>
 
-                <!-- Formulario -->
+                <!-- Reigstro y actualización de residentes -->
                 <template v-else-if="action==2">
                     <div class="row">
                         <div id="flFormsGrid" class="col-lg-12 layout-spacing mx-auto">
                             <div class="widget-content widget-content-area ">
-                                <div class="widget-header p-2">
+                                <!-- <div class="widget-header p-2">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                             <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                                             <h4 class="text-center text-secondary" v-text="titulo"></h4>
                                         </div>
                                     </div>
+                                </div> -->
+                                <div class="d-flex justify-content-between">
+                                    <div class="form-group float-left">
+                                        <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
+                                    </div>
+
+                                    <div class="form-group text-center">
+                                        <h6><strong>ASILO DE ANCIANOS RETALHULEU</strong></h6>
+                                        <h6>Residenciales Ciudad Palmeras</h6>
+                                        <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
+                                        <h5 class="text-secondary"><strong v-text="titulo"></strong></h5>
+                                    </div>
+
+                                    <div class="form-group float-right">
+                                        <h5 class="p-5">Fecha: <strong class="text-secondary">{{ fecha }}</strong></h5>
+                                    </div>
+
                                 </div>
                                 <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                                     <label class="text-info">Datos personales</label>
@@ -91,21 +108,21 @@
                                         <div class="form-row mb-0">
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-user-check"></i> Nombre</label>
-                                                <input type="text" class="form-control" name="nombre" v-model="nombre" :class="hasError('nombre') ? 'is-invalid' : ''">
+                                                <input type="text" class="form-control" name="nombre" v-model="nombre" :class="hasError('nombre') ? 'is-invalid' : ''" :disabled="rol_id==2">
                                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                                     {{ errors.nombre[0] }}
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-user-check"></i> Apellido</label>
-                                                <input type="text" class="form-control" name="apellido" v-model="apellido" :class="hasError('apellido') ? 'is-invalid' : ''">
+                                                <input type="text" class="form-control" name="apellido" v-model="apellido" :class="hasError('apellido') ? 'is-invalid' : ''" :disabled="rol_id==2">
                                                 <div v-if="hasError('apellido')" class="invalid-feedback">
                                                     {{ errors.apellido[0] }}
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de nacimiento</label>
-                                                <input type="date" class="form-control" name="fecha_nacimiento" v-model="fecha_nacimiento" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''">
+                                                <input type="date" class="form-control" name="fecha_nacimiento" v-model="fecha_nacimiento" :class="hasError('fecha_nacimiento') ? 'is-invalid' : ''" :disabled="rol_id==2">
                                                 <div v-if="hasError('fecha_nacimiento')" class="invalid-feedback">
                                                     {{ errors.fecha_nacimiento[0] }}
                                                 </div>
@@ -178,7 +195,10 @@
                                         <div class="form-row mb-0">
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-male"></i> Persona referida</label>
-                                                <input type="text" class="form-control" name="persona_referida" v-model="persona_referida">
+                                                <input type="text" class="form-control" name="persona_referida" v-model="persona_referida" :class="hasError('persona_referida') ? 'is-invalid' : ''" :disabled="rol_id==2">
+                                                <div v-if="hasError('persona_referida')" class="invalid-feedback">
+                                                    {{ errors.persona_referida[0] }}
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-5">
                                                 <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
@@ -199,21 +219,21 @@
                                         <div class="form-row mb-0">
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-chalkboard-teacher"></i> Motivo de llegada</label>
-                                                <input type="text" class="form-control" :class="hasError('motivo') ? 'is-invalid' : ''" name="motivo" v-model="motivo">
+                                                <input type="text" class="form-control" :class="hasError('motivo') ? 'is-invalid' : ''" name="motivo" v-model="motivo" :disabled="rol_id==2">
                                                 <div v-if="hasError('motivo')" class="invalid-feedback">
                                                     {{ errors.motivo[0] }}
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-thermometer"></i> Estado del residente</label>
-                                                <input type="text" class="form-control" :class="hasError('estado') ? 'is-invalid' : ''" name="estado" v-model="estado">
+                                                <input type="text" class="form-control" :class="hasError('estado') ? 'is-invalid' : ''" name="estado" v-model="estado" :disabled="rol_id==2">
                                                 <div v-if="hasError('estado')" class="invalid-feedback">
                                                     {{ errors.estado[0] }}
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-notes-medical"></i> Historial</label>
-                                                <input type="text" class="form-control" :class="hasError('historial') ? 'is-invalid' : ''" name="historial" v-model="historial">
+                                                <input type="text" class="form-control" :class="hasError('historial') ? 'is-invalid' : ''" name="historial" v-model="historial" :disabled="rol_id==2">
                                                 <div v-if="hasError('historial')" class="invalid-feedback">
                                                     {{ errors.historial[0] }}
                                                 </div>
@@ -224,7 +244,7 @@
                                     <div class="form-row mb-0">
                                         <div class="form-group col-md-12">
                                             <label class="text-danger"><i class="fas fa-search"></i> Observaciones</label>
-                                            <textarea class="form-control" rows="3" name="observacion" v-model="observacion"></textarea>
+                                            <textarea class="form-control" rows="3" name="observacion" v-model="observacion" :disabled="rol_id==2"></textarea>
                                         </div>
                                     </div>
 
@@ -419,6 +439,7 @@ export default {
             errors: [],
 
             rol_id: 0,
+            fecha: '',
         }
     },
     methods: {
@@ -459,6 +480,7 @@ export default {
                     break
                 }
             }
+            this.fecha = moment().format('YYYY-MM-DD')
         },
         openModal(data = []) {
             this.modal = 1
@@ -504,6 +526,7 @@ export default {
             this.estado = ''
             this.historial = ''
             this.observacion = ''
+            this.fecha = ''
 
             this.showList()
             this.action = 1

@@ -65,7 +65,7 @@
         </div>
 
         <!-- Modal para guardar y actualizar -->
-        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -79,6 +79,21 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
+                                <div class="form-group col-md-8">
+                                    <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
+                                    <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
+                                    <div v-if="hasError('nombre')" class="invalid-feedback">
+                                        {{ errors.nombre[0] }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
+                                    <input type="text" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
+                                    <div v-if="hasError('presentacion')" class="invalid-feedback">
+                                        {{ errors.presentacion[0] }}
+                                    </div>
+                                </div>
 
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
@@ -91,7 +106,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
                                     <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
                                         <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
                                     </select>
@@ -101,22 +116,6 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
-                                    <input type="text" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
-                                    <div v-if="hasError('presentacion')" class="invalid-feedback">
-                                        {{ errors.presentacion[0] }}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
-                                    <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
-                                    <div v-if="hasError('nombre')" class="invalid-feedback">
-                                        {{ errors.nombre[0] }}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha vencimiento</label>
                                     <input type="date" name="fecha_vencimiento" v-model="fecha_vencimiento" class="form-control" :class="hasError('fecha_vencimiento') ? 'is-invalid' : ''" placeholder="Ingrese observación...">
                                     <div v-if="hasError('fecha_vencimiento')" class="invalid-feedback">
@@ -145,7 +144,7 @@
         </div>
 
         <!-- Modal para ver el medicamento -->
-        <div :class="{'mostrar': modalMedicamento}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalMedicamento}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -164,26 +163,28 @@
                                     <input v-text="codigo" v-model="codigo" class="form-control" disabled>
                                 </div>
 
+                                <div class="form-group col-md-8">
+                                    <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
+                                    <input v-text="nombre" v-model="nombre" class="form-control" disabled>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
+                                    <input v-text="presentacion" v-model="presentacion" class="form-control" disabled>
+                                </div>
+
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <input v-text="unidad_medida_nombre" v-model="unidad_medida_nombre" class="form-control" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Tipo producto</label>
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
                                     <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-briefcase-medical"></i> Nombre</label>
-                                    <input v-text="nombre" v-model="nombre" class="form-control" disabled>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
-                                    <input v-text="presentacion" v-model="presentacion" class="form-control" disabled>
                                 </div>
                             </div>
 
@@ -236,7 +237,7 @@
         </div>
 
         <!-- Modal para ver el medicamento vencido -->
-        <div :class="{'mostrar': modalVencimiento}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalVencimiento}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -290,7 +291,7 @@
         </div>
 
         <!-- Modal para el pdf -->
-        <div :class="{'mostrar': modalPDF}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalPDF}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -418,7 +419,6 @@ export default {
                     this.modal = 1
                     this.titulo = "REGISTRO DE MEDICAMENTO"
                     this.opcion = 1
-                    this.fecha_vencimiento = moment().format('YYYY-MM-DD')
                     break
                 }
                 case 'update': {
@@ -621,7 +621,8 @@ export default {
             axios.get(url).then(function (response) {
                 me.lista_unidad_medida = response.data
                 $('#select_unidad').select2({
-                    placeholder: 'Seleccione la unidad de medida'
+                    placeholder: 'Seleccione unidad de medida',
+                    width: '100%'
                 })
             })
             .catch(function (error) {
@@ -634,7 +635,8 @@ export default {
             axios.get(url).then(function (response) {
                 me.lista_tipo_producto = response.data
                 $('#select_tipo').select2({
-                    placeholder: 'Seleccione el tipo de producto'
+                    placeholder: 'Seleccione la cateogoría',
+                    width: '100%'
                 })
             })
             .catch(function (error) {
@@ -643,7 +645,8 @@ export default {
         },
         combo_mes(){
             $('#select_mes').select2({
-                placeholder: 'Seleccione el mes'
+                placeholder: 'Seleccione el mes',
+                width: '100%'
             })
         },
         dataTable(table) {

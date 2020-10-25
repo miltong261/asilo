@@ -17,6 +17,7 @@ class EmpleadoSeeder extends Seeder
             'puesto_id' => 1,
             'codigo' => 'EMPLEADO-0001',
             'fecha_ingreso' => '2020-08-12',
+            'fecha_registro' => '2020-08-12',
             'nombre' => 'Milton Alberto',
             'apellido' => 'Girón López',
             'fecha_nacimiento' => '1997-01-26',

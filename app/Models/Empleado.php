@@ -11,6 +11,7 @@ class Empleado extends Model
         'area_id',
         'puesto_id',
         'codigo',
+        'fecha_registro',
         'fecha_ingreso',
         'nombre',
         'apellido',

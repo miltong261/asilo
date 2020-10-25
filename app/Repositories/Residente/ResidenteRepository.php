@@ -35,47 +35,8 @@ class ResidenteRepository extends BaseRepository
             'departamento_origen.id as departamento_origen_id',
             'departamento_dpi.id as departamento_dpi_id',
         )
-        ->orderBy('fecha_ingreso', 'desc')
+        ->orderBy('residentes.codigo', 'desc')
         ->get();
-    }
-
-    public function residente($action, array $requestResidente, array $requestSignos, $id)
-    {
-        if ($action == 'guardar')
-            return $this->guardar($requestResidente, $requestSignos);
-        elseif ($action == 'actualizar')
-            return $this->actualizar($requestResidente, $requestSignos, $id);
-    }
-
-    public function guardar(array $requestResidente, array $requestSignos)
-    {
-        $validarTiempo = $requestSignos['hora_registro'];
-
-        if ($validarTiempo >= 0 && $validarTiempo < 12)
-            $tiempo = 'Mañana';
-        elseif ($validarTiempo >= 12 && $validarTiempo < 19)
-            $tiempo = 'Tarde';
-        else
-            $tiempo = 'Noche';
-
-        $signos = new SignoVital();
-
-        $residente = $this->getModel()->create($requestResidente);
-
-        $signos->create(['residente_id' => $residente->id] + $requestSignos + ['tiempo' => $tiempo]);
-
-        if ($residente && $signos) return 'exitoso';
-    }
-
-    public function actualizar(array $requestResidente, array $requestSignos, $id)
-    {
-        $object = $this->getModel()->findOrFail($id);
-        $signos = SignoVital::where('residente_id', $id);
-
-        $object->update($requestResidente);
-        $signos->update($requestSignos);
-
-        if ($object && $signos) return 'exitoso';
     }
 
     public function activo($type, $id)

@@ -58,6 +58,7 @@
             </div>
         </div>
 
+        <!-- Modal para registrar -->
         <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
@@ -72,18 +73,27 @@
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-user"></i> Nombre</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
                                     <div v-if="hasError('nombre')" class="invalid-feedback">
                                         {{ errors.nombre[0] }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
+
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-user"></i> Apellido</label>
                                     <input type="text" name="apellido" v-model="apellido" class="form-control" :class="hasError('apellido') ? 'is-invalid' : ''" placeholder="Ingrese apellido...">
                                     <div v-if="hasError('apellido')" class="invalid-feedback">
                                         {{ errors.apellido[0] }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Fecha de ingreso</label>
+                                    <input type="date" name="fecha_ingreso" v-model="fecha_ingreso" class="form-control" :class="hasError('fecha_ingreso') ? 'is-invalid' : ''">
+                                    <div v-if="hasError('fecha_ingreso')" class="invalid-feedback">
+                                        {{ errors.fecha_ingreso[0] }}
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +125,16 @@
                             </div>
 
                             <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
+                                    <input   type="text" name="direccion" v-model="direccion" class="form-control" :class="hasError('direccion') ? 'is-invalid' : ''" placeholder="Ingrese dirección...">
+                                    <div v-if="hasError('direccion')" class="invalid-feedback">
+                                        {{ errors.direccion[0] }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label class="text-dark"><i class="fas fa-user-tag"></i> Área</label>
                                     <select id="select_area" class="form-control" :class="hasError('area_id') ? 'is-invalid' : ''" v-model="area_id">
@@ -132,16 +152,6 @@
                                     </select>
                                     <div v-if="hasError('puesto_id')" class="invalid-feedback">
                                         {{ errors.puesto_id[0] }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input   type="text" name="direccion" v-model="direccion" class="form-control" :class="hasError('direccion') ? 'is-invalid' : ''" placeholder="Ingrese dirección...">
-                                    <div v-if="hasError('direccion')" class="invalid-feedback">
-                                        {{ errors.direccion[0] }}
                                     </div>
                                 </div>
                             </div>
@@ -200,8 +210,20 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label><i class="far fa-calendar-alt"></i> Fecha de ingreso</label>
-                                    <input type="date" class="form-control text-dark" name="fecha_ingreso" v-model="fecha_ingreso" disabled>
+                                    <label><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                    <input type="text" name="telefono" v-model="telefono" class="form-control text-dark" disabled>
+                                </div>
+
+                                <div class="form-group col-md-8">
+                                    <label><i class="fas fa-street-view"></i> Dirección</label>
+                                    <input type="text" name="direccion text-dark" v-model="direccion" class="form-control text-dark" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
+                                    <label><i class="far fa-calendar-alt"></i> Fecha de registro</label>
+                                    <input type="date" class="form-control text-dark" name="fecha_registro" v-model="fecha_registro" disabled>
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -214,19 +236,8 @@
                                     <input type="text" class="form-control text-dark" name="puesto_nombre" v-model="puesto_nombre" disabled>
                                 </div>
                             </div>
-
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-8">
-                                    <label><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input type="text" name="direccion text-dark" v-model="direccion" class="form-control text-dark" disabled>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                    <input type="text" name="telefono" v-model="telefono" class="form-control text-dark" disabled>
-                                </div>
-                            </div>
                         </form>
+                        <h5 class="text-center"><strong class="text-secondary">Fecha de ingreso: </strong>{{ fecha_ingreso}}</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-cerrar" @click="closeModalEmpleado()">Salir <i class="fas fa-sign-out-alt"></i></button>
@@ -260,6 +271,7 @@ export default {
             nombre: '',
             apellido: '',
             fecha_ingreso: '',
+            fecha_registro: '',
             fecha_nacimiento: '',
             edad: '',
             dpi: '',
@@ -282,6 +294,7 @@ export default {
                     this.titulo = "REGISTRO DE EMPLEADOS"
                     this.opcion = 1
                     this.fecha_nacimiento = moment().format('YYYY-MM-DD')
+                    this.fecha_ingreso = moment().format('YYYY-MM-DD')
                     break
                 }
                 case 'update': {
@@ -292,6 +305,7 @@ export default {
                     this.puesto_id = data['puesto_id']
                     this.nombre = data['nombre']
                     this.apellido = data['apellido']
+                    this.fecha_ingreso = data['fecha_ingreso']
                     this.fecha_nacimiento = data['fecha_nacimiento']
                     this.dpi = data['dpi']
                     this.direccion = data['direccion']
@@ -309,7 +323,7 @@ export default {
             this.dpi = ''
             this.direccion = ''
             this.telefono = ''
-            // this.fecha_ingreso = ''
+            this.fecha_ingreso = ''
 
             this.area_id = 0
             this.puesto_id = 0
@@ -330,6 +344,7 @@ export default {
             this.codigo = data['codigo']
             this.nombre = data['nombre'] + ' ' + data['apellido']
             this.fecha_ingreso = data['fecha_ingreso']
+            this.fecha_registro = data['fecha_registro']
             this.fecha_nacimiento = data['fecha_nacimiento']
             this.dpi = data['dpi']
             this.direccion = data['direccion']
@@ -347,6 +362,7 @@ export default {
             this.puesto_nombre = ''
             this.codigo = ''
             this.nombre = ''
+            this.fecha_registro = ''
             this.fecha_ingreso = ''
             this.fecha_nacimiento = ''
             this.edad = ''
@@ -504,6 +520,7 @@ export default {
                     'puesto_id': this.puesto_id,
                     'nombre': this.nombre,
                     'apellido': this.apellido,
+                    'fecha_ingreso': this.fecha_ingreso,
                     'fecha_nacimiento': this.fecha_nacimiento,
                     'dpi': this.dpi,
                     'direccion': this.direccion,
@@ -527,6 +544,7 @@ export default {
                     'puesto_id': this.puesto_id,
                     'nombre': this.nombre,
                     'apellido': this.apellido,
+                    'fecha_ingreso': this.fecha_ingreso,
                     'fecha_nacimiento': this.fecha_nacimiento,
                     'dpi': this.dpi,
                     'direccion': this.direccion,

@@ -8143,7 +8143,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.usuario = response.data.user[0].usuario;
         me.nombre_area = response.data.user[0].nombre_area;
         me.nombre_puesto = response.data.user[0].nombre_puesto;
-        me.fecha_ingreso = response.data.user[0].fecha_ingreso;
+        me.fecha_ingreso = moment(response.data.user[0].fecha_registro).format('D MMMM YYYY');
         me.nombre = response.data.user[0].nombre;
         me.telefono = response.data.user[0].telefono;
         me.direccion = response.data.user[0].direccion;
@@ -70524,7 +70524,7 @@ var render = function() {
       {
         staticClass: "modal fadeInDown show",
         class: { mostrar: _vm.modalProducto },
-        staticStyle: { display: "none" },
+        staticStyle: { display: "none", "overflow-y": "auto" },
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
@@ -70671,7 +70671,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-file" }),
-          _vm._v(" Documento")
+          _vm._v(" Proveedor")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -70750,7 +70750,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-store-alt" }),
-      _vm._v(" Documento")
+      _vm._v(" Proveedor")
     ])
   },
   function() {
@@ -72596,7 +72596,7 @@ var render = function() {
       {
         staticClass: "modal fadeInDown show",
         class: { mostrar: _vm.modalProducto },
-        staticStyle: { display: "none" },
+        staticStyle: { display: "none", "overflow-y": "auto" },
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
@@ -83527,7 +83527,7 @@ var render = function() {
       {
         staticClass: "modal fadeInDown show",
         class: { mostrar: _vm.modal },
-        staticStyle: { display: "none" },
+        staticStyle: { display: "none", "overflow-y": "auto" },
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
@@ -85367,7 +85367,7 @@ var render = function() {
       {
         staticClass: "modal fadeInDown show",
         class: { mostrar: _vm.modalProducto },
-        staticStyle: { display: "none" },
+        staticStyle: { display: "none", "overflow-y": "auto" },
         attrs: { role: "dialog", "aria-hidden": "true" }
       },
       [
@@ -106818,7 +106818,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

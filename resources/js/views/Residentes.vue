@@ -262,7 +262,7 @@
         </div>
 
         <!-- Modal para ver los residentes -->
-        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <!-- Modal content-->
                 <div class="modal-content">

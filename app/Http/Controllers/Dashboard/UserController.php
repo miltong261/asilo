@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\PerfilRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepository;
@@ -74,5 +75,19 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
+    }
+
+    public function perfil(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/asilo');
+        $id = \Auth::user()->id;
+        return $this->userRepository->showUser($id);
+    }
+
+    public function passwordUpdate(PerfilRequest $request)
+    {
+        return $this->userRepository->change($request->id, $request->only(
+            ['password_actual', 'password_nueva', 'password_confirm']
+        ));
     }
 }

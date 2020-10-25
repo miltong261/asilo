@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/update', 'Dashboard\UserController@update');
             Route::put('/activate', 'Dashboard\UserController@activate');
             Route::put('/desactivate', 'Dashboard\UserController@desactivate');
-            Route::get('/perfil', 'Dashboard\UsuarioController@perfil');
+            Route::get('/perfil', 'Dashboard\UserController@perfil');
             Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
         });
 
@@ -253,6 +253,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     /******************** Rutas para la secretaria ********************/
     Route::group(['middleware' => 'Secretaria'], function () {
+        // Usuarios
+        Route::group(['prefix' => 'usuarios'], function () {
+            Route::get('/perfil', 'Dashboard\UserController@perfil');
+            Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
+        });
+
         /********** Rutas de hogar **********/
         // Residentes
         Route::group(['prefix' => 'residentes'], function () {
@@ -331,6 +337,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     /******************** Rutas para la enfermera ********************/
     Route::group(['middleware' => 'Enfermera'], function () {
+        // Usuarios
+        Route::group(['prefix' => 'usuarios'], function () {
+            Route::get('/perfil', 'Dashboard\UserController@perfil');
+            Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
+        });
+
         // Signos vitales
         Route::group(['prefix' => 'signos'], function () {
             Route::get('/', 'Dashboard\SignoVitalController@index');

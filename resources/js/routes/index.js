@@ -17,7 +17,7 @@ export default new Router({
             component: require('../views/Usuarios').default
         },
         {
-            path: '/perfil',
+            path: '/usuarios/perfil',
             component: require('../views/Perfil').default
         },
 

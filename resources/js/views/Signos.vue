@@ -389,7 +389,7 @@ export default {
                         datasets: [{
                             label: 'Grados Celsius',
                             data: me.signos_temperatura,
-                            lineTension: 0,
+                            lineTension: 0.5,
                             fill: false,
                             borderColor: 'red',
                             backgroundColor: 'transparent',
@@ -408,21 +408,25 @@ export default {
                             display: true,
                             text: 'Media de la temperatura en los últimos días',
                             fontSize: 30,
-                            padding: 30,
                             fontColor: '#5c1ac3'
-                        },
-                        elements: {
-                            line: {
-                                // fill: true,
-                            }
                         },
                         legend: {
                             display: true,
-                            position: 'bottom',
+                            position: 'top',
                             labels: {
                                 boxWidth: 80,
-                                fontColor: 'black'
+                                fontColor: 'black',
                             }
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false,
+                                    maxRotation: 40,
+                                    minRotation: 40,
+                                    fontColor: '#5c1ac3'
+                                }
+                            }]
                         }
                     }
                 })

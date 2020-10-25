@@ -3718,7 +3718,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
             datasets: [{
               label: 'Quetzales Q.',
               data: me.salidas_monto,
-              lineTension: 0,
+              lineTension: 0.5,
               fill: false,
               borderColor: 'red',
               backgroundColor: 'transparent',
@@ -3740,6 +3740,16 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
                 boxWidth: 80,
                 fontColor: 'black'
               }
+            },
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false,
+                  maxRotation: 40,
+                  minRotation: 40,
+                  fontColor: '#5c1ac3'
+                }
+              }]
             }
           }
         });
@@ -3763,7 +3773,7 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
             datasets: [{
               label: 'Quetzales Q.',
               data: me.entradas_monto,
-              lineTension: 0,
+              lineTension: 0.5,
               fill: false,
               borderColor: 'green',
               backgroundColor: 'transparent',
@@ -3785,6 +3795,16 @@ var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Ch
                 boxWidth: 80,
                 fontColor: 'black'
               }
+            },
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false,
+                  maxRotation: 40,
+                  minRotation: 40,
+                  fontColor: '#5c1ac3'
+                }
+              }]
             }
           }
         });
@@ -10998,7 +11018,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
             datasets: [{
               label: 'Grados Celsius',
               data: me.signos_temperatura,
-              lineTension: 0,
+              lineTension: 0.5,
               fill: false,
               borderColor: 'red',
               backgroundColor: 'transparent',
@@ -11017,20 +11037,25 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
               display: true,
               text: 'Media de la temperatura en los últimos días',
               fontSize: 30,
-              padding: 30,
               fontColor: '#5c1ac3'
-            },
-            elements: {
-              line: {// fill: true,
-              }
             },
             legend: {
               display: true,
-              position: 'bottom',
+              position: 'top',
               labels: {
                 boxWidth: 80,
                 fontColor: 'black'
               }
+            },
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false,
+                  maxRotation: 40,
+                  minRotation: 40,
+                  fontColor: '#5c1ac3'
+                }
+              }]
             }
           }
         });

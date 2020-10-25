@@ -216,7 +216,7 @@ export default {
                 me.usuario = response.data.user[0].usuario
                 me.nombre_area = response.data.user[0].nombre_area
                 me.nombre_puesto = response.data.user[0].nombre_puesto
-                me.fecha_ingreso = response.data.user[0].fecha_ingreso
+                me.fecha_ingreso = moment(response.data.user[0].fecha_registro).format('D MMMM YYYY')
                 me.nombre = response.data.user[0].nombre
                 me.telefono = response.data.user[0].telefono
                 me.direccion = response.data.user[0].direccion

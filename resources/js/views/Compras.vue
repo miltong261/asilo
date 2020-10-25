@@ -16,7 +16,7 @@
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
-                                        <th class="text-center"> <i class="fas fa-file"></i> Documento</th>
+                                        <th class="text-center"> <i class="fas fa-file"></i> Proveedor</th>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i> Documento</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de compra</th>
@@ -72,7 +72,7 @@
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label class="text-dark"><i class="fas fa-store-alt"></i> Documento</label>
+                                        <label class="text-dark"><i class="fas fa-store-alt"></i> Proveedor</label>
                                         <input type="text" class="form-control" name="documento" v-model="documento" :class="hasError('documento') ? 'is-invalid' : ''">
                                         <div v-if="hasError('documento')" class="invalid-feedback">
                                             {{ errors.documento[0] }}
@@ -259,7 +259,7 @@
         </div>
 
         <!-- Inicio modal -->
-        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header dark-header">

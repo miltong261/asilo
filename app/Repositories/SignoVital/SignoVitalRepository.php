@@ -162,16 +162,21 @@ class SignoVitalRepository extends BaseRepository
         ->join('residentes', 'residentes.id', '=', 'signos_vitales.residente_id')
         ->select(
             DB::raw('DAYNAME(signos_vitales.fecha_registro) as dias'),
+            DB::raw('DATE(signos_vitales.fecha_registro) as fecha_registro'),
             DB::raw('YEAR(signos_vitales.fecha_registro) as anio'),
             DB::raw('AVG(signos_vitales.temperatura) as temperatura')
         )
-        ->groupBy(DB::raw('DAYNAME(signos_vitales.fecha_registro)'), DB::raw('YEAR(signos_vitales.fecha_registro)'))
+        ->groupBy(
+            DB::raw('DAYNAME(signos_vitales.fecha_registro)'),
+            DB::raw('YEAR(signos_vitales.fecha_registro)'),
+            DB::raw('DATE(signos_vitales.fecha_registro)')
+        )
         ->whereYear('signos_vitales.fecha_registro', $anio)
         ->where('residentes.id', $id)
         ->get();
 
         foreach ($signos as $signo) {
-            $arraySignos[] = ['dias' => $days[$signo->dias], 'temperatura' => $signo->temperatura, 'anio' => $signo->anio];
+            $arraySignos[] = ['dias' => $days[$signo->dias]. ' ' .$signo->fecha_registro, 'temperatura' => $signo->temperatura, 'anio' => $signo->anio];
         }
 
         return ['signos' => $arraySignos];

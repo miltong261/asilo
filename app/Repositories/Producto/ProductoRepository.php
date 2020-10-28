@@ -49,7 +49,7 @@ class ProductoRepository extends BaseRepository
                 'tipo_producto.nombre as categoria_nombre'
             )
             ->where('productos.asignacion', $asignacion)
-            ->orderBy('productos.codigo', 'desc')
+            ->orderBy('productos.fecha_vencimiento', 'desc')
             ->get();
     }
 

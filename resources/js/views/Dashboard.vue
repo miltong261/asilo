@@ -3,7 +3,23 @@
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area">
-                    <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group float-left">
+                            <img class="rounded-circle mx-auto d-block" src="/assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
+                        </div>
+
+                        <div class="form-group text-center">
+                            <h6><strong>ASILO DE ANCIANOS RETALHULEU</strong></h6>
+                            <h6>Residenciales Ciudad Palmeras</h6>
+                            <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
+                            <h5 class="text-secondary"><strong>MOVIMIENTOS DE CAJA</strong></h5>
+                        </div>
+
+                        <div class="form-group float-right">
+                            <h5 class="p-5">Fecha: <strong class="text-secondary ">{{ fecha }}</strong></h5>
+                        </div>
+                    </div>
+
                     <div v-for="saldo in caja" :key="saldo.id" class="text-center">
                         <span>Saldo en caja: <strong class="text-secondary">Q {{ saldo.saldo }}</strong></span>
                     </div>
@@ -57,12 +73,13 @@
 </template>
 
 <script>
-
-var Chart = require('chart.js');
+var moment = require('moment')
+var Chart = require('chart.js')
 
 export default {
     data() {
         return {
+            fecha: moment().format('D MMMM YYYY'),
             caja: 0,
             salidas: [],
             salidas_monto: [],

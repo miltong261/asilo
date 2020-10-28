@@ -32,7 +32,7 @@ class EmpleadoRequest extends FormRequest
             'fecha_nacimiento' => ['required', 'date'],
             'dpi' => ['required', 'unique:empleados,dpi,' . $this->id, 'digits:13'],
             'telefono' => ['required', 'digits:8'],
-            'direccion' => ['required', 'min:5', 'max:35']
+            'direccion' => ['required', 'min:5', 'max:70']
         ];
     }
 

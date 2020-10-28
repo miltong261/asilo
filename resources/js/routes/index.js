@@ -129,8 +129,16 @@ export default new Router({
             component: require('../views/DashboardArticulos').default
         },
         {
+            path: '/dashboard/ajuste_articulo',
+            component: require('../views/DashboardAjusteArticulo').default
+        },
+        {
             path: '/dashboard/dashboard_medicamentos',
             component: require('../views/DashboardMedicamentos').default
+        },
+        {
+            path: '/dashboard/ajuste_medicamento',
+            component: require('../views/DashboardAjusteMedicamento').default
         },
         {
             path: '/dashboard/dashboard_compras',

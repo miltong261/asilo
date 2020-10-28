@@ -61,7 +61,6 @@
                                             <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                             </template>
                                         </template>
                                     </td>
@@ -480,7 +479,7 @@ export default {
                     break
                 }
             }
-            this.fecha = moment().format('YYYY-MM-DD')
+            this.fecha = moment().format('D MMMM YYYY')
         },
         openModal(data = []) {
             this.modal = 1

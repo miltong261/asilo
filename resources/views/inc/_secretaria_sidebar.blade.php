@@ -108,7 +108,7 @@
                 <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <i class="fas fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
+                        <span>Estadísticas</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -118,8 +118,14 @@
                     <router-link tag="li" to="/dashboard/dashboard_articulos" exact-active-class="active">
                         <a>Artículos</a>
                     </router-link>
+                    <router-link tag="li" to="/dashboard/ajuste_articulo" exact-active-class="active">
+                        <a>Ajuste artículo</a>
+                    </router-link>
                     <router-link tag="li" to="/dashboard/dashboard_medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>
+                    </router-link>
+                    <router-link tag="li" to="/dashboard/ajuste_medicamento" exact-active-class="active">
+                        <a>Ajuste medicamento</a>
                     </router-link>
                 </ul>
             </li>

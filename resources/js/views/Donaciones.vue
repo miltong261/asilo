@@ -55,6 +55,7 @@
                                 <h6>Residenciales Ciudad Palmeras</h6>
                                 <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
                                 <h5 class="text-secondary"><strong>BODEGA DE INSUMOS</strong></h5>
+                                <h6>Fecha: <strong class="text-secondary">{{ fecha }}</strong></h6>
                             </div>
                         </div>
 
@@ -302,6 +303,7 @@
 export default {
     data() {
         return {
+            fecha: moment().format('D MMMM YYYY'),
             // Lista de donaciones
             id: 0,
             lista_donaciones: [],

@@ -10,12 +10,12 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
-                                    <th class="text-center"><i class="fas fa-qrcode"></i></th>
+                                    <th class="text-center" width="12%"><i class="fas fa-qrcode"></i>Código</th>
                                     <th class="text-center"><i class="fas fa-user"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-store-alt"></i> Área</th>
-                                    <th class="text-center"><i class="fas fa-user-tag"></i> Puesto</th>
+                                    <th class="text-center"  width="10%"><i class="fas fa-store-alt"></i> Área</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-user-tag"></i> Puesto</th>
                                     <th class="text-center"><i class="fas fa-street-view"></i> Dirección</th>
-                                    <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
+                                    <th class="text-center" width="5%"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>

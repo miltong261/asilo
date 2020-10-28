@@ -37,7 +37,7 @@ class CompraRequest extends FormRequest
             'fecha_compra.required' => 'La fecha es obligatoria',
             'fecha_compra.date' => 'Fecha inválida',
 
-            'documento.required' => 'Debe especificar el documento de compra',
+            'documento.required' => 'Debe especificar el proveedor',
 
             'no_documento.required' => 'El número de documento es obligatorio',
 

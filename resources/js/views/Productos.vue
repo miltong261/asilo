@@ -15,11 +15,12 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
-                                    <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
-                                    <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Registró </th>
-                                    <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
+                                    <th class="text-center" width="12%"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-tags"></i> Categoria</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-calendar-alt"></i> Vencimiento</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-store-alt"></i> Existencia</th>
+                                    <th class="text-center" width="8%"><i class="fas fa-user"></i> Registró </th>
+                                    <th class="text-center" width="8%"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                     <td v-text="producto.nombre" class="text-center"></td>
                                     <td v-text="producto.unidad_nombre" class="text-center"></td>
                                     <td v-text="producto.categoria_nombre" class="text-center"></td>
+                                    <td v-text="producto.fecha_vencimiento" class="text-center"></td>
                                     <td v-text="producto.existencia" class="text-center"></td>
                                     <td v-text="producto.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
@@ -88,15 +90,25 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
+                                    <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
+                                        <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
+                                    </select>
+                                    <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
+                                        {{ errors.tipo_producto_id[0] }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
                                     <input type="text" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
                                     <div v-if="hasError('presentacion')" class="invalid-feedback">
                                         {{ errors.presentacion[0] }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <select id="select_unidad" class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
@@ -104,16 +116,6 @@
                                     </select>
                                     <div v-if="hasError('unidad_medida_id')" class="invalid-feedback">
                                         {{ errors.unidad_medida_id[0] }}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
-                                    <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
-                                        <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
-                                    </select>
-                                    <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
-                                        {{ errors.tipo_producto_id[0] }}
                                     </div>
                                 </div>
 
@@ -175,6 +177,11 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
+                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
                                     <input v-text="presentacion" v-model="presentacion" class="form-control" disabled>
                                 </div>
@@ -182,11 +189,6 @@
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <input v-text="unidad_medida_nombre" v-model="unidad_medida_nombre" class="form-control" disabled>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
-                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled>
                                 </div>
                             </div>
 

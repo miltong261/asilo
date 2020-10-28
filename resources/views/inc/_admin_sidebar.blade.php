@@ -254,8 +254,14 @@
                     <router-link tag="li" to="/dashboard/dashboard_articulos" exact-active-class="active">
                         <a>Artículos</a>
                     </router-link>
+                    <router-link tag="li" to="/dashboard/ajuste_articulo" exact-active-class="active">
+                        <a>Ajuste artículo</a>
+                    </router-link>
                     <router-link tag="li" to="/dashboard/dashboard_medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>
+                    </router-link>
+                    <router-link tag="li" to="/dashboard/ajuste_medicamento" exact-active-class="active">
+                        <a>Ajuste medicamento</a>
                     </router-link>
                     <router-link tag="li" to="/dashboard/dashboard_compras" exact-active-class="active">
                         <a>Compras</a>

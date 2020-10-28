@@ -26,10 +26,18 @@
                                         <td v-text="residente.apellido" class="text-center"></td>
                                         <td v-text="residente.edad" class="text-center"></td>
                                         <td class="text-center">
-                                            <template v-if="residente.activo==1 && residente.defuncion==0">
-                                                <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
-                                                <button type="button" @click="openTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
-                                                <button type="button" @click="openDashboard(residente.id, residente.nombre, residente.apellido)" class="btn btn-success mb-1 mr-1 rounded-circle"> <i class="fas fa-chart-bar"></i></button>
+                                            <template v-if="rol_id == 3">
+                                                <template v-if="residente.activo==1 && residente.defuncion==0">
+                                                    <button type="button" @click="openModal(residente.id, residente.codigo, residente.nombre, residente.apellido)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-plus"></i></button>
+                                                    <button type="button" @click="openTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                                    <button type="button" @click="openDashboard(residente.id, residente.nombre, residente.apellido)" class="btn btn-success mb-1 mr-1 rounded-circle"> <i class="fas fa-chart-bar"></i></button>
+                                                </template>
+                                            </template>
+                                            <template v-else-if="rol_id == 1">
+                                                 <template v-if="residente.activo==1 && residente.defuncion==0">
+                                                    <button type="button" @click="openTable(residente.id, residente.nombre, residente.apellido)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-table"></i></button>
+                                                    <button type="button" @click="openDashboard(residente.id, residente.nombre, residente.apellido)" class="btn btn-success mb-1 mr-1 rounded-circle"> <i class="fas fa-chart-bar"></i></button>
+                                                </template>
                                             </template>
                                         </td>
                                     </tr>
@@ -244,6 +252,7 @@
 export default {
     data() {
         return {
+            fecha_actual: moment().format('D MMMM YYYY'),
             /** Datos del paciente */
             residente_id: 0,
             residente_nombre: '',
@@ -254,6 +263,7 @@ export default {
             /** Datos del usuario */
             nombre_usuario: '',
             usuario_usuario: '',
+            rol_id: 0,
             nota: '',
 
             /** Signos */
@@ -286,7 +296,7 @@ export default {
     methods: {
         openModal(id, codigo, nombre, apellido) {
             this.modal = 1
-            this.titulo = 'REGISTRO DE SIGNOS VITALES'
+            this.titulo = 'REGISTRO DE SIGNOS VITALES - ' + this.fecha_actual
 
             this.residente_id = id
             this.codigo = codigo
@@ -486,6 +496,7 @@ export default {
 
                 me.usuario_usuario = response.data.usuario[0]['usuario']
                 me.nombre_usuario = response.data.usuario[0]['nombre'] + ' ' + response.data.usuario[0]['apellido']
+                me.rol_id = response.data.usuario[0]['rol_id']
 
                 document.getElementById('usuario_usuario').disabled = true
                 document.getElementById('nombre_usuario').disabled = true

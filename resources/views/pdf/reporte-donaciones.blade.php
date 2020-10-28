@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Donaciones</title>
-    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-donaciones.css">
+    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-salidas.css">
     <link rel="stylesheet" href="../../assets/css/style-donaciones.css">
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
     <body>
@@ -19,6 +19,7 @@
                         <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
                         <h5> Residenciales Ciudad Palmeras </h5>
                         <h5>Cantón Recuerdo Ocosito, Retalhuleu </h5>
+                        <br>
                         <h4> BODEGA DE INSUMOS</h4>
                     <td style="display: table-cell;vertical-align: middle;">
                         <h4 id="codigo">{{ $encabezado->codigo }}</h4>
@@ -76,11 +77,20 @@
             @foreach ($encabezado_donacion as $encabezado)
             <table id="pie">
                 <tr>
-                    <td><strong>Recibió: </strong></td>
-                    <td>{{ $encabezado->nombre_empleado .' '. $encabezado->apellido_empleado }}</td>
-                    <td ><strong>(F):</strong></td>
-                    <td class="info"></td>
+                    <td style="width: 10%"><strong>Recibió: </strong></td>
+                    <td style="width: 35%">{{ $encabezado->nombre_empleado .' '. $encabezado->apellido_empleado }}</td>
+                    <td style="width: 10%"><strong>(F):</strong></td>
+                    <td style="width: 35%" class="info"></td>
                 </tr>
+
+                <tr style="color:white">
+                        <td>.</td>
+                    </tr>
+
+                <tr  style="color:white">
+                    <td>.</td>
+                </tr>
+
                 <tr>
                     <td><strong>Entregó: </strong></td>
                     <td>{{ $encabezado->donador }}</td>

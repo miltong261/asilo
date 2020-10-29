@@ -140,7 +140,7 @@ export default {
         changeStatus(action, id, nombre) {
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "'+nombre+'"?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el área "'+nombre+'"?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

@@ -416,7 +416,6 @@ export default {
             if (moment(this.fecha_donacion).format('YYYY-MM-DD') > actual){
                 alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
                 errores = 1
-                console.log(actual)
             }
 
             return errores

@@ -585,7 +585,7 @@ export default {
         changeStatus(action, id, nombre, apellido) {
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el residente: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',
@@ -628,7 +628,7 @@ export default {
         death(id, nombre, apellido) {
             swal({
                 title: 'Fallecimiento',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el residente: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

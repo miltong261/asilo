@@ -37,33 +37,41 @@ class UserRepository extends BaseRepository
     public function storeUser(array $request)
     {
         try {
-            DB::beginTransaction();
-            $empleado = Empleado::findOrFail($request['empleado_id']);
 
-            // return $usuarios;
-            if ($this->getModel()->where('empleado_id', '=', $request['empleado_id'])->exists()) {
+            if ($request['rol_id'] == '' || $request['empleado_id'] == '') {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'El empleado ya cuenta con un usuario'
+                    'message' => 'Debe seleccionar empleado y rol'
                 ]);
             } else {
-                $primer_nombre = explode(' ', $empleado->nombre);
-                $generarUsuario = strtolower($primer_nombre[0]) . '-' . $request['codigo'];
+                DB::beginTransaction();
+                $empleado = Empleado::findOrFail($request['empleado_id']);
 
-                $usuario = $this->getModel();
-                $usuario->rol_id = $request['rol_id'];
-                $usuario->empleado_id = $request['empleado_id'];
-                $usuario->fecha_registro = Carbon::now();
-                $usuario->usuario = $generarUsuario;
-                $usuario->password = bcrypt('asilo');
-                $usuario->save();
+                // return $usuarios;
+                if ($this->getModel()->where('empleado_id', '=', $request['empleado_id'])->exists()) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'El empleado ya cuenta con un usuario'
+                    ]);
+                } else {
+                    $primer_nombre = explode(' ', $empleado->nombre);
+                    $generarUsuario = strtolower($primer_nombre[0]) . '-' . $request['codigo'];
 
-                DB::commit();
+                    $usuario = $this->getModel();
+                    $usuario->rol_id = $request['rol_id'];
+                    $usuario->empleado_id = $request['empleado_id'];
+                    $usuario->fecha_registro = Carbon::now();
+                    $usuario->usuario = $generarUsuario;
+                    $usuario->password = bcrypt('asilo');
+                    $usuario->save();
 
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'Se guardó correctamente el usuario del empleado ' . $empleado->nombre .' ' . $empleado->apellido
-                ]);
+                    DB::commit();
+
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Se guardó correctamente el usuario del empleado ' . $empleado->nombre .' ' . $empleado->apellido
+                    ]);
+                }
             }
         } catch (\Throwable $th) {
             DB::rollback();

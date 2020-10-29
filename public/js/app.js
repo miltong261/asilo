@@ -2163,7 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
     openModalAjuste: function openModalAjuste() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalAjuste = 1;
-      this.titulo = 'AJUSTE DEL MEDICAMENTO ' + data['nombre_producto'].toUpperCase();
+      this.titulo = 'AJUSTE DEL MEDICAMENTO: ' + data['nombre_producto'].toUpperCase();
       this.nombre_categoria = data['nombre_categoria'];
       this.nombre_unidad = data['nombre_unidad'];
       this.codigo_medicamento = data['codigo_producto'];
@@ -2248,17 +2248,22 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       var url = '/ajuste_producto/store';
-      axios.post(url, {
-        'producto_id': this.medicamento_id,
-        'cantidad': this.cantidad,
-        'observacion': this.observacion,
-        'entrada': this.entrada,
-        'salida': this.salida
-      }).then(function (response) {
-        me.backendResponse(response);
-      })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
-      });
+
+      if (me.medicamento_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione medicamento');
+      } else {
+        axios.post(url, {
+          'producto_id': this.medicamento_id,
+          'cantidad': this.cantidad,
+          'observacion': this.observacion,
+          'entrada': this.entrada,
+          'salida': this.salida
+        }).then(function (response) {
+          me.backendResponse(response);
+        })["catch"](function (error) {
+          if (error.response.status == 422) _this.errors = error.response.data.errors;
+        });
+      }
     },
     change_select: function change_select() {
       var me = this;
@@ -2267,7 +2272,6 @@ __webpack_require__.r(__webpack_exports__);
       });
       me.$on('change', function (data) {
         this.medicamento_id = data;
-        console.log(this.medicamento_id);
       });
     }
   },
@@ -2543,7 +2547,7 @@ __webpack_require__.r(__webpack_exports__);
     openModalAjuste: function openModalAjuste() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalAjuste = 1;
-      this.titulo = 'AJUSTE DEL ARTÍCULO ' + data['nombre_producto'].toUpperCase();
+      this.titulo = 'AJUSTE DEL ARTÍCULO: ' + data['nombre_producto'].toUpperCase();
       this.nombre_categoria = data['nombre_categoria'];
       this.nombre_unidad = data['nombre_unidad'];
       this.codigo_producto = data['codigo_producto'];
@@ -2628,17 +2632,22 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       var url = '/ajuste_producto/store';
-      axios.post(url, {
-        'producto_id': this.producto_id,
-        'cantidad': this.cantidad,
-        'observacion': this.observacion,
-        'entrada': this.entrada,
-        'salida': this.salida
-      }).then(function (response) {
-        me.backendResponse(response);
-      })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
-      });
+
+      if (me.producto_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione artículo');
+      } else {
+        axios.post(url, {
+          'producto_id': this.producto_id,
+          'cantidad': this.cantidad,
+          'observacion': this.observacion,
+          'entrada': this.entrada,
+          'salida': this.salida
+        }).then(function (response) {
+          me.backendResponse(response);
+        })["catch"](function (error) {
+          if (error.response.status == 422) _this.errors = error.response.data.errors;
+        });
+      }
     },
     change_select: function change_select() {
       var me = this;
@@ -2647,7 +2656,6 @@ __webpack_require__.r(__webpack_exports__);
       });
       me.$on('change', function (data) {
         this.producto_id = data;
-        console.log(this.producto_id);
       });
     }
   },
@@ -2813,7 +2821,7 @@ __webpack_require__.r(__webpack_exports__);
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el área "' + nombre + '"?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -5364,7 +5372,6 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       if (moment(this.fecha_donacion).format('YYYY-MM-DD') > actual) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Esta tratando de asignar una fecha posterior al día de hoy');
         errores = 1;
-        console.log(actual);
       }
 
       return errores;
@@ -5871,7 +5878,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'create':
           {
             this.modal = 1;
-            this.titulo = "REGISTRO DE EMPLEADOS";
+            this.titulo = "REGISTRO DE EMPLEADO";
             this.opcion = 1;
             this.fecha_nacimiento = moment().format('YYYY-MM-DD');
             this.fecha_ingreso = moment().format('YYYY-MM-DD');
@@ -5881,7 +5888,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         case 'update':
           {
             this.modal = 2;
-            this.titulo = "Actualización de empleados";
+            this.titulo = "ACTUALIZACIÓN DE EMPLEADO";
             this.opcion = 2;
             this.area_id = data['area_id'];
             this.puesto_id = data['puesto_id'];
@@ -5918,7 +5925,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     openModalEmpleado: function openModalEmpleado() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalEmpleado = 1;
-      this.titulo = 'EMPLEADO ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase();
+      this.titulo = 'EMPLEADO: ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase();
       this.area_nombre = data['area_nombre'];
       this.puesto_nombre = data['puesto_nombre'];
       this.codigo = data['codigo'];
@@ -5957,6 +5964,16 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (moment(this.fecha_nacimiento).format('YYYY-MM-DD') > actual) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Esta tratando de asignar una fecha posterior al día de hoy');
+        errores = 1;
+      }
+
+      if (this.puesto_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione puesto');
+        errores = 1;
+      }
+
+      if (this.area_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione área');
         errores = 1;
       }
 
@@ -6009,12 +6026,12 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         console.log(error);
       });
     },
-    changeStatus: function changeStatus(action, id, nombre) {
+    changeStatus: function changeStatus(action, id, nombre, apellido) {
       var _this = this;
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el empleado "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el empleado: ' + nombre + ' ' + apellido + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -6398,7 +6415,6 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
         } else {
           me.lista_kardex = response.data.kardex;
-          console.log(response.data);
           me.dataTable('#notas');
         }
       })["catch"](function (error) {
@@ -6988,7 +7004,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     openModalMedicamento: function openModalMedicamento() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalMedicamento = 1;
-      this.titulo = 'MEDICAMENTO ' + data['nombre'].toUpperCase();
+      this.titulo = 'MEDICAMENTO: ' + data['nombre'].toUpperCase();
       this.codigo = data['codigo'];
       this.unidad_medida_nombre = data['unidad_nombre'];
       this.tipo_producto_nombre = data['categoria_nombre'];
@@ -7075,7 +7091,16 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       if (moment(this.fecha_vencimiento).format('YYYY-MM-DD') < actual) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Esta tratando de asignar una fecha anterior al día de hoy');
         errores = 1;
-        console.log(actual);
+      }
+
+      if (this.unidad_medida_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione unidad de medida');
+        errores = 1;
+      }
+
+      if (this.tipo_producto_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione categoría');
+        errores = 1;
       }
 
       return errores;
@@ -7094,7 +7119,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el producto "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el medicamento: ' + nombre + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -7680,7 +7705,6 @@ __webpack_require__.r(__webpack_exports__);
       $('#tipo_movimiento').on('change', function () {
         me.$emit('change', this.value);
         me.tipo_movimiento_id = this.value;
-        console.log(me.tipo_movimiento_id);
         me.selected_tipo(me.tipo_movimiento_id);
       });
     },
@@ -7744,17 +7768,22 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       var url = '/movimientos/store';
-      axios.post(url, {
-        'tipo_movimiento_id': this.tipo_movimiento_id,
-        'monto': this.monto,
-        'observacion': this.observacion,
-        'entrada': this.tipo_movimiento_entrada,
-        'salida': this.tipo_movimiento_salida
-      }).then(function (response) {
-        me.backendResponse(response);
-      })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
-      });
+
+      if (me.tipo_movimiento_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe de seleccionar el tipo de movimiento');
+      } else {
+        axios.post(url, {
+          'tipo_movimiento_id': this.tipo_movimiento_id,
+          'monto': this.monto,
+          'observacion': this.observacion,
+          'entrada': this.tipo_movimiento_entrada,
+          'salida': this.tipo_movimiento_salida
+        }).then(function (response) {
+          me.backendResponse(response);
+        })["catch"](function (error) {
+          if (error.response.status == 422) _this.errors = error.response.data.errors;
+        });
+      }
     },
     update: function update() {
       var _this2 = this;
@@ -9080,7 +9109,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     openModalProducto: function openModalProducto() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       this.modalProducto = 1;
-      this.titulo = 'ARTÍCULO ' + data['nombre'].toUpperCase();
+      this.titulo = 'ARTÍCULO: ' + data['nombre'].toUpperCase();
       this.codigo = data['codigo'];
       this.unidad_medida_nombre = data['unidad_nombre'];
       this.tipo_producto_nombre = data['categoria_nombre'];
@@ -9167,7 +9196,16 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       if (moment(this.fecha_vencimiento).format('YYYY-MM-DD') < actual) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Esta tratando de asignar una fecha anterior al día de hoy');
         errores = 1;
-        console.log(actual);
+      }
+
+      if (this.unidad_medida_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione unidad de medida');
+        errores = 1;
+      }
+
+      if (this.tipo_producto_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione categoría');
+        errores = 1;
       }
 
       return errores;
@@ -9186,7 +9224,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el producto "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el artículo: ' + nombre + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -9522,7 +9560,7 @@ __webpack_require__.r(__webpack_exports__);
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el puesto "' + nombre + '"?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -10174,7 +10212,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el residente ' + nombre + ' ' + apellido + '?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el residente: ' + nombre + ' ' + apellido + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -10207,7 +10245,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       swal({
         title: 'Fallecimiento',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el residente ' + nombre + ' ' + apellido + '?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el residente: ' + nombre + ' ' + apellido + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -12113,7 +12151,7 @@ __webpack_require__.r(__webpack_exports__);
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo producto "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre la categoría "' + nombre + '"?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -12409,7 +12447,7 @@ __webpack_require__.r(__webpack_exports__);
 
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el tipo de movimiento "' + nombre + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre la unidad de medida "' + nombre + '"?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -12719,7 +12757,7 @@ __webpack_require__.r(__webpack_exports__);
       this.id = id_usuario;
       this.opcionMoldalForm = 1;
       this.modalForm = 1;
-      this.titulo = 'Cambio de contraseña del usuario: ' + usuario_usuario;
+      this.titulo = 'CAMBIO DE CONTRASEÑA DEL USUARIO: ' + usuario_usuario;
     },
     closeForm: function closeForm() {
       this.id = '';
@@ -12797,7 +12835,7 @@ __webpack_require__.r(__webpack_exports__);
       this.id = id;
       swal({
         title: 'Cambio de estado',
-        text: '¿Esta seguro de realizar la siguiente acción sobre el usuario "' + usuario + '"?',
+        text: '¿Esta seguro de realizar la siguiente acción sobre el usuario: ' + usuario + '?',
         type: 'question',
         confirmButtonColor: '#25d5e4',
         cancelButtonColor: '#f8538d',
@@ -74097,7 +74135,8 @@ var render = function() {
                                                   return _vm.changeStatus(
                                                     "desactivate",
                                                     empleado.id,
-                                                    empleado.nombre
+                                                    empleado.nombre,
+                                                    empleado.apellido
                                                   )
                                                 }
                                               }
@@ -74143,7 +74182,8 @@ var render = function() {
                                                   return _vm.changeStatus(
                                                     "activate",
                                                     empleado.id,
-                                                    empleado.nombre
+                                                    empleado.nombre,
+                                                    empleado.apellido
                                                   )
                                                 }
                                               }
@@ -76282,20 +76322,6 @@ var render = function() {
               _vm._v("Medicamentos vencidos "),
               _c("i", { staticClass: "fas fa-calendar-alt" })
             ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger mb-1 mr-1",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.openModalPDF()
-                }
-              }
-            },
-            [_vm._v(" PDF "), _c("i", { staticClass: "fas fa-file-pdf" })]
           ),
           _vm._v(" "),
           _c(
@@ -80110,8 +80136,6 @@ var render = function() {
             _c("div", { staticClass: "col-md-11 mx-auto" }, [
               _vm._m(0),
               _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
               _c("div", { staticClass: "form-group float-right mx-auto" }, [
                 _c("h6", { staticClass: "float-right" }, [
                   _vm._v("Fecha: "),
@@ -80125,7 +80149,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("div", { staticClass: "card col-md-11 mx-auto" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c("h6", { staticClass: "text-info" }, [
@@ -80144,7 +80168,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-4 text-center" },
                         [
-                          _vm._m(3),
+                          _vm._m(2),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.fecha_registro))])
@@ -80155,7 +80179,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-4 text-center" },
                         [
-                          _vm._m(4),
+                          _vm._m(3),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.codigo))])
@@ -80166,7 +80190,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-4 text-center" },
                         [
-                          _vm._m(5),
+                          _vm._m(4),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.usuario))])
@@ -80181,7 +80205,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-3 text-center" },
                         [
-                          _vm._m(6),
+                          _vm._m(5),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.nombre_area))])
@@ -80192,7 +80216,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-3 text-center" },
                         [
-                          _vm._m(7),
+                          _vm._m(6),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.nombre_puesto))])
@@ -80224,7 +80248,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-3 text-center" },
                         [
-                          _vm._m(8),
+                          _vm._m(7),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.fecha_ingreso))])
@@ -80235,7 +80259,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-3 text-center" },
                         [
-                          _vm._m(9),
+                          _vm._m(8),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.nombre))])
@@ -80246,7 +80270,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-3 text-center" },
                         [
-                          _vm._m(10),
+                          _vm._m(9),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.telefono))])
@@ -80257,7 +80281,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-3 text-center" },
                         [
-                          _vm._m(11),
+                          _vm._m(10),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.direccion))])
@@ -80268,7 +80292,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-4 text-center" },
                         [
-                          _vm._m(12),
+                          _vm._m(11),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.fecha_nacimiento))])
@@ -80279,7 +80303,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-4 text-center" },
                         [
-                          _vm._m(13),
+                          _vm._m(12),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.edad))])
@@ -80290,7 +80314,7 @@ var render = function() {
                         "div",
                         { staticClass: "form-group col-md-4 text-center" },
                         [
-                          _vm._m(14),
+                          _vm._m(13),
                           _c("br"),
                           _vm._v(" "),
                           _c("label", [_vm._v(_vm._s(_vm.dpi))])
@@ -80352,7 +80376,7 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _vm._m(15),
+                                  _vm._m(14),
                                   _c("br"),
                                   _vm._v(" "),
                                   _c("input", {
@@ -80406,7 +80430,7 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _vm._m(16),
+                                  _vm._m(15),
                                   _c("br"),
                                   _vm._v(" "),
                                   _c("input", {
@@ -80459,7 +80483,7 @@ var render = function() {
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _vm._m(17),
+                                  _vm._m(16),
                                   _c("br"),
                                   _vm._v(" "),
                                   _c("input", {
@@ -80565,7 +80589,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group float-left" }, [
+    return _c("div", { staticClass: "form-group text-right" }, [
       _c("img", {
         staticClass: "rounded-circle mx-auto d-block",
         attrs: {
@@ -80575,18 +80599,6 @@ var staticRenderFns = [
           height: "100"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group text-center" }, [
-      _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])]),
-      _vm._v(" "),
-      _c("h6", [_vm._v("Residenciales Ciudad Palmeras")]),
-      _vm._v(" "),
-      _c("h6", [_vm._v("Cantón Recuerdo Ocosito, Retalhuleu")])
     ])
   },
   function() {
@@ -80811,20 +80823,6 @@ var render = function() {
               _vm._v("Artículos vencidos "),
               _c("i", { staticClass: "fas fa-calendar-alt" })
             ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger mb-1 mr-1",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.openModalPDF("create")
-                }
-              }
-            },
-            [_vm._v(" PDF "), _c("i", { staticClass: "fas fa-file-pdf" })]
           ),
           _vm._v(" "),
           _c(
@@ -87823,7 +87821,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h5", { staticClass: "text-secondary text-center" }, [
-      _c("strong", [_vm._v("RESIDENTES")])
+      _c("strong", [_vm._v("INFORMACIÓN RESIDENTES")])
     ])
   },
   function() {

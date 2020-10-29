@@ -264,7 +264,6 @@ export default {
                     alerts.sweetAlert(response.data.status, response.data.message)
                 } else {
                     me.lista_kardex = response.data.kardex
-                    console.log(response.data)
                     me.dataTable('#notas')
                 }
             }).catch(function (error) {

@@ -416,7 +416,6 @@ export default {
             $('#tipo_movimiento').on('change', function () {
                 me.$emit('change', this.value)
                 me.tipo_movimiento_id = this.value
-                console.log(me.tipo_movimiento_id)
 
                 me.selected_tipo(me.tipo_movimiento_id)
             })
@@ -475,18 +474,23 @@ export default {
         store() {
             let me = this
             let url = '/movimientos/store'
-            axios.post(url,{
-                'tipo_movimiento_id': this.tipo_movimiento_id,
-                'monto': this.monto,
-                'observacion': this.observacion,
-                'entrada': this.tipo_movimiento_entrada,
-                'salida': this.tipo_movimiento_salida
-            }).then(function (response) {
-                me.backendResponse(response)
-            }).catch(error =>{
-                if(error.response.status == 422)
-                    this.errors = error.response.data.errors
-            })
+
+            if (me.tipo_movimiento_id == 0) {
+                alerts.sweetAlert('error', 'Debe de seleccionar el tipo de movimiento')
+            } else {
+                axios.post(url,{
+                    'tipo_movimiento_id': this.tipo_movimiento_id,
+                    'monto': this.monto,
+                    'observacion': this.observacion,
+                    'entrada': this.tipo_movimiento_entrada,
+                    'salida': this.tipo_movimiento_salida
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error =>{
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
         },
         update() {
             let me = this

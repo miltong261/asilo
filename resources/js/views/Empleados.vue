@@ -39,11 +39,11 @@
                                         <template v-if="empleado.puesto_nombre != 'Administrador'">
                                             <button type="button" @click="openModalEmpleado(empleado)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                             <template v-if="empleado.estado">
-                                                <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
+                                                <button type="button" @click="changeStatus('desactivate', empleado.id, empleado.nombre, empleado.apellido)" class="btn btn-eliminar mb-2 mr-2 rounded-circle"> <i class="fas fa-lock"></i></button>
                                                 <button type="button" @click="openModal('update', empleado)" class="btn btn-warning mb-2 mr-2 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                             </template>
                                             <template v-else>
-                                                <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
+                                                <button type="button" @click="changeStatus('activate', empleado.id, empleado.nombre, empleado.apellido)" class="btn btn-guardar mb-2 mr-2 rounded-circle"> <i class="fas fa-unlock"></i></button>
                                             </template>
                                         </template>
                                         <template v-else>
@@ -291,7 +291,7 @@ export default {
             switch(metodo){
                 case 'create': {
                     this.modal = 1
-                    this.titulo = "REGISTRO DE EMPLEADOS"
+                    this.titulo = "REGISTRO DE EMPLEADO"
                     this.opcion = 1
                     this.fecha_nacimiento = moment().format('YYYY-MM-DD')
                     this.fecha_ingreso = moment().format('YYYY-MM-DD')
@@ -299,7 +299,7 @@ export default {
                 }
                 case 'update': {
                     this.modal = 2
-                    this.titulo = "Actualización de empleados"
+                    this.titulo = "ACTUALIZACIÓN DE EMPLEADO"
                     this.opcion = 2
                     this.area_id = data['area_id']
                     this.puesto_id = data['puesto_id']
@@ -337,7 +337,7 @@ export default {
         },
         openModalEmpleado(data = []) {
             this.modalEmpleado = 1
-            this.titulo = 'EMPLEADO ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase()
+            this.titulo = 'EMPLEADO: ' + data['nombre'].toUpperCase() + ' ' + data['apellido'].toUpperCase()
 
             this.area_nombre = data['area_nombre']
             this.puesto_nombre = data['puesto_nombre']
@@ -381,6 +381,16 @@ export default {
 
             if (moment(this.fecha_nacimiento).format('YYYY-MM-DD') > actual){
                 alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
+                errores = 1
+            }
+
+            if (this.puesto_id == 0) {
+                alerts.sweetAlert('error', 'Seleccione puesto')
+                errores = 1
+            }
+
+            if (this.area_id == 0) {
+                alerts.sweetAlert('error', 'Seleccione área')
                 errores = 1
             }
 
@@ -437,10 +447,10 @@ export default {
                 console.log(error)
             })
         },
-        changeStatus(action, id, nombre) {
+        changeStatus(action, id, nombre, apellido) {
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el empleado "'+nombre+'"?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el empleado: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

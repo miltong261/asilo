@@ -3,11 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Compras</title>
-    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-compras.css">
-    <link rel="stylesheet" href="../../assets/css/style-compras.css">
-     <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
+
+    <link rel="stylesheet" href="../../assets/css/style-salidas.css">
     <body>
-        <header>
+        <header>    
+       
             @foreach ($encabezado_compra as $encabezado)
             <table class="text-center" id="tabla-encabezado">
                 <tr>
@@ -84,7 +84,7 @@
         <footer>
             <table id="pie">
                 <tr>
-                    <td><strong>Administrador:</strong> Isrel Gómez</td>
+                    <td><strong>Administrador:</strong> Israel Gómez</td>
                     <td ><strong>(F):</strong></td>
                     <td class="info"></td>
                 </tr>

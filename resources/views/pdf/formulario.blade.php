@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> --}}
-    <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css">
+     <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> 
+     {{--  <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css"> --}}
     <link rel="stylesheet" href="../../assets/css/style-formulario.css">
 </head>
 <body>
@@ -108,6 +108,32 @@
                         <th colspan="3"> {{ $residente->observacion }} </th>
                     </tr>
 
+                    <tr style="color:white">
+                        <td>.</td>
+                    </tr>
+
+                    <tr  style="color:white">
+                        <td>.</td>
+                    </tr>
+
+                    <tr>
+                        <th class="titulo">Firma del anciano</th>
+                        <th style="border-bottom: solid 1pt black" colspan="2">  </th>
+                    </tr>
+
+                    <tr style="color:white">
+                        <td>.</td>
+                    </tr>
+
+                    <tr  style="color:white">
+                        <td>.</td>
+                    </tr>
+
+                    <tr>
+                        <th class="titulo">Firma de quien refiere</th>
+                        <th style="border-bottom: solid 1pt black" colspan="2">  </th>
+                    </tr>
+
                 </thead>
             </table>
             @endforeach
@@ -115,4 +141,3 @@
     <!-- FIN TABLA DATOS -->
 </body>
 </html>
-

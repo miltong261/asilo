@@ -55,6 +55,7 @@
                                 <h6>Residenciales Ciudad Palmeras</h6>
                                 <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
                                 <h5 class="text-secondary"><strong>BODEGA DE INSUMOS</strong></h5>
+                                <h6>Fecha: <strong class="text-secondary">{{ fecha }}</strong></h6>
                             </div>
                         </div>
 
@@ -243,7 +244,7 @@
         </div>
 
         <!-- Inicio modal -->
-        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header dark-header">
@@ -302,6 +303,7 @@
 export default {
     data() {
         return {
+            fecha: moment().format('D MMMM YYYY'),
             // Lista de donaciones
             id: 0,
             lista_donaciones: [],
@@ -414,7 +416,6 @@ export default {
             if (moment(this.fecha_donacion).format('YYYY-MM-DD') > actual){
                 alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')
                 errores = 1
-                console.log(actual)
             }
 
             return errores

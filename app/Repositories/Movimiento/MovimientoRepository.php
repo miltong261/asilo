@@ -235,7 +235,7 @@ class MovimientoRepository extends BaseRepository
             'tipo_movimiento.entrada',
             'tipo_movimiento.salida'
         )
-        ->orderBy('movimientos.no_transaccion', 'desc')
+        ->orderBy('movimientos.id', 'desc')
         ->whereBetween('movimientos.fecha_registro', [$data['inicio'], $data['fin']])
         ->whereYear('movimientos.fecha_registro', $anio)
         ->get();

@@ -26,15 +26,14 @@
             <div class="search-overlay"></div>
 
             @if (Auth::check())
-                @if (Auth::user()->rol_id == 1)
+                @if (Auth::user()->rol_id == 1 && Auth::user()->estado == 1)
                     @include('inc._admin_sidebar')
-                @elseif (Auth::user()->rol_id == 2)
+                @elseif (Auth::user()->rol_id == 2 && Auth::user()->estado == 1)
                     @include('inc._secretaria_sidebar')
-                @elseif (Auth::user()->rol_id == 3)
+                @elseif (Auth::user()->rol_id == 3 && Auth::user()->estado == 1)
                     @include('inc._enfermera_sidebar')
                 @endif
             @endif
-
 
             <div id="content" class="main-content">
 

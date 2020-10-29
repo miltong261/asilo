@@ -207,7 +207,7 @@ export default {
             this.opcionMoldalForm = 1
 
             this.modalForm = 1
-            this.titulo = 'Cambio de contraseña del usuario: ' + usuario_usuario
+            this.titulo = 'CAMBIO DE CONTRASEÑA DEL USUARIO: ' + usuario_usuario
         },
         closeForm(){
             this.id = ''
@@ -291,7 +291,7 @@ export default {
             this.id = id
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el usuario "'+usuario+'"?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el usuario: '+usuario+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

@@ -16,7 +16,7 @@
                                     <tr>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i></th>
                                         <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
-                                        <th class="text-center"> <i class="fas fa-file"></i> Documento</th>
+                                        <th class="text-center"> <i class="fas fa-file"></i> Proveedor</th>
                                         <th class="text-center"> <i class="fas fa-hashtag"></i> Documento</th>
                                         <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
                                         <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de compra</th>
@@ -55,6 +55,7 @@
                                 <h6>Residenciales Ciudad Palmeras</h6>
                                 <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
                                 <h5 class="text-secondary"><strong>BODEGA DE INSUMOS</strong></h5>
+                                <h6>Fecha: <strong class="text-secondary">{{ fecha }}</strong></h6>
                             </div>
                         </div>
 
@@ -72,7 +73,7 @@
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label class="text-dark"><i class="fas fa-store-alt"></i> Documento</label>
+                                        <label class="text-dark"><i class="fas fa-store-alt"></i> Proveedor</label>
                                         <input type="text" class="form-control" name="documento" v-model="documento" :class="hasError('documento') ? 'is-invalid' : ''">
                                         <div v-if="hasError('documento')" class="invalid-feedback">
                                             {{ errors.documento[0] }}
@@ -164,7 +165,7 @@
 
                         <!-- Acciones -->
                         <div class="text-center">
-                            <button type="button" @click="closeForm()" class="btn btn-cerrar">Cancelar <i class="far fa-times-circle"></i></button>
+                            <button type="button" @click="closeForm()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
                             <button type="button" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
                         </div>
                     </template>
@@ -259,7 +260,7 @@
         </div>
 
         <!-- Inicio modal -->
-        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header dark-header">
@@ -278,6 +279,7 @@
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                         <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
+                                        <th class="text-center"> <i class="fas fa-calendar-alt"></i> Vencimiento</th>
                                         <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                         <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
@@ -289,6 +291,7 @@
                                         <td v-text="producto.nombre_producto"></td>
                                         <td v-text="producto.presentacion_producto"></td>
                                         <td v-text="producto.nombre_unidad"></td>
+                                        <td v-text="producto.fecha_vencimiento"></td>
                                         <td v-text="producto.observacion_producto"></td>
                                         <td v-text="producto.existencia"></td>
                                         <td>
@@ -318,6 +321,7 @@
 export default {
     data() {
         return {
+            fecha: moment().format('D MMMM YYYY'),
             // Lista de compras
             id: 0,
             lista_compras: [],

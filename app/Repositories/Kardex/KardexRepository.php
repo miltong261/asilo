@@ -44,7 +44,7 @@ class KardexRepository extends BaseRepository
         $id = \Auth::user()->id;
         $user = User::where('users.id', '=', $id)
         ->join('empleados', 'empleados.id', '=', 'users.empleado_id')
-        ->select('users.usuario', 'empleados.nombre', 'empleados.apellido')->get();
+        ->select('users.usuario', 'users.rol_id', 'empleados.nombre', 'empleados.apellido')->get();
 
         return response()->json(['pacientes' => $pacientes, 'usuario' => $user]);
     }

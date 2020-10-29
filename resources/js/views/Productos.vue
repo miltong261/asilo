@@ -5,7 +5,7 @@
                 <button type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-store"></i></button>
                 <button type="button" @click="openVencimiento(false)" class="btn btn-warning mb-2">Artículos a vencer <i class="fas fa-calendar-alt"></i></button>
                 <button type="button" @click="openVencimiento(true)" class="btn btn-cerrar mb-2">Artículos vencidos <i class="fas fa-calendar-alt"></i></button>
-                <button type="button" @click="openModalPDF('create')" class="btn btn-danger mb-1 mr-1"> PDF <i class="fas fa-file-pdf"></i></button>
+                <!-- <button type="button" @click="openModalPDF('create')" class="btn btn-danger mb-1 mr-1"> PDF <i class="fas fa-file-pdf"></i></button> -->
                 <div class="widget-content widget-content-area br-6">
                     <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
                     <div class="table-responsive mb-0 mt-0">
@@ -15,11 +15,12 @@
                                     <th class="text-center"><i class="fas fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fas fa-qrcode"></i> Codigo</th>
                                     <th class="text-center"><i class="fas fa-store"></i> Nombre</th>
-                                    <th class="text-center"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
-                                    <th class="text-center"><i class="fas fa-tags"></i> Categoria</th>
-                                    <th class="text-center"><i class="fas fa-store-alt"></i> Existencia</th>
-                                    <th class="text-center"><i class="fas fa-user"></i> Registró </th>
-                                    <th class="text-center"><i class="fas fa-lock"></i> Estado</th>
+                                    <th class="text-center" width="12%"><i class="fas fa-thermometer-full"></i> Unidad medida</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-tags"></i> Categoria</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-calendar-alt"></i> Vencimiento</th>
+                                    <th class="text-center" width="10%"><i class="fas fa-store-alt"></i> Existencia</th>
+                                    <th class="text-center" width="8%"><i class="fas fa-user"></i> Registró </th>
+                                    <th class="text-center" width="8%"><i class="fas fa-lock"></i> Estado</th>
                                     <th class="text-center"><i class="fas fa-cogs"></i> Opciones</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                     <td v-text="producto.nombre" class="text-center"></td>
                                     <td v-text="producto.unidad_nombre" class="text-center"></td>
                                     <td v-text="producto.categoria_nombre" class="text-center"></td>
+                                    <td v-text="producto.fecha_vencimiento" class="text-center"></td>
                                     <td v-text="producto.existencia" class="text-center"></td>
                                     <td v-text="producto.nombre_usuario" class="text-center"></td>
                                     <td class="text-center">
@@ -88,15 +90,25 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
+                                    <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
+                                        <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
+                                    </select>
+                                    <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
+                                        {{ errors.tipo_producto_id[0] }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
                                     <input type="text" name="presentacion" v-model="presentacion" class="form-control" :class="hasError('presentacion') ? 'is-invalid' : ''" placeholder="Ingrese presentacion...">
                                     <div v-if="hasError('presentacion')" class="invalid-feedback">
                                         {{ errors.presentacion[0] }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <select id="select_unidad" class="form-control" v-model="unidad_medida_id" :class="hasError('unidad_medida_id') ? 'is-invalid' : ''">
@@ -104,16 +116,6 @@
                                     </select>
                                     <div v-if="hasError('unidad_medida_id')" class="invalid-feedback">
                                         {{ errors.unidad_medida_id[0] }}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
-                                    <select id="select_tipo" class="form-control" v-model="tipo_producto_id" :class="hasError('tipo_producto_id') ? 'is-invalid' : ''">
-                                        <option v-for="tipo_producto in lista_tipo_producto" :key="tipo_producto.id" :value="tipo_producto.id" v-text="tipo_producto.nombre"></option>
-                                    </select>
-                                    <div v-if="hasError('tipo_producto_id')" class="invalid-feedback">
-                                        {{ errors.tipo_producto_id[0] }}
                                     </div>
                                 </div>
 
@@ -175,6 +177,11 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
+                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
+                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-box-open"></i> Presentación</label>
                                     <input v-text="presentacion" v-model="presentacion" class="form-control" disabled>
                                 </div>
@@ -182,11 +189,6 @@
                                 <div class="form-group col-md-4">
                                     <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
                                     <input v-text="unidad_medida_nombre" v-model="unidad_medida_nombre" class="form-control" disabled>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-tags"></i> Categoría</label>
-                                    <input v-text="tipo_producto_nombre" v-model="tipo_producto_nombre" class="form-control" disabled>
                                 </div>
                             </div>
 
@@ -443,7 +445,7 @@ export default {
         },
         openModalProducto(data = []) {
             this.modalProducto = 1
-            this.titulo = 'ARTÍCULO ' + data['nombre'].toUpperCase()
+            this.titulo = 'ARTÍCULO: ' + data['nombre'].toUpperCase()
 
             this.codigo = data['codigo']
             this.unidad_medida_nombre = data['unidad_nombre']
@@ -539,7 +541,16 @@ export default {
             if (moment(this.fecha_vencimiento).format('YYYY-MM-DD') < actual){
                 alerts.sweetAlert('error', 'Esta tratando de asignar una fecha anterior al día de hoy')
                 errores = 1
-                console.log(actual)
+            }
+
+            if (this.unidad_medida_id == 0) {
+                alerts.sweetAlert('error', 'Seleccione unidad de medida')
+                errores = 1
+            }
+
+            if (this.tipo_producto_id == 0) {
+                alerts.sweetAlert('error', 'Seleccione categoría')
+                errores = 1
             }
 
             return errores
@@ -556,7 +567,7 @@ export default {
         changeStatus(action, id, nombre) {
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el producto "'+nombre+'"?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el artículo: '+nombre+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

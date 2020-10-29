@@ -184,7 +184,7 @@ export default {
         changeStatus(action, id, nombre, medicamento, producto) {
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el tipo producto "'+nombre+'"?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre la categoría "'+nombre+'"?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

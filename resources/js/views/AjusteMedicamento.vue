@@ -257,7 +257,7 @@ export default {
         },
         openModalAjuste(data = []) {
             this.modalAjuste = 1
-            this.titulo = 'AJUSTE DEL MEDICAMENTO ' + data['nombre_producto'].toUpperCase()
+            this.titulo = 'AJUSTE DEL MEDICAMENTO: ' + data['nombre_producto'].toUpperCase()
 
             this.nombre_categoria = data['nombre_categoria']
             this.nombre_unidad = data['nombre_unidad']
@@ -345,18 +345,23 @@ export default {
         store() {
             let me = this
             let url = '/ajuste_producto/store'
-            axios.post(url,{
-                'producto_id': this.medicamento_id,
-                'cantidad': this.cantidad,
-                'observacion': this.observacion,
-                'entrada': this.entrada,
-                'salida': this.salida
-            }).then(function (response) {
-                me.backendResponse(response)
-            }).catch(error =>{
-                if(error.response.status == 422)
-                    this.errors = error.response.data.errors
-            })
+
+            if (me.medicamento_id == 0) {
+                alerts.sweetAlert('error', 'Seleccione medicamento')
+            } else {
+                axios.post(url,{
+                    'producto_id': this.medicamento_id,
+                    'cantidad': this.cantidad,
+                    'observacion': this.observacion,
+                    'entrada': this.entrada,
+                    'salida': this.salida
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error =>{
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
         },
         change_select() {
             let me = this;
@@ -367,7 +372,6 @@ export default {
 
             me.$on('change', function(data) {
                 this.medicamento_id = data
-                    console.log(this.medicamento_id)
             })
         },
     },

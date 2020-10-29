@@ -8,6 +8,10 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::get('/change_password', 'Auth\PasswordChangeController@change')->name('change_password');
 Route::post('/change_password', 'Auth\PasswordChangeController@newPassword');
 
+/****************************** Ruta página no encontrada ******************************/
+Route::get('/error', function() {
+    return view('error.not_found');
+})->name('error');
 /****************************** Rutas para usuarios autenticados ******************************/
 Route::group(['middleware' => 'auth'], function () {
     /******************** Ruta principal ********************/
@@ -246,7 +250,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/', 'Dashboard\DashboardController');
             Route::get('/dashboard_articulos', 'Dashboard\DashboardArticulosController');
+            Route::get('/ajuste_articulo', 'Dashboard\DashboardAjusteArticuloController');
             Route::get('/dashboard_medicamentos', 'Dashboard\DashboardMedicamentosController');
+            Route::get('/ajuste_medicamento', 'Dashboard\DashboardAjusteMedicamentoController');
             Route::get('/dashboard_compras', 'Dashboard\DashboardComprasController');
         });
     });
@@ -331,7 +337,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/dashboard_articulos', 'Dashboard\DashboardArticulosController');
+            Route::get('/ajuste_articulo', 'Dashboard\DashboardAjusteArticuloController');
             Route::get('/dashboard_medicamentos', 'Dashboard\DashboardMedicamentosController');
+            Route::get('/ajuste_medicamento', 'Dashboard\DashboardAjusteMedicamentoController');
         });
     });
 

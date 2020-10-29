@@ -55,6 +55,7 @@
                                 <h6>Residenciales Ciudad Palmeras</h6>
                                 <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
                                 <h5 class="text-secondary"><strong>BODEGA DE INSUMOS</strong></h5>
+                                <h6>Fecha: <strong class="text-secondary">{{ fecha }}</strong></h6>
                             </div>
                         </div>
 
@@ -249,7 +250,7 @@
         </div>
 
         <!-- Inicio modal -->
-        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modalProducto}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header dark-header">
@@ -268,6 +269,7 @@
                                         <th class="text-center"> <i class="fas fa-store"></i> Nombre</th>
                                         <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                         <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
+                                        <th class="text-center"> <i class="fas fa-calendar-alt"></i> Vencimiento</th>
                                         <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
                                         <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Existencia</th>
                                         <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
@@ -279,6 +281,7 @@
                                         <td v-text="producto.nombre_producto"></td>
                                         <td v-text="producto.presentacion_producto"></td>
                                         <td v-text="producto.nombre_unidad"></td>
+                                        <td v-text="producto.fecha_vencimiento"></td>
                                         <td v-text="producto.observacion_producto"></td>
                                         <td v-text="producto.existencia"></td>
                                         <td>
@@ -308,6 +311,7 @@
 export default {
     data() {
         return {
+            fecha: moment().format('D MMMM YYYY'),
             // Lista de salidas
             id: 0,
             lista_salidas: [],

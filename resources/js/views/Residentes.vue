@@ -61,7 +61,6 @@
                                             <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
                                                 <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
-                                                <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                             </template>
                                         </template>
                                     </td>
@@ -262,7 +261,7 @@
         </div>
 
         <!-- Modal para ver los residentes -->
-        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+        <div :class="{'mostrar': modal}" class="modal fadeInDown show" role="dialog" style="display: none; overflow-y: auto" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -480,7 +479,7 @@ export default {
                     break
                 }
             }
-            this.fecha = moment().format('YYYY-MM-DD')
+            this.fecha = moment().format('D MMMM YYYY')
         },
         openModal(data = []) {
             this.modal = 1
@@ -586,7 +585,7 @@ export default {
         changeStatus(action, id, nombre, apellido) {
             swal({
                 title: 'Cambio de estado',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el residente: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',
@@ -629,7 +628,7 @@ export default {
         death(id, nombre, apellido) {
             swal({
                 title: 'Fallecimiento',
-                text: '¿Esta seguro de realizar la siguiente acción sobre el residente '+nombre+' '+apellido+'?',
+                text: '¿Esta seguro de realizar la siguiente acción sobre el residente: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
                 cancelButtonColor: '#f8538d',

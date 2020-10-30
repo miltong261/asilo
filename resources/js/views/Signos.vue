@@ -91,7 +91,7 @@
                                             <td class="text-center" v-text="index+1"></td>
                                             <td class="text-center" v-text="signos.hora_registro"></td>
                                             <td class="text-center"> {{ signos.respiraciones }} rpm</td>
-                                            <td class="text-center">{{ signos.presion }} rpm</td>
+                                            <td class="text-center">{{ signos.presion }}</td>
                                             <td class="text-center">{{ signos.temperatura }} C&#176;</td>
                                             <td class="text-center"> {{ signos.pulso }} lpm</td>
                                             <td class="text-center">{{ signos.peso }} lbs</td>

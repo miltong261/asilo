@@ -76,7 +76,7 @@
                                                 <th class="text-center" width="5%"><i class="fas fa-hashtag"></i></th>
                                                 <th class="text-center" width="8%"><i class="fas fa-clock"></i> Hora</th>
                                                 <th class="text-center" width="20%"><i class="fas fa-briefcase-medical"></i> Medicamento</th>
-                                                <th class="text-center" width="49%"><i class="fas fa-hospital-user"></i> Estado del paciente</th>
+                                                <th class="text-center" width="49%"><i class="fas fa-hospital-user"></i> Estado en el que quedó el paciente</th>
                                                 <th class="text-center" width="18%"><i class="fas fa-user"></i> Registró</th>
                                             </tr>
                                         </thead>
@@ -336,6 +336,7 @@ export default {
             let me = this
             if (me.medicamento_id == 0) {
                 alerts.sweetAlert('error', 'No ha seleccionado ningún medicamento')
+                $('#select_medicamento').next().find('.select2-selection').addClass('has-error');
                 errores = 1
             }
 

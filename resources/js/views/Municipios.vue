@@ -46,7 +46,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-group" v-if="opcion==1">
                                 <label class="text-dark"><i class="fas fa-flag"></i> Departamento</label>
-                                <select  class="form-control" :class="hasError('departamento_id') ? 'is-invalid' : ''" v-model="departamento_id">
+                                <select id="select_departamento" class="form-control" :class="hasError('departamento_id') ? 'is-invalid' : ''" v-model="departamento_id">
                                     <option v-for="departamento in lista_departamentos" :key="departamento.id" :value="departamento.id" v-text="departamento.nombre"></option>
                                 </select>
                                 <div v-if="hasError('departamento_id')" class="invalid-feedback">
@@ -190,15 +190,21 @@ export default {
         store(){
             let me = this
             let url = '/municipios/store'
-            axios.post(url,{
-                'departamento_id': this.departamento_id,
-                'nombre': this.nombre,
-            }).then(function (response) {
-                me.backendResponse(response)
-            }).catch(error =>{
-                if(error.response.status == 422)
-                    this.errors = error.response.data.errors
-            })
+
+            if (me.departamento_id == 0) {
+                alerts.sweetAlert('error', 'Debe de seleccionar el tipo de movimiento')
+                $('#select_departamento').next().find('.select2-selection').addClass('has-error');
+            } else {
+                axios.post(url,{
+                    'departamento_id': this.departamento_id,
+                    'nombre': this.nombre,
+                }).then(function (response) {
+                    me.backendResponse(response)
+                }).catch(error =>{
+                    if(error.response.status == 422)
+                        this.errors = error.response.data.errors
+                })
+            }
         },
         update(){
             let me = this

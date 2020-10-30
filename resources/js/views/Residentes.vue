@@ -76,14 +76,6 @@
                     <div class="row">
                         <div id="flFormsGrid" class="col-lg-12 layout-spacing mx-auto">
                             <div class="widget-content widget-content-area ">
-                                <!-- <div class="widget-header p-2">
-                                    <div class="row">
-                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
-                                            <h4 class="text-center text-secondary" v-text="titulo"></h4>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="d-flex justify-content-between">
                                     <div class="form-group float-left">
                                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
@@ -106,14 +98,14 @@
                                     <fieldset class="border border-fieldset rounded p-3">
                                         <div class="form-row mb-0">
                                             <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-user-check"></i> Nombre</label>
+                                                <label class="text-dark"><i class="fas fa-user-check"></i> Nombres</label>
                                                 <input type="text" class="form-control" name="nombre" v-model="nombre" :class="hasError('nombre') ? 'is-invalid' : ''" :disabled="rol_id==2">
                                                 <div v-if="hasError('nombre')" class="invalid-feedback">
                                                     {{ errors.nombre[0] }}
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-user-check"></i> Apellido</label>
+                                                <label class="text-dark"><i class="fas fa-user-check"></i> Apellidos</label>
                                                 <input type="text" class="form-control" name="apellido" v-model="apellido" :class="hasError('apellido') ? 'is-invalid' : ''" :disabled="rol_id==2">
                                                 <div v-if="hasError('apellido')" class="invalid-feedback">
                                                     {{ errors.apellido[0] }}
@@ -137,7 +129,7 @@
                                             </div>
 
                                             <div class="form-group col-md-2" v-if="opcion==1">
-                                                <label class="text-dark"><i class="fas fa-street-view"></i> Lugar de nacimiento</label>
+                                                <label class="text-dark"><i class="fas fa-street-view"></i> Municipio</label>
                                                 <select id="municipio_origen" name="municipio_origen_id" v-model="municipio_origen_id" class="form-control" :class="hasError('municipio_origen') ? 'is-invalid' : ''">
                                                     <option v-for="municipio in lista_municipios_origen" :key="municipio.id" :value="municipio.id" v-text="municipio.nombre"></option>
                                                 </select>
@@ -565,6 +557,30 @@ export default {
         otherError() {
             let errores = 0
             let actual = moment().format('YYYY-MM-DD')
+
+            if (this.municipio_dpi_id == 0) {
+                alerts.sweetAlert('error', 'Debe seleccionar el municipio donde fue extendido el DPI')
+                $('#municipio_dpi').next().find('.select2-selection').addClass('has-error');
+                errores = 1
+            }
+
+            if (this.departamento_dpi_id == 0) {
+                alerts.sweetAlert('error', 'Debe seleccionar el departamento donde fue extendido el DPI')
+                $('#departamento_dpi').next().find('.select2-selection').addClass('has-error');
+                errores = 1
+            }
+
+            if (this.municipio_origen_id == 0) {
+                alerts.sweetAlert('error', 'Debe seleccionar el municipio donde nació')
+                $('#municipio_origen').next().find('.select2-selection').addClass('has-error');
+                errores = 1
+            }
+
+            if (this.departamento_origen_id == 0) {
+                alerts.sweetAlert('error', 'Debe seleccionar el departamento donde nació')
+                $('#departamento_origen').next().find('.select2-selection').addClass('has-error');
+                errores = 1
+            }
 
             if (moment(this.fecha_nacimiento).format('YYYY-MM-DD') > actual){
                 alerts.sweetAlert('error', 'Esta tratando de asignar una fecha posterior al día de hoy')

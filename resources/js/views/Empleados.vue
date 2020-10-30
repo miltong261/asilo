@@ -74,7 +74,7 @@
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-user"></i> Nombre</label>
+                                    <label class="text-dark"><i class="fas fa-user"></i> Nombres</label>
                                     <input type="text" name="nombre" v-model="nombre" class="form-control" :class="hasError('nombre') ? 'is-invalid' : ''" placeholder="Ingrese nombre...">
                                     <div v-if="hasError('nombre')" class="invalid-feedback">
                                         {{ errors.nombre[0] }}
@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="text-dark"><i class="fas fa-user"></i> Apellido</label>
+                                    <label class="text-dark"><i class="fas fa-user"></i> Apellidos</label>
                                     <input type="text" name="apellido" v-model="apellido" class="form-control" :class="hasError('apellido') ? 'is-invalid' : ''" placeholder="Ingrese apellido...">
                                     <div v-if="hasError('apellido')" class="invalid-feedback">
                                         {{ errors.apellido[0] }}
@@ -386,11 +386,13 @@ export default {
 
             if (this.puesto_id == 0) {
                 alerts.sweetAlert('error', 'Seleccione puesto')
+                $('#select_puesto').next().find('.select2-selection').addClass('has-error');
                 errores = 1
             }
 
             if (this.area_id == 0) {
                 alerts.sweetAlert('error', 'Seleccione área')
+                $('#select_area').next().find('.select2-selection').addClass('has-error');
                 errores = 1
             }
 

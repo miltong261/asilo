@@ -4,16 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Donaciones</title>
-    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-salidas.css">
-    <link rel="stylesheet" href="../../assets/css/style-donaciones.css">
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
+    <link rel="stylesheet" href="{{ public_path() }}/assets/css/style-salidas.css">
     <body>
         <header>
             @foreach ($encabezado_donacion as $encabezado)
             <table class="text-center" id="tabla-encabezado">
                 <tr>
                     <td id="td-img">
-                        <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                        <img src="{{ public_path() }}/assets/img/logo-pdf.jpeg" id="imagen">
                     </td>
                     <td>
                         <h4 > ASILO DE ANCIANOS RETALHULEU</h4>

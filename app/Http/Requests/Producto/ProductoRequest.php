@@ -27,6 +27,7 @@ class ProductoRequest extends FormRequest
             'unidad_medida_id' => ['required'],
             'tipo_producto_id' => ['required'],
             'nombre' => ['required', 'max:35'],
+            'presentacion' => ['required'],
             'fecha_vencimiento' => ['nullable', 'date']
         ];
     }
@@ -40,6 +41,9 @@ class ProductoRequest extends FormRequest
 
             'nombre.required' => 'El nombre del producto es obligatorio',
             'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
+
+            'presentacion.required' => 'La presentación es obligatoria',
+
             'fecha_vencimiento.date' => 'Fecha invalida'
         ];
     }

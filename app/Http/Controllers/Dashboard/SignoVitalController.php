@@ -34,7 +34,7 @@ class SignoVitalController extends Controller
                 ['residente_id', 'respiraciones', 'presion', 'pulso', 'peso', 'temperatura', 'observacion']
                 )
                 + ['fecha_registro' => Carbon::now()]
-                + ['hora_registro' => Carbon::now()->isoFormat('h:mm:ss')]
+                + ['hora_registro' => Carbon::now()->isoFormat('H:mm:ss')]
                 + ['user_id' => \Auth::user()->id]
             );
 

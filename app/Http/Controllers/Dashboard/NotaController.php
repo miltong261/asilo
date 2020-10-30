@@ -33,7 +33,7 @@ class NotaController extends Controller
             $guardar = $this->notaRepository->store($request->only(
                 ['residente_id', 'nota'])
                 + ['fecha_registro' => Carbon::now()]
-                + ['hora' => Carbon::now()->isoFormat('h:mm:ss')]
+                + ['hora' => Carbon::now()->isoFormat('H:mm:ss')]
                 + ['user_id' => \Auth::user()->id]
             );
 

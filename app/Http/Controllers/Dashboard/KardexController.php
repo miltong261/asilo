@@ -33,7 +33,7 @@ class KardexController extends Controller
             $guardar = $this->kardexRepository->store($request->only(
                 ['residente_id', 'producto_id', 'observacion'])
                 + ['fecha_registro' => Carbon::now()]
-                + ['hora' => Carbon::now()->isoFormat('h:mm:ss')]
+                + ['hora' => Carbon::now()->isoFormat('H:mm:ss')]
                 + ['user_id' => \Auth::user()->id]
             );
 

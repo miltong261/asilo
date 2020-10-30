@@ -5969,11 +5969,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (this.puesto_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione puesto');
+        $('#select_puesto').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
       if (this.area_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione área');
+        $('#select_area').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
@@ -6482,6 +6484,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (me.medicamento_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No ha seleccionado ningún medicamento');
+        $('#select_medicamento').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
@@ -7095,11 +7098,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (this.unidad_medida_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione unidad de medida');
+        $('#select_unidad').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
       if (this.tipo_producto_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione categoría');
+        $('#select_tipo').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
@@ -7771,6 +7776,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (me.tipo_movimiento_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe de seleccionar el tipo de movimiento');
+        $('#tipo_movimiento').next().find('.select2-selection').addClass('has-error');
       } else {
         axios.post(url, {
           'tipo_movimiento_id': this.tipo_movimiento_id,
@@ -8019,14 +8025,20 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       var url = '/municipios/store';
-      axios.post(url, {
-        'departamento_id': this.departamento_id,
-        'nombre': this.nombre
-      }).then(function (response) {
-        me.backendResponse(response);
-      })["catch"](function (error) {
-        if (error.response.status == 422) _this.errors = error.response.data.errors;
-      });
+
+      if (me.departamento_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe de seleccionar el tipo de movimiento');
+        $('#select_departamento').next().find('.select2-selection').addClass('has-error');
+      } else {
+        axios.post(url, {
+          'departamento_id': this.departamento_id,
+          'nombre': this.nombre
+        }).then(function (response) {
+          me.backendResponse(response);
+        })["catch"](function (error) {
+          if (error.response.status == 422) _this.errors = error.response.data.errors;
+        });
+      }
     },
     update: function update() {
       var _this2 = this;
@@ -9200,11 +9212,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (this.unidad_medida_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione unidad de medida');
+        $('#select_unidad').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
       if (this.tipo_producto_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione categoría');
+        $('#select_tipo').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
@@ -10045,14 +10059,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -10190,6 +10196,30 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     otherError: function otherError() {
       var errores = 0;
       var actual = moment().format('YYYY-MM-DD');
+
+      if (this.municipio_dpi_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe seleccionar el municipio donde fue extendido el DPI');
+        $('#municipio_dpi').next().find('.select2-selection').addClass('has-error');
+        errores = 1;
+      }
+
+      if (this.departamento_dpi_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe seleccionar el departamento donde fue extendido el DPI');
+        $('#departamento_dpi').next().find('.select2-selection').addClass('has-error');
+        errores = 1;
+      }
+
+      if (this.municipio_origen_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe seleccionar el municipio donde nació');
+        $('#municipio_origen').next().find('.select2-selection').addClass('has-error');
+        errores = 1;
+      }
+
+      if (this.departamento_origen_id == 0) {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe seleccionar el departamento donde nació');
+        $('#departamento_origen').next().find('.select2-selection').addClass('has-error');
+        errores = 1;
+      }
 
       if (moment(this.fecha_nacimiento).format('YYYY-MM-DD') > actual) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Esta tratando de asignar una fecha posterior al día de hoy');
@@ -10899,6 +10929,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       if (this.empleado_id == 0) {
         this.error_empleado = 1;
         this.error_empleado_msg.push("No ha seleccionado al empleado que solicita los productos");
+        $('#select_empleado').next().find('.select2-selection').addClass('has-error');
         errores = 1;
       }
 
@@ -12780,14 +12811,9 @@ __webpack_require__.r(__webpack_exports__);
           _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
           this.opcionModal = 0;
         }
-
-        if (this.opcionMoldalForm == 1) {
-          this.closeForm();
-          this.showList();
-          _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
-          this.opcionMoldalForm = 0;
-        }
       } else {
+        if (this.empleado_id == 0) $('#select_empleado').next().find('.select2-selection').addClass('has-error');
+        if (this.rol_id == 0) $('#select_rol').next().find('.select2-selection').addClass('has-error');
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
       }
     },
@@ -75163,7 +75189,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user" }),
-      _vm._v(" Nombre")
+      _vm._v(" Nombres")
     ])
   },
   function() {
@@ -75172,7 +75198,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user" }),
-      _vm._v(" Apellido")
+      _vm._v(" Apellidos")
     ])
   },
   function() {
@@ -76181,7 +76207,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "49%" } }, [
           _c("i", { staticClass: "fas fa-hospital-user" }),
-          _vm._v(" Estado del paciente")
+          _vm._v(" Estado en el que quedó el paciente")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "18%" } }, [
@@ -79075,6 +79101,7 @@ var render = function() {
                             class: _vm.hasError("departamento_id")
                               ? "is-invalid"
                               : "",
+                            attrs: { id: "select_departamento" },
                             on: {
                               change: function($event) {
                                 var $$selectedVal = Array.prototype.filter
@@ -85126,7 +85153,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-check" }),
-      _vm._v(" Nombre")
+      _vm._v(" Nombres")
     ])
   },
   function() {
@@ -85135,7 +85162,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-user-check" }),
-      _vm._v(" Apellido")
+      _vm._v(" Apellidos")
     ])
   },
   function() {
@@ -85162,7 +85189,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-street-view" }),
-      _vm._v(" Lugar de nacimiento")
+      _vm._v(" Municipio")
     ])
   },
   function() {
@@ -87186,7 +87213,7 @@ var render = function() {
                                     ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
-                                      _vm._v(_vm._s(signos.presion) + " rpm")
+                                      _vm._v(_vm._s(signos.presion))
                                     ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [

@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-formulario.css"> 
-     {{--  <link rel="stylesheet" href="/var/www/html/proyectos/asilo/resources/assets/css/style-formulario.css"> --}}
-    <link rel="stylesheet" href="../../assets/css/style-formulario.css">
+    <link rel="stylesheet" href="{{ public_path() }}/assets/css/style-formulario.css">
 </head>
 <body>
     <header>
         <table class="text-center" id="tabla-encabezado">
             <tr>
                 <td id="td-img">
-                    <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                    <img src="{{ public_path() }}/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                 </td>
                 <td>
                     <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
@@ -56,7 +54,7 @@
                     <tr>
                         <th class="titulo">Número de DPI:</th>
                         <th> {{ $residente->dpi }} </th>
-                        <th class="titulo"> Extendida en: </th>
+                        <th class="titulo"> Extendido en: </th>
                         <th> {{ $residente->departamento_dpi_nombre .', '. $residente->municipio_dpi_nombre }} </th>
                     </tr>
 

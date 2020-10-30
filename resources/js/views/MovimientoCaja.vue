@@ -477,6 +477,7 @@ export default {
 
             if (me.tipo_movimiento_id == 0) {
                 alerts.sweetAlert('error', 'Debe de seleccionar el tipo de movimiento')
+                $('#tipo_movimiento').next().find('.select2-selection').addClass('has-error');
             } else {
                 axios.post(url,{
                     'tipo_movimiento_id': this.tipo_movimiento_id,

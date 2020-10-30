@@ -545,11 +545,13 @@ export default {
 
             if (this.unidad_medida_id == 0) {
                 alerts.sweetAlert('error', 'Seleccione unidad de medida')
+                $('#select_unidad').next().find('.select2-selection').addClass('has-error')
                 errores = 1
             }
 
             if (this.tipo_producto_id == 0) {
                 alerts.sweetAlert('error', 'Seleccione categoría')
+                $('#select_tipo').next().find('.select2-selection').addClass('has-error')
                 errores = 1
             }
 

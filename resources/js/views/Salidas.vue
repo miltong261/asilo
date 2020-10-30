@@ -432,6 +432,7 @@ export default {
             if (this.empleado_id == 0) {
                 this.error_empleado = 1
                 this.error_empleado_msg.push("No ha seleccionado al empleado que solicita los productos")
+                $('#select_empleado').next().find('.select2-selection').addClass('has-error')
                 errores = 1
             }
 

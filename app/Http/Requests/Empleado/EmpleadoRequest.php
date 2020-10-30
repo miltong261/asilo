@@ -26,8 +26,8 @@ class EmpleadoRequest extends FormRequest
         return [
             'area_id' => ['required'],
             'puesto_id' => ['required'],
-            'nombre' => ['required', 'string', 'min:5', 'max:35'],
-            'apellido' => ['required', 'string', 'min:5', 'max:35'],
+            'nombre' => ['required', 'string', 'max:35'],
+            'apellido' => ['required', 'string', 'max:35'],
             'fecha_ingreso' => ['required', 'date'],
             'fecha_nacimiento' => ['required', 'date'],
             'dpi' => ['required', 'unique:empleados,dpi,' . $this->id, 'digits:13'],
@@ -45,8 +45,11 @@ class EmpleadoRequest extends FormRequest
 
             'nombre.required' => 'El nombre es obligatorio',
             'nombre.string' => 'Solo se permiten caracteres',
-            'nombre.min' => 'El nombre debe contener como mínimo :min caracteres',
             'nombre.max' => 'El nombre debe contener como máximo :max caracteres',
+
+            'apellido.required' => 'El apellido es obligatorio',
+            'apellido.string' => 'Solo se permiten caracteres',
+            'apellido.max' => 'El apellido debe contener como máximo :max caracteres',
 
             'fecha_ingreso.required' => 'La fecha de ingreso es obligatoria',
             'fecha_ingreso.date' => 'Solo se permite fecha',

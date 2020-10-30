@@ -3,16 +3,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Compras</title>
-
-    <link rel="stylesheet" href="../../assets/css/style-salidas.css">
+    <link rel="stylesheet" href="{{ public_path() }}/assets/css/style-salidas.css">
     <body>
-        <header>    
-       
+        <header>
+
             @foreach ($encabezado_compra as $encabezado)
             <table class="text-center" id="tabla-encabezado">
                 <tr>
                     <td id="td-img">
-                        <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                        <img src="{{ public_path() }}/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                     </td>
                     <td>
                         <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
@@ -27,8 +26,12 @@
 
             <table id="tabla-empleado">
                 <tr>
-                    <td style="width: 30%" > <strong>Documento: </strong></td>
+                    <td style="width: 30%" > <strong>Proveedor: </strong></td>
                     <td > {{ $encabezado->documento }} </td>
+                </tr>
+                <tr>
+                    <td style="width: 30%" > <strong>Documento: </strong></td>
+                    <td > {{ $encabezado->no_documento }} </td>
                 </tr>
                 <tr>
                     <td > <strong>Fecha de Registro: </strong> </td>

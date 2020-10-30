@@ -2,9 +2,10 @@
 <p align="center">CENTRO UNIVERSITARIO DE RETALHULEU</p>
 <p align="center">INGENIERÍA EN SISTEMAS DE INFORMACIÓN Y CIENCIAS DE LA COMPUTACIÓN</p>
 
-<p align="center"><img src="https://ministerioshadainf.org/wp-content/uploads/2019/06/cropped-Logo_Fix.jpg" width="200"></p>
+<p align="center"><img src="https://umgnaranjo.com/wp-content/uploads/2018/11/logo-umg.png" width="200"></p>
 
 ## ASILO "SHADDAI NUEVA FAMILIA"
+<p align="center"><img src="https://ministerioshadainf.org/wp-content/uploads/2019/06/cropped-Logo_Fix.jpg" width="200"></p>
 
 ### Misión
     Gestionar mediante programas de alimentación, albergue y salud para que les permita a las personas del Adulto Mayor especialmente a las personas de escaso recurso económico gozar de una mejor calidad de vida. 
@@ -13,14 +14,15 @@
     Como institución privada dar un beneficio social sin interés de lucrar, sin distinción de origen, sexo o creo y erradicar el maltrato físico y psicológico en todas las personas de la Tercera Edad de nuestra querida Patria.
 
 #### Valores
-    - Sevicio
-    - Lealtad
-    - Responsabilidad
-    - Solidaridad
+    Sevicio
+    Lealtad
+    Responsabilidad
+    Solidaridad
 
 #### Metas
-    - Poder crear un hospital con atención médica geriátrica y gerontológica
-    - Dar un servicio de guardería a los ancianos   cuyas familias tengar que trabajar, trayéndolos por la mañana y devolviendolos por la tarde, en un vehiculo exclusivo. 
+    Poder crear un hospital con atención médica geriátrica y gerontológica.
+    
+    Dar un servicio de guardería a los ancianos   cuyas familias tengar que trabajar, trayéndolos por la mañana y devolviendolos por la tarde, en un vehiculo exclusivo. 
 
 ### Pre-requisitos 📋
 
@@ -51,13 +53,23 @@ Se crea el archivo para el almacenamiento de variables de entorno.
 ```
 cp .env.example .env 
 ```
+Crear la base de datos en MySQL.
+```
+create database nombre_base_de_datos; 
+```
+Se modifica el archivo .env. 
+```
+DB_DATABASE=nombre_base_de_datos
+DB_USERNAME=usuario (por defecto = root)
+DB_PASSWORD=contraseña de usuario (por defecto = vacía)  
+```
 Genera la clave en el archivo de entorno de la aplicación.
 ```
 php artisan key:generate
 ```
 Generar las migraciones.
 ```
-php artisan migrate:refresh --seed
+php artisan migrate:fresh --seed
 ```
 Se ejecuta el manejador de paquetes de node en entorno de desarrollo.
 ```
@@ -67,27 +79,21 @@ Se inicia el servidor de desarrollo.
 ```
 php artisan serve
 ```
-
-
-## Despliegue 📦
-_A continuación, se listan las herramientas tanto de hardware como de software que se utilizaron para desplegar el proyecto en las instalaciones del Asilo._
-
-#### _Software_
-* [Ubuntu Server 19.04](https://ubuntu.com/download/server) 
-* [Apache](https://httpd.apache.org/)
-* [PHP](https://www.php.net/downloads)
-* [Composer](https://getcomposer.org/)
-* [NodeJS](https://nodejs.org/es/)
-
-#### *Hardware*
-* Computadora Core 2 Dúo, 6GB RAM DDR3, 250GB SSD 3.2. Máquina, la cual será utilizada como servidor de forma local.
+Ejecutar el proyecto en el navegador.
+```
+localhost:8000
+```
+Autenticación.
+```
+usuario: administrador-0001 y contraseña: asilo
+```
 
 ## Construido con 🛠️
 
 * [Laravel](https://laravel.com/) - Framework PHP.
 * [VueJS](https://vuejs.org/) - Framework progresivo de JavaScript para construir interfaces de usuario. 
 
-## Wiki 📖
+## Mini-Wiki 📖
  
 * **Infraestructura:** Conjunto de hardware, software, redes, instalaciones, etc. Usado para desarrollar, probar, entregar, monitorear, controlar y dar soporte a los servicios de las tecnologías de información.
 * **Modelo:** contiene una representación de los datos que maneja el sistema, su lógica de negocio, y sus mecanismos de persistencia.

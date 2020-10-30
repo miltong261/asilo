@@ -3,15 +3,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Salidas</title>
-    <link rel="stylesheet" href="C:/xampp/htdocs/asilo/resources/assets/css/style-salidas.css">
-    <link rel="stylesheet" href="../../assets/css/style-salidas.css">
+    <link rel="stylesheet" href="{{ public_path() }}/assets/css/style-salidas.css">
     <body>
         <header>
             @foreach ($encabezado_salida as $encabezado)
             <table class="text-center" id="tabla-encabezado">
                 <tr>
                     <td id="td-img">
-                        <img src="/var/www/html/proyectos/asilo/resources/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
+                        <img src="{{ public_path() }}/assets/img/logo-pdf.jpeg" alt="Logo asilo" id="imagen">
                     </td>
                     <td>
                         <h4 > ASILO DE ANCIANOS RETALHULEU</h4>
@@ -93,10 +92,10 @@
                 <tr  style="color:white">
                     <td>.</td>
                 </tr>
-                
+
                 <tr>
                     <td><strong>Autorizó: </strong></td>
-                    <td>Israel Gómez</td>
+                    <td>Israel Gómez Juárez</td>
                     <td ><strong>(F):</strong></td>
                     <td class="info"></td>
                 </tr>

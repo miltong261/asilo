@@ -102,16 +102,19 @@
                                             <option v-for="option in options" :key="option.value" :value="option.value" v-text="option.type"></option>
                                         </select>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-9 form-group" v-if="option_enabled==0">
+                                <div class="form-row">
+                                    <div class="col-md-8 form-group" v-if="option_enabled==0">
                                         <label for="" class="text-dark"><i class="fas fa-store"></i> Seleccione</label>
                                         <select id="select_producto" class="form-control" v-model="producto_id">
                                             <option v-for="producto in lista_inventario" :key="producto.producto_id" :value="producto.producto_id" v-text="producto.nombre_producto+'/ '+producto.presentacion_producto+' '+producto.nombre_unidad"></option>
                                         </select>
                                     </div>
 
-                                    <div class="col-md-1 form-group" style="padding:30px" v-if="option_enabled==0">
+                                    <div class="col-md-4 form-group" style="padding:30px" v-if="option_enabled==0">
                                         <button  @click="openModalProducto()" class="btn btn-info mb-2 mr-2 rounded-circle"> <i class="fas fa-search"></i></button>
+                                        <button  @click="cancel()" class="btn btn-cerrar mb-2 mr-2 rounded-circle"> <i class="fas fa-times"></i></button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -165,7 +168,6 @@
 
                         <!-- Acciones -->
                         <div class="text-center">
-                            <button type="button" @click="cancel()" class="btn btn-warning">Cancelar <i class="far fa-times-circle"></i></button>
                             <button type="button" @click="closeForm()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
                             <button type="button" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
                         </div>

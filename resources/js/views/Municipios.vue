@@ -192,7 +192,7 @@ export default {
             let url = '/municipios/store'
 
             if (me.departamento_id == 0) {
-                alerts.sweetAlert('error', 'Debe de seleccionar el tipo de movimiento')
+                alerts.sweetAlert('error', 'Debe de seleccionar el departamento')
                 $('#select_departamento').next().find('.select2-selection').addClass('has-error');
             } else {
                 axios.post(url,{

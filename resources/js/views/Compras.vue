@@ -165,6 +165,7 @@
 
                         <!-- Acciones -->
                         <div class="text-center">
+                            <button type="button" @click="cancel()" class="btn btn-warning">Cancelar <i class="far fa-times-circle"></i></button>
                             <button type="button" @click="closeForm()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
                             <button type="button" class="btn btn-guardar" @click="store()">Guardar <i class="far fa-check-circle"></i></button>
                         </div>
@@ -336,12 +337,16 @@ export default {
             // Opciones (medicamento y artículo)
             options: [
                 {
-                    type: 'Medicamento',
+                    type: 'Seleccione',
                     value: 0
                 },
                 {
-                    type: 'Artículo',
+                    type: 'Medicamento',
                     value: 1
+                },
+                {
+                    type: 'Artículo',
+                    value: 2
                 }
             ],
             select_option: '',
@@ -400,6 +405,15 @@ export default {
             this.errors = []
 
             alerts.sweetAlert('error', 'Compra cancelada')
+        },
+        cancel() {
+            this.destroyTable('#listado_producto')
+
+            $('#select_producto').select2('destroy');
+            this.select_option = 0
+            this.option_enabled = 1
+            this.lista_inventario = []
+            this.arrayDetalle = []
         },
         openModalProducto() {
             this.modalProducto = 1
@@ -484,11 +498,11 @@ export default {
             let me = this
             var url
 
-            if (type == 0){
+            if (type == 1){
                 url = '/inventario/listar_medicamento_entrada'
                 me.option_enabled = 0
             }
-            else if (type == 1){
+            else if (type == 2){
                 url = '/inventario/listar_producto_entrada'
                 me.option_enabled = 0
             }

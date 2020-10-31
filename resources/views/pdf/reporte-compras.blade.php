@@ -52,8 +52,8 @@
                     <tr id="fila-encabezado">
                         <th style="width: 10%;"> # </th>
                         <th> <i class="fas fa-store"></i> NOMBRE</th>
-                        <th> <i class="fas fa-store"></i> UNIDAD</th>
                         <th> <i class="fas fa-store"></i> PRESENTACIÓN</th>
+                        <th> <i class="fas fa-store"></i> UNIDAD</th>
                         <th> <i class="fas fa-search"></i> OBSERVACIÓN</th>
                         <th> <i class="fas fa-sort-numeric-up-alt"></i> CANTIDAD</th>
                         <th> <i class="fas fa-sort-numeric-up-alt"></i> PRECIO</th>
@@ -64,8 +64,8 @@
                     <tr>
                         <td>{{ $index+1 }}</td>
                         <td >{{ $detalle->nombre_producto }}</td>
-                        <td >{{ $detalle->nombre_unidad }}</td>
                         <td>{{ $detalle->presentacion_producto }}</td>
+                        <td >{{ $detalle->nombre_unidad }}</td>
                         <td>{{ $detalle->observacion_producto }}</td>
                         <td > {{ $detalle->cantidad }}</td>
                         <td >Q {{ $detalle->precio }}</td>

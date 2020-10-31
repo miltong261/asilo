@@ -232,6 +232,13 @@ export default {
                     alerts.sweetAlert(response.data.status, response.data.message)
                     this.opcionModal = 0
                 }
+
+                if (this.opcionMoldalForm == 1){
+                    this.closeForm()
+                    this.showList()
+                    alerts.sweetAlert(response.data.status, response.data.message)
+                    this.opcionMoldalForm = 0
+                }
             }else{
                 if (this.empleado_id == 0)
                     $('#select_empleado').next().find('.select2-selection').addClass('has-error')

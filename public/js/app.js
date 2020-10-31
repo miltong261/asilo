@@ -3279,6 +3279,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -3298,11 +3299,14 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       /**Búsqueda */
       // Opciones (medicamento y artículo)
       options: [{
-        type: 'Medicamento',
+        type: 'Seleccione',
         value: 0
       }, {
-        type: 'Artículo',
+        type: 'Medicamento',
         value: 1
+      }, {
+        type: 'Artículo',
+        value: 2
       }],
       select_option: '',
       option_enabled: 1,
@@ -3353,6 +3357,14 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.arrayDetalle = [];
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Compra cancelada');
+    },
+    cancel: function cancel() {
+      this.destroyTable('#listado_producto');
+      $('#select_producto').select2('destroy');
+      this.select_option = 0;
+      this.option_enabled = 1;
+      this.lista_inventario = [];
+      this.arrayDetalle = [];
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
@@ -3441,10 +3453,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var me = this;
       var url;
 
-      if (type == 0) {
+      if (type == 1) {
         url = '/inventario/listar_medicamento_entrada';
         me.option_enabled = 0;
-      } else if (type == 1) {
+      } else if (type == 2) {
         url = '/inventario/listar_producto_entrada';
         me.option_enabled = 0;
       }
@@ -5266,6 +5278,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5284,13 +5297,16 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       /**Búsqueda */
       // Opciones (medicamento y artículo)
       options: [{
-        type: 'Medicamento',
+        type: 'Seleccione',
         value: 0
       }, {
-        type: 'Artículo',
+        type: 'Medicamento',
         value: 1
+      }, {
+        type: 'Artículo',
+        value: 2
       }],
-      select_option: '',
+      select_option: 0,
       option_enabled: 1,
       // Listar los productos de inventario
       modalProducto: 0,
@@ -5329,12 +5345,20 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       document.getElementById('openForm').style.display = 'block';
       this.fecha_donacion = '';
       this.donador = '', this.direccion = '';
-      this.select_option = '';
+      this.select_option = 0;
       this.option_enabled = 1;
       this.lista_inventario = [];
       this.arrayDetalle = [];
       this.errors = [];
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Donación cancelada');
+    },
+    cancel: function cancel() {
+      this.destroyTable('#listado_producto');
+      $('#select_producto').select2('destroy');
+      this.select_option = 0;
+      this.option_enabled = 1;
+      this.lista_inventario = [];
+      this.arrayDetalle = [];
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
@@ -5416,10 +5440,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var me = this;
       var url;
 
-      if (type == 0) {
+      if (type == 1) {
         url = '/inventario/listar_medicamento_entrada';
         me.option_enabled = 0;
-      } else if (type == 1) {
+      } else if (type == 2) {
         url = '/inventario/listar_producto_entrada';
         me.option_enabled = 0;
       }
@@ -8027,7 +8051,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/municipios/store';
 
       if (me.departamento_id == 0) {
-        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe de seleccionar el tipo de movimiento');
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Debe de seleccionar el departamento');
         $('#select_departamento').next().find('.select2-selection').addClass('has-error');
       } else {
         axios.post(url, {
@@ -10816,6 +10840,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -10836,13 +10861,16 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       /**Búsqueda */
       // Opciones (medicamento y artículo)
       options: [{
-        type: 'Medicamento',
+        type: 'Seleccione',
         value: 0
       }, {
-        type: 'Artículo',
+        type: 'Medicamento',
         value: 1
+      }, {
+        type: 'Artículo',
+        value: 2
       }],
-      select_option: '',
+      select_option: 0,
       option_enabled: 1,
       // Listar los productos de inventario
       modalProducto: 0,
@@ -10892,6 +10920,14 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.error_empleado = 0;
       this.error_empleado_msg = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Salida cancelada');
+    },
+    cancel: function cancel() {
+      this.destroyTable('#listado_producto');
+      $('#select_producto').select2('destroy');
+      this.select_option = 0;
+      this.option_enabled = 1;
+      this.lista_inventario = [];
+      this.arrayDetalle = [];
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
@@ -11035,10 +11071,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var me = this;
       var url;
 
-      if (type == 0) {
+      if (type == 1) {
         url = '/inventario/listar_medicamento_salida';
         me.option_enabled = 0;
-      } else if (type == 1) {
+      } else if (type == 2) {
         url = '/inventario/listar_producto_salida';
         me.option_enabled = 0;
       }
@@ -12810,6 +12846,13 @@ __webpack_require__.r(__webpack_exports__);
           this.showList();
           _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
           this.opcionModal = 0;
+        }
+
+        if (this.opcionMoldalForm == 1) {
+          this.closeForm();
+          this.showList();
+          _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"](response.data.status, response.data.message);
+          this.opcionMoldalForm = 0;
         }
       } else {
         if (this.empleado_id == 0) $('#select_empleado').next().find('.select2-selection').addClass('has-error');
@@ -70821,6 +70864,23 @@ var render = function() {
                       _c(
                         "button",
                         {
+                          staticClass: "btn btn-warning",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cancel()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v("Cancelar "),
+                          _c("i", { staticClass: "far fa-times-circle" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
                           staticClass: "btn btn-cerrar",
                           attrs: { type: "button" },
                           on: {
@@ -73338,6 +73398,23 @@ var render = function() {
                       _c(
                         "button",
                         {
+                          staticClass: "btn btn-warning",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cancel()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v("Cancelar "),
+                          _c("i", { staticClass: "far fa-times-circle" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
                           staticClass: "btn btn-cerrar",
                           attrs: { type: "button" },
                           on: {
@@ -73347,8 +73424,8 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("Cancelar "),
-                          _c("i", { staticClass: "far fa-times-circle" })
+                          _vm._v("Salir "),
+                          _c("i", { staticClass: "fas fa-sign-out-alt" })
                         ]
                       ),
                       _vm._v(" "),
@@ -86166,6 +86243,23 @@ var render = function() {
                       _c(
                         "button",
                         {
+                          staticClass: "btn btn-warning",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cancel()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v("Cancelar "),
+                          _c("i", { staticClass: "far fa-times-circle" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
                           staticClass: "btn btn-cerrar",
                           attrs: { type: "button" },
                           on: {
@@ -86175,8 +86269,8 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("Cancelar "),
-                          _c("i", { staticClass: "far fa-times-circle" })
+                          _vm._v("Salir "),
+                          _c("i", { staticClass: "fas fa-sign-out-alt" })
                         ]
                       ),
                       _vm._v(" "),

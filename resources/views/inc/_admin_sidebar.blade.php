@@ -168,17 +168,17 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="inventario" data-parent="#accordionExample">
-                    <router-link tag="li" to="/ajuste_producto/medicamento" exact-active-class="active">
-                        <a>Ajuste medicamento</a>
-                    </router-link>
-                    <router-link tag="li" to="/ajuste_producto/producto" exact-active-class="active">
-                        <a>Ajuste artículo</a>
-                    </router-link>
                     <router-link tag="li" to="/medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>
                     </router-link>
+                    <router-link tag="li" to="/ajuste_producto/medicamento" exact-active-class="active">
+                        <a>Ajuste medicamento</a>
+                    </router-link>
                     <router-link tag="li" to="/productos" exact-active-class="active">
                         <a>Artículos</a>
+                    </router-link>
+                    <router-link tag="li" to="/ajuste_producto/producto" exact-active-class="active">
+                        <a>Ajuste artículo</a>
                     </router-link>
                 </ul>
             </li>

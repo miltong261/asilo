@@ -40,6 +40,27 @@
                 </ul>
             </li>
 
+            {{-- Configuración --}}
+            <li class="menu">
+                <a href="#configuracion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="fas fa-cogs"></i>
+                        <span>Configuración</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="configuracion" data-parent="#accordionExample">
+                    <router-link tag="li" to="/tipo_producto" exact-active-class="active">
+                        <a>Categorías</a>
+                    </router-link>
+                    <router-link tag="li" to="/unidad_medida" exact-active-class="active">
+                        <a>Unidad de medida</a>
+                    </router-link>
+                </ul>
+            </li>
+
             {{-- Inventario --}}
             <li class="menu">
                 <a href="#inventario" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -52,17 +73,17 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="inventario" data-parent="#accordionExample">
-                    <router-link tag="li" to="/ajuste_producto/medicamento" exact-active-class="active">
-                        <a>Ajuste medicamento</a>
-                    </router-link>
-                    <router-link tag="li" to="/ajuste_producto/producto" exact-active-class="active">
-                        <a>Ajuste artículo</a>
-                    </router-link>
                     <router-link tag="li" to="/medicamentos" exact-active-class="active">
                         <a>Medicamentos</a>
                     </router-link>
+                    <router-link tag="li" to="/ajuste_producto/medicamento" exact-active-class="active">
+                        <a>Ajuste medicamento</a>
+                    </router-link>
                     <router-link tag="li" to="/productos" exact-active-class="active">
                         <a>Artículos</a>
+                    </router-link>
+                    <router-link tag="li" to="/ajuste_producto/producto" exact-active-class="active">
+                        <a>Ajuste artículo</a>
                     </router-link>
                 </ul>
             </li>

@@ -53,11 +53,14 @@ class InventarioRepository extends BaseRepository
             'productos.fecha_vencimiento',
             'unidad_medida.nombre as nombre_unidad'
         )
+        ->where('productos.asignacion', $asignacion)
         ->where('inventario.existencia', '>', 0)
         ->where('productos.estado', 1)
-        ->where('productos.asignacion', $asignacion)
         ->where('productos.fecha_vencimiento', '>', Carbon::now()->toDateString())
         ->orWhere('productos.fecha_vencimiento', '=', null)
+        ->where('productos.asignacion', $asignacion)
+        ->where('inventario.existencia', '>', 0)
+        ->where('productos.estado', 1)
         ->get();
     }
 

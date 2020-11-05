@@ -419,7 +419,7 @@ export default {
         },
         openModalProducto() {
             this.modalProducto = 1
-            this.titulo = 'Lista de productos'
+            this.titulo = 'LISTA DE PRODUCTOS'
 
             this.lista_inventario
         },

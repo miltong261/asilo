@@ -3280,6 +3280,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5279,6 +5281,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5358,7 +5362,6 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.select_option = 0;
       this.option_enabled = 1;
       this.lista_inventario = [];
-      this.arrayDetalle = [];
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
@@ -10841,6 +10844,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -10927,7 +10932,6 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.select_option = 0;
       this.option_enabled = 1;
       this.lista_inventario = [];
-      this.arrayDetalle = [];
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
@@ -70542,12 +70546,14 @@ var render = function() {
                                       )
                                     ]
                                   )
-                                : _vm._e(),
-                              _vm._v(" "),
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-row" }, [
                               _vm.option_enabled == 0
                                 ? _c(
                                     "div",
-                                    { staticClass: "col-md-9 form-group" },
+                                    { staticClass: "col-md-8 form-group" },
                                     [
                                       _vm._m(8),
                                       _vm._v(" "),
@@ -70614,7 +70620,7 @@ var render = function() {
                                 ? _c(
                                     "div",
                                     {
-                                      staticClass: "col-md-1 form-group",
+                                      staticClass: "col-md-4 form-group",
                                       staticStyle: { padding: "30px" }
                                     },
                                     [
@@ -70632,6 +70638,24 @@ var render = function() {
                                         [
                                           _c("i", {
                                             staticClass: "fas fa-search"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-cerrar mb-2 mr-2 rounded-circle",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.cancel()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-times"
                                           })
                                         ]
                                       )
@@ -70861,23 +70885,6 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.cancel()
-                            }
-                          }
-                        },
-                        [
-                          _vm._v("Cancelar "),
-                          _c("i", { staticClass: "far fa-times-circle" })
-                        ]
-                      ),
-                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -73150,12 +73157,14 @@ var render = function() {
                                       )
                                     ]
                                   )
-                                : _vm._e(),
-                              _vm._v(" "),
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-row" }, [
                               _vm.option_enabled == 0
                                 ? _c(
                                     "div",
-                                    { staticClass: "col-md-9 form-group" },
+                                    { staticClass: "col-md-8 form-group" },
                                     [
                                       _vm._m(8),
                                       _vm._v(" "),
@@ -73222,7 +73231,7 @@ var render = function() {
                                 ? _c(
                                     "div",
                                     {
-                                      staticClass: "col-md-1 form-group",
+                                      staticClass: "col-md-4 form-group",
                                       staticStyle: { padding: "30px" }
                                     },
                                     [
@@ -73240,6 +73249,24 @@ var render = function() {
                                         [
                                           _c("i", {
                                             staticClass: "fas fa-search"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-cerrar mb-2 mr-2 rounded-circle",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.cancel()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-times"
                                           })
                                         ]
                                       )
@@ -73395,23 +73422,6 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.cancel()
-                            }
-                          }
-                        },
-                        [
-                          _vm._v("Cancelar "),
-                          _c("i", { staticClass: "far fa-times-circle" })
-                        ]
-                      ),
-                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -85995,12 +86005,14 @@ var render = function() {
                                       )
                                     ]
                                   )
-                                : _vm._e(),
-                              _vm._v(" "),
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-row" }, [
                               _vm.option_enabled == 0
                                 ? _c(
                                     "div",
-                                    { staticClass: "col-md-9 form-group" },
+                                    { staticClass: "col-md-8 form-group" },
                                     [
                                       _vm._m(8),
                                       _vm._v(" "),
@@ -86067,7 +86079,7 @@ var render = function() {
                                 ? _c(
                                     "div",
                                     {
-                                      staticClass: "col-md-1 form-group",
+                                      staticClass: "col-md-4 form-group",
                                       staticStyle: { padding: "30px" }
                                     },
                                     [
@@ -86085,6 +86097,24 @@ var render = function() {
                                         [
                                           _c("i", {
                                             staticClass: "fas fa-search"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-cerrar mb-2 mr-2 rounded-circle",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.cancel()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-times"
                                           })
                                         ]
                                       )
@@ -86240,23 +86270,6 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.cancel()
-                            }
-                          }
-                        },
-                        [
-                          _vm._v("Cancelar "),
-                          _c("i", { staticClass: "far fa-times-circle" })
-                        ]
-                      ),
-                      _vm._v(" "),
                       _c(
                         "button",
                         {

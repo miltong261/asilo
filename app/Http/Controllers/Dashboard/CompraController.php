@@ -49,4 +49,9 @@ class CompraController extends Controller
     {
         return $this->compraRepository->pdfCompra($id);
     }
+
+    public function mes(Request $request)
+    {
+        return $this->compraRepository->reporteCompras($request->mes);
+    }
 }

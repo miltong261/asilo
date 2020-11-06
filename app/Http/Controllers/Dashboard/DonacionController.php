@@ -60,4 +60,9 @@ class DonacionController extends Controller
     {
         return $this->donacionRepository->pdfDonacion($id);
     }
+
+    public function mes(Request $request)
+    {
+        return $this->donacionRepository->reporteDonaciones($request->mes);
+    }
 }

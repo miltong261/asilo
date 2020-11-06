@@ -45,6 +45,142 @@ class CompraRepository extends BaseRepository
         ->get();
     }
 
+    public function reporteCompras($month)
+    {
+        $anio = date('Y');
+        $totalCompras = 0;
+        $totalTotal = 0;
+
+        if (date('L', strtotime("$anio-02-01"))) {
+            $months = [
+                'Enero' => [
+                    $anio . '-01-01',
+                    $anio . '-01-31'
+                ],
+                'Febrero' => [
+                    $anio . '-02-01',
+                    $anio . '-02-29'
+                ],
+                'Marzo' => [
+                    $anio . '-03-01',
+                    $anio . '-03-31'
+                ],
+                'Abril' => [
+                    $anio . '-04-01',
+                    $anio . '-04-30'
+                ],
+                'Mayo' => [
+                    $anio . '-05-01',
+                    $anio . '-05-31'
+                ],
+                'Junio' => [
+                    $anio . '-06-01',
+                    $anio . '-06-30'
+                ],
+                'Julio' => [
+                    $anio . '-07-01',
+                    $anio . '-07-31'
+                ],
+                'Agosto' => [
+                    $anio . '-08-01',
+                    $anio . '-08-31'
+                ],
+                'Septiembre' => [
+                    $anio . '-09-01',
+                    $anio . '-09-30'
+                ],
+                'Octubre' => [
+                    $anio . '-10-01',
+                    $anio . '-10-31'
+                ],
+                'Noviembre' => [
+                    $anio . '-11-01',
+                    $anio . '-11-30'
+                ],
+                'Diciembre' => [
+                    $anio . '-12-01',
+                    $anio . '-12-31'
+                ]
+            ];
+        } else {
+            $months = [
+                'Enero' => [
+                    $anio . '-01-01',
+                    $anio . '-01-31'
+                ],
+                'Febrero' => [
+                    $anio . '-02-01',
+                    $anio . '-02-28'
+                ],
+                'Marzo' => [
+                    $anio . '-03-01',
+                    $anio . '-03-31'
+                ],
+                'Abril' => [
+                    $anio . '-04-01',
+                    $anio . '-04-30'
+                ],
+                'Mayo' => [
+                    $anio . '-05-01',
+                    $anio . '-05-31'
+                ],
+                'Junio' => [
+                    $anio . '-06-01',
+                    $anio . '-06-30'
+                ],
+                'Julio' => [
+                    $anio . '-07-01',
+                    $anio . '-07-31'
+                ],
+                'Agosto' => [
+                    $anio . '-08-01',
+                    $anio . '-08-31'
+                ],
+                'Septiembre' => [
+                    $anio . '-09-01',
+                    $anio . '-09-30'
+                ],
+                'Octubre' => [
+                    $anio . '-10-01',
+                    $anio . '-10-31'
+                ],
+                'Noviembre' => [
+                    $anio . '-11-01',
+                    $anio . '-11-30'
+                ],
+                'Diciembre' => [
+                    $anio . '-12-01',
+                    $anio . '-12-31'
+                ]
+            ];
+        }
+
+        $data = ['inicio' => $months[$month][0], 'fin' => $months[$month][1]];
+
+        $compras = $this->getModel()
+        ->join('users', 'users.id', '=', 'compras.user_id')
+        ->select('compras.id',
+            'compras.codigo',
+            'compras.fecha_registro',
+            'compras.fecha_compra',
+            'compras.documento',
+            'compras.no_documento',
+            'compras.total',
+            'users.usuario as nombre_usuario'
+        )
+        ->orderBy('compras.codigo', 'desc')
+        ->whereBetween('compras.fecha_compra', [$data['inicio'], $data['fin']])
+        ->whereYear('compras.fecha_compra', $anio)
+        ->get();
+
+        foreach ($compras as $compra) {
+            $totalCompras++;
+            $totalTotal += $compra->total;
+        }
+
+        return ['compras' => $compras, 'total' => $totalCompras, 'totalTotal' => $totalTotal];
+    }
+
     public function storeCompra(array $request, array $data)
     {
         try {

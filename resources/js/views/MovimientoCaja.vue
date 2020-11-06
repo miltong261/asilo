@@ -3,7 +3,7 @@
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <button id="openForm" type="button" @click="openModal('create')" class="btn btn-info mb-2">Nuevo <i class="fas fa-cash-register"></i></button>
-                <button id="openMes" type="button" @click="openModalReporte()" class="btn btn-danger mb-1 mr-1"> Reporte mensual <i class="fas fa-file-pdf"></i></button>
+                <button id="openMes" type="button" @click="openModalReporte()" class="btn btn-danger mb-1 mr-1"> Reporte mensual <i class="fas fa-file-alt"></i></button>
                 <div class="widget-content widget-content-area br-6">
                     <template v-if="action==1">
                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
@@ -112,9 +112,9 @@
                                 </tbody>
                             </table>
                             <!-- Acciones -->
-                        <div class="float-right">
-                            <button type="button" @click="closeReporte()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
-                        </div>
+                            <div class="float-right">
+                                <button type="button" @click="closeReporte()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
+                            </div>
                         </div>
                     </template>
                 </div>
@@ -186,7 +186,7 @@
                     <div class="modal-body">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-12">
-                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Opciones</label>
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Mes</label>
                                     <select id="select_mes" class="form-control" v-model="fecha_reporte">
                                         <option v-for="fecha_reporte in lista_fechas" :key="fecha_reporte.nombre" :value="fecha_reporte.nombre" v-text="fecha_reporte.nombre"></option>
                                     </select>

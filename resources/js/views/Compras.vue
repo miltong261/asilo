@@ -5,6 +5,7 @@
                 <!-- botón nuevo -->
                 <div class="text-left ">
                     <button id="openForm" type="button" @click="openForm()" class="btn btn-info mb-2">Nueva <i class="fas fa-cart-plus"></i> </button>
+                    <button id="openMes" type="button" @click="openModalReporte()" class="btn btn-danger mb-1 mr-1"> Reporte mensual <i class="fas fa-file-alt"></i></button>
                 </div>
                 <div class="widget-content widget-content-area br-6">
                     <!-- Listado -->
@@ -173,7 +174,63 @@
                         </div>
                     </template>
 
-                    <template v-else>
+                    <template v-else-if="action==3">
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group float-lef">
+                                <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <h6><strong>ASILO DE ANCIANOS RETALHULEU</strong></h6>
+                                <h6>Residenciales Ciudad Palmeras</h6>
+                                <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
+                                <h5 class="text-secondary"><strong>Compras</strong></h5>
+                                <label class="text-dark"><i class="fas fa-money-bill"></i> Total de compras</label>
+                                <label for="" class="text-secondary">{{ total_compras }} | Q. {{ total_total }}</label>
+                            </div>
+
+                            <div class="form-group float-right">
+                                <h5 class="p-5">Mes: <strong class="text-secondary">{{ fecha_reporte }}</strong></h5>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mb-0 mt-0">
+                            <table id="reporte" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"> <i class="fas fa-hashtag"></i></th>
+                                        <th class="text-center"> <i class="fas fa-qrcode"></i> Código</th>
+                                        <th class="text-center"> <i class="fas fa-file"></i> Proveedor</th>
+                                        <th class="text-center"> <i class="fas fa-hashtag"></i> Documento</th>
+                                        <th class="text-center"> <i class="fas fa-calendar-alt"></i> Fecha de registro</th>
+                                        <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha de compra</th>
+                                        <th class="text-center"><i class="fas fa-user"></i> Registró</th>
+                                        <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(compra, index) in lista_mes" :key="compra.id">
+                                        <td class="text-center" v-text="index+1"></td>
+                                        <td class="text-center" v-text="compra.codigo"></td>
+                                        <td class="text-center" v-text="compra.documento"></td>
+                                        <td class="text-center" v-text="compra.no_documento"></td>
+                                        <td class="text-center" v-text="compra.fecha_registro"></td>
+                                        <td class="text-center" v-text="compra.fecha_compra"></td>
+                                        <td class="text-center" v-text="compra.nombre_usuario"></td>
+                                        <td class="text-center">
+                                            <button type="button" @click="showCompra(compra.id)" class="btn rounded-circle btn-info mb-1"> <i class="fas fa-eye"></i></button>
+                                            <button type="button" @click="pdf(compra.id)" class="btn rounded-circle btn-danger mb-1"> <i class="fas fa-file-pdf"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="float-right">
+                                <button type="button" @click="closeReporte()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template v-else-if="action==4">
                         <div class="d-flex justify-content-between">
                             <div class="form-group float-lef">
                                 <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="100" height="100">
@@ -255,6 +312,7 @@
 
                         <!-- Acciones -->
                         <div class="text-right">
+                            <button v-if="regresar" type="button" @click="regresarReporte()" class="btn btn-warning">Regresar <i class="fas fa-sign-out-alt"></i></button>
                             <button type="button" @click="closeShowCompra()" class="btn btn-cerrar">Salir <i class="fas fa-sign-out-alt"></i></button>
                         </div>
                     </template>
@@ -314,6 +372,35 @@
             </div>
         </div>
 
+        <!-- Modal para el reporte -->
+        <div :class="{'mostrar': modalReporte}" class="modal fadeInDown show" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header dark-header">
+                        <h5 class="modal-title text-white m-1" v-text="titulo"></h5>
+                        <button type="button" @click="closeModalReporte()" class="close" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-12">
+                                    <label class="text-dark"><i class="far fa-calendar-alt"></i> Mes</label>
+                                    <select id="select_mes" class="form-control" v-model="fecha_reporte">
+                                        <option v-for="fecha_reporte in lista_fechas" :key="fecha_reporte.nombre" :value="fecha_reporte.nombre" v-text="fecha_reporte.nombre"></option>
+                                    </select>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cerrar" @click="closeModalReporte()">Salir <i class="fas fa-sign-out-alt"></i></button>
+                        <button type="button" class="btn btn-info" @click="openReporte()">Ver <i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -378,7 +465,53 @@ export default {
             compra_no_documento: '',
             compra_precio: 0,
             cantidad_suma: 0,
-            compra_total: 0
+            compra_total: 0,
+
+            /** Reporte mensual */
+            modalReporte: 0,
+            regresar: 0,
+            fecha_reporte: '',
+            lista_mes: [],
+            total_compras: 0,
+            total_total: 0.0,
+            lista_fechas: [
+                {
+                    'nombre': 'Enero'
+                },
+                {
+                    'nombre': 'Febrero'
+                },
+                {
+                    'nombre': 'Marzo'
+                },
+                {
+                    'nombre': 'Abril'
+                },
+                {
+                    'nombre': 'Mayo'
+                },
+                {
+                    'nombre': 'Junio'
+                },
+                {
+                    'nombre': 'Julio'
+                },
+                {
+                    'nombre': 'Agosto'
+                },
+                {
+                    'nombre': 'Septiembre'
+                },
+                {
+                    'nombre': 'Octubre'
+                },
+                {
+                    'nombre': 'Noviembre'
+                },
+                {
+                    'nombre': 'Diciembre'
+                }
+            ]
         }
     },
     methods: {
@@ -386,18 +519,21 @@ export default {
             this.action = 2
             this.destroyTable('#listado')
             document.getElementById('openForm').style.display = 'none'
+            document.getElementById('openMes').style.display = 'none'
             this.fecha_compra = moment().format('YYYY-MM-DD')
         },
         closeForm() {
             this.action = 1
             this.destroyTable('#listado_producto')
             this.showList()
-            document.getElementById('openForm').style.display = 'block'
+            document.getElementById('openForm').style.display = 'inline'
+            document.getElementById('openMes').style.display = 'inline'
 
             this.fecha_compra = ''
             this.documento = ''
             this.no_documento = ''
             this.total = 0.0
+            this.regresar = 0
 
             this.select_option = ''
             this.option_enabled = 1
@@ -407,6 +543,73 @@ export default {
             this.errors = []
 
             alerts.sweetAlert('error', 'Compra cancelada')
+        },
+        openModalReporte(){
+            this.modalReporte = 1
+            this.titulo = 'REPORTE DE COMPRAS'
+            this.combo_mes()
+        },
+        closeModalReporte(){
+            this.titulo = ''
+            this.fecha_reporte = ''
+            this.modalReporte = 0
+
+            alerts.sweetAlert('error', 'Operación cancelada')
+        },
+        change_select_mes() {
+            let me = this
+            $('#select_mes').on('change', function () {
+                me.$emit('change', this.value)
+                me.fecha_reporte = this.value
+            })
+        },
+        combo_mes(){
+            let me = this
+            $('#select_mes').select2({
+                placeholder: 'Seleccione el mes',
+                width: '100%'
+            })
+        },
+        openReporte() {
+            let me = this
+            if (me.fecha_reporte == '') {
+                alerts.sweetAlert('error', 'Seleccione el mes')
+            } else {
+                me.action = 3
+                me.regresar = 1
+                me.destroyTable('#listado')
+                this.titulo = ''
+                this.modalReporte = 0
+                document.getElementById('openForm').style.display = 'none'
+                document.getElementById('openMes').style.display = 'none'
+
+                let url = '/compras/reporte?mes=' + me.fecha_reporte
+
+                axios.get(url).then(function (response) {
+                    me.lista_mes = response.data.compras
+                    me.total_compras = response.data.total
+                    me.total_total = response.data.totalTotal
+                    if (response.data.compras == '') {
+                        alerts.sweetAlert('error', 'No hay registros para el mes de ' + me.fecha_reporte)
+                    } else {
+                        me.dataTable('#reporte')
+                    }
+                }).catch(function (error) {
+                })
+            }
+        },
+        closeReporte() {
+            this.action = 1
+            this.destroyTable('#reporte')
+            this.showList()
+            document.getElementById('openForm').style.display = 'inline'
+            document.getElementById('openMes').style.display = 'inline'
+
+            this.fecha_reporte = ''
+            this.lista_mes = []
+            this.total_compras = 0
+            this.total_total = 0.0
+            this.regresar = 0
         },
         cancel() {
             this.destroyTable('#listado_producto')
@@ -616,10 +819,11 @@ export default {
         },
         showCompra(id) {
             let me = this
-            me.action = 3
-            me.showList()
-            me.dataTable('#listado')
+            me.action = 4
+            me.destroyTable('#listado')
+            me.destroyTable('#reporte')
             document.getElementById('openForm').style.display = 'none'
+            document.getElementById('openMes').style.display = 'none'
 
             let url_cabecera = '/compras/cabecera?id=' + id
             let cabecera = []
@@ -656,7 +860,26 @@ export default {
             this.action = 1
             this.showList()
             this.dataTable('#listado')
-            document.getElementById('openForm').style.display = 'block'
+            document.getElementById('openForm').style.display = 'inline'
+            document.getElementById('openMes').style.display = 'inline'
+
+            this.compra_usuario = ''
+            this.compra_codigo = 0
+            this.compra_fecha_registro = ''
+            this.compra_fecha_compra = ''
+            this.documento = ''
+            this.no_documento = ''
+            this.cantidad_suma = 0
+            this.compra_total = 0.0
+            this.regresar = 0
+
+            this.arrayDetalle = []
+
+            alerts.sweetAlert('success', 'Inspección finalizada')
+        },
+        regresarReporte() {
+            this.action = 3
+            this.dataTable('#reporte')
 
             this.compra_usuario = ''
             this.compra_codigo = 0
@@ -677,6 +900,7 @@ export default {
     },
     mounted() {
         this.showList()
+        this.change_select_mes()
     },
     computed: {
         calcularTotal: function() {

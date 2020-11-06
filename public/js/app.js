@@ -3282,6 +3282,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -3334,7 +3421,40 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       compra_no_documento: '',
       compra_precio: 0,
       cantidad_suma: 0,
-      compra_total: 0
+      compra_total: 0,
+
+      /** Reporte mensual */
+      modalReporte: 0,
+      regresar: 0,
+      fecha_reporte: '',
+      lista_mes: [],
+      total_compras: 0,
+      total_total: 0.0,
+      lista_fechas: [{
+        'nombre': 'Enero'
+      }, {
+        'nombre': 'Febrero'
+      }, {
+        'nombre': 'Marzo'
+      }, {
+        'nombre': 'Abril'
+      }, {
+        'nombre': 'Mayo'
+      }, {
+        'nombre': 'Junio'
+      }, {
+        'nombre': 'Julio'
+      }, {
+        'nombre': 'Agosto'
+      }, {
+        'nombre': 'Septiembre'
+      }, {
+        'nombre': 'Octubre'
+      }, {
+        'nombre': 'Noviembre'
+      }, {
+        'nombre': 'Diciembre'
+      }]
     };
   },
   methods: {
@@ -3342,23 +3462,90 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 2;
       this.destroyTable('#listado');
       document.getElementById('openForm').style.display = 'none';
+      document.getElementById('openMes').style.display = 'none';
       this.fecha_compra = moment().format('YYYY-MM-DD');
     },
     closeForm: function closeForm() {
       this.action = 1;
       this.destroyTable('#listado_producto');
       this.showList();
-      document.getElementById('openForm').style.display = 'block';
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
       this.fecha_compra = '';
       this.documento = '';
       this.no_documento = '';
       this.total = 0.0;
+      this.regresar = 0;
       this.select_option = '';
       this.option_enabled = 1;
       this.lista_inventario = [];
       this.arrayDetalle = [];
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Compra cancelada');
+    },
+    openModalReporte: function openModalReporte() {
+      this.modalReporte = 1;
+      this.titulo = 'REPORTE DE COMPRAS';
+      this.combo_mes();
+    },
+    closeModalReporte: function closeModalReporte() {
+      this.titulo = '';
+      this.fecha_reporte = '';
+      this.modalReporte = 0;
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    change_select_mes: function change_select_mes() {
+      var me = this;
+      $('#select_mes').on('change', function () {
+        me.$emit('change', this.value);
+        me.fecha_reporte = this.value;
+      });
+    },
+    combo_mes: function combo_mes() {
+      var me = this;
+      $('#select_mes').select2({
+        placeholder: 'Seleccione el mes',
+        width: '100%'
+      });
+    },
+    openReporte: function openReporte() {
+      var me = this;
+
+      if (me.fecha_reporte == '') {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione el mes');
+      } else {
+        me.action = 3;
+        me.regresar = 1;
+        me.destroyTable('#listado');
+        this.titulo = '';
+        this.modalReporte = 0;
+        document.getElementById('openForm').style.display = 'none';
+        document.getElementById('openMes').style.display = 'none';
+        var url = '/compras/reporte?mes=' + me.fecha_reporte;
+        axios.get(url).then(function (response) {
+          me.lista_mes = response.data.compras;
+          me.total_compras = response.data.total;
+          me.total_total = response.data.totalTotal;
+
+          if (response.data.compras == '') {
+            _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No hay registros para el mes de ' + me.fecha_reporte);
+          } else {
+            me.dataTable('#reporte');
+          }
+        })["catch"](function (error) {});
+      }
+    },
+    closeReporte: function closeReporte() {
+      this.action = 1;
+      this.destroyTable('#reporte');
+      this.showList();
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
+      this.fecha_reporte = '';
+      this.lista_mes = [];
+      this.total_compras = 0;
+      this.total_total = 0.0;
+      this.regresar = 0;
     },
     cancel: function cancel() {
       this.destroyTable('#listado_producto');
@@ -3370,7 +3557,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
-      this.titulo = 'Lista de productos';
+      this.titulo = 'LISTA DE PRODUCTOS';
       this.lista_inventario;
     },
     closeModalProducto: function closeModalProducto() {
@@ -3566,10 +3753,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     showCompra: function showCompra(id) {
       var me = this;
-      me.action = 3;
-      me.showList();
-      me.dataTable('#listado');
+      me.action = 4;
+      me.destroyTable('#listado');
+      me.destroyTable('#reporte');
       document.getElementById('openForm').style.display = 'none';
+      document.getElementById('openMes').style.display = 'none';
       var url_cabecera = '/compras/cabecera?id=' + id;
       var cabecera = [];
       axios.get(url_cabecera).then(function (response) {
@@ -3600,7 +3788,23 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 1;
       this.showList();
       this.dataTable('#listado');
-      document.getElementById('openForm').style.display = 'block';
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
+      this.compra_usuario = '';
+      this.compra_codigo = 0;
+      this.compra_fecha_registro = '';
+      this.compra_fecha_compra = '';
+      this.documento = '';
+      this.no_documento = '';
+      this.cantidad_suma = 0;
+      this.compra_total = 0.0;
+      this.regresar = 0;
+      this.arrayDetalle = [];
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Inspección finalizada');
+    },
+    regresarReporte: function regresarReporte() {
+      this.action = 3;
+      this.dataTable('#reporte');
       this.compra_usuario = '';
       this.compra_codigo = 0;
       this.compra_fecha_registro = '';
@@ -3618,6 +3822,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   },
   mounted: function mounted() {
     this.showList();
+    this.change_select_mes();
   },
   computed: {
     calcularTotal: function calcularTotal() {
@@ -5283,6 +5488,92 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5332,7 +5623,39 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       donacion_donador_direccion: '',
       donacion_fecha_registro: '',
       donacion_fecha_donacion: '',
-      cantidad_suma: 0
+      cantidad_suma: 0,
+
+      /** Reporte mensual */
+      modalReporte: 0,
+      regresar: 0,
+      fecha_reporte: '',
+      lista_mes: [],
+      total_donaciones: 0,
+      lista_fechas: [{
+        'nombre': 'Enero'
+      }, {
+        'nombre': 'Febrero'
+      }, {
+        'nombre': 'Marzo'
+      }, {
+        'nombre': 'Abril'
+      }, {
+        'nombre': 'Mayo'
+      }, {
+        'nombre': 'Junio'
+      }, {
+        'nombre': 'Julio'
+      }, {
+        'nombre': 'Agosto'
+      }, {
+        'nombre': 'Septiembre'
+      }, {
+        'nombre': 'Octubre'
+      }, {
+        'nombre': 'Noviembre'
+      }, {
+        'nombre': 'Diciembre'
+      }]
     };
   },
   methods: {
@@ -5340,21 +5663,86 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 2;
       this.destroyTable('#listado');
       document.getElementById('openForm').style.display = 'none';
+      document.getElementById('openMes').style.display = 'none';
       this.fecha_donacion = moment().format('YYYY-MM-DD');
     },
     closeForm: function closeForm() {
       this.action = 1;
       this.destroyTable('#listado_producto');
       this.showList();
-      document.getElementById('openForm').style.display = 'block';
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
       this.fecha_donacion = '';
       this.donador = '', this.direccion = '';
+      this.regresar = 0;
       this.select_option = 0;
       this.option_enabled = 1;
       this.lista_inventario = [];
       this.arrayDetalle = [];
       this.errors = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Donación cancelada');
+    },
+    openModalReporte: function openModalReporte() {
+      this.modalReporte = 1;
+      this.titulo = 'REPORTE DE DONACIONES';
+      this.combo_mes();
+    },
+    closeModalReporte: function closeModalReporte() {
+      this.titulo = '';
+      this.fecha_reporte = '';
+      this.modalReporte = 0;
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    change_select_mes: function change_select_mes() {
+      var me = this;
+      $('#select_mes').on('change', function () {
+        me.$emit('change', this.value);
+        me.fecha_reporte = this.value;
+      });
+    },
+    combo_mes: function combo_mes() {
+      var me = this;
+      $('#select_mes').select2({
+        placeholder: 'Seleccione el mes',
+        width: '100%'
+      });
+    },
+    openReporte: function openReporte() {
+      var me = this;
+
+      if (me.fecha_reporte == '') {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione el mes');
+      } else {
+        me.action = 3;
+        me.regresar = 1;
+        me.destroyTable('#listado');
+        this.titulo = '';
+        this.modalReporte = 0;
+        document.getElementById('openForm').style.display = 'none';
+        document.getElementById('openMes').style.display = 'none';
+        var url = '/donaciones/reporte?mes=' + me.fecha_reporte;
+        axios.get(url).then(function (response) {
+          me.lista_mes = response.data.donaciones;
+          me.total_donaciones = response.data.total;
+
+          if (response.data.donaciones == '') {
+            _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No hay registros para el mes de ' + me.fecha_reporte);
+          } else {
+            me.dataTable('#reporte');
+          }
+        })["catch"](function (error) {});
+      }
+    },
+    closeReporte: function closeReporte() {
+      this.action = 1;
+      this.destroyTable('#reporte');
+      this.showList();
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
+      this.fecha_reporte = '';
+      this.lista_mes = [];
+      this.total_donaciones = 0;
+      this.regresar = 0;
     },
     cancel: function cancel() {
       this.destroyTable('#listado_producto');
@@ -5365,7 +5753,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
-      this.titulo = 'Lista de productos';
+      this.titulo = 'LISTA DE PRODUCTOS';
       this.lista_inventario;
     },
     closeModalProducto: function closeModalProducto() {
@@ -5552,10 +5940,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     showDonacion: function showDonacion(id) {
       var me = this;
-      me.action = 3;
-      me.showList();
-      me.dataTable('#listado');
+      me.action = 4;
+      me.destroyTable('#listado');
+      me.destroyTable('#reporte');
       document.getElementById('openForm').style.display = 'none';
+      document.getElementById('openMes').style.display = 'none';
       var url_cabecera = '/donaciones/cabecera?id=' + id;
       var cabecera = [];
       axios.get(url_cabecera).then(function (response) {
@@ -5584,7 +5973,22 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     closeShowDonacion: function closeShowDonacion() {
       this.action = 1;
       this.showList();
-      document.getElementById('openForm').style.display = 'block';
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
+      this.donacion_usuario = '';
+      this.donacion_codigo = 0;
+      this.donacion_fecha_registro = '';
+      this.donacion_fecha_donacion = '';
+      this.donacion_donador = '';
+      this.donacion_donador_direccion = '';
+      this.cantidad_suma = 0;
+      this.regresar = 0;
+      this.arrayDetalle = [];
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'INSPECCIÓN FINALIZADA');
+    },
+    regresarReporte: function regresarReporte() {
+      this.action = 3;
+      this.dataTable('#reporte');
       this.donacion_usuario = '';
       this.donacion_codigo = 0;
       this.donacion_fecha_registro = '';
@@ -5593,7 +5997,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.donacion_donador_direccion = '';
       this.cantidad_suma = 0;
       this.arrayDetalle = [];
-      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'INSPECCIÓN FINALIZADA');
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Inspección finalizada');
     },
     pdf: function pdf(id) {
       window.open('/donaciones/pdf/' + id + ',' + '_blank');
@@ -5601,6 +6005,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   },
   mounted: function mounted() {
     this.showList();
+    this.change_select_mes();
   }
 });
 
@@ -10846,6 +11251,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -10899,7 +11391,39 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       salida_nombre_area: '',
       salida_fecha_registro: '',
       salida_fecha_salida: '',
-      cantidad_suma: 0
+      cantidad_suma: 0,
+
+      /** Reporte mensual */
+      modalReporte: 0,
+      regresar: 0,
+      fecha_reporte: '',
+      lista_mes: [],
+      total_salidas: 0,
+      lista_fechas: [{
+        'nombre': 'Enero'
+      }, {
+        'nombre': 'Febrero'
+      }, {
+        'nombre': 'Marzo'
+      }, {
+        'nombre': 'Abril'
+      }, {
+        'nombre': 'Mayo'
+      }, {
+        'nombre': 'Junio'
+      }, {
+        'nombre': 'Julio'
+      }, {
+        'nombre': 'Agosto'
+      }, {
+        'nombre': 'Septiembre'
+      }, {
+        'nombre': 'Octubre'
+      }, {
+        'nombre': 'Noviembre'
+      }, {
+        'nombre': 'Diciembre'
+      }]
     };
   },
   methods: {
@@ -10907,6 +11431,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 2;
       this.destroyTable('#listado');
       document.getElementById('openForm').style.display = 'none';
+      document.getElementById('openMes').style.display = 'none';
       this.fecha_salida = moment().format('YYYY-MM-DD');
       this.combo_empleado();
     },
@@ -10914,9 +11439,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 1;
       this.destroyTable('#listado_producto');
       this.showList();
-      document.getElementById('openForm').style.display = 'block';
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
       this.fecha_salida = '', this.lista_empleados = [];
       this.empleado_id = 0, this.area_nombre = '';
+      this.regresar = 0;
       this.select_option = '';
       this.option_enabled = 1;
       this.lista_inventario = [];
@@ -10925,6 +11452,68 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.error_empleado = 0;
       this.error_empleado_msg = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Salida cancelada');
+    },
+    openModalReporte: function openModalReporte() {
+      this.modalReporte = 1;
+      this.titulo = 'REPORTE DE SALIDAS';
+      this.combo_mes();
+    },
+    closeModalReporte: function closeModalReporte() {
+      this.titulo = '';
+      this.fecha_reporte = '';
+      this.modalReporte = 0;
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Operación cancelada');
+    },
+    change_select_mes: function change_select_mes() {
+      var me = this;
+      $('#select_mes').on('change', function () {
+        me.$emit('change', this.value);
+        me.fecha_reporte = this.value;
+      });
+    },
+    combo_mes: function combo_mes() {
+      var me = this;
+      $('#select_mes').select2({
+        placeholder: 'Seleccione el mes',
+        width: '100%'
+      });
+    },
+    openReporte: function openReporte() {
+      var me = this;
+
+      if (me.fecha_reporte == '') {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Seleccione el mes');
+      } else {
+        me.action = 3;
+        me.regresar = 1;
+        me.destroyTable('#listado');
+        this.titulo = '';
+        this.modalReporte = 0;
+        document.getElementById('openForm').style.display = 'none';
+        document.getElementById('openMes').style.display = 'none';
+        var url = '/salidas/reporte?mes=' + me.fecha_reporte;
+        axios.get(url).then(function (response) {
+          me.lista_mes = response.data.salidas;
+          me.total_salidas = response.data.total;
+
+          if (response.data.salidas == '') {
+            _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No hay registros para el mes de ' + me.fecha_reporte);
+          } else {
+            me.dataTable('#reporte');
+          }
+        })["catch"](function (error) {});
+      }
+    },
+    closeReporte: function closeReporte() {
+      this.action = 1;
+      this.destroyTable('#reporte');
+      this.showList();
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
+      this.fecha_reporte = '';
+      this.lista_mes = [];
+      this.total_salidas = 0;
+      this.regresar = 0;
     },
     cancel: function cancel() {
       this.destroyTable('#listado_producto');
@@ -10935,7 +11524,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     openModalProducto: function openModalProducto() {
       this.modalProducto = 1;
-      this.titulo = 'Lista de productos';
+      this.titulo = 'LISTA DE PRODUCTOS';
       this.lista_inventario;
     },
     closeModalProducto: function closeModalProducto() {
@@ -11153,10 +11742,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     },
     showSalida: function showSalida(id) {
       var me = this;
-      me.action = 3;
-      me.showList();
-      me.dataTable('#listado');
+      me.action = 4;
+      me.destroyTable('#listado');
+      me.destroyTable('#reporte');
       document.getElementById('openForm').style.display = 'none';
+      document.getElementById('openMes').style.display = 'none';
       var url_cabecera = '/salidas/cabecera?id=' + id;
       var cabecera = [];
       axios.get(url_cabecera).then(function (response) {
@@ -11194,6 +11784,20 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.salida_nombre_empleado = '';
       this.salida_nombre_area = '';
       this.cantidad_suma = 0;
+      this.regresar = 0;
+      this.arrayDetalle = [];
+      _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Inspección finalizada');
+    },
+    regresarReporte: function regresarReporte() {
+      this.action = 3;
+      this.dataTable('#reporte');
+      this.salida_usuario = '';
+      this.salida_codigo = 0;
+      this.salida_fecha_registro = '';
+      this.salida_fecha_salida = '';
+      this.salida_nombre_empleado = '';
+      this.salida_nombre_area = '';
+      this.cantidad_suma = 0;
       this.arrayDetalle = [];
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('success', 'Inspección finalizada');
     },
@@ -11203,6 +11807,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   },
   mounted: function mounted() {
     this.showList();
+    this.change_select_mes();
   }
 });
 
@@ -70143,6 +70748,23 @@ var render = function() {
                 }
               },
               [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-cart-plus" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger mb-1 mr-1",
+                attrs: { id: "openMes", type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.openModalReporte()
+                  }
+                }
+              },
+              [
+                _vm._v(" Reporte mensual "),
+                _c("i", { staticClass: "fas fa-file-alt" })
+              ]
             )
           ]),
           _vm._v(" "),
@@ -70920,14 +71542,187 @@ var render = function() {
                       )
                     ])
                   ]
-                : [
+                : _vm.action == 3
+                ? [
                     _c(
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
                         _vm._m(10),
                         _vm._v(" "),
-                        _vm._m(11),
+                        _c("div", { staticClass: "form-group text-center" }, [
+                          _vm._m(11),
+                          _vm._v(" "),
+                          _c("h6", [_vm._v("Residenciales Ciudad Palmeras")]),
+                          _vm._v(" "),
+                          _c("h6", [
+                            _vm._v("Cantón Recuerdo Ocosito, Retalhuleu")
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(12),
+                          _vm._v(" "),
+                          _vm._m(13),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "text-secondary",
+                              attrs: { for: "" }
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.total_compras) +
+                                  " | Q. " +
+                                  _vm._s(_vm.total_total)
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group float-right" }, [
+                          _c("h5", { staticClass: "p-5" }, [
+                            _vm._v("Mes: "),
+                            _c("strong", { staticClass: "text-secondary" }, [
+                              _vm._v(_vm._s(_vm.fecha_reporte))
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table table-hover",
+                          staticStyle: { width: "100%" },
+                          attrs: { id: "reporte" }
+                        },
+                        [
+                          _vm._m(14),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.lista_mes, function(compra, index) {
+                              return _c("tr", { key: compra.id }, [
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: { textContent: _vm._s(index + 1) }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.codigo)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.documento)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.no_documento)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.fecha_registro)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.fecha_compra)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(compra.nombre_usuario)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn rounded-circle btn-info mb-1",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showCompra(compra.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn rounded-circle btn-danger mb-1",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.pdf(compra.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-file-pdf"
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "float-right" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-cerrar",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.closeReporte()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("Salir "),
+                            _c("i", { staticClass: "fas fa-sign-out-alt" })
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                : _vm.action == 4
+                ? [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between" },
+                      [
+                        _vm._m(15),
+                        _vm._v(" "),
+                        _vm._m(16),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group float-right" }, [
                           _c("h5", { staticClass: "text-secondary p-5" }, [
@@ -71018,7 +71813,7 @@ var render = function() {
                               staticStyle: { width: "100%" }
                             },
                             [
-                              _vm._m(12),
+                              _vm._m(17),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -71112,6 +71907,25 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "text-right" }, [
+                      _vm.regresar
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.regresarReporte()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("Regresar "),
+                              _c("i", { staticClass: "fas fa-sign-out-alt" })
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -71130,6 +71944,7 @@ var render = function() {
                       )
                     ])
                   ]
+                : _vm._e()
             ],
             2
           )
@@ -71179,7 +71994,7 @@ var render = function() {
                     attrs: { id: "listado_producto" }
                   },
                   [
-                    _vm._m(13),
+                    _vm._m(18),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -71269,6 +72084,124 @@ var render = function() {
                   _vm._v("Salir "),
                   _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
+              )
+            ])
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalReporte },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalReporte()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "form-row mb-0" }, [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _vm._m(19),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fecha_reporte,
+                          expression: "fecha_reporte"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "select_mes" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.fecha_reporte = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.lista_fechas, function(fecha_reporte) {
+                      return _c("option", {
+                        key: fecha_reporte.nombre,
+                        domProps: {
+                          value: fecha_reporte.nombre,
+                          textContent: _vm._s(fecha_reporte.nombre)
+                        }
+                      })
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalReporte()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-info",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.openReporte()
+                    }
+                  }
+                },
+                [_vm._v("Ver "), _c("i", { staticClass: "fas fa-eye" })]
               )
             ])
           ])
@@ -71467,6 +72400,92 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "text-secondary" }, [
+      _c("strong", [_vm._v("Compras")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-money-bill" }),
+      _vm._v(" Total de compras")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-qrcode" }),
+          _vm._v(" Código")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-file" }),
+          _vm._v(" Proveedor")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" }),
+          _vm._v(" Documento")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-calendar-alt" }),
+          _vm._v(" Fecha de registro")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v(" Fecha de compra")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group float-lef" }, [
+      _c("img", {
+        staticClass: "rounded-circle mx-auto d-block",
+        attrs: {
+          src: "assets/img/logo-tablas.jpeg",
+          alt: "logo",
+          width: "100",
+          height: "100"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group text-center" }, [
       _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])]),
       _vm._v(" "),
@@ -71571,6 +72590,15 @@ var staticRenderFns = [
           _vm._v(" Opciones ")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Mes")
     ])
   }
 ]
@@ -72797,6 +73825,23 @@ var render = function() {
                 }
               },
               [_vm._v("Nueva "), _c("i", { staticClass: "fas fa-heart" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger mb-1 mr-1",
+                attrs: { id: "openMes", type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.openModalReporte()
+                  }
+                }
+              },
+              [
+                _vm._v(" Reporte mensual "),
+                _c("i", { staticClass: "fas fa-file-alt" })
+              ]
             )
           ]),
           _vm._v(" "),
@@ -73457,14 +74502,181 @@ var render = function() {
                       )
                     ])
                   ]
-                : [
+                : _vm.action == 3
+                ? [
                     _c(
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
                         _vm._m(10),
                         _vm._v(" "),
-                        _vm._m(11),
+                        _c("div", { staticClass: "form-group text-center" }, [
+                          _vm._m(11),
+                          _vm._v(" "),
+                          _c("h6", [_vm._v("Residenciales Ciudad Palmeras")]),
+                          _vm._v(" "),
+                          _c("h6", [
+                            _vm._v("Cantón Recuerdo Ocosito, Retalhuleu")
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(12),
+                          _vm._v(" "),
+                          _vm._m(13),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "text-secondary",
+                              attrs: { for: "" }
+                            },
+                            [_vm._v(_vm._s(_vm.total_donaciones))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group float-right" }, [
+                          _c("h5", { staticClass: "p-5" }, [
+                            _vm._v("Mes: "),
+                            _c("strong", { staticClass: "text-secondary" }, [
+                              _vm._v(_vm._s(_vm.fecha_reporte))
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table table-hover",
+                          staticStyle: { width: "100%" },
+                          attrs: { id: "reporte" }
+                        },
+                        [
+                          _vm._m(14),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.lista_mes, function(donacion, index) {
+                              return _c("tr", { key: donacion.id }, [
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: { textContent: _vm._s(index + 1) }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.codigo)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.donador)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.direccion)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.fecha_registro)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.fecha_donacion)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(donacion.nombre_usuario)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn rounded-circle btn-info mb-1",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showDonacion(donacion.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn rounded-circle btn-danger mb-1",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.pdf(donacion.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-file-pdf"
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "float-right" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-cerrar",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.closeReporte()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("Salir "),
+                            _c("i", { staticClass: "fas fa-sign-out-alt" })
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                : _vm.action == 4
+                ? [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between" },
+                      [
+                        _vm._m(15),
+                        _vm._v(" "),
+                        _vm._m(16),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group float-right" }, [
                           _c("h5", { staticClass: "text-secondary p-5" }, [
@@ -73557,7 +74769,7 @@ var render = function() {
                               staticStyle: { width: "100%" }
                             },
                             [
-                              _vm._m(12),
+                              _vm._m(17),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -73638,6 +74850,25 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "text-right" }, [
+                      _vm.regresar
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.regresarReporte()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("Regresar "),
+                              _c("i", { staticClass: "fas fa-sign-out-alt" })
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -73656,6 +74887,7 @@ var render = function() {
                       )
                     ])
                   ]
+                : _vm._e()
             ],
             2
           )
@@ -73705,7 +74937,7 @@ var render = function() {
                     attrs: { id: "listado_producto" }
                   },
                   [
-                    _vm._m(13),
+                    _vm._m(18),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -73789,6 +75021,124 @@ var render = function() {
                   _vm._v("Salir "),
                   _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
+              )
+            ])
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalReporte },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalReporte()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "form-row mb-0" }, [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _vm._m(19),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fecha_reporte,
+                          expression: "fecha_reporte"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "select_mes" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.fecha_reporte = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.lista_fechas, function(fecha_reporte) {
+                      return _c("option", {
+                        key: fecha_reporte.nombre,
+                        domProps: {
+                          value: fecha_reporte.nombre,
+                          textContent: _vm._s(fecha_reporte.nombre)
+                        }
+                      })
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalReporte()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-info",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.openReporte()
+                    }
+                  }
+                },
+                [_vm._v("Ver "), _c("i", { staticClass: "fas fa-eye" })]
               )
             ])
           ])
@@ -73982,6 +75332,92 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "text-secondary" }, [
+      _c("strong", [_vm._v("Donaciones")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-store-alt" }),
+      _vm._v(" Total de donaciones")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-qrcode" }),
+          _vm._v(" Código")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Donador")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-street-view" }),
+          _vm._v(" Dirección")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-calendar-alt" }),
+          _vm._v(" Fecha de registro")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-calendar-alt" }),
+          _vm._v(" Fecha de donación")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group float-lef" }, [
+      _c("img", {
+        staticClass: "rounded-circle mx-auto d-block",
+        attrs: {
+          src: "assets/img/logo-tablas.jpeg",
+          alt: "logo",
+          width: "100",
+          height: "100"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group text-center" }, [
       _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])]),
       _vm._v(" "),
@@ -74076,6 +75512,15 @@ var staticRenderFns = [
           _vm._v(" Opciones ")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Mes")
     ])
   }
 ]
@@ -78101,7 +79546,7 @@ var render = function() {
             },
             [
               _vm._v(" Reporte mensual "),
-              _c("i", { staticClass: "fas fa-file-pdf" })
+              _c("i", { staticClass: "fas fa-file-alt" })
             ]
           ),
           _vm._v(" "),
@@ -79004,7 +80449,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "far fa-calendar-alt" }),
-      _vm._v(" Opciones")
+      _vm._v(" Mes")
     ])
   }
 ]
@@ -85584,6 +87029,23 @@ var render = function() {
                 _vm._v("Nueva "),
                 _c("i", { staticClass: "fas fa-shopping-cart" })
               ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger mb-1 mr-1",
+                attrs: { id: "openMes", type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.openModalReporte()
+                  }
+                }
+              },
+              [
+                _vm._v(" Reporte mensual "),
+                _c("i", { staticClass: "fas fa-file-alt" })
+              ]
             )
           ]),
           _vm._v(" "),
@@ -86305,14 +87767,185 @@ var render = function() {
                       )
                     ])
                   ]
-                : [
+                : _vm.action == 3
+                ? [
                     _c(
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
                         _vm._m(10),
                         _vm._v(" "),
-                        _vm._m(11),
+                        _c("div", { staticClass: "form-group text-center" }, [
+                          _vm._m(11),
+                          _vm._v(" "),
+                          _c("h6", [_vm._v("Residenciales Ciudad Palmeras")]),
+                          _vm._v(" "),
+                          _c("h6", [
+                            _vm._v("Cantón Recuerdo Ocosito, Retalhuleu")
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(12),
+                          _vm._v(" "),
+                          _vm._m(13),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "text-secondary",
+                              attrs: { for: "" }
+                            },
+                            [_vm._v(_vm._s(_vm.total_salidas))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group float-right" }, [
+                          _c("h5", { staticClass: "p-5" }, [
+                            _vm._v("Mes: "),
+                            _c("strong", { staticClass: "text-secondary" }, [
+                              _vm._v(_vm._s(_vm.fecha_reporte))
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "table-responsive mb-0 mt-0" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table table-hover",
+                          staticStyle: { width: "100%" },
+                          attrs: { id: "reporte" }
+                        },
+                        [
+                          _vm._m(14),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.lista_mes, function(salida, index) {
+                              return _c("tr", { key: salida.id }, [
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: { textContent: _vm._s(index + 1) }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(salida.codigo)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(salida.nombre_area)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      salida.nombre_empleado +
+                                        " " +
+                                        salida.apellido_empleado
+                                    )
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(salida.fecha_registro)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(salida.fecha_salida)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  staticClass: "text-center",
+                                  domProps: {
+                                    textContent: _vm._s(salida.nombre_usuario)
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn rounded-circle btn-info mb-1",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showSalida(salida.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn rounded-circle btn-danger mb-1",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.pdf(salida.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-file-pdf"
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "float-right" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-cerrar",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.closeReporte()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("Salir "),
+                            _c("i", { staticClass: "fas fa-sign-out-alt" })
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                : _vm.action == 4
+                ? [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between" },
+                      [
+                        _vm._m(15),
+                        _vm._v(" "),
+                        _vm._m(16),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group float-right" }, [
                           _c("h5", { staticClass: "text-secondary p-5" }, [
@@ -86403,7 +88036,7 @@ var render = function() {
                               staticStyle: { width: "100%" }
                             },
                             [
-                              _vm._m(12),
+                              _vm._m(17),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -86484,6 +88117,25 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "text-right" }, [
+                      _vm.regresar
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.regresarReporte()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("Regresar "),
+                              _c("i", { staticClass: "fas fa-sign-out-alt" })
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "button",
                         {
@@ -86502,6 +88154,7 @@ var render = function() {
                       )
                     ])
                   ]
+                : _vm._e()
             ],
             2
           )
@@ -86551,7 +88204,7 @@ var render = function() {
                     attrs: { id: "listado_producto" }
                   },
                   [
-                    _vm._m(13),
+                    _vm._m(18),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -86641,6 +88294,124 @@ var render = function() {
                   _vm._v("Salir "),
                   _c("i", { staticClass: "fas fa-sign-out-alt" })
                 ]
+              )
+            ])
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fadeInDown show",
+        class: { mostrar: _vm.modalReporte },
+        staticStyle: { display: "none" },
+        attrs: { role: "dialog", "aria-hidden": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header dark-header" }, [
+              _c("h5", {
+                staticClass: "modal-title text-white m-1",
+                domProps: { textContent: _vm._s(_vm.titulo) }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: { type: "button", "aria-label": "Close" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalReporte()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-times" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "form-row mb-0" }, [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _vm._m(19),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fecha_reporte,
+                          expression: "fecha_reporte"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "select_mes" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.fecha_reporte = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.lista_fechas, function(fecha_reporte) {
+                      return _c("option", {
+                        key: fecha_reporte.nombre,
+                        domProps: {
+                          value: fecha_reporte.nombre,
+                          textContent: _vm._s(fecha_reporte.nombre)
+                        }
+                      })
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-cerrar",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModalReporte()
+                    }
+                  }
+                },
+                [
+                  _vm._v("Salir "),
+                  _c("i", { staticClass: "fas fa-sign-out-alt" })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-info",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.openReporte()
+                    }
+                  }
+                },
+                [_vm._v("Ver "), _c("i", { staticClass: "fas fa-eye" })]
               )
             ])
           ])
@@ -86818,6 +88589,92 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group float-lef" }, [
+      _c("img", {
+        staticClass: "rounded-circle mx-auto d-block",
+        attrs: {
+          src: "assets/img/logo-tablas.jpeg",
+          alt: "logo",
+          width: "100",
+          height: "100"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "text-secondary" }, [
+      _c("strong", [_vm._v("Requisiciones")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-store-alt" }),
+      _vm._v(" Total de requisiciones")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-hashtag" })
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-qrcode" }),
+          _vm._v(" Código")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-store-alt" }),
+          _vm._v(" Área")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Solicitó")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-calendar-alt" }),
+          _vm._v(" Fecha de registro")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "far fa-calendar-alt" }),
+          _vm._v(" Fecha de salida")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-user" }),
+          _vm._v(" Registró")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" Opciones ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group float-left" }, [
       _c("img", {
         staticClass: "rounded-circle mx-auto d-block",
@@ -86933,6 +88790,15 @@ var staticRenderFns = [
           _vm._v(" Opciones ")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "far fa-calendar-alt" }),
+      _vm._v(" Mes")
     ])
   }
 ]

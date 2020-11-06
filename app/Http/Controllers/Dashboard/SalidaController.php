@@ -57,4 +57,9 @@ class SalidaController extends Controller
     {
         return $this->salidaRepository->pdfSalida($id);
     }
+
+    public function mes(Request $request)
+    {
+        return $this->salidaRepository->reporteSalidas($request->mes);
+    }
 }

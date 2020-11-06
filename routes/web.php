@@ -219,6 +219,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'compras'], function () {
             Route::get('/' ,'Dashboard\CompraController@index');
+            Route::get('/reporte', 'Dashboard\CompraController@mes');
             Route::get('/cabecera', 'Dashboard\CompraController@cabecera');
             Route::get('/detalle', 'Dashboard\CompraController@detalle');
             Route::post('/store', 'Dashboard\CompraController@store');
@@ -229,6 +230,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'salidas'], function () {
             Route::get('/' ,'Dashboard\SalidaController@index');
+            Route::get('/reporte', 'Dashboard\SalidaController@mes');
             Route::get('/cabecera', 'Dashboard\SalidaController@cabecera');
             Route::get('/detalle', 'Dashboard\SalidaController@detalle');
             Route::post('/store', 'Dashboard\SalidaController@store');
@@ -239,6 +241,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'donaciones'], function () {
             Route::get('/' ,'Dashboard\DonacionController@index');
+            Route::get('/reporte', 'Dashboard\DonacionController@mes');
             Route::get('/cabecera', 'Dashboard\DonacionController@cabecera');
             Route::get('/detalle', 'Dashboard\DonacionController@detalle');
             Route::post('/store', 'Dashboard\DonacionController@store');
@@ -315,8 +318,10 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         /********** Rutas de salidas **********/
+
         Route::group(['prefix' => 'salidas'], function () {
             Route::get('/' ,'Dashboard\SalidaController@index');
+            Route::get('/reporte', 'Dashboard\SalidaController@mes');
             Route::get('/cabecera', 'Dashboard\SalidaController@cabecera');
             Route::get('/detalle', 'Dashboard\SalidaController@detalle');
             Route::post('/store', 'Dashboard\SalidaController@store');
@@ -327,6 +332,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'donaciones'], function () {
             Route::get('/' ,'Dashboard\DonacionController@index');
+            Route::get('/reporte', 'Dashboard\DonacionController@mes');
             Route::get('/cabecera', 'Dashboard\DonacionController@cabecera');
             Route::get('/detalle', 'Dashboard\DonacionController@detalle');
             Route::post('/store', 'Dashboard\DonacionController@store');

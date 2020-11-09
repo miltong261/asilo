@@ -6,7 +6,7 @@
                 <template v-if="action==1">
                     <div class="widget-content widget-content-area br-6">
                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
-                        <h5 class="text-secondary text-center"><strong>INFORMACIÓN RESIDENTES</strong></h5>
+                        <h5 class="text-secondary text-center"><strong>RESIDENTES</strong></h5>
                         <div class="table-responsive mb-0 mt-0">
                             <table id="listado" class="table table-hover" style="width:100%">
                                 <thead>

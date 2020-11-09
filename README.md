@@ -2,7 +2,7 @@
 <p align="center">CENTRO UNIVERSITARIO DE RETALHULEU</p>
 <p align="center">INGENIERÍA EN SISTEMAS DE INFORMACIÓN Y CIENCIAS DE LA COMPUTACIÓN</p>
 
-<p align="center"><img src="https://umgnaranjo.com/wp-content/uploads/2018/11/logo-umg.png" width="200"></p>
+<p align="center"><img src="https://i.pinimg.com/originals/34/22/90/3422900cb9e9bd4ce803847129eb6c9f.jpg" width="200"></p>
 
 ## ASILO "SHADDAI NUEVA FAMILIA"
 <p align="center"><img src="https://ministerioshadainf.org/wp-content/uploads/2019/06/cropped-Logo_Fix.jpg" width="200"></p>

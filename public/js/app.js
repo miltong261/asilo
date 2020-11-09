@@ -6778,6 +6778,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -6801,7 +6816,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       /** Guardar */
       lista_medicamentos: [],
       medicamento_id: 0,
+      cantidad: 1,
       observacion: '',
+      lista_unidad: [],
+      unidad_medida: '',
 
       /** observacions */
       lista_kardex: [],
@@ -6819,6 +6837,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     openModal: function openModal(id, codigo, nombre, apellido) {
       this.modal = 1;
       this.showMedicamento();
+      this.showUnidad();
       this.titulo = 'KARDEX - ' + this.fecha_actual;
       this.residente_id = id;
       this.codigo = codigo;
@@ -6893,10 +6912,24 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         } else {
           me.lista_medicamentos = response.data.medicamentos;
           $('#select_medicamento').select2({
-            placeholder: 'Seleccione medicamento'
+            placeholder: 'Seleccione medicamento',
+            width: '100%'
           });
         }
       })["catch"](function (response) {
+        console.log(error);
+      });
+    },
+    showUnidad: function showUnidad() {
+      var me = this;
+      var url = '/kardex/combo_medicamento';
+      axios.get(url).then(function (response) {
+        me.lista_unidad = response.data;
+        $('#select_unidad').select2({
+          placeholder: 'Seleccione unidad',
+          width: '100%'
+        });
+      })["catch"](function (error) {
         console.log(error);
       });
     },
@@ -6907,12 +6940,25 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.medicamento_id = this.value;
       });
     },
+    change_unidad: function change_unidad() {
+      var me = this;
+      $('#select_unidad').on('change', function () {
+        me.$emit('change', this.value);
+        me.unidad_medida = this.value;
+      });
+    },
     hasError: function hasError(field) {
       return field in this.errors;
     },
     otherError: function otherError() {
       var errores = 0;
       var me = this;
+
+      if (me.unidad_medida == '') {
+        _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No ha seleccionado unidad de medida');
+        $('#select_unidad').next().find('.select2-selection').addClass('has-error');
+        errores = 1;
+      }
 
       if (me.medicamento_id == 0) {
         _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'No ha seleccionado ningún medicamento');
@@ -6984,6 +7030,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         axios.post(url, {
           'residente_id': this.residente_id,
           'producto_id': this.medicamento_id,
+          'cantidad': this.cantidad,
+          'unidad_medida': this.unidad_medida,
           'observacion': this.observacion
         }).then(function (response) {
           me.backendResponse(response);
@@ -6997,6 +7045,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     this.fecha = moment().format('YYYY-MM-DD');
     this.showList();
     this.change_medicamento();
+    this.change_unidad();
   }
 });
 
@@ -77230,6 +77279,17 @@ var render = function() {
                                         }),
                                         _vm._v(" "),
                                         _c("td", {
+                                          staticClass: "text-center",
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              kardex.cantidad +
+                                                " " +
+                                                kardex.unidad_medida
+                                            )
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("td", {
                                           domProps: {
                                             textContent: _vm._s(
                                               kardex.observacion
@@ -77485,7 +77545,7 @@ var render = function() {
                     { staticClass: "border border-fieldset rounded p-3" },
                     [
                       _c("div", { staticClass: "form-row mb-0" }, [
-                        _c("div", { staticClass: "form-group col-md-12" }, [
+                        _c("div", { staticClass: "form-group col-md-5" }, [
                           _vm._m(10),
                           _vm._v(" "),
                           _c(
@@ -77537,6 +77597,93 @@ var render = function() {
                             }),
                             0
                           )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-4" }, [
+                          _vm._m(11),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.cantidad,
+                                expression: "cantidad"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: _vm.hasError("cantidad") ? "is-invalid" : "",
+                            attrs: {
+                              type: "text",
+                              name: "cantidad",
+                              placeholder: "Ingrese cantidad..."
+                            },
+                            domProps: { value: _vm.cantidad },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.cantidad = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.hasError("cantidad")
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.errors.cantidad[0]) +
+                                    "\n                                    "
+                                )
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-3" }, [
+                          _vm._m(12),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.unidad_medida,
+                                  expression: "unidad_medida"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "select_unidad" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.unidad_medida = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            _vm._l(_vm.lista_unidad, function(unidad_medida) {
+                              return _c("option", {
+                                key: unidad_medida.id,
+                                domProps: {
+                                  value: unidad_medida.nombre,
+                                  textContent: _vm._s(unidad_medida.nombre)
+                                }
+                              })
+                            }),
+                            0
+                          )
                         ])
                       ])
                     ]
@@ -77552,7 +77699,7 @@ var render = function() {
                     [
                       _c("div", { staticClass: "form-row mb-0" }, [
                         _c("div", { staticClass: "form-group col-md-12" }, [
-                          _vm._m(11),
+                          _vm._m(13),
                           _vm._v(" "),
                           _c("textarea", {
                             directives: [
@@ -77647,7 +77794,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h5", { staticClass: "text-secondary text-center" }, [
-      _c("strong", [_vm._v("INFORMACIÓN RESIDENTES")])
+      _c("strong", [_vm._v("RESIDENTES")])
     ])
   },
   function() {
@@ -77737,7 +77884,12 @@ var staticRenderFns = [
           _vm._v(" Medicamento")
         ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center", attrs: { width: "49%" } }, [
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _c("i", { staticClass: "fas fa-thermometer-full" }),
+          _vm._v(" Cantidad")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { width: "39%" } }, [
           _c("i", { staticClass: "fas fa-hospital-user" }),
           _vm._v(" Estado en el que quedó el paciente")
         ]),
@@ -77792,6 +77944,24 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-search" }),
       _vm._v(" Buscar")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-sort-numeric-up" }),
+      _vm._v(" Cantidad")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-thermometer-full" }),
+      _vm._v(" Unidad de medida")
     ])
   },
   function() {
@@ -79670,15 +79840,6 @@ var render = function() {
                                     : _vm._e()
                                 ]),
                                 _vm._v(" "),
-                                _c("td", {
-                                  staticClass: "text-center",
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      movimiento.nombre_usuario
-                                    )
-                                  }
-                                }),
-                                _vm._v(" "),
                                 _c(
                                   "td",
                                   { staticClass: "text-center" },
@@ -79857,16 +80018,7 @@ var render = function() {
                                         })
                                       ])
                                     : _vm._e()
-                                ]),
-                                _vm._v(" "),
-                                _c("td", {
-                                  staticClass: "text-center",
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      movimiento.nombre_usuario
-                                    )
-                                  }
-                                })
+                                ])
                               ])
                             }),
                             0
@@ -80310,11 +80462,6 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-cogs" }),
           _vm._v(" Opciones")
         ])
@@ -80407,11 +80554,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-money-bill" }),
           _vm._v(" Salida")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-user" }),
-          _vm._v(" Registró")
         ])
       ])
     ])
@@ -81521,7 +81663,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h5", { staticClass: "text-secondary text-center" }, [
-      _c("strong", [_vm._v("INFORMACIÓN RESIDENTES")])
+      _c("strong", [_vm._v("RESIDENTES")])
     ])
   },
   function() {
@@ -89821,7 +89963,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h5", { staticClass: "text-secondary text-center" }, [
-      _c("strong", [_vm._v("INFORMACIÓN RESIDENTES")])
+      _c("strong", [_vm._v("RESIDENTES")])
     ])
   },
   function() {

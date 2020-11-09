@@ -6,7 +6,7 @@
                 <template v-if="action==1">
                     <div class="widget-content widget-content-area br-6">
                         <img class="rounded-circle mx-auto d-block" src="assets/img/logo-tablas.jpeg" alt="logo" width="90" height="90">
-                        <h5 class="text-secondary text-center"><strong>INFORMACIÓN RESIDENTES</strong></h5>
+                        <h5 class="text-secondary text-center"><strong>RESIDENTES</strong></h5>
                         <div class="table-responsive mb-0 mt-0">
                             <table id="listado" class="table table-hover" style="width:100%">
                                 <thead>
@@ -76,7 +76,8 @@
                                                 <th class="text-center" width="5%"><i class="fas fa-hashtag"></i></th>
                                                 <th class="text-center" width="8%"><i class="fas fa-clock"></i> Hora</th>
                                                 <th class="text-center" width="20%"><i class="fas fa-briefcase-medical"></i> Medicamento</th>
-                                                <th class="text-center" width="49%"><i class="fas fa-hospital-user"></i> Estado en el que quedó el paciente</th>
+                                                <th class="text-center" width="10%"><i class="fas fa-thermometer-full"></i> Cantidad</th>
+                                                <th class="text-center" width="39%"><i class="fas fa-hospital-user"></i> Estado en el que quedó el paciente</th>
                                                 <th class="text-center" width="18%"><i class="fas fa-user"></i> Registró</th>
                                             </tr>
                                         </thead>
@@ -85,6 +86,7 @@
                                                 <td class="text-center" v-text="index+1"></td>
                                                 <td class="text-center" v-text="kardex.hora"></td>
                                                 <td class="text-center" v-text="kardex.nombre_medicamento +' '+kardex.presentacion_medicamento +' '+ kardex.nombre_unidad"></td>
+                                                <td class="text-center" v-text="kardex.cantidad +' '+kardex.unidad_medida"></td>
                                                 <td v-text="kardex.observacion"></td>
                                                 <td class="text-center" v-text="kardex.empleado_nombre + ' ' + kardex.empleado_epellido"></td>
                                             </tr>
@@ -147,14 +149,27 @@
                             <label class="text-danger">Medicamento</label>
                             <fieldset class="border border-fieldset rounded p-3">
                                 <div class="form-row mb-0">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-5">
                                         <label class="text-dark"><i class="fas fa-search"></i> Buscar</label>
                                         <select id="select_medicamento" class="form-control" v-model="medicamento_id">
                                             <option v-for="medicamento in lista_medicamentos" :key="medicamento.medicamento_id" :value="medicamento.medicamento_id" v-text="medicamento.nombre_medicamento+'/ '+medicamento.presentacion_medicamento+' '+medicamento.nombre_unidad"></option>
                                         </select>
                                     </div>
 
+                                    <div class="form-group col-md-4">
+                                        <label class="text-dark"><i class="fas fa-sort-numeric-up"></i> Cantidad</label>
+                                        <input type="text" name="cantidad" v-model="cantidad" class="form-control" :class="hasError('cantidad') ? 'is-invalid' : ''" placeholder="Ingrese cantidad...">
+                                        <div v-if="hasError('cantidad')" class="invalid-feedback">
+                                            {{ errors.cantidad[0] }}
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group col-md-3">
+                                        <label class="text-dark"><i class="fas fa-thermometer-full"></i> Unidad de medida</label>
+                                        <select id="select_unidad" class="form-control" v-model="unidad_medida">
+                                            <option v-for="unidad_medida in lista_unidad" :key="unidad_medida.id" :value="unidad_medida.nombre" v-text="unidad_medida.nombre"></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </fieldset>
 
@@ -205,7 +220,10 @@ export default {
             /** Guardar */
             lista_medicamentos: [],
             medicamento_id: 0,
+            cantidad: 1,
             observacion: '',
+            lista_unidad: [],
+            unidad_medida: '',
 
             /** observacions */
             lista_kardex: [],
@@ -225,6 +243,7 @@ export default {
         openModal(id, codigo, nombre, apellido) {
             this.modal = 1
             this.showMedicamento()
+            this.showUnidad()
             this.titulo = 'KARDEX - ' + this.fecha_actual
 
             this.residente_id = id
@@ -313,10 +332,25 @@ export default {
                 } else {
                     me.lista_medicamentos = response.data.medicamentos
                     $('#select_medicamento').select2({
-                        placeholder: 'Seleccione medicamento'
+                        placeholder: 'Seleccione medicamento',
+                        width: '100%'
                     })
                 }
             }).catch(function (response) {
+                console.log(error)
+            })
+        },
+        showUnidad() {
+            let me = this
+            let url = '/kardex/combo_medicamento'
+
+            axios.get(url).then(function (response) {
+                me.lista_unidad = response.data
+                $('#select_unidad').select2({
+                    placeholder: 'Seleccione unidad',
+                    width: '100%'
+                })
+            }).catch(function (error) {
                 console.log(error)
             })
         },
@@ -328,12 +362,27 @@ export default {
                 me.medicamento_id = this.value
             })
         },
+        change_unidad() {
+            let me = this
+
+            $('#select_unidad').on('change', function () {
+                me.$emit('change', this.value)
+                me.unidad_medida = this.value
+            })
+        },
         hasError(field) {
             return field in (this.errors)
         },
         otherError() {
             let errores = 0
             let me = this
+
+            if (me.unidad_medida == '') {
+                alerts.sweetAlert('error', 'No ha seleccionado unidad de medida')
+                $('#select_unidad').next().find('.select2-selection').addClass('has-error');
+                errores = 1
+            }
+
             if (me.medicamento_id == 0) {
                 alerts.sweetAlert('error', 'No ha seleccionado ningún medicamento')
                 $('#select_medicamento').next().find('.select2-selection').addClass('has-error');
@@ -402,6 +451,8 @@ export default {
                 axios.post(url, {
                     'residente_id': this.residente_id,
                     'producto_id': this.medicamento_id,
+                    'cantidad': this.cantidad,
+                    'unidad_medida': this.unidad_medida,
                     'observacion': this.observacion
                 }).then(function (response) {
                     me.backendResponse(response)
@@ -416,6 +467,7 @@ export default {
         this.fecha = moment().format('YYYY-MM-DD')
         this.showList()
         this.change_medicamento()
+        this.change_unidad()
     },
 }
 </script>

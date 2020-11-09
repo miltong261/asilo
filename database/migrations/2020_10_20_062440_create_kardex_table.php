@@ -33,6 +33,8 @@ class CreateKardexTable extends Migration
 
             $table->date('fecha_registro');
             $table->time('hora');
+            $table->decimal('cantidad');
+            $table->string('unidad_medida');
             $table->text('observacion');
 
             $table->timestamps();

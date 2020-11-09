@@ -70,6 +70,8 @@ class KardexRepository extends BaseRepository
             'unidad_medida.nombre as nombre_unidad',
             'kardex.fecha_registro',
             'kardex.hora',
+            'kardex.cantidad',
+            'kardex.unidad_medida',
             'kardex.observacion',
         )
         ->where('kardex.residente_id', $id)
@@ -86,6 +88,8 @@ class KardexRepository extends BaseRepository
                 'nombre_unidad' => $kardex->nombre_unidad,
                 'fecha_registro' => $kardex->fecha_registro,
                 'hora' => Carbon::parse($kardex->hora)->isoFormat('h:mm:ss A'),
+                'cantidad' => $kardex->cantidad,
+                'unidad_medida' => $kardex->unidad_medida,
                 'observacion' => $kardex->observacion
             ];
         }
@@ -120,6 +124,8 @@ class KardexRepository extends BaseRepository
             'unidad_medida.nombre as nombre_unidad',
             'kardex.fecha_registro',
             'kardex.hora',
+            'kardex.cantidad',
+            'kardex.unidad_medida',
             'kardex.observacion',
         )
         ->where('residentes.id', $id)
@@ -136,6 +142,8 @@ class KardexRepository extends BaseRepository
                 'nombre_unidad' => $kardex->nombre_unidad,
                 'fecha_registro' => $kardex->fecha_registro,
                 'hora' => Carbon::parse($kardex->hora)->isoFormat('h:mm:ss A'),
+                'cantidad' => $kardex->cantidad,
+                'unidad_medida' => $kardex->unidad_medida,
                 'observacion' => $kardex->observacion
             ];
         }

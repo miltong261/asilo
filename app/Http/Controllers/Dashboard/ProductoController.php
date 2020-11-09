@@ -142,8 +142,8 @@ class ProductoController extends Controller
 
     public function pdf(Request $request)
     {
-        // return $this->productoRepository->pdfInventario('producto', $request->mes);
+        return $this->productoRepository->pdfInventario('producto', $request->mes);
 
-        return $this->productoRepository->pdfInventario();
+        // return $this->productoRepository->pdfInventario();
     }
 }

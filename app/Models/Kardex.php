@@ -13,6 +13,8 @@ class Kardex extends Model
         'producto_id',
         'fecha_registro',
         'hora',
+        'cantidad',
+        'unidad_medida',
         'observacion'
     ];
 

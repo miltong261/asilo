@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UnidadMedidaSeeder::class);
         $this->call(TipoProductoSeeder::class);
         $this->call(AreaSeeder::class);
         $this->call(PuestoSeeder::class);

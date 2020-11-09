@@ -377,6 +377,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Kardex
         Route::group(['prefix' => 'kardex'], function () {
             Route::get('/', 'Dashboard\KardexController@index');
+            Route::get('/combo_medicamento', 'Dashboard\UnidadMedidaController@comboboxMedicamento');
             Route::get('/kardex', 'Dashboard\KardexController@kardex');
             Route::get('/kardex_fecha', 'Dashboard\KardexController@kardexFecha');
             Route::post('/store', 'Dashboard\KardexController@store');

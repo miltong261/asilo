@@ -25,6 +25,7 @@ class KardexRequest extends FormRequest
     {
         return [
             'producto_id' => ['required'],
+            'cantidad' => ['required', 'numeric', 'between:1,99999.99'],
             'observacion' => ['required']
         ];
     }
@@ -32,6 +33,9 @@ class KardexRequest extends FormRequest
     public function messages()
     {
         return [
+            'cantidad.required' => 'La cantidad es obligatoria',
+            'cantidad.numeric' => 'Solo se permiten números',
+            'cantidad.between' => 'Cantidad inválida',
             'observacion.required' => 'Campo obligatorio'
         ];
     }

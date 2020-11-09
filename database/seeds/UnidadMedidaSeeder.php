@@ -12,6 +12,11 @@ class UnidadMedidaSeeder extends Seeder
      */
     public function run()
     {
-        factory(UnidadMedida::class, 20)->create();
+        TipoProducto::create(array(
+            'codigo' => 'U_MEDIDA-0001',
+            'nombre' => 'Unidad',
+            'medicamento' => 1,
+            'producto' => 1
+        ));
     }
 }

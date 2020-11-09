@@ -147,9 +147,6 @@
                     </router-link>
 
                     <span>Localidad</span>
-                    <router-link tag="li" to="/departamentos" exact-active-class="active">
-                        <a>Departamentos</a>
-                    </router-link>
                     <router-link tag="li" to="/municipios" exact-active-class="active">
                         <a>Municipios</a>
                     </router-link>

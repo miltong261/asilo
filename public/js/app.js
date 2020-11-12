@@ -10947,28 +10947,26 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       var me = this;
       var url = '/residentes/update';
-      if (me.otherError()) return;else {
-        axios.put(url, {
-          'nombre': this.nombre,
-          'apellido': this.apellido,
-          'fecha_nacimiento': this.fecha_nacimiento,
-          'familia': this.familia,
-          'direccion': this.direccion,
-          'telefono_familia': this.telefono_familia,
-          'persona_referida': this.persona_referida,
-          'direccion_persona_referida': this.direccion_persona_referida,
-          'telefono_persona_referida': this.telefono_persona_referida,
-          'motivo': this.motivo,
-          'estado': this.estado,
-          'historial': this.historial,
-          'observacion': this.observacion,
-          'id': this.id
-        }).then(function (response) {
-          me.backendResponse(response);
-        })["catch"](function (error) {
-          if (error.response.status == 422) _this4.errors = error.response.data.errors;
-        });
-      }
+      axios.put(url, {
+        'nombre': this.nombre,
+        'apellido': this.apellido,
+        'fecha_nacimiento': this.fecha_nacimiento,
+        'familia': this.familia,
+        'direccion': this.direccion,
+        'telefono_familia': this.telefono_familia,
+        'persona_referida': this.persona_referida,
+        'direccion_persona_referida': this.direccion_persona_referida,
+        'telefono_persona_referida': this.telefono_persona_referida,
+        'motivo': this.motivo,
+        'estado': this.estado,
+        'historial': this.historial,
+        'observacion': this.observacion,
+        'id': this.id
+      }).then(function (response) {
+        me.backendResponse(response);
+      })["catch"](function (error) {
+        if (error.response.status == 422) _this4.errors = error.response.data.errors;
+      });
     },
     pdf: function pdf(id) {
       window.open('/residentes/pdf/' + id + ',' + '_blank');
@@ -110185,7 +110183,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/proyectos/asilo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\asilo\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

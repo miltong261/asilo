@@ -843,30 +843,27 @@ export default {
             let me = this
             let url = '/residentes/update'
 
-            if (me.otherError()) return
-            else {
-                axios.put(url, {
-                    'nombre': this.nombre,
-                    'apellido': this.apellido,
-                    'fecha_nacimiento': this.fecha_nacimiento,
-                    'familia': this.familia,
-                    'direccion': this.direccion,
-                    'telefono_familia': this.telefono_familia,
-                    'persona_referida': this.persona_referida,
-                    'direccion_persona_referida': this.direccion_persona_referida,
-                    'telefono_persona_referida': this.telefono_persona_referida,
-                    'motivo': this.motivo,
-                    'estado': this.estado,
-                    'historial': this.historial,
-                    'observacion': this.observacion,
-                    'id': this.id
-                }).then(function (response) {
-                    me.backendResponse(response)
-                }).catch(error => {
-                    if(error.response.status == 422)
-                        this.errors = error.response.data.errors
-                })
-            }
+            axios.put(url, {
+                'nombre': this.nombre,
+                'apellido': this.apellido,
+                'fecha_nacimiento': this.fecha_nacimiento,
+                'familia': this.familia,
+                'direccion': this.direccion,
+                'telefono_familia': this.telefono_familia,
+                'persona_referida': this.persona_referida,
+                'direccion_persona_referida': this.direccion_persona_referida,
+                'telefono_persona_referida': this.telefono_persona_referida,
+                'motivo': this.motivo,
+                'estado': this.estado,
+                'historial': this.historial,
+                'observacion': this.observacion,
+                'id': this.id
+            }).then(function (response) {
+                me.backendResponse(response)
+            }).catch(error => {
+                if(error.response.status == 422)
+                    this.errors = error.response.data.errors
+            })
         },
         pdf(id) {
             window.open('/residentes/pdf/'+ id + ',' + '_blank');

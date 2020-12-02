@@ -208,36 +208,36 @@
                                     <label class="text-success">Estatus</label>
                                     <fieldset class="border border-fieldset rounded p-3">
                                         <div class="form-row mb-0">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-3">
                                                 <label class="text-dark"><i class="fas fa-chalkboard-teacher"></i> Motivo de llegada</label>
                                                 <input type="text" class="form-control" :class="hasError('motivo') ? 'is-invalid' : ''" name="motivo" v-model="motivo" :disabled="rol_id==2">
                                                 <div v-if="hasError('motivo')" class="invalid-feedback">
                                                     {{ errors.motivo[0] }}
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-thermometer"></i> Estado del residente</label>
-                                                <input type="text" class="form-control" :class="hasError('estado') ? 'is-invalid' : ''" name="estado" v-model="estado" :disabled="rol_id==2">
-                                                <div v-if="hasError('estado')" class="invalid-feedback">
-                                                    {{ errors.estado[0] }}
+                                            <div class="form-group col-md-3">
+                                                <label class="text-dark"><i class="fas fa-thermometer"></i> Estado físico</label>
+                                                <input type="text" class="form-control" :class="hasError('estadoFisico') ? 'is-invalid' : ''" name="estado_fisico" v-model="estadoFisico" :disabled="rol_id==2">
+                                                <div v-if="hasError('estadoFisico')" class="invalid-feedback">
+                                                    {{ errors.estadoFisico[0] }}
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-notes-medical"></i> Historial</label>
-                                                <input type="text" class="form-control" :class="hasError('historial') ? 'is-invalid' : ''" name="historial" v-model="historial" :disabled="rol_id==2">
-                                                <div v-if="hasError('historial')" class="invalid-feedback">
-                                                    {{ errors.historial[0] }}
+                                            <div class="form-group col-md-3">
+                                                <label class="text-dark"><i class="fas fa-notes-medical"></i> Estado médico</label>
+                                                <input type="text" class="form-control" :class="hasError('estadoMedico') ? 'is-invalid' : ''" name="estado_medico" v-model="estadoMedico" :disabled="rol_id==2">
+                                                <div v-if="hasError('estadoMedico')" class="invalid-feedback">
+                                                    {{ errors.estadoMedico[0] }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="text-dark"><i class="fas fa-brain"></i> Estado psicologico</label>
+                                                <input type="text" class="form-control" :class="hasError('estadoPsicologico') ? 'is-invalid' : ''" name="estado_psicologico" v-model="estadoPsicologico" :disabled="rol_id==2">
+                                                <div v-if="hasError('estadoPsicologico')" class="invalid-feedback">
+                                                    {{ errors.estadoPsicologico[0] }}
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
-
-                                    <div class="form-row mb-0">
-                                        <div class="form-group col-md-12">
-                                            <label class="text-danger"><i class="fas fa-search"></i> Observaciones</label>
-                                            <textarea class="form-control" rows="3" name="observacion" v-model="observacion" :disabled="rol_id==2"></textarea>
-                                        </div>
-                                    </div>
 
                                     <div class="text-center">
                                         <button type="button" @click="closeForm()" class="btn btn-cerrar">Cancelar <i class="far fa-times-circle"></i></button>
@@ -249,6 +249,7 @@
                         </div>
                     </div>
                 </template>
+
             </div>
         </div>
 
@@ -340,28 +341,29 @@
                             </div>
 
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label><i class="fas fa-chalkboard-teacher"></i> Motivo de llegada</label>
-                                    <input style="height:35px" v-model="motivo" class="form-control text-dark" disabled>
+                                    <textarea style="resize:none" v-model="motivo" class="form-control text-dark" disabled></textarea>
                                 </div>
 
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-thermometer"></i> Estado del residente</label>
-                                    <input style="height:35px" v-model="estado" class="form-control text-dark" disabled>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-notes-medical"></i> Historial</label>
-                                    <input style="height:35px" v-model="historial" class="form-control text-dark" disabled>
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-thermometer"></i> Estado físico</label>
+                                    <textarea style="resize:none" v-model="estadoFisico" class="form-control text-dark" disabled></textarea>
                                 </div>
                             </div>
-
+                            
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-12">
-                                    <label><i class="fas fa-search"></i> Observaciones</label>
-                                    <input style="height:35px" v-model="observacion" class="form-control text-dark" disabled>
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-notes-medical"></i> Estado médico</label>
+                                    <textarea style="resize:none" v-model="estadoMedico" class="form-control text-dark" disabled></textarea>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label><i class="fas fa-brain"></i> Estado psicologico</label>
+                                    <textarea style="resize:none" v-model="estadoPsicologico" class="form-control text-dark" disabled></textarea>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -397,13 +399,13 @@ export default {
             direccion_persona_referida: '',
             telefono_persona_referida: '',
             motivo: '',
-            estado: '',
-            historial: '',
+            estadoFisico: '',
+            estadoMedico: '',
+            estadoPsicologico: '',
             pulso: '',
             temperatura: '',
             presion: '',
             peso: '',
-            observacion: '',
 
             lista_departamentos_origen: [],
             lista_departamentos_dpi: [],
@@ -464,9 +466,9 @@ export default {
                     this.direccion_persona_referida = data['direccion_persona_referida']
                     this.telefono_persona_referida = data['telefono_persona_referida']
                     this.motivo = data['motivo']
-                    this.estado = data['estado']
-                    this.historial = data['historial']
-                    this.observacion = data['observacion']
+                    this.estadoFisico = data['estadoFisico']
+                    this.estadoMedico = data['estadoMedico']
+                    this.estadoPsicologico = data['estadoPsicologico']
                     this.id = data['id']
                     break
                 }
@@ -491,9 +493,9 @@ export default {
             this.direccion_persona_referida = data['direccion_persona_referida']
             this.telefono_persona_referida = data['telefono_persona_referida']
             this.motivo = data['motivo']
-            this.estado = data['estado']
-            this.historial = data['historial']
-            this.observacion = data['observacion']
+            this.estadoFisico = data['estadoFisico']
+            this.estadoMedico = data['estadoMedico']
+            this.estadoPsicologico = data['estadoPsicologico']
 
             let actual = moment()
             this.edad = actual.diff(this.fecha_nacimiento, 'years')
@@ -514,9 +516,9 @@ export default {
             this.direccion_persona_referida = ''
             this.telefono_persona_referida = ''
             this.motivo = ''
-            this.estado = ''
-            this.historial = ''
-            this.observacion = ''
+            this.estadoFisico = ''
+            this.estadoMedico = ''
+            this.estadoPsicologico = ''
             this.fecha = ''
 
             this.showList()
@@ -542,9 +544,9 @@ export default {
             this.direccion_persona_referida = ''
             this.telefono_persona_referida = ''
             this.motivo = ''
-            this.estado = ''
-            this.historial = ''
-            this.observacion = ''
+            this.estadoFisico = ''
+            this.estadoMedico = ''
+            this.estadoPsicologico = ''
 
             this.titulo = ''
             this.modal = 0
@@ -600,7 +602,7 @@ export default {
         },
         changeStatus(action, id, nombre, apellido) {
             swal({
-                title: 'Cambio de estado',
+                title: 'Cambio de estadoFisico',
                 text: '¿Esta seguro de realizar la siguiente acción sobre el residente: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
@@ -624,8 +626,8 @@ export default {
                     }).then(function (response) {
                         me.showList()
                         swal(
-                            'Cambio de estado',
-                            'Se ha cambiado el estado correctamente',
+                            'Cambio de estadoFisico',
+                            'Se ha cambiado el estadoFisico correctamente',
                             'success'
                         )
 
@@ -828,9 +830,9 @@ export default {
                     'direccion_persona_referida': this.direccion_persona_referida,
                     'telefono_persona_referida': this.telefono_persona_referida,
                     'motivo': this.motivo,
-                    'estado': this.estado,
-                    'historial': this.historial,
-                    'observacion': this.observacion
+                    'estadoFisico': this.estadoFisico,
+                    'estadoMedico': this.estadoMedico,
+                    'estadoPsicologico': this.estadoPsicologico,
                 }).then(function (response) {
                     me.backendResponse(response)
                 }).catch(error => {
@@ -856,9 +858,9 @@ export default {
                     'direccion_persona_referida': this.direccion_persona_referida,
                     'telefono_persona_referida': this.telefono_persona_referida,
                     'motivo': this.motivo,
-                    'estado': this.estado,
-                    'historial': this.historial,
-                    'observacion': this.observacion,
+                    'estadoFisico': this.estadoFisico,
+                    'estadoMedico': this.estadoMedico,
+                    'estadoPsicologico': this.estadoPsicologico,
                     'id': this.id
                 }).then(function (response) {
                     me.backendResponse(response)

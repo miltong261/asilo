@@ -34,7 +34,7 @@ class ResidenteController extends Controller
             DB::beginTransaction();
 
             $this->residenteRepository->store($request->only([
-                'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'])
+                'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado_fisico', 'estado_medico', 'estado_psicologico', 'observacion'])
                 + ['codigo' => 'RESIDENTE-' . $this->residenteRepository->generateCode()]
                 + ['fecha_ingreso' => Carbon::now()]
                 + ['user_id' => \Auth::user()->id]
@@ -58,7 +58,7 @@ class ResidenteController extends Controller
             DB::beginTransaction();
 
             $this->residenteRepository->update($request->only([
-                'nombre', 'apellido', 'fecha_nacimiento', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado', 'historial', 'observacion'
+                'municipio_origen', 'municipio_dpi', 'nombre', 'apellido', 'fecha_nacimiento', 'dpi', 'familia', 'direccion', 'telefono_familia', 'persona_referida', 'direccion_persona_referida', 'telefono_persona_referida', 'motivo', 'estado_fisico', 'estado_medico', 'estado_psicologico', 'observacion'
             ]), $request->id);
 
             DB::commit();

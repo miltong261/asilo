@@ -268,15 +268,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
         });
 
-        /********** Rutas de hogar **********/
-        // Residentes
-        Route::group(['prefix' => 'residentes'], function () {
-            Route::get('/', 'Dashboard\ResidenteController@index');
-            Route::post('/store', 'Dashboard\ResidenteController@store');
-            Route::put('/update', 'Dashboard\ResidenteController@update');
-            Route::get('/pdf/{id}', 'Dashboard\ResidenteController@pdf');
-        });
-
         /********** Rutas de inventario **********/
         // Ajuste de medicamento
         Route::group(['prefix' => 'ajuste_producto'], function () {
@@ -355,6 +346,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'usuarios'], function () {
             Route::get('/perfil', 'Dashboard\UserController@perfil');
             Route::put('/password_update', 'Dashboard\UserController@passwordUpdate');
+        });
+
+        /********** Rutas de hogar **********/
+        // Residentes
+        Route::group(['prefix' => 'residentes'], function () {
+            Route::get('/', 'Dashboard\ResidenteController@index');
         });
 
         // Signos vitales

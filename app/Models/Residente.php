@@ -24,8 +24,9 @@ class Residente extends Model
         'direccion_persona_referida',
         'telefono_persona_referida',
         'motivo',
-        'estado',
-        'historial',
+        'estado_fisico',
+        'estado_medico',
+        'estado_psicologico',
         'observacion'
     ];
 

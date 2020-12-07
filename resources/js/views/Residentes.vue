@@ -2,6 +2,7 @@
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
                 <!-- Listado de residentes -->
                 <template v-if="action==1">
                     <template v-if="rol_id==1">
@@ -57,10 +58,9 @@
                                                 <button type="button" @click="pdf(residente.id)" class="btn btn-danger mb-1 mr-1 rounded-circle"> <i class="fas fa-file-pdf"></i></button>
                                             </template>
                                         </template>
-                                        <template v-else-if="rol_id==2">
+                                        <template v-else-if="rol_id==3">
                                             <template v-if="residente.activo==1 && residente.defuncion==0">
                                                 <button type="button" @click="openModal(residente)" class="btn btn-info mb-1 mr-1 rounded-circle"> <i class="fas fa-eye"></i></button>
-                                                <button type="button" @click="openForm('update', residente)" class="btn btn-warning mb-1 mr-1 rounded-circle"> <i class="fas fa-sync-alt"></i></button>
                                             </template>
                                         </template>
                                     </td>
@@ -121,14 +121,14 @@
                                         </div>
 
                                         <div class="form-row mb-0">
-                                            <div class="form-group col-md-2" v-if="opcion==1">
+                                            <div class="form-group col-md-2">
                                                 <label class="text-dark"><i class="fas fa-street-view"></i> Lugar de nacimiento</label>
                                                 <select id="departamento_origen" name="departamento_origen_id" v-model="departamento_origen_id" class="form-control">
                                                     <option v-for="departamento in lista_departamentos_origen" :key="departamento.id" :value="departamento.id" v-text="departamento.nombre"></option>
                                                 </select>
                                             </div>
 
-                                            <div class="form-group col-md-2" v-if="opcion==1">
+                                            <div class="form-group col-md-2">
                                                 <label class="text-dark"><i class="fas fa-street-view"></i> Municipio</label>
                                                 <select id="municipio_origen" name="municipio_origen_id" v-model="municipio_origen_id" class="form-control" :class="hasError('municipio_origen') ? 'is-invalid' : ''">
                                                     <option v-for="municipio in lista_municipios_origen" :key="municipio.id" :value="municipio.id" v-text="municipio.nombre"></option>
@@ -138,20 +138,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-md-4" v-if="opcion==1">
+                                            <div class="form-group col-md-4">
                                                 <label class="text-dark"><i class="fas fa-id-card"></i> DPI</label>
                                                 <input type="text" class="form-control" v-model="dpi" :class="hasError('dpi') ? 'is-invalid' : ''">
                                                 <div v-if="hasError('dpi')" class="invalid-feedback">
                                                     {{ errors.dpi[0] }}
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-2" v-if="opcion==1">
+                                            <div class="form-group col-md-2">
                                                 <label class="text-dark"><i class="fas fa-street-view"></i> Extendido en:</label>
                                                 <select id="departamento_dpi" v-model="departamento_dpi_id" class="form-control" :class="hasError('municipio_dpi') ? 'is-invalid' : ''" @change="combo_municipio_dpi()">
                                                     <option v-for="departamento in lista_departamentos_dpi" :key="departamento.id" :value="departamento.id" v-text="departamento.nombre"></option>
                                                 </select>
                                             </div>
-                                            <div class="form-group col-md-2" v-if="opcion==1">
+                                            <div class="form-group col-md-2">
                                                 <label class="text-dark">-</label>
                                                 <select id="municipio_dpi" name="municipio_dpi_id" v-model="municipio_dpi_id"  class="form-control">
                                                     <option v-for="municipio in lista_municipios_dpi" :key="municipio.id" :value="municipio.id" v-text="municipio.nombre"></option>
@@ -163,81 +163,144 @@
                                         </div>
                                     </fieldset>
 
-                                    <label>Datos Familiares</label>
+                                    <label class="text-success">Estado del residente</label>
                                     <fieldset class="border border-fieldset rounded p-3">
                                         <div class="form-row mb-0">
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-male"></i> Familiar</label>
-                                                <input type="text" class="form-control" name="familia" v-model="familia">
-                                            </div>
-                                            <div class="form-group col-md-5">
-                                                <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                                <input type="text" class="form-control" name="direccion" v-model="direccion">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                                <input type="text" class="form-control" name="telefono_familia" v-model="telefono_familia" :class="hasError('telefono_familia') ? 'is-invalid' : ''">
-                                                <div v-if="hasError('telefono_familia')" class="invalid-feedback">
-                                                    {{ errors.telefono_familia[0] }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row mb-0">
-                                            <div class="form-group col-md-4">
-                                                <label class="text-dark"><i class="fas fa-male"></i> Persona referida</label>
-                                                <input type="text" class="form-control" name="persona_referida" v-model="persona_referida" :class="hasError('persona_referida') ? 'is-invalid' : ''" :disabled="rol_id==2">
-                                                <div v-if="hasError('persona_referida')" class="invalid-feedback">
-                                                    {{ errors.persona_referida[0] }}
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-5">
-                                                <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
-                                                <input type="text" class="form-control" name="direccion_persona_referida" v-model="direccion_persona_referida">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                                <input type="text" class="form-control" name="telefono_persona_referida" v-model="telefono_persona_referida" :class="hasError('telefono_persona_referida') ? 'is-invalid' : ''">
-                                                <div v-if="hasError('telefono_persona_referida')" class="invalid-feedback">
-                                                    {{ errors.telefono_persona_referida[0] }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <label class="text-success">Estatus</label>
-                                    <fieldset class="border border-fieldset rounded p-3">
-                                        <div class="form-row mb-0">
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group col-md-6">
                                                 <label class="text-dark"><i class="fas fa-chalkboard-teacher"></i> Motivo de llegada</label>
                                                 <input type="text" class="form-control" :class="hasError('motivo') ? 'is-invalid' : ''" name="motivo" v-model="motivo" :disabled="rol_id==2">
                                                 <div v-if="hasError('motivo')" class="invalid-feedback">
                                                     {{ errors.motivo[0] }}
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group col-md-6">
                                                 <label class="text-dark"><i class="fas fa-thermometer"></i> Estado físico</label>
-                                                <input type="text" class="form-control" :class="hasError('estadoFisico') ? 'is-invalid' : ''" name="estado_fisico" v-model="estadoFisico" :disabled="rol_id==2">
-                                                <div v-if="hasError('estadoFisico')" class="invalid-feedback">
-                                                    {{ errors.estadoFisico[0] }}
+                                                <input type="text" class="form-control" :class="hasError('estado_fisico') ? 'is-invalid' : ''" name="estado_fisico" v-model="estado_fisico" :disabled="rol_id==2">
+                                                <div v-if="hasError('estado_fisico')" class="invalid-feedback">
+                                                    {{ errors.estado_fisico[0] }}
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group col-md-6">
                                                 <label class="text-dark"><i class="fas fa-notes-medical"></i> Estado médico</label>
-                                                <input type="text" class="form-control" :class="hasError('estadoMedico') ? 'is-invalid' : ''" name="estado_medico" v-model="estadoMedico" :disabled="rol_id==2">
-                                                <div v-if="hasError('estadoMedico')" class="invalid-feedback">
-                                                    {{ errors.estadoMedico[0] }}
+                                                <input type="text" class="form-control" :class="hasError('estado_medico') ? 'is-invalid' : ''" name="estado_medico" v-model="estado_medico" :disabled="rol_id==2">
+                                                <div v-if="hasError('estado_medico')" class="invalid-feedback">
+                                                    {{ errors.estado_medico[0] }}
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group col-md-6">
                                                 <label class="text-dark"><i class="fas fa-brain"></i> Estado psicologico</label>
-                                                <input type="text" class="form-control" :class="hasError('estadoPsicologico') ? 'is-invalid' : ''" name="estado_psicologico" v-model="estadoPsicologico" :disabled="rol_id==2">
-                                                <div v-if="hasError('estadoPsicologico')" class="invalid-feedback">
-                                                    {{ errors.estadoPsicologico[0] }}
+                                                <input type="text" class="form-control" :class="hasError('estado_psicologico') ? 'is-invalid' : ''" name="estado_psicologico" v-model="estado_psicologico" :disabled="rol_id==2">
+                                                <div v-if="hasError('estado_psicologico')" class="invalid-feedback">
+                                                    {{ errors.estado_psicologico[0] }}
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
+
+                                    <div v-if="familiarsi==false && familiarno==false">
+                                        <label class="text-dark"><i class="fas fa-check"></i> Ingreso de datos familiares</label>
+                                        <div class="n-chk">
+                                            <label class="new-control new-checkbox checkbox-outline-check">
+                                                <input type="checkbox" class="new-control-input"  name="familiarsi" v-model="familiarsi">
+                                                <span class="new-control-indicator"></span>Sí
+                                            </label>
+                                            <label class="new-control new-checkbox checkbox-outline-check">
+                                                <input type="checkbox" class="new-control-input" name="familiarno" v-model="familiarno">
+                                                <span class="new-control-indicator"></span>No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="familiarsi==true">
+                                        <label class="text-secondary">Datos Familiares</label>
+                                        <fieldset class="border border-fieldset rounded p-3">
+                                            <div class="form-row mb-0">
+                                                <div class="form-group col-md-4">
+                                                    <label class="text-dark"><i class="fas fa-male"></i> Familiar</label>
+                                                    <input type="text" class="form-control" name="familia" v-model="familia">
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
+                                                    <input type="text" class="form-control" name="direccion" v-model="direccion">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                                    <input type="text" class="form-control" name="telefono_familia" v-model="telefono_familia" :class="hasError('telefono_familia') ? 'is-invalid' : ''">
+                                                    <div v-if="hasError('telefono_familia')" class="invalid-feedback">
+                                                        {{ errors.telefono_familia[0] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div v-if="referidasi==false && referidano==false">
+                                        <label class="text-dark"><i class="fas fa-check"></i> Ingreso de persona referida</label>
+                                        <div class="n-chk">
+                                            <label class="new-control new-checkbox checkbox-outline-check">
+                                                <input type="checkbox" class="new-control-input"  name="referidasi" v-model="referidasi">
+                                                <span class="new-control-indicator"></span>Sí
+                                            </label>
+                                            <label class="new-control new-checkbox checkbox-outline-check">
+                                                <input type="checkbox" class="new-control-input" name="referidano" v-model="referidano">
+                                                <span class="new-control-indicator"></span>No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="referidasi==true">
+                                        <label class="text-warning">Persona referida</label>
+                                        <fieldset class="border border-fieldset rounded p-3">
+                                            <div class="form-row mb-0">
+                                                <div class="form-group col-md-4">
+                                                    <label class="text-dark"><i class="fas fa-male"></i> Persona referida</label>
+                                                    <input type="text" class="form-control" name="persona_referida" v-model="persona_referida" :class="hasError('persona_referida') ? 'is-invalid' : ''" :disabled="rol_id==2">
+                                                    <div v-if="hasError('persona_referida')" class="invalid-feedback">
+                                                        {{ errors.persona_referida[0] }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                    <label class="text-dark"><i class="fas fa-street-view"></i> Dirección</label>
+                                                    <input type="text" class="form-control" name="direccion_persona_referida" v-model="direccion_persona_referida">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="text-dark"><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                                    <input type="text" class="form-control" name="telefono_persona_referida" v-model="telefono_persona_referida" :class="hasError('telefono_persona_referida') ? 'is-invalid' : ''">
+                                                    <div v-if="hasError('telefono_persona_referida')" class="invalid-feedback">
+                                                        {{ errors.telefono_persona_referida[0] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div v-if="observacionsi==false && observacionno==false">
+                                        <label class="text-dark"><i class="fas fa-check"></i> Ingresar observacion</label>
+                                        <div class="n-chk">
+                                            <label class="new-control new-checkbox checkbox-outline-check">
+                                                <input type="checkbox" class="new-control-input"  name="observacionsi" v-model="observacionsi">
+                                                <span class="new-control-indicator"></span>Sí
+                                            </label>
+                                            <label class="new-control new-checkbox checkbox-outline-check">
+                                                <input type="checkbox" class="new-control-input" name="observacionno" v-model="observacionno">
+                                                <span class="new-control-indicator"></span>No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="observacionsi==true">
+                                        <label class="text-danger">Notas</label>
+                                        <fieldset class="border border-fieldset rounded p-3">
+                                            <div class="form-row mb-0">
+                                                <div class="form-group col-md-12">
+                                                    <label class="text-dark"><i class="fas fa-search"></i> Observación</label>
+                                                    <textarea class="form-control" rows="3" name="observacion" v-model="observacion"></textarea>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <br>
 
                                     <div class="text-center">
                                         <button type="button" @click="closeForm()" class="btn btn-cerrar">Cancelar <i class="far fa-times-circle"></i></button>
@@ -267,103 +330,125 @@
 
                     <div class="modal-body">
                         <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate action="javascript:void(0)">
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-3">
-                                    <label><i class="fas fa-qrcode"></i> Código</label>
-                                    <input style="height:35px" v-model="codigo" class="form-control text-dark"  disabled>
+
+                            <label class="text-info">Datos personales</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-3">
+                                        <label><i class="fas fa-qrcode"></i> Código</label>
+                                        <input style="height:35px" v-model="codigo" class="form-control text-dark"  disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-5">
+                                        <label><i class="fas fa-user-check"></i> Nombre completo</label>
+                                        <input style="height:35px" v-model="nombre" class="form-control text-dark" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label><i class="far fa-calendar-alt"></i> Nacimiento</label>
+                                        <input style="height:35px" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label><i class="fas fa-pager"></i> Edad</label>
+                                        <input style="height:35px" v-model="edad" class="form-control text-dark" disabled>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-md-5">
-                                    <label><i class="fas fa-user-check"></i> Nombre completo</label>
-                                    <input style="height:35px" v-model="nombre" class="form-control text-dark" disabled>
+                                <div class="form-row mb-0" v-if="rol_id==1">
+                                    <div class="form-group col-md-4">
+                                        <label><i class="fas fa-street-view"></i> Lugar nacimiento</label>
+                                        <input style="height:35px" class="form-control text-dark" v-model="lugar_nacimiento" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label><i class="fas fa-id-card"></i> DPI</label>
+                                        <input style="height:35px" class="form-control text-dark" v-model="dpi" disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label><i class="fas fa-street-view"></i> Extendido en:</label>
+                                        <input style="height:35px" class="form-control text-dark" v-model="lugar_dpi_extendido" disabled>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <label class="text-success">Estado del residente</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-chalkboard-teacher"></i> Motivo de llegada</label>
+                                        <textarea style="resize:none" v-model="motivo" class="form-control text-dark" disabled></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-thermometer"></i> Estado físico</label>
+                                        <textarea style="resize:none" v-model="estado_fisico" class="form-control text-dark" disabled></textarea>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-md-2">
-                                    <label><i class="far fa-calendar-alt"></i> Fecha nacimiento</label>
-                                    <input style="height:35px" v-model="fecha_nacimiento" class="form-control text-dark" disabled>
-                                </div>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-notes-medical"></i> Estado médico</label>
+                                        <textarea style="resize:none" v-model="estado_medico" class="form-control text-dark" disabled></textarea>
+                                    </div>
 
-                                <div class="form-group col-md-2">
-                                    <label><i class="fas fa-pager"></i> Edad</label>
-                                    <input style="height:35px" v-model="edad" class="form-control text-dark" disabled>
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-brain"></i> Estado psicologico</label>
+                                        <textarea style="resize:none" v-model="estado_psicologico" class="form-control text-dark" disabled></textarea>
+                                    </div>
                                 </div>
-                            </div>
+                            </fieldset>
 
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-street-view"></i> Lugar nacimiento</label>
-                                    <input style="height:35px" class="form-control text-dark" v-model="lugar_nacimiento" disabled>
-                                </div>
+                            <label class="text-secondary" v-if="rol_id==1">Datos del familiar</label>
+                            <fieldset class="border border-fieldset rounded p-3" v-if="rol_id==1">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-4">
+                                        <label><i class="fas fa-male"></i> Familiar</label>
+                                        <input style="height:35px" v-model="familia" class="form-control text-dark" disabled>
+                                    </div>
 
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-id-card"></i> DPI</label>
-                                    <input style="height:35px" class="form-control text-dark" v-model="dpi" disabled>
-                                </div>
+                                    <div class="form-group col-md-3">
+                                        <label><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                        <input style="height:35px" class="form-control text-dark" v-model="telefono_familia" disabled>
+                                    </div>
 
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-street-view"></i> Extendido en:</label>
-                                    <input style="height:35px" class="form-control text-dark" v-model="lugar_dpi_extendido" disabled>
+                                    <div class="form-group col-md-5">
+                                        <label><i class="fas fa-street-view"></i> Dirección</label>
+                                        <textarea v-model="direccion" class="form-control text-dark" disabled></textarea>
+                                    </div>
                                 </div>
-                            </div>
+                            </fieldset>
 
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-male"></i> Familiar</label>
-                                    <input style="height:35px" v-model="familia" class="form-control text-dark" disabled>
-                                </div>
+                            <label class="text-warning" v-if="rol_id==1">Persona de persona referida</label>
+                            <fieldset class="border border-fieldset rounded p-3" v-if="rol_id==1">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-4">
+                                        <label><i class="fas fa-male"></i> Persona referida</label>
+                                        <input style="height:35px" v-model="persona_referida" class="form-control text-dark" disabled>
+                                    </div>
 
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input style="height:35px" v-model="direccion" class="form-control text-dark" disabled>
-                                </div>
+                                    <div class="form-group col-md-3">
+                                        <label><i class="fas fa-phone-alt"></i> Teléfono</label>
+                                        <input style="height:35px" v-model="telefono_persona_referida" class="form-control text-dark" disabled>
+                                    </div>
 
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                    <input style="height:35px" class="form-control text-dark" v-model="telefono_familia" disabled>
+                                    <div class="form-group col-md-5">
+                                        <label><i class="fas fa-street-view"></i> Dirección</label>
+                                        <textarea v-model="direccion_persona_referida" class="form-control text-dark" disabled></textarea>
+                                    </div>
                                 </div>
-                            </div>
+                            </fieldset>
 
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-male"></i> Persona referida</label>
-                                    <input style="height:35px" v-model="persona_referida" class="form-control text-dark" disabled>
+                            <label class="text-danger">Notas</label>
+                            <fieldset class="border border-fieldset rounded p-3">
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-12">
+                                        <label><i class="fas fa-search"></i> Observaciones</label>
+                                        <input style="height:35px" v-model="observacion" class="form-control text-dark" disabled>
+                                    </div>
                                 </div>
-
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-street-view"></i> Dirección</label>
-                                    <input style="height:35px" v-model="direccion_persona_referida" class="form-control text-dark" disabled>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label><i class="fas fa-phone-alt"></i> Teléfono</label>
-                                    <input style="height:35px" v-model="telefono_persona_referida" class="form-control text-dark" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label><i class="fas fa-chalkboard-teacher"></i> Motivo de llegada</label>
-                                    <textarea style="resize:none" v-model="motivo" class="form-control text-dark" disabled></textarea>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label><i class="fas fa-thermometer"></i> Estado físico</label>
-                                    <textarea style="resize:none" v-model="estadoFisico" class="form-control text-dark" disabled></textarea>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label><i class="fas fa-notes-medical"></i> Estado médico</label>
-                                    <textarea style="resize:none" v-model="estadoMedico" class="form-control text-dark" disabled></textarea>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label><i class="fas fa-brain"></i> Estado psicologico</label>
-                                    <textarea style="resize:none" v-model="estadoPsicologico" class="form-control text-dark" disabled></textarea>
-                                </div>
-                            </div>
-
+                            </fieldset>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -387,42 +472,56 @@ export default {
             codigo: 0,
             lista_residentes: [],
             codigo: '',
+
+            // Datos residente
             nombre: '',
             apellido: '',
             fecha_nacimiento: '',
             edad : '',
             dpi: '',
-            familia: '',
-            direccion: '',
-            telefono_familia: '',
-            persona_referida: '',
-            direccion_persona_referida: '',
-            telefono_persona_referida: '',
-            motivo: '',
-            estadoFisico: '',
-            estadoMedico: '',
-            estadoPsicologico: '',
-            pulso: '',
-            temperatura: '',
-            presion: '',
-            peso: '',
 
             lista_departamentos_origen: [],
-            lista_departamentos_dpi: [],
             departamento_origen_id: 0,
-            departamento_dpi_id: 0,
             departamento_origen_nombre: '',
+
+            lista_departamentos_dpi: [],
+            departamento_dpi_id: 0,
             departamento_dpi_nombre: '',
 
             lista_municipios_origen: [],
-            lista_municipios_dpi: [],
             municipio_origen_id: 0,
-            municipio_dpi_id: 0,
             municipio_origen_nombre: '',
-            municipio_dpi_nombre: '',
 
+            lista_municipios_dpi: [],
+            municipio_dpi_id: 0,
+            municipio_dpi_nombre: '',
             lugar_nacimiento: '',
             lugar_dpi_extendido: '',
+
+            // Información médica del residente
+            motivo: '',
+            estado_fisico: '',
+            estado_medico: '',
+            estado_psicologico: '',
+
+            // Datos familiares
+            familiarsi: false,
+            familiarno: false,
+            familia: '',
+            direccion: '',
+            telefono_familia: '',
+
+            // Datos de persona referida
+            referidasi: false,
+            referidano: false,
+            persona_referida: '',
+            direccion_persona_referida: '',
+            telefono_persona_referida: '',
+
+            // Observacion
+            observacionsi: false,
+            observacionno: false,
+            observacion: '',
 
             action: 1,
             modal:0,
@@ -444,9 +543,6 @@ export default {
                     this.dataTable()
                     this.showList()
                     this.titulo = "FICHA DE REGISTRO"
-                    this.combo_departamento_origen()
-                    this.combo_departamento_dpi()
-                    this.fecha_nacimiento = moment().format('YYYY-MM-DD')
                     break
                 }
                 case 'update': {
@@ -459,6 +555,9 @@ export default {
                     this.nombre = data['nombre']
                     this.apellido = data['apellido']
                     this.fecha_nacimiento = data['fecha_nacimiento']
+                    this.dpi = data['dpi']
+                    this.municipio_origen_id = data['municipio_origen_id']
+                    this.municipio_dpi_id = data['municipio_dpi_id']
                     this.familia = data['familia']
                     this.direccion = data['direccion']
                     this.telefono_familia = data['telefono_familia']
@@ -466,13 +565,16 @@ export default {
                     this.direccion_persona_referida = data['direccion_persona_referida']
                     this.telefono_persona_referida = data['telefono_persona_referida']
                     this.motivo = data['motivo']
-                    this.estadoFisico = data['estadoFisico']
-                    this.estadoMedico = data['estadoMedico']
-                    this.estadoPsicologico = data['estadoPsicologico']
+                    this.estado_fisico = data['estado_fisico']
+                    this.estado_medico = data['estado_medico']
+                    this.estado_psicologico = data['estado_psicologico']
+                    this.observacion = data['observacion']
                     this.id = data['id']
                     break
                 }
             }
+            this.combo_departamento_origen()
+            this.combo_departamento_dpi()
             this.fecha = moment().format('D MMMM YYYY')
         },
         openModal(data = []) {
@@ -493,9 +595,10 @@ export default {
             this.direccion_persona_referida = data['direccion_persona_referida']
             this.telefono_persona_referida = data['telefono_persona_referida']
             this.motivo = data['motivo']
-            this.estadoFisico = data['estadoFisico']
-            this.estadoMedico = data['estadoMedico']
-            this.estadoPsicologico = data['estadoPsicologico']
+            this.estado_fisico = data['estado_fisico']
+            this.estado_medico = data['estado_medico']
+            this.estado_psicologico = data['estado_psicologico']
+            this.observacion = data['observacion']
 
             let actual = moment()
             this.edad = actual.diff(this.fecha_nacimiento, 'years')
@@ -516,10 +619,17 @@ export default {
             this.direccion_persona_referida = ''
             this.telefono_persona_referida = ''
             this.motivo = ''
-            this.estadoFisico = ''
-            this.estadoMedico = ''
-            this.estadoPsicologico = ''
+            this.estado_fisico = ''
+            this.estado_medico = ''
+            this.estado_psicologico = ''
             this.fecha = ''
+            this.observacion = ''
+            this.familiarsi = false
+            this.familiarno = false
+            this.referidasi = false
+            this.referidano = false
+            this.observacionsi = false
+            this.observacionno = false
 
             this.showList()
             this.action = 1
@@ -544,9 +654,10 @@ export default {
             this.direccion_persona_referida = ''
             this.telefono_persona_referida = ''
             this.motivo = ''
-            this.estadoFisico = ''
-            this.estadoMedico = ''
-            this.estadoPsicologico = ''
+            this.estado_fisico = ''
+            this.estado_medico = ''
+            this.estado_psicologico = ''
+            this.observacion = ''
 
             this.titulo = ''
             this.modal = 0
@@ -560,25 +671,25 @@ export default {
             let errores = 0
             let actual = moment().format('YYYY-MM-DD')
 
-            if (this.municipio_dpi_id == 0) {
+            if (this.municipio_dpi_id == 0 && this.opcion == 1) {
                 alerts.sweetAlert('error', 'Debe seleccionar el municipio donde fue extendido el DPI')
                 $('#municipio_dpi').next().find('.select2-selection').addClass('has-error');
                 errores = 1
             }
 
-            if (this.departamento_dpi_id == 0) {
+            if (this.departamento_dpi_id == 0 && this.opcion == 1) {
                 alerts.sweetAlert('error', 'Debe seleccionar el departamento donde fue extendido el DPI')
                 $('#departamento_dpi').next().find('.select2-selection').addClass('has-error');
                 errores = 1
             }
 
-            if (this.municipio_origen_id == 0) {
+            if (this.municipio_origen_id == 0  && this.opcion == 1) {
                 alerts.sweetAlert('error', 'Debe seleccionar el municipio donde nació')
                 $('#municipio_origen').next().find('.select2-selection').addClass('has-error');
                 errores = 1
             }
 
-            if (this.departamento_origen_id == 0) {
+            if (this.departamento_origen_id == 0 && this.opcion == 1) {
                 alerts.sweetAlert('error', 'Debe seleccionar el departamento donde nació')
                 $('#departamento_origen').next().find('.select2-selection').addClass('has-error');
                 errores = 1
@@ -602,7 +713,7 @@ export default {
         },
         changeStatus(action, id, nombre, apellido) {
             swal({
-                title: 'Cambio de estadoFisico',
+                title: 'Cambio de estado_fisico',
                 text: '¿Esta seguro de realizar la siguiente acción sobre el residente: '+nombre+' '+apellido+'?',
                 type: 'question',
                 confirmButtonColor: '#25d5e4',
@@ -626,8 +737,8 @@ export default {
                     }).then(function (response) {
                         me.showList()
                         swal(
-                            'Cambio de estadoFisico',
-                            'Se ha cambiado el estadoFisico correctamente',
+                            'Cambio de estado_fisico',
+                            'Se ha cambiado el estado_fisico correctamente',
                             'success'
                         )
 
@@ -830,9 +941,10 @@ export default {
                     'direccion_persona_referida': this.direccion_persona_referida,
                     'telefono_persona_referida': this.telefono_persona_referida,
                     'motivo': this.motivo,
-                    'estadoFisico': this.estadoFisico,
-                    'estadoMedico': this.estadoMedico,
-                    'estadoPsicologico': this.estadoPsicologico,
+                    'estado_fisico': this.estado_fisico,
+                    'estado_medico': this.estado_medico,
+                    'estado_psicologico': this.estado_psicologico,
+                    'observacion': this.observacion
                 }).then(function (response) {
                     me.backendResponse(response)
                 }).catch(error => {
@@ -858,9 +970,10 @@ export default {
                     'direccion_persona_referida': this.direccion_persona_referida,
                     'telefono_persona_referida': this.telefono_persona_referida,
                     'motivo': this.motivo,
-                    'estadoFisico': this.estadoFisico,
-                    'estadoMedico': this.estadoMedico,
-                    'estadoPsicologico': this.estadoPsicologico,
+                    'estado_fisico': this.estado_fisico,
+                    'estado_medico': this.estado_medico,
+                    'estado_psicologico': this.estado_psicologico,
+                    'observacion': this.observacion,
                     'id': this.id
                 }).then(function (response) {
                     me.backendResponse(response)

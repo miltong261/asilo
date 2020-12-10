@@ -20,9 +20,8 @@
                 </td>
                 <td></td>
                 <tr>
-                <td colspan="3">  <strong> <h4 style="margin-top: 1%; text-decoration: underline black;" >  DATOS PERSONALES</h4> </strong> </td>
+                    <td colspan="3">  <strong> <h4 style="margin-top: 1%; text-decoration: underline black;">FICHA DE REGISTRO</h4> </strong> </td>
                 </tr>
-
             </tr>
         </table>
 
@@ -59,6 +58,26 @@
                     </tr>
 
                     <tr>
+                        <th class="titulo">Motivo de llegada: </th>
+                        <th> {{ $residente->motivo }} </th>
+                    </tr>
+
+                    <tr>
+                        <th class="titulo">Estado físico: </th>
+                        <th> {{ $residente->estado_fisico }} </th>
+                    </tr>
+
+                    <tr>
+                        <th class="titulo">Estado médico: </th>
+                        <th> {{ $residente->estado_medico }} </th>
+                    </tr>
+
+                    <tr>
+                        <th class="titulo">Estado psicológico: </th>
+                        <th> {{ $residente->estado_psicologico }} </th>
+                    </tr>
+
+                    <tr>
                         <th class="titulo">Familiar:</th>
                         <th colspan="3"> {{ $residente->familia }} </th>
                     </tr>
@@ -69,13 +88,11 @@
                     <tr>
                         <th class="titulo">Dirección:</th>
                         <th colspan="3"> {{ $residente->direccion }} </th>
-
                     </tr>
 
                     <tr>
                         <th class="titulo">Persona referida:</th>
-                        <th > {{ $residente->persona_referida }} </th>
-
+                        <th colspan="3"> {{ $residente->persona_referida }} </th>
                     </tr>
 
                     <tr>
@@ -88,19 +105,6 @@
 
                     </tr>
 
-                    <tr>
-                        <th class="titulo">Motivo de llegada</th>
-                        <th colspan="3"> {{ $residente->motivo }} </th>
-                    </tr>
-                    <tr>
-                        <th class="titulo">Estado del residente</th>
-                        <th  colspan="3"> {{ $residente->estado }} </th>
-                    </tr>
-
-                    <tr>
-                        <th class="titulo">Historial</th>
-                        <th  colspan="3"> {{ $residente->historial }} </th>
-                    </tr>
                     <tr>
                         <th class="titulo">Observaciones</th>
                         <th colspan="3"> {{ $residente->observacion }} </th>

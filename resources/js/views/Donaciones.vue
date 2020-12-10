@@ -126,8 +126,6 @@
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
-                                            <th class="text-center"> <i class="fas fa-hashtag"></i> Lote</th>
-                                            <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
                                             <th class="text-center"> <i class="fas fa-cogs"></i> Opciones </th>
                                         </tr>
@@ -139,12 +137,6 @@
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
-                                            <td>
-                                                <input v-model="detalle.lote" type="text" value="2" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input v-model="detalle.fecha_lote" type="date" value="2" class="form-control" placeholder="Ingrese lote...">
-                                            </td>
                                             <td>
                                                 <input onkeypress="return event.charCode >= 48" v-model="detalle.cantidad" type="number" value="2" class="form-control">
                                             </td>
@@ -280,8 +272,6 @@
                                             <th class="text-center"> <i class="fas fa-store"></i> Presentación</th>
                                             <th class="text-center"> <i class="fas fa-thermometer-full"></i> Unidad</th>
                                             <th class="text-center"> <i class="fas fa-search"></i> Observación</th>
-                                            <th class="text-center"> <i class="fas fa-hashtag"></i> Lote</th>
-                                            <th class="text-center"> <i class="far fa-calendar-alt"></i> Fecha</th>
                                             <th class="text-center"> <i class="fas fa-sort-numeric-up"></i> Cantidad</th>
                                         </tr>
                                     </thead>
@@ -293,8 +283,6 @@
                                             <td v-text="detalle.presentacion_producto"></td>
                                             <td v-text="detalle.nombre_unidad"></td>
                                             <td v-text="detalle.observacion_producto"></td>
-                                            <td v-text="detalle.lote"></td>
-                                            <td v-text="detalle.fecha_lote"></td>
                                             <td v-text="detalle.cantidad"></td>
                                         </tr>
                                     </tbody>

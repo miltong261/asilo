@@ -29,6 +29,7 @@ class CreateSalidasTable extends Migration
             $table->string('codigo', 20);
             $table->date('fecha_registro');
             $table->date('fecha_salida');
+            $table->string('nota_salida', 100)->nullable();
 
             $table->timestamps();
         });

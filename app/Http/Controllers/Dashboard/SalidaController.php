@@ -27,7 +27,7 @@ class SalidaController extends Controller
     public function store(SalidaRequest $request)
     {
         $guardar = $this->salidaRepository->storeSalida($request->only([
-            'empleado_id', 'fecha_salida'])
+            'empleado_id', 'fecha_salida', 'nota_salida'])
             + ['fecha_registro' => Carbon::now()]
             + ['codigo' => 'REQUISICIÓN-' . $this->salidaRepository->generateCode()]
             + ['user_id' => \Auth::user()->id],

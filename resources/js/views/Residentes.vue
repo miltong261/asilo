@@ -198,7 +198,7 @@
                                     </fieldset>
 
                                     <div v-if="familiarsi==false && familiarno==false">
-                                        <label class="text-dark"><i class="fas fa-check"></i> Ingreso de datos familiares</label>
+                                        <label class="text-dark"><i class="fas fa-check"></i> Ingreso de datos (familiares)</label>
                                         <div class="n-chk">
                                             <label class="new-control new-checkbox checkbox-outline-check">
                                                 <input type="checkbox" class="new-control-input"  name="familiarsi" v-model="familiarsi">
@@ -235,7 +235,7 @@
                                     </div>
 
                                     <div v-if="referidasi==false && referidano==false">
-                                        <label class="text-dark"><i class="fas fa-check"></i> Ingreso de persona referida</label>
+                                        <label class="text-dark"><i class="fas fa-check"></i> Ingreso de datos (persona referida)</label>
                                         <div class="n-chk">
                                             <label class="new-control new-checkbox checkbox-outline-check">
                                                 <input type="checkbox" class="new-control-input"  name="referidasi" v-model="referidasi">
@@ -275,7 +275,7 @@
                                     </div>
 
                                     <div v-if="observacionsi==false && observacionno==false">
-                                        <label class="text-dark"><i class="fas fa-check"></i> Ingresar observacion</label>
+                                        <label class="text-dark"><i class="fas fa-check"></i> Ingresar observación</label>
                                         <div class="n-chk">
                                             <label class="new-control new-checkbox checkbox-outline-check">
                                                 <input type="checkbox" class="new-control-input"  name="observacionsi" v-model="observacionsi">

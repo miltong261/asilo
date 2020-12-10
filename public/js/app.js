@@ -3369,18 +3369,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -5199,18 +5187,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/alerts.js */ "./resources/js/functions/alerts.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -11509,6 +11485,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -11562,7 +11567,10 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       salida_nombre_area: '',
       salida_fecha_registro: '',
       salida_fecha_salida: '',
+      salida_notas_salida: '',
       cantidad_suma: 0,
+      notasi: false,
+      notano: false,
 
       /** Reporte mensual */
       modalReporte: 0,
@@ -11622,6 +11630,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.errors = [];
       this.error_empleado = 0;
       this.error_empleado_msg = [];
+      this.notasi = false;
+      this.notano = false;
       _functions_alerts_js__WEBPACK_IMPORTED_MODULE_0__["sweetAlert"]('error', 'Salida cancelada');
     },
     openModalReporte: function openModalReporte() {
@@ -11903,6 +11913,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         axios.post(url, {
           'empleado_id': this.empleado_id,
           'fecha_salida': this.fecha_salida,
+          'nota_salida': this.nota_salida,
           'arrayData': this.arrayDetalle
         }).then(function (response) {
           me.backendResponse(response);
@@ -11929,6 +11940,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         me.salida_nombre_area = cabecera[0]['nombre_area'];
         me.salida_fecha_registro = cabecera[0]['fecha_registro'];
         me.salida_fecha_salida = cabecera[0]['fecha_salida'];
+        me.salida_notas_salida = cabecera[0]['nota_salida'];
       })["catch"](function (error) {
         console.log(error);
       });
@@ -11947,13 +11959,15 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.action = 1;
       this.showList();
       this.dataTable('#listado');
-      document.getElementById('openForm').style.display = 'block';
+      document.getElementById('openForm').style.display = 'inline';
+      document.getElementById('openMes').style.display = 'inline';
       this.salida_usuario = '';
       this.salida_codigo = 0;
       this.salida_fecha_registro = '';
       this.salida_fecha_salida = '';
       this.salida_nombre_empleado = '';
       this.salida_nombre_area = '';
+      this.salida_notas_salida = '';
       this.cantidad_suma = 0;
       this.regresar = 0;
       this.arrayDetalle = [];
@@ -71541,83 +71555,6 @@ var render = function() {
                                                       {
                                                         name: "model",
                                                         rawName: "v-model",
-                                                        value: detalle.lote,
-                                                        expression:
-                                                          "detalle.lote"
-                                                      }
-                                                    ],
-                                                    staticClass: "form-control",
-                                                    attrs: {
-                                                      type: "text",
-                                                      value: "2"
-                                                    },
-                                                    domProps: {
-                                                      value: detalle.lote
-                                                    },
-                                                    on: {
-                                                      input: function($event) {
-                                                        if (
-                                                          $event.target
-                                                            .composing
-                                                        ) {
-                                                          return
-                                                        }
-                                                        _vm.$set(
-                                                          detalle,
-                                                          "lote",
-                                                          $event.target.value
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value:
-                                                          detalle.fecha_lote,
-                                                        expression:
-                                                          "detalle.fecha_lote"
-                                                      }
-                                                    ],
-                                                    staticClass: "form-control",
-                                                    attrs: {
-                                                      type: "date",
-                                                      value: "2",
-                                                      placeholder:
-                                                        "Ingrese lote..."
-                                                    },
-                                                    domProps: {
-                                                      value: detalle.fecha_lote
-                                                    },
-                                                    on: {
-                                                      input: function($event) {
-                                                        if (
-                                                          $event.target
-                                                            .composing
-                                                        ) {
-                                                          return
-                                                        }
-                                                        _vm.$set(
-                                                          detalle,
-                                                          "fecha_lote",
-                                                          $event.target.value
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("td", [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
                                                         value: detalle.cantidad,
                                                         expression:
                                                           "detalle.cantidad"
@@ -72119,18 +72056,6 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("td", {
                                       domProps: {
-                                        textContent: _vm._s(detalle.lote)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(detalle.fecha_lote)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
                                         textContent: _vm._s(detalle.cantidad)
                                       }
                                     }),
@@ -72624,16 +72549,6 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
-          _vm._v(" Lote")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-sort-numeric-up" }),
           _vm._v(" Cantidad")
         ]),
@@ -72801,16 +72716,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Observación")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
-          _vm._v(" Lote")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -74678,78 +74583,6 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: detalle.lote,
-                                                    expression: "detalle.lote"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "text",
-                                                  value: "2"
-                                                },
-                                                domProps: {
-                                                  value: detalle.lote
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      detalle,
-                                                      "lote",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: detalle.fecha_lote,
-                                                    expression:
-                                                      "detalle.fecha_lote"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "date",
-                                                  value: "2",
-                                                  placeholder: "Ingrese lote..."
-                                                },
-                                                domProps: {
-                                                  value: detalle.fecha_lote
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      detalle,
-                                                      "fecha_lote",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
                                                     value: detalle.cantidad,
                                                     expression:
                                                       "detalle.cantidad"
@@ -75174,18 +75007,6 @@ var render = function() {
                                         textContent: _vm._s(
                                           detalle.observacion_producto
                                         )
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(detalle.lote)
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      domProps: {
-                                        textContent: _vm._s(detalle.fecha_lote)
                                       }
                                     }),
                                     _vm._v(" "),
@@ -75665,16 +75486,6 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
-          _vm._v(" Lote")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-sort-numeric-up" }),
           _vm._v(" Cantidad")
         ]),
@@ -75837,16 +75648,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [
           _c("i", { staticClass: "fas fa-search" }),
           _vm._v(" Observación")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "fas fa-hashtag" }),
-          _vm._v(" Lote")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _c("i", { staticClass: "far fa-calendar-alt" }),
-          _vm._v(" Fecha")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
@@ -87917,7 +87718,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-check" }),
-      _vm._v(" Ingreso de datos familiares")
+      _vm._v(" Ingreso de datos (familiares)")
     ])
   },
   function() {
@@ -87953,7 +87754,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-check" }),
-      _vm._v(" Ingreso de persona referida")
+      _vm._v(" Ingreso de datos (persona referida)")
     ])
   },
   function() {
@@ -87989,7 +87790,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-check" }),
-      _vm._v(" Ingresar observacion")
+      _vm._v(" Ingresar observación")
     ])
   },
   function() {
@@ -88561,7 +88362,211 @@ var render = function() {
                                   })
                                 ]
                               )
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm.notasi == false && _vm.notano == false
+                              ? _c("div", [
+                                  _vm._m(7),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "n-chk" }, [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "new-control new-checkbox checkbox-outline-check"
+                                      },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.notasi,
+                                              expression: "notasi"
+                                            }
+                                          ],
+                                          staticClass: "new-control-input",
+                                          attrs: {
+                                            type: "checkbox",
+                                            name: "familiarsi"
+                                          },
+                                          domProps: {
+                                            checked: Array.isArray(_vm.notasi)
+                                              ? _vm._i(_vm.notasi, null) > -1
+                                              : _vm.notasi
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              var $$a = _vm.notasi,
+                                                $$el = $event.target,
+                                                $$c = $$el.checked
+                                                  ? true
+                                                  : false
+                                              if (Array.isArray($$a)) {
+                                                var $$v = null,
+                                                  $$i = _vm._i($$a, $$v)
+                                                if ($$el.checked) {
+                                                  $$i < 0 &&
+                                                    (_vm.notasi = $$a.concat([
+                                                      $$v
+                                                    ]))
+                                                } else {
+                                                  $$i > -1 &&
+                                                    (_vm.notasi = $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      ))
+                                                }
+                                              } else {
+                                                _vm.notasi = $$c
+                                              }
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", {
+                                          staticClass: "new-control-indicator"
+                                        }),
+                                        _vm._v(
+                                          "Sí\n                                    "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "new-control new-checkbox checkbox-outline-check"
+                                      },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.notano,
+                                              expression: "notano"
+                                            }
+                                          ],
+                                          staticClass: "new-control-input",
+                                          attrs: {
+                                            type: "checkbox",
+                                            name: "notano"
+                                          },
+                                          domProps: {
+                                            checked: Array.isArray(_vm.notano)
+                                              ? _vm._i(_vm.notano, null) > -1
+                                              : _vm.notano
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              var $$a = _vm.notano,
+                                                $$el = $event.target,
+                                                $$c = $$el.checked
+                                                  ? true
+                                                  : false
+                                              if (Array.isArray($$a)) {
+                                                var $$v = null,
+                                                  $$i = _vm._i($$a, $$v)
+                                                if ($$el.checked) {
+                                                  $$i < 0 &&
+                                                    (_vm.notano = $$a.concat([
+                                                      $$v
+                                                    ]))
+                                                } else {
+                                                  $$i > -1 &&
+                                                    (_vm.notano = $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      ))
+                                                }
+                                              } else {
+                                                _vm.notano = $$c
+                                              }
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", {
+                                          staticClass: "new-control-indicator"
+                                        }),
+                                        _vm._v(
+                                          "No\n                                    "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.notasi == true
+                              ? _c("div", [
+                                  _c(
+                                    "label",
+                                    { staticClass: "text-secondary" },
+                                    [_vm._v("Ingreso de nota")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "fieldset",
+                                    {
+                                      staticClass:
+                                        "border border-fieldset rounded p-3"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-row mb-0" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "form-group col-md-12"
+                                            },
+                                            [
+                                              _vm._m(8),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.nota_salida,
+                                                    expression: "nota_salida"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  name: "nota_salida"
+                                                },
+                                                domProps: {
+                                                  value: _vm.nota_salida
+                                                },
+                                                on: {
+                                                  input: function($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.nota_salida =
+                                                      $event.target.value
+                                                  }
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
                           ]
                         ),
                         _vm._v(" "),
@@ -88584,7 +88589,7 @@ var render = function() {
                                     "div",
                                     { staticClass: "col-md-12 form-group" },
                                     [
-                                      _vm._m(7),
+                                      _vm._m(9),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -88654,7 +88659,7 @@ var render = function() {
                                     "div",
                                     { staticClass: "col-md-8 form-group" },
                                     [
-                                      _vm._m(8),
+                                      _vm._m(10),
                                       _vm._v(" "),
                                       _c(
                                         "select",
@@ -88786,7 +88791,7 @@ var render = function() {
                                   staticStyle: { width: "100%" }
                                 },
                                 [
-                                  _vm._m(9),
+                                  _vm._m(11),
                                   _vm._v(" "),
                                   _vm.arrayDetalle.length
                                     ? _c(
@@ -88951,10 +88956,10 @@ var render = function() {
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
-                        _vm._m(10),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group text-center" }, [
-                          _vm._m(11),
+                          _vm._m(13),
                           _vm._v(" "),
                           _c("h6", [_vm._v("Residenciales Ciudad Palmeras")]),
                           _vm._v(" "),
@@ -88962,9 +88967,9 @@ var render = function() {
                             _vm._v("Cantón Recuerdo Ocosito, Retalhuleu")
                           ]),
                           _vm._v(" "),
-                          _vm._m(12),
+                          _vm._m(14),
                           _vm._v(" "),
-                          _vm._m(13),
+                          _vm._m(15),
                           _vm._v(" "),
                           _c(
                             "label",
@@ -88996,7 +89001,7 @@ var render = function() {
                           attrs: { id: "reporte" }
                         },
                         [
-                          _vm._m(14),
+                          _vm._m(16),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -89121,9 +89126,9 @@ var render = function() {
                       "div",
                       { staticClass: "d-flex justify-content-between" },
                       [
-                        _vm._m(15),
+                        _vm._m(17),
                         _vm._v(" "),
-                        _vm._m(16),
+                        _vm._m(18),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-group float-right" }, [
                           _c("h5", { staticClass: "text-secondary p-5" }, [
@@ -89192,7 +89197,18 @@ var render = function() {
                                   )
                                 )
                               ])
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm.salida_notas_salida != null
+                              ? _c("tr", [
+                                  _c("td", [
+                                    _c("i", { staticClass: "fas fa-file" }),
+                                    _vm._v(" "),
+                                    _c("strong", [_vm._v("Nota: ")]),
+                                    _vm._v(_vm._s(_vm.salida_notas_salida))
+                                  ])
+                                ])
+                              : _vm._e()
                           ])
                         ])
                       ]
@@ -89214,7 +89230,7 @@ var render = function() {
                               staticStyle: { width: "100%" }
                             },
                             [
-                              _vm._m(17),
+                              _vm._m(19),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -89382,7 +89398,7 @@ var render = function() {
                     attrs: { id: "listado_producto" }
                   },
                   [
-                    _vm._m(18),
+                    _vm._m(20),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -89514,7 +89530,7 @@ var render = function() {
             _c("div", { staticClass: "modal-body" }, [
               _c("div", { staticClass: "form-row mb-0" }, [
                 _c("div", { staticClass: "form-group col-md-12" }, [
-                  _vm._m(19),
+                  _vm._m(21),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -89701,6 +89717,24 @@ var staticRenderFns = [
     return _c("label", { staticClass: "text-dark" }, [
       _c("i", { staticClass: "fas fa-store-alt" }),
       _vm._v(" Área")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-check" }),
+      _vm._v(" Agregar nota")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "text-dark" }, [
+      _c("i", { staticClass: "fas fa-male" }),
+      _vm._v(" Residente que solicita")
     ])
   },
   function() {

@@ -26,6 +26,7 @@ class SalidaRequest extends FormRequest
         return [
             'fecha_salida' => ['required', 'date'],
             'empleado_id' => ['required'],
+            'nota_salida' => ['nullable'],
             'arrayData' => ['required']
         ];
     }

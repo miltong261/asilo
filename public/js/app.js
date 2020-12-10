@@ -9058,13 +9058,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -81971,9 +81964,23 @@ var render = function() {
         [
           _c("div", { staticClass: "form-group" }, [
             _c("div", { staticClass: "col-md-11 mx-auto" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group float-right mx-auto" }, [
+              _c("div", { staticClass: "form-group text-center" }, [
+                _c("img", {
+                  staticClass: "rounded-circle mx-auto d-block",
+                  attrs: {
+                    src: "/assets/img/logo-formulario.jpeg",
+                    alt: "logo",
+                    width: "100",
+                    height: "100"
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _c("h6", [_vm._v("Residenciales Ciudad Palmeras")]),
+                _vm._v(" "),
+                _c("h6", [_vm._v("Cantón Recuerdo Ocosito, Retalhuleu")]),
+                _vm._v(" "),
                 _c("h6", { staticClass: "float-right" }, [
                   _vm._v("Fecha: "),
                   _c("strong", { staticClass: "text-secondary" }, [
@@ -82426,17 +82433,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group text-right" }, [
-      _c("img", {
-        staticClass: "rounded-circle mx-auto d-block",
-        attrs: {
-          src: "/assets/img/logo-formulario.jpeg",
-          alt: "logo",
-          width: "100",
-          height: "100"
-        }
-      })
-    ])
+    return _c("h6", [_c("strong", [_vm._v("ASILO DE ANCIANOS RETALHULEU")])])
   },
   function() {
     var _vm = this

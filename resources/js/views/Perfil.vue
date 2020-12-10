@@ -4,19 +4,12 @@
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
 
                 <div class="form-group">
-                    <!-- <div class="d-flex justify-content-between"> -->
                     <div class="col-md-11 mx-auto">
-                        <div class="form-group text-right">
+                        <div class="form-group text-center">
                             <img class="rounded-circle mx-auto d-block" src="/assets/img/logo-formulario.jpeg" alt="logo" width="100" height="100">
-                        </div>
-
-                        <!-- <div class="form-group text-center">
                             <h6><strong>ASILO DE ANCIANOS RETALHULEU</strong></h6>
                             <h6>Residenciales Ciudad Palmeras</h6>
                             <h6>Cantón Recuerdo Ocosito, Retalhuleu</h6>
-                        </div> -->
-
-                        <div class="form-group float-right mx-auto">
                             <h6 class="float-right">Fecha: <strong class="text-secondary">{{ fecha }}</strong></h6>
                         </div>
                     </div>

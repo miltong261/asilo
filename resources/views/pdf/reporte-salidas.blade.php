@@ -41,6 +41,12 @@
                     <td > <strong>Fecha de Salida: </strong> </td>
                     <td> {{ $encabezado->fecha_salida }} </td>
                 </tr>
+                @if ($encabezado->nota_salida!=null)
+                <tr>
+                    <td > <strong>Nota: </strong> </td>
+                    <td> {{ $encabezado->nota_salida }} </td>
+                </tr>
+                @endif
             </table>
             @endforeach
         </header>

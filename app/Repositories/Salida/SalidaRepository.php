@@ -227,6 +227,7 @@ class SalidaRepository extends BaseRepository
             'salidas.codigo',
             'salidas.fecha_registro',
             'salidas.fecha_salida',
+            'salidas.nota_salida',
             'empleados.nombre as nombre_empleado',
             'empleados.apellido as apellido_empleado',
             'areas.nombre as nombre_area'

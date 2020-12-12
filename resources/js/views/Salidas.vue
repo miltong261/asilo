@@ -88,6 +88,32 @@
                                         <input type="text" class="form-control" name="fecha_salida" v-model="area_nombre" disabled>
                                     </div>
                                 </div>
+
+                                <div v-if="notasi==false && notano==false">
+                                    <label class="text-dark"><i class="fas fa-check"></i> Agregar nota</label>
+                                    <div class="n-chk">
+                                        <label class="new-control new-checkbox checkbox-outline-check">
+                                            <input type="checkbox" class="new-control-input"  name="familiarsi" v-model="notasi">
+                                            <span class="new-control-indicator"></span>Sí
+                                        </label>
+                                        <label class="new-control new-checkbox checkbox-outline-check">
+                                            <input type="checkbox" class="new-control-input" name="notano" v-model="notano">
+                                            <span class="new-control-indicator"></span>No
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div v-if="notasi==true">
+                                    <label class="text-secondary">Ingreso de nota</label>
+                                    <fieldset class="border border-fieldset rounded p-3">
+                                        <div class="form-row mb-0">
+                                            <div class="form-group col-md-12">
+                                                <label class="text-dark"><i class="fas fa-male"></i> Residente que solicita</label>
+                                                <input type="text" class="form-control" name="nota_salida" v-model="nota_salida">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
                             </fieldset>
 
                             <br class="p-1">
@@ -261,6 +287,9 @@
                                     </tr>
                                     <tr>
                                         <td><i class="fas fa-user"></i> <strong>Registró: </strong>{{ salida_nombre_usuario + ' - ' + salida_usuario }}</td>
+                                    </tr>
+                                    <tr v-if="salida_notas_salida!=null">
+                                        <td><i class="fas fa-file"></i> <strong>Nota: </strong>{{ salida_notas_salida }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -456,7 +485,10 @@ export default {
             salida_nombre_area: '',
             salida_fecha_registro: '',
             salida_fecha_salida: '',
+            salida_notas_salida: '',
             cantidad_suma: 0,
+            notasi: false,
+            notano: false,
 
             /** Reporte mensual */
             modalReporte: 0,
@@ -534,6 +566,8 @@ export default {
             this.errors = []
             this.error_empleado = 0
             this.error_empleado_msg = []
+            this.notasi = false
+            this.notano = false
 
             alerts.sweetAlert('error', 'Salida cancelada')
         },
@@ -824,6 +858,7 @@ export default {
                 axios.post(url, {
                     'empleado_id': this.empleado_id,
                     'fecha_salida': this.fecha_salida,
+                    'nota_salida': this.nota_salida,
                     'arrayData': this.arrayDetalle
                 }).then(function (response) {
                     me.backendResponse(response)
@@ -853,6 +888,7 @@ export default {
                 me.salida_nombre_area = cabecera[0]['nombre_area']
                 me.salida_fecha_registro = cabecera[0]['fecha_registro']
                 me.salida_fecha_salida = cabecera[0]['fecha_salida']
+                me.salida_notas_salida = cabecera[0]['nota_salida']
 
             }).catch(function (error) {
                 console.log(error)
@@ -874,7 +910,8 @@ export default {
             this.action = 1
             this.showList()
             this.dataTable('#listado')
-            document.getElementById('openForm').style.display = 'block'
+            document.getElementById('openForm').style.display = 'inline'
+            document.getElementById('openMes').style.display = 'inline'
 
             this.salida_usuario = ''
             this.salida_codigo = 0
@@ -882,6 +919,7 @@ export default {
             this.salida_fecha_salida = ''
             this.salida_nombre_empleado = ''
             this.salida_nombre_area = ''
+            this.salida_notas_salida = ''
             this.cantidad_suma = 0
             this.regresar = 0
 

@@ -12,7 +12,8 @@ class Salida extends Model
         'empleado_id',
         'codigo',
         'fecha_registro',
-        'fecha_salida'
+        'fecha_salida',
+        'nota_salida'
     ];
 
     public function user()
